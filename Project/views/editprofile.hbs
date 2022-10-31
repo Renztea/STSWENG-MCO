@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Profile</title> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="../css/style.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/index.js"></script>
+    </head>
+    
+    <body>
+        {{> loggedinheader}}
+        <div class="profilepage">
+            <div class="profileinfo">
+                {{> messages}}
+                <form action="/updateProfile" method="POST" enctype="multipart/form-data">
+                    <img src="{{ avatar }}" alt="Avatar" class="avatar" id="profileimg"><br>
+                    <input type="file" id="profavatar" name="image">
+                    <br>
+                    <label for="profname">Username : </label><input type="text" name="username" id="profname" value={{ username }}>
+                    <br>
+                    <label for="profpassword">New Password : </label><input type="password" name="password" id="profpassword">
+                    <br>
+                    <label for="profcontact">Contact : </label><input type="tel" name="phone" id="profcontact" value={{ phone }}>
+                    <br>
+                    <label for="profdesc">Description : </label><input type="text" name="description" id="profdesc" value={{ description }}>
+                    <br>
+                    <label for="profpassword2">Current Password : </label><input type="password" name="password2" id="profpassword2">
+                    <br>
+                    <p id="error"></p>
+                    <p id="error2"></p>
+                    <input type="hidden" name="avatar" value={{ avatar }}></input>
+                    <button id="savebutton">Save Profile</button>
+                </form>
+                <br>
+                <a href="/deleteProfile"> Delete my Account </a>
+            </div>
+        </div>
+    </body>
+</html>

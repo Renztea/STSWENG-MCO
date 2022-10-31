@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Register</title> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="../css/style.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/index.js"></script>
+
+    </head>
+    
+    <body>      
+            <div class="register">
+                <h1>Register to Bloggo</h1>
+                {{> messages}}
+                <form action="/register" method="POST">
+                    <div class="accusername">
+                        <input id="usernameinput" name="username" type = "text" placeholder = "Username">
+                    </div>
+                    <div class="accemail">
+                        <input id="emailinput" name="email" type = "email" placeholder = "Email">
+                    </div>
+                    <div class="accpassword">
+                        <input id="passwordinput" name="password" type = "password" placeholder = "Password">
+                    </div>
+                    <div class="verifypassword">
+                        <input id="passwordinput2" name="password2" type = "password" placeholder = "Verify Password">
+                    </div>
+                    <div class="accbirthday">
+                        <input id="birthdayinput" name="birthday" type = "date" placeholder = "">
+                    </div>
+                    <div class="accphone">
+                        <input id="phoneinput" name="phone" type = "tel" placeholder = "Phone Number">
+                    </div>
+                    <div class="accgender">
+                        <select name="gender" id="genderchoice">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="optdescription">
+                        <input id="descriptioninput"  name="description" type = "text" placeholder = "Optional short description">
+                    </div>
+                    <p id="error"></p>
+                    <p id="error2"></p>
+                    <div>
+                        <button id="registersubmit">Register</button>
+                    </div>
+                </form>
+                <div class="loginButton">
+                    <button onclick="document.location='/'" class="returnhome">Return to Home</button>
+                    <button onclick="document.location='/login'" class="return">Login Instead</button>
+                </div>
+            </div>
+    </body>
+
+</html>

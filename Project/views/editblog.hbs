@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Post a Blog</title> 
+        <link href="images/logo.png" rel="icon" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="../css/style.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!--<script type="text/javascript" src="/js/index.js"></script>-->
+
+        <script type="text/javascript" src="/js/handlebars.min.js"></script>
+        <script type="text/javascript" src="/js/helper.js"></script>
+    </head>
+
+    <body>
+        {{> loggedinheader}}
+        {{> messages }}
+        <form action="/updateBlog" method="POST" enctype="multipart/form-data"> 
+          <div class="postArticle">
+            <div class="blogImage">
+                <img src="{{ image }}" alt="{{ image }}">
+            </div>
+            <label for="posttitle">Title:</label>
+            <input id="posttitle" name="title" type="text" value="{{ title }}">
+            <label for="postgenre">Genre:</label>
+            <select id="postgenre" name="genre">
+                <script id="genre" type="text/x-handlebars-template">
+                \{{#select genre }}
+                    <option value="default" disabled selected hidden>Categories</option>
+                    <option value="general">General</option>
+                    <option value="education">Education</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="food">Food</option>
+                    <option value="games">Games</option>
+                    <option value="history">History</option>
+                    <option value="horror">Horror</option>
+                    <option value="science">Science</option>
+                    <option value="romance">Romance</option>
+                    <option value="technology">Technology</option>
+                    <option value="travel">Travel</option>
+                \{{/select}}
+                </script>
+            </select>
+          
+
+            <label for="postdescription">Description:</label>
+            <textarea id="postdescription" class="articleInfo" name="description">{{ description }}</textarea>
+            <label for="postcontent">Content:</label>
+            <textarea id="postcontent" name="content" class="articleInfo">{{ content }}</textarea>
+            <input type="file" id="postimage" name="image">
+            <br>
+            <input type="hidden" name="_id" value="{{ _id }}"></input>
+            <input type="hidden" name="image" value="{{ image }}"></input>
+            <button id="postbutton">Save Blog</button>
+            <p id="error"></p>
+            </div>
+          </form>
+    </body>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var template = $('#genre').html();
+            var templateScript = Handlebars.compile(template);
+            
+            var html = templateScript({genre: '{{ genre }}' });
+            $('#postgenre').html(html);
+        })
+    </script>
+    
+</html>
