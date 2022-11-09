@@ -10,12 +10,13 @@
 
     <body class="loginPage">
         <div class="loginContainer">
-            <form class="loginForm" method="Post" enctype="multipart/form-data">
-            <label class="loginStyle" for="username">Username:</label><br>
-            <input class="loginInput" type="text" id="username" name="username"><br><br>
-            <label class="loginStyle" for="password">Password:</label><br>
-            <input class="loginInput" type="text" id="password" name="password"><br>
-            <button class ="loginSubmit" id="login">LOGIN</button>
+            <%- include("partials/messages") %>
+            <form action="/login" class="loginForm" method="Post" enctype="multipart/form-data">
+                <label class="loginStyle" for="username">Username:</label><br>
+                <input class="loginInput" type="text" id="username" name="username"><br><br>
+                <label class="loginStyle" for="password">Password:</label><br>
+                <input class="loginInput" type="password" id="password" name="password"><br>
+                <button class ="loginSubmit" id="login">LOGIN</button>
             </form>
         </div>
     </body>
