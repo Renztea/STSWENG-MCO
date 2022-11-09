@@ -365,3 +365,42 @@ html, body {
     font-weight: bold;
     font-family: "Arial";
 }
+
+.addProductHeader h1{
+	font-size: 30px;
+	text-align: center;
+	margin-top:-50px;
+}
+
+.addProductContainer{
+	height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input[name=productName] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+}
+
+input[name=productFlavors] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+}
+
+input[name=productSizes] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+}
+
+b{
+	font-size: 10px;
+	margin-left:5px;
+}
