@@ -30,7 +30,7 @@ app.use(express.static('public'));
 app.use(fileUpload());
 
 app.use(session({
-    secret: 'Jasperlikeshotdogs',
+    secret: 'GCAKESISTHEBESTCAKEANDCOOKIESHOPINTHEWORLD',
     store: MongoStore.create({mongoUrl: 'mongodb://localhost:27017/G-Cakes'}),
     resave: false,
     saveUninitialized: true,
