@@ -1,0 +1,30 @@
+{
+  "name": "ccsweng",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jasper-Chua/CCSWENG.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jasper-Chua/CCSWENG/issues"
+  },
+  "homepage": "https://github.com/Jasper-Chua/CCSWENG#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "connect-mongo": "^4.6.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "express-session": "^1.17.3",
+    "express-validator": "^6.14.2",
+    "mongoose": "^6.7.2"
+  }
+}

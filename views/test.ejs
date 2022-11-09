@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>
+            Testing Page
+        </title>
+    </head>
+    <body>
+        Hello<br>
+        <input action="/addProduct" method="Post" enctype="multipart/form-data">
+            <label for="productName">Username:</label><br>
+            <input type="text" id="productName" name="productName"><br>
+            <label for="productSize">Sizes:</label><br>
+            <select name="productSize" id="productSize">
+                <option value="9 inches" selected>9 inches</option>
+                <option value="12 inches">12 inches</option>
+                <option value="15 inches">15 inches</option>
+            </select>
+            <label for="productFlavor">Flavors:</label><br>
+            <select name="productFlavor" id="productFlavor">
+                <option value="Black Forest" selected>Black Forest</option>
+                <option value="Red Velvet">Red Velvet</option>
+                <option value="Mango Bravo">Mango Bravo</option>
+            </select>
+            <label for="productPrice">Price:</label><br>
+            </input type="number" id="productPrice" name="productPrice"><br>
+            <button id="login">Register</button>
+        </form>
+        <a href="/">HomePage Page</a>
+    </body>
+</html>
