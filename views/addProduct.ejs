@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 	<head>
@@ -22,46 +23,64 @@
 		</div>
 		
 		<div class="addProductContainer">
-			<form>
-			<div class="addProductHeader">
-				<h1>Add Product</h1><br>
-			</div>
-					<label for="productName">Enter Product Name</label><br>
-					<input type="text" id="productName" name="productName"><br><br>
+			<div class="addProductBox">
+				<div class="addProductHeader">
+					<h1>ADD PRODUCT</h1>
+				</div>
+				<form class="orderInfoForm" method="Post" enctype="multipart/form-data">
+					<div class="addProductGroup">
+						<label for="productName">Enter Product Name:</label>
+						<input type="text" id="productName" name="productName"><br>
+					</div>
 					
-				<div class="flavorContainer">
-					<div class="productFlavors">
-						<label for="productFlavors">Enter Product Flavor</label><br>
-						<input type="text" class="flavors" name="flavors" required><br>
+					<div class="addProductGroup">
+						<div class="flavorContainer">
+							<div class="productFlavors">
+								<label for="productFlavors">Enter Product Flavor:</label>
+								<input type="text" class="flavors" name="flavors" required>
+							</div>
+							<button class="addAnotherFlavor">+</button>
+							<button class="deleteLastFlavor">-</button> <b> add or delete a box</b>
+						</div>
 					</div>
-					<button class="addAnotherFlavor">+</button>
-					<button class="deleteLastFlavor">-</button> <b> add or delete a box</b><br><br>
-				</div>
-
-				<div class="sizeContainer">
-					<div class="productSizes">
-						<label for="productSizes">Enter Product Size</label>
-						<input type="text" class="sizes" name="sizes" required><br>
+				
+					<div class="addProductGroup">
+						<div class="sizeContainer">
+							<div class="productSizes">
+								<label for="productSizes">Enter Product Size:</label>
+								<input type="text" class="sizes" name="sizes" required>
+							</div>
+							<button class="addAnotherSize">+</button>
+							<button class="deleteLastSize">-</button> <b> add or delete a box</b><br>
+						</div>
 					</div>
-					<button class="addAnotherSize">+</button>
-					<button class="deleteLastSize">-</button> <b> add or delete a box</b><br><br>
-				</div>
 
-
-				<label for="productTypes">Product Type:</label>
-					<select name="productTypes" id="productTypes">
-					<option value="Cakes">Cake</option>
-					<option value="Cupcakes">Cupcake</option>
-					<option value="Cookies">Cookie</option>
-				</select><br><br>
-
-				<label for="productPrice">Enter Product Price</label>
-				<input type="number" id="productPrice" name="productPrice" ><br><br>
-				<label for="productPicture">Upload Product Picture</label><br><br>
-				<input type="file" id="myFile" name="filename" >
-				<br><br>			
-				<a href="AddProduct.html"><input type="submit" value="Submit"></a><br>
-			</form>		
+					<div class="addProductGroup">
+						<label for="productTypes">Product Type:</label><br>
+						<select name="productTypes" id="productTypes">
+							<option value="Cakes">Cake</option>
+							<option value="Cupcakes">Cupcake</option>
+							<option value="Cookies">Cookie</option>
+						</select>
+						<br><br>
+					</div>
+				
+					<div class="addProductGroup"><br>
+						<label for="productPrices">Enter Product Price:</label>
+						<input type="number" id="productPrices" name="productPrices">
+					</div>		
+					
+					<div class="addProductGroup">
+						<label for="productPictures">Upload Product Picture:</label><br>
+						<input type="file" id="myFile" name="filename" >	
+						
+					</div>
+					<div class="Btn">
+                        <button class="Cancel" id="cancel">CANCEL</button>
+                        <button class ="Submit" id="order">SUBMIT</button>
+                    </div>
+				</form>
+			</div>
 		</div>
 	</body>
 
@@ -87,6 +106,7 @@
 				inputSize.required = true
 				$(".productSizes").append(inputSize)
 				$(".productSizes").append("<br>")
+				console.log('Remove last Flavor')
 			});
 			
 			// Deletes the most recent added flavor textbox
@@ -96,7 +116,6 @@
 					$(".productFlavors").find("br:last").remove();
 				}
 			});
-
 			// Deletes the most recent added size textbox
 			$(".deleteLastSize").click(function () {
 				if ($(".sizes").length > 1) {
