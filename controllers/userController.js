@@ -27,9 +27,13 @@ exports.login = async (req, res) => {
         if (checkUsername != null && checkUsername.password == password) {
             console.log("login accepted for " + checkUsername.username + " with passsword " + checkUsername.password)
         } else if (checkUsername == null) {
-            console.log("user dont exist")
+            console.log("user don't exist")
+            req.flash('error_msg', 'Username does not exist!');
+            res.redirect('/admin');
         } else {
             console.log("wrong password")
+            req.flash('error_msg', 'Incorrect Password!');
+            res.redirect('/admin');
         }
     } else {
         const messages = errors.array().map((item) => item.msg);
