@@ -34,10 +34,9 @@ app.use(session({
     store: MongoStore.create({mongoUrl: 'mongodb://localhost:27017/G-Cakes'}),
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, maxAge: 60000},
+    cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 * 7 },
 }));
 
-// 1000 * 60 * 60 * 24 * 7 
 app.use(flash());
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
