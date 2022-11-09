@@ -1,0 +1,224 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+  
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+.logo {
+    margin-left: 100px;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.mainBackground {
+    background-color: #EBD8DB;      
+}
+
+.header {
+    height: 150px;
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+.menu {
+    margin-left: 600px;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.menuBtn {
+    background-color:#3D2115;
+    margin-left: 10px;
+    padding: 0px 30px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-family: "Times New Roman";
+    font-size: 18px;
+    color: #FFFFFF;
+    height: 50px;
+}
+
+.menuBtn:hover {
+    background-color:#002ead;
+    transition: 0.5s;
+}
+
+.addProductForm {
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+  
+.addProductHeader{
+	width: 100%;
+    background-color: #E29595
+}
+
+.addProductHeader h1{
+	font-size: 30px;
+	text-align: center;
+}
+
+.addProductContainer{
+	height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addProductBox{
+	position: relative;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 15px;
+    background-color: #CDBDBF;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.addProductGroup {
+    display: flex;
+    width: calc(100% / 2 - 30px);
+    flex-direction: column;
+    margin: 4px 0;
+}
+
+input[name=productName] {
+	outline: none;
+    font-size: 25px;
+    border-radius: 10px;
+    border: 2px solid #000000;
+    padding: 0 5px;
+    height: 42px;
+    margin: 8px 0;
+}
+
+input[name=flavors] {
+	outline: none;
+    font-size: 25px;
+    border-radius: 10px;
+    border: 2px solid #000000;
+    padding: 0 5px;
+    height: 42px;
+    margin: 8px 0;
+	width:100%
+}
+
+input[name=sizes] {
+	outline: none;
+    font-size: 25px;
+    border-radius: 10px;
+    border: 2px solid #000000;
+    padding: 0 5px;
+    height: 42px;
+    margin: 8px 0;
+	width:100%
+}
+
+input[name=productPrices] {
+	outline: none;
+    font-size: 25px;
+    border-radius: 10px;
+    border: 2px solid #000000;
+    padding: 0 5px;
+    height: 42px;
+    margin: 8px 0;
+}
+
+label[for=productName]{
+	font-size: 20px;
+    font-weight: bold;
+}
+
+label[for=productFlavors]{
+	font-size: 20px;
+    font-weight: bold;
+}
+
+label[for=productSizes]{
+	font-size: 20px;
+    font-weight: bold;
+}
+
+label[for=productTypes]{
+	font-size: 20px;
+    font-weight: bold;
+}
+
+label[for=productPrices]{
+	font-size: 20px;
+    font-weight: bold;
+}
+
+label[for=productPictures]{
+	font-size: 20px;
+    font-weight: bold;
+}
+
+select[name=productTypes]{
+	font-size:20px;
+}
+
+b{
+	font-size: 13px;
+	margin-left:5px;
+}
+
+
+.addAnotherSize{
+	font-size:20px;
+}
+
+.addAnotherFlavor{
+	font-size:20px;
+}
+
+.deleteLastSize{
+	font-size:20px;
+}
+
+.deleteLastFlavor{
+	font-size:20px;
+}
+
+.Btn {
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    justify-content: right;
+}
+  
+
+.Submit {
+    margin-left: 20px;
+    background-color: #D9D9D9;
+}
+  
+.Cancel {
+    background-color: #E43939;
+}
+  
+.Cancel, .Submit {
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer
+}
