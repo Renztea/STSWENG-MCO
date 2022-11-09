@@ -4,6 +4,8 @@ const ejs = require('ejs');
 // Form parsers
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
+// Cookie parser
+const cookieParser = require('cookie-parser')
 // Database
 const mongoose = require('mongoose');
 const db = require('./models/connection');
@@ -16,15 +18,22 @@ const connectMongo = require('connect-mongo');
 // Error Messages
 const flash = require('connect-flash');
 const MongoStore = require('connect-mongo');
+const { cookie } = require('express-validator');
 
 const app = express();
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(fileUpload());
+
+app.get('/set-cookie', (req, res) => {
+    res.cookie('3','2')
+    res.send('Successful')
+})
 
 app.use(session({
     secret: 'Jasperlikeshotdogs',
