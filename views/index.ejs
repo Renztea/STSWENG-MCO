@@ -1,27 +1,46 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>
-            Marc Baura Website
-        </title>
-    </head>
-    <body>
-        <form action="/login" class="loginForm" method="Post">
-            <label class="loginStyle" for="username">Username:</label><br>
-            <input class="loginInput" type="text" id="username" name="username"><br><br>
-            <label class="loginStyle" for="password">Password:</label><br>
-            <input class="loginInput" type="password" id="password" name="password"><br>
-            <button class ="loginSubmit" id="login">LOGIN</button>
-        </form>
 
-        <form action="/register" method="Post">
-            <label class="loginStyle" for="username">Username:</label><br>
-            <input class="loginInput" type="text" id="username" name="username"><br><br>
-            <label class="loginStyle" for="password">Password:</label><br>
-            <input class="loginInput" type="password" id="password" name="password"><br>
-            <button class ="loginSubmit" id="login">Register</button>
-        </form>
-        <a href="/delete">Click Me to Delete Something</a>
-        <a href="/test">Next Page</a>
-        
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Home Page</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
+    </head>
+
+    <body class="homePage">
+        <div class="header">
+            <div class="menu">
+                <button class="menuBtn">CAKES</button>
+                <button class="menuBtn">CUPCAKES</button>
+                <button class="menuBtn">DECORATED COOKIES</button>
+                <button class="menuBtn">ABOUT</button>
+                <button class="menuBtn"><img src="images/basket.png"></button>
+            </div>
+        </div>
+
+        <div class="data">
+  
+        </div>
+
+        <div class="inquire">
+            <button>INQURE NOW</button>
+            <button>LOGIN</button>
+            <button>TEMPORARY</button>
+        </div>
+
+        <input type="text" id="menu" name="menu" value="" hidden/>
     </body>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $(".menuBtn").click(function () {
+        $("#menu").val(this.innerHTML);
+        //  alert($("#menu").val());
+        window.location.assign("product.html");
+        });
+    });
+    </script>
+
 </html>

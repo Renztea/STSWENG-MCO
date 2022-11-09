@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Cakes page</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+    </head>
+
+    <body class="mainBackground">
+        <div class="header">
+            <div class="logo">
+                <img src="images/Logo.png" placeholder="G-Cakes Logo" alt="1">
+            </div>
+
+            <div class="menu">
+                <button class="menuBtn">CAKES</button>
+                <button class="menuBtn">CUPCAKES</button>
+                <button class="menuBtn">DECORATED COOKIES</button>
+                <button class="menuBtn">ABOUT</button>
+                <button class="menuBtn"><img src="images/basket.png"></button>
+            </div>
+        </div>
+
+        <div class="productContainer">
+<!--    <% .each { %> -->
+            <button class="productBox">      
+                <div class="productImage">
+                    <img src="images/HomePage.png" placeholder="picture of an icecream" alt="1">
+                </div>
+            </button>
+<!--    <% } %> -->
+            <button class="productBox">
+                <div class="productImage">
+                    <img src="images/HomePage.png" placeholder="picture of an icecream" alt="1">
+                </div>
+            </button>
+        </div>
+
+        <div class="modalBackground">
+            <div class="modalContent">
+                <div class="close">+</div>
+
+                <div class="modalContentImage">
+                    <img src="images/loginbackground.png" alt="placeholder">
+                </div>
+
+                <form class="orderForm">
+                    <h1>ProductName(FIX THIS)</h1>
+
+                    <h2>Price(FIX THIS)</h2>
+
+                    <input type="hidden" name="productName" value="productName">
+
+                    <select class="orderFlavor" title="Flavor" id="flavor" name="flavor">
+                         <option>Select Flavor</option>
+                        <%- include ("partials/sizes") %>
+                    </select><br>
+
+                    <select class="orderSize" title="Size" id="size" name="size">
+                        <option>Select Size</option>
+                        <%- include ("partials/sizes") %>
+                    </select><br>
+
+                    <div class="orderQuantityContainer">
+                        <span id="decrement" class="incdec orderDecrement">-</span>
+                            <input id="orderQuantity" name="orderQuantity" class="quantity" type="number" min="1" value="1" >
+                        <span id="increment" class="incdec orderIncrement">+</span>
+                    </div>
+                    <button class="addBtn">ADD TO BASKET</button>
+                </form>
+            </div>
+        </div>
+    </body>
+
+</html>
