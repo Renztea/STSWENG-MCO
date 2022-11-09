@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <title>Add Product Page</title>
-        <link href="style.css" rel="stylesheet" type="text/css" />
+        <link href="../css/style.css" rel="stylesheet" type="text/css" />
         <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
     </head>
 
@@ -29,10 +29,10 @@
 					<label for="productName">Enter Product Name</label><br>
 					<input type="text" id="productName" name="productName"><br><br>
 					
-				<div class="flavortContainer">
+				<div class="flavorContainer">
 					<div class="productFlavors">
 						<label for="productFlavors">Enter Product Flavor</label><br>
-						<input type="text" class="productFlavors" name="productFlavors" required><br>
+						<input type="text" class="flavors" name="flavors" required><br>
 					</div>
 					<button class="addAnotherFlavor">+</button>
 					<button class="deleteLastFlavor">-</button> <b> add or delete a box</b><br><br>
@@ -41,7 +41,7 @@
 				<div class="sizeContainer">
 					<div class="productSizes">
 						<label for="productSizes">Enter Product Size</label>
-						<input type="text" class="productSizes" name="productSizes" required><br>
+						<input type="text" class="sizes" name="sizes" required><br>
 					</div>
 					<button class="addAnotherSize">+</button>
 					<button class="deleteLastSize">-</button> <b> add or delete a box</b><br><br>
@@ -70,8 +70,8 @@
 			// Adds another textbox for additional flavor inputs
 			$(".addAnotherFlavor").click(function () {
 				var inputFlavor = document.createElement("input");
-            	inputFlavor.className="productFlavors";
-				inputFlavor.name="productFlavors"
+            	inputFlavor.className="flavors";
+				inputFlavor.name="flavors"
 				inputFlavor.type="text"
 				inputFlavor.required = true
 				$(".productFlavors").append(inputFlavor)
@@ -81,26 +81,26 @@
 			// Adds another textbox for additional size inputs
 			$(".addAnotherSize").click(function () {
 				var inputSize = document.createElement("input");
-            	inputSize.className="productSizes";
-				inputSize.name="productSizes"
+            	inputSize.className="sizes";
+				inputSize.name="sizes"
 				inputSize.type="text"
 				inputSize.required = true
 				$(".productSizes").append(inputSize)
 				$(".productSizes").append("<br>")
-				console.log('Remove last Flavor')
 			});
 			
 			// Deletes the most recent added flavor textbox
 			$(".deleteLastFlavor").click(function () {
-				if ($(".productFlavors").length > 1) {
-					$(".productFlavors").find(".productFlavors:last").remove();
+				if ($(".flavors").length > 1) {
+					$(".productFlavors").find(".flavors:last").remove();
 					$(".productFlavors").find("br:last").remove();
 				}
 			});
+
 			// Deletes the most recent added size textbox
 			$(".deleteLastSize").click(function () {
-				if ($(".productSizes").length > 1) {
-					$(".productSizes").find(".productSizes:last").remove();
+				if ($(".sizes").length > 1) {
+					$(".productSizes").find(".sizes:last").remove();
 					$(".productSizes").find("br:last").remove();
 				} 
 			});
