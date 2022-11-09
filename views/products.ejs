@@ -7,7 +7,7 @@
         <title>Cakes page</title>
         <link href="../css/style.css" rel="stylesheet" type="text/css" />
         <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
-        <script type="text/javascript" src="script.js"></script>
+        <script type="text/javascript" src="../js/index.js"></script>
     </head>
 
     <body class="mainBackground">
@@ -26,16 +26,16 @@
         </div>
 
         <div class="productContainer">
-<!--    <% .each { %> -->
+
             <button class="productBox">      
                 <div class="productImage">
-                    <img src="images/HomePage.png" placeholder="picture of an icecream" alt="1">
+                    <img src="images/logo.png" placeholder="picture of an icecream" alt="1">
                 </div>
             </button>
-<!--    <% } %> -->
+
             <button class="productBox">
                 <div class="productImage">
-                    <img src="images/HomePage.png" placeholder="picture of an icecream" alt="1">
+                    <img src="images/logo.png" placeholder="picture of an icecream" alt="1">
                 </div>
             </button>
         </div>
@@ -56,13 +56,13 @@
                     <input type="hidden" name="productName" value="productName">
 
                     <select class="orderFlavor" title="Flavor" id="flavor" name="flavor">
-                         <option>Select Flavor</option>
-                        <%- include ("partials/sizes") %>
+                        <option>Select Flavor</option>
+                        <!--add Flavors--> 
                     </select><br>
 
                     <select class="orderSize" title="Size" id="size" name="size">
                         <option>Select Size</option>
-                        <%- include ("partials/sizes") %>
+                        <!--add Sizes--> 
                     </select><br>
 
                     <div class="orderQuantityContainer">

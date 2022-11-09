@@ -7,6 +7,7 @@ const controller = {
         res.render('index')
     },
 
+    // Temporary
     getTestPage: function(req, res) {
         res.render('addProduct')
     },
@@ -15,6 +16,11 @@ const controller = {
         res.render('login')
     },
 
+    getProductPage: function(req, res) {
+        res.render('products')
+    },
+
+    // Temporary
     getAddProductPage: function(req, res) {
         res.render('addProduct')
     },
