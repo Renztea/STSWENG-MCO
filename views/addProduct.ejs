@@ -24,16 +24,23 @@
 			<form>
 				<label for="fname">Enter Product Name</label>
 				<input type="text" id="pname" name="pname"><br>
-				<div class="productFlavors">
-					<label for="lname">Enter Product Flavor</label><br>
-					<input type="text" class="pflavor" name="pflavor" required><br>
+
+				<div class="flavortContainer">
+					<div class="productFlavors">
+						<label for="lname">Enter Product Flavor</label><br>
+						<input type="text" class="pflavor" name="pflavor" required><br>
+					</div>
 					<button class="addAnotherFlavor">+</button>
+					<button class="deleteLastFlavor">-</button>
 				</div>
-				
-				<div class="productSizes">
-					<label for="fname">Enter Product Size</label>
-					<input type="text" class="psize" name="psize" required><br>
+
+				<div class="sizeContainer">
+					<div class="productSizes">
+						<label for="fname">Enter Product Size</label>
+						<input type="text" class="psize" name="psize" required><br>
+					</div>
 					<button class="addAnotherSize">+</button>
+					<button class="deleteLastSize">-</button>
 				</div>
 
 				<label for="productTypes">Product Type:</label>
@@ -56,6 +63,8 @@
 
 	<script>
 		$(document).ready(function() {
+
+			// Adds another textbox for additional flavor inputs
 			$(".addAnotherFlavor").click(function () {
 				var inputFlavor = document.createElement("input");
             	inputFlavor.className="pflavor";
@@ -65,7 +74,8 @@
 				$(".productFlavors").append(inputFlavor)
 				$(".productFlavors").append("<br>")
 			});
-
+			
+			// Adds another textbox for additional size inputs
 			$(".addAnotherSize").click(function () {
 				var inputSize = document.createElement("input");
             	inputSize.className="psize";
@@ -74,6 +84,23 @@
 				inputSize.required = true
 				$(".productSizes").append(inputSize)
 				$(".productSizes").append("<br>")
+				console.log('Remove last Flavor')
+			});
+			
+			// Deletes the most recent added flavor textbox
+			$(".deleteLastFlavor").click(function () {
+				if ($(".pflavor").length > 1) {
+					$(".productFlavors").find(".pflavor:last").remove();
+					$(".productFlavors").find("br:last").remove();
+				}
+			});
+
+			// Deletes the most recent added size textbox
+			$(".deleteLastSize").click(function () {
+				if ($(".psize").length > 1) {
+					$(".productSizes").find(".psize:last").remove();
+					$(".productSizes").find("br:last").remove();
+				} 
 			});
     	});
 	</script>
