@@ -24,8 +24,6 @@
   
         </div>
 
-        <button action="/login">LOGIN</button>
-
         <div class="inquire">
             <button>INQUIRE NOW</button>
             <button>TEMPORARY</button>
@@ -35,13 +33,13 @@
     </body>
 
     <script type="text/javascript">
-    $(document).ready(function() {
-        $(".menuBtn").click(function () {
-            $("#menu").val(this.innerHTML);
-            //  alert($("#menu").val());
-            window.location.assign("product.html");
+        $(document).ready(function() {
+            $(".menuBtn").click(function () {
+                $("#menu").val(this.innerHTML);
+                //  alert($("#menu").val());
+                window.location.assign("product.html");
+            });
         });
-    });
     </script>
 
 </html>

@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
         }
     } else {
         const messages = errors.array().map((item) => item.msg);
-        req.flash('error_msg', messages.join(' '));
+        req.flash('error_msg', messages.join("\r\n"));
         res.redirect('/admin');
     }
 }
