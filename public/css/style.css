@@ -12,7 +12,7 @@ html, body {
 }
 
 .homePage {
-    background: url(images/HomePage.png) fixed;    
+    background: url(../images/homebackground.png) fixed;    
     background-repeat: no-repeat;    
     background-size: 100% 100%;
     position: relative;
@@ -113,7 +113,7 @@ html, body {
 }
 
 .loginPage {
-    background: url(images/loginbackground.png) fixed;    
+    background: url(../images/loginbackground.png) fixed;    
     background-repeat: no-repeat;    
     background-size: 100% 100%;
     position: relative;

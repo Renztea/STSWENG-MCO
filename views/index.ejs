@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <title>Home Page</title>
-        <link href="style.css" rel="stylesheet" type="text/css" />
+        <link href="../css/style.css" rel="stylesheet" type="text/css" />
         <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
     </head>
 
@@ -24,9 +24,10 @@
   
         </div>
 
+        <button action="/login">LOGIN</button>
+
         <div class="inquire">
-            <button>INQURE NOW</button>
-            <button>LOGIN</button>
+            <button>INQUIRE NOW</button>
             <button>TEMPORARY</button>
         </div>
 
@@ -36,9 +37,9 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $(".menuBtn").click(function () {
-        $("#menu").val(this.innerHTML);
-        //  alert($("#menu").val());
-        window.location.assign("product.html");
+            $("#menu").val(this.innerHTML);
+            //  alert($("#menu").val());
+            window.location.assign("product.html");
         });
     });
     </script>
