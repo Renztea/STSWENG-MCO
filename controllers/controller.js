@@ -15,6 +15,10 @@ const controller = {
         res.render('login')
     },
 
+    getAddProductPage: function(req, res) {
+        res.render('addProduct')
+    },
+
     // Adds the new product into the database
     addProduct: async function(req, res) {
         var productName = req.body.productName
