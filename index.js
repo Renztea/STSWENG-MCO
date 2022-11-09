@@ -18,7 +18,6 @@ const connectMongo = require('connect-mongo');
 // Error Messages
 const flash = require('connect-flash');
 const MongoStore = require('connect-mongo');
-const { cookie } = require('express-validator');
 
 const app = express();
 
@@ -30,20 +29,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(fileUpload());
 
-app.get('/set-cookie', (req, res) => {
-    res.cookie('3','2')
-    res.send('Successful')
-})
-
 app.use(session({
     secret: 'Jasperlikeshotdogs',
     store: MongoStore.create({mongoUrl: 'mongodb://localhost:27017/G-Cakes'}),
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 * 7 },
-    rolling: true
+    cookie: { secure: false, maxAge: 60000},
 }));
 
+// 1000 * 60 * 60 * 24 * 7 
 app.use(flash());
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
