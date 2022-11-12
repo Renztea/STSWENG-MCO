@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title> Jasper addSize testing</title>
+    </head>
+
+    <body>
+        <form action="/addSize" method="POST">
+            <p>Type: </p><br>
+            <select class="productType" name="productType">
+                <% types.forEach(function(types) { %>
+                    <option value="<%= types.type %>"><%= types.type %></option>
+                <% }) %>
+            </select>
+            <p>Size: </p><br>
+            <input type="text" class="productSize" name="productSize"><br>
+            <input type="submit">
+        </form>
+    </body>
+</html>

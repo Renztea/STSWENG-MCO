@@ -6,23 +6,11 @@
     </head>
         
     <body>
-        <h1>Name</h1>
-        <p><%= name %></p>
-        <h1>Sizes</h1>
-        <ul>
-            <% sizes.forEach(function(size) { %>
-                <li><%= size %></li>
-            <% }) %>
-        </ul>
-        <h1>Flavors</h1>
-        <ul>
-            <% flavors.forEach(function(flavor) { %>
-                <li><%= flavor %></li>
-            <% }) %>
-        </ul>
-        <h1>Price</h1>
-        <p><%= price %></p>
-        <h1>Image</h1>
-        <img src="<%= image %>">
+        <% preview.forEach(function(preview) { %>
+            <a href="/Cakes/:<%= preview.name %>">
+            <p><%= preview.name %></p>
+            <img src="<%= preview.image %>">
+            </a>
+        <% }) %>
     </body>
 </html>

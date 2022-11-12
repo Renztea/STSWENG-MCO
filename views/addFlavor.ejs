@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title> Jasper addFlavor testing</title>
+    </head>
+
+    <body>
+        <form action="/addFlavor" method="POST">
+            <p>Type: </p><br>
+            <select class="productType" name="productType">
+                <% types.forEach(function(types) { %>
+                    <option value="<%= types.type %>"><%= types.type %></option>
+                <% }) %>
+            </select>
+            <p>Flavor: </p><br>
+            <input type="text" class="productFlavor" name="productFlavor"><br>
+            <input type="submit">
+        </form>
+    </body>
+</html>
