@@ -53,8 +53,9 @@ html, body {
 }
 
 .menuBtn:hover {
-    background-color:#002ead;
+    background-color:#DF7E85;
     transition: 0.5s;
+	cursor: pointer;
 }
   
 .addProductHeader{
