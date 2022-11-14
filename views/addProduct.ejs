@@ -79,51 +79,10 @@
                         <button class="Cancel" id="cancel">CANCEL</button>
                         <button class ="Submit" id="order">SUBMIT</button>
                     </div>
-
 				</form>
 			</div>
 		</div>
 	</body>
 
-	<script>
-		$(document).ready(function() {
-			// Adds another textbox for additional flavor inputs
-			$(".addAnotherFlavor").click(function () {
-				var inputFlavor = document.createElement("input");
-            	inputFlavor.className="flavors";
-				inputFlavor.name="flavors"
-				inputFlavor.type="text"
-				inputFlavor.required = true
-				$(".productFlavors").append(inputFlavor)
-				$(".productFlavors").append("<br>")
-			});
-			
-			// Adds another textbox for additional size inputs
-			$(".addAnotherSize").click(function () {
-				var inputSize = document.createElement("input");
-            	inputSize.className="sizes";
-				inputSize.name="sizes"
-				inputSize.type="text"
-				inputSize.required = true
-				$(".productSizes").append(inputSize)
-				$(".productSizes").append("<br>")
-				console.log('Remove last Flavor')
-			});
-			
-			// Deletes the most recent added flavor textbox
-			$(".deleteLastFlavor").click(function () {
-				if ($(".flavors").length > 1) {
-					$(".productFlavors").find(".flavors:last").remove();
-					$(".productFlavors").find("br:last").remove();
-				}
-			});
-			// Deletes the most recent added size textbox
-			$(".deleteLastSize").click(function () {
-				if ($(".sizes").length > 1) {
-					$(".productSizes").find(".sizes:last").remove();
-					$(".productSizes").find("br:last").remove();
-				} 
-			});
-    	});
-	</script>
+	
 </html>	

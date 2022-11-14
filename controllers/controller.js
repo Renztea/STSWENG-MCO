@@ -11,24 +11,25 @@ const controller = {
         res.render('index')
     },
 
-    // Temporary
-    getTestPage: function(req, res) {
-        res.render('addProduct')
-    },
-
     getAdminPage: function(req, res) {
         res.render('login')
     },
 
-    getProductPage: function(req, res) {
-        res.render('products')
+    getCakeProducts: async function(req, res) {
+        var productPreview = await Images.find({type: 'Cake'})
+        
+        res.render('products', {preview: productPreview})
     },
 
-    // Temporary
-    getAddProductPage: function(req, res) {
-        res.render('addProduct')
+    getCupcakeProducts: async function(req, res) {
+        var productPreview = await Images.find({type: 'Cupcake'})
+        res.render('products', {preview: productPreview})
     },
-    
+
+    getCookieProducts: async function(req, res) {
+        var productPreview = await Images.find({type: 'Cookie'})
+        res.render('products', {preview: productPreview})
+    },
 
     // Testing with Jasper
     runAddFlavor: async function(req, res) {
@@ -72,7 +73,7 @@ const controller = {
         res.redirect('addSize')
     },
 
-    addCakeJasper: async function(req, res) {
+    addCake: async function(req, res) {
         var productName = req.body.productName
         var productPrice = req.body.productPrice
         var productType = "Cake"
@@ -90,28 +91,6 @@ const controller = {
         res.redirect('addCake')
     },
 
-    // Temporary
-    // Adds the new product into the database
-    addProduct: async function(req, res) {
-        var productName = req.body.productName
-        // should be arrays
-        var productSize = req.body.productSize
-        var productFlavor = req.body.productFlavor
-        var productPrice = req.body.productPrice
-        const image = req.files.productImage
-        var imagePath = '/images/' + image.name;
-        image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
-            Products.create({name:productName, sizes:productSize, flavors:productFlavor, price:productPrice, image:imagePath})
-        })
-        const testing = await Products.findOne({name:productName})
-        res.render('viewProduct', testing)
-    },
-
-    viewProduct: async function(req, res) {
-        var productPreview = await Images.find({})
-        res.render('viewProduct', {preview: productPreview})
-    }
-   
 }   
 
 module.exports = controller

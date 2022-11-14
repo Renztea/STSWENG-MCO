@@ -27,17 +27,14 @@
 
         <div class="productContainer">
 
-            <button class="productBox">      
-                <div class="productImage">
-                    <img src="images/logo.png" placeholder="picture of an icecream" alt="1">
-                </div>
-            </button>
+            <% preview.forEach(function(preview) { %>
+                <button class="productBox">      
+                    <div class="productImage">
+                        <img src="<%= preview.image %>" placeholder="<%= preview.name %>" alt="1">
+                    </div>
+                </button>
+            <% }) %>
 
-            <button class="productBox">
-                <div class="productImage">
-                    <img src="images/logo.png" placeholder="picture of an icecream" alt="1">
-                </div>
-            </button>
         </div>
 
         <div class="modalBackground">
