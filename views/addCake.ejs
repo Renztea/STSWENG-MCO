@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Add Cake Page</title>
+        <link href="../css/addProduct.css" rel="stylesheet" type="text/css" />
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
+    </head>
+
+	<body class="mainBackground">
+		<div class="header">
+			<div class="logo">
+                <img src="logo.png" placeholder="G-Cakes Logo" alt="1">
+            </div>
+		
+			<div class="menu">
+				<button class="menuBtn">CAKES</button>
+				<button class="menuBtn">CUPCAKES</button>
+				<button class="menuBtn">DECORATED COOKIES</button>
+				<button class="menuBtn">ABOUT</button>
+				<button class="menuBtn">ORDERS</button>
+			</div>
+		</div>
+		
+		<div class="addProductContainer">
+			<div class="addProductBox">
+				<div class="addProductHeader">
+					<h1>ADD CAKE</h1>
+				</div>
+					<form class="addProductForm" method="Post" enctype="multipart/form-data">
+					<table>
+						<tr>
+							<td><label for="productName">Cake Name:</label> </td>
+							<td><input type="text" id="productName" name="productName"></td>
+						</tr>
+						
+						<tr>
+						</tr>
+					
+						<tr>
+						<td><label for="productPrices">Price:</label></td>
+						<td><input type="number" id="productPrices" name="productPrices"></td>
+						</tr>
+					
+						<tr>
+						</tr>
+						
+						<tr>
+						<td><label for="productFlavors">Flavor:</label></td>
+						<td><select name="productFlavors" id="productFlavors">
+							<option value="Cakes">Chocolate</option>
+							<option value="Cupcakes">Vanilla</option>
+						</select>
+						<button class="addAnotherFlavor">+</button></td>
+						</tr>
+					
+						<tr>
+						</tr>
+						
+						<tr>
+						<td><label for="productSizes">Size:</label></td>
+						<td><select name="productSizes" id="productSizes">
+							<option value="Cakes">6" x 5"</option>
+							<option value="Cupcakes">8" x 5"</option>
+							<option value="Cookies">10" x  5"</option>
+						</select>
+						<button class="addAnotherSize">+</button></td>
+						</tr>
+						
+						<tr>
+						</tr>
+					
+						<tr>
+						<td><label for="productPictures">Image:</label></td>
+						<td><input type="file" id="myFile" name="filename" ></td>
+						</tr>
+						
+						
+						
+						<tr>
+						<div class="Btn">
+							<td></td>
+							<td></td>
+							<td><button class="Cancel" id="cancel">CANCEL</button>
+							<button class ="Submit" id="order">SUBMIT</button></td>
+						</div>
+						</tr>
+					</table>
+					</form>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		$(document).ready(function() {
+			// Adds another textbox for additional flavor inputs
+			$(".addAnotherFlavor").click(function () {
+				var inputFlavor = document.createElement("input");
+            	inputFlavor.className="flavors";
+				inputFlavor.name="flavors"
+				inputFlavor.type="text"
+				inputFlavor.required = true
+				$(".productFlavors").append(inputFlavor)
+				$(".productFlavors").append("<br>")
+			});
+			
+			// Adds another textbox for additional size inputs
+			$(".addAnotherSize").click(function () {
+				var inputSize = document.createElement("input");
+            	inputSize.className="sizes";
+				inputSize.name="sizes"
+				inputSize.type="text"
+				inputSize.required = true
+				$(".productSizes").append(inputSize)
+				$(".productSizes").append("<br>")
+				console.log('Remove last Flavor')
+			});
+			
+			// Deletes the most recent added flavor textbox
+			$(".deleteLastFlavor").click(function () {
+				if ($(".flavors").length > 1) {
+					$(".productFlavors").find(".flavors:last").remove();
+					$(".productFlavors").find("br:last").remove();
+				}
+			});
+			// Deletes the most recent added size textbox
+			$(".deleteLastSize").click(function () {
+				if ($(".sizes").length > 1) {
+					$(".productSizes").find(".sizes:last").remove();
+					$(".productSizes").find("br:last").remove();
+				} 
+			});
+    	});
+	</script>
+</html>	

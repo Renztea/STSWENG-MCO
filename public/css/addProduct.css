@@ -53,31 +53,26 @@ html, body {
 }
 
 .menuBtn:hover {
-    background-color:#002ead;
+    background-color:#DF7E85;
     transition: 0.5s;
-}
-
-.addProductForm {
-    width: 100%;
-    padding: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
+	cursor: pointer;
 }
   
 .addProductHeader{
 	width: 100%;
-    background-color: #E29595
+	height: 100px;
+	line-height:90px;
+    background-color: #BBD1CD;
+	color: #4A3627;
 }
 
 .addProductHeader h1{
-	font-size: 30px;
+	font-size: 50px;
 	text-align: center;
 }
 
 .addProductContainer{
-	height: 600px;
+	height: 800px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,116 +80,116 @@ html, body {
 
 .addProductBox{
 	position: relative;
-    max-width: 900px;
-    width: 100%;
+	height: 500px;
+	width: 1100px;
     margin: 0 15px;
-    background-color: #CDBDBF;
+    background-color: #FFFFFF;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+	border: 1px solid #000000;	
 }
 
-.addProductGroup {
+.addProductForm {
+    width: 100%;
+    padding: 30px;
     display: flex;
-    width: calc(100% / 2 - 30px);
-    flex-direction: column;
-    margin: 4px 0;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
+
+table{
+	margin-top: -20px;
+	margin-left: 200px;
+	margin-right: auto;
+	width:80%;
+}
+
+td{
+	height: 50px;
+}
+
 
 input[name=productName] {
+	width: 100%;
 	outline: none;
     font-size: 25px;
-    border-radius: 10px;
+    border-radius: 15px;
     border: 2px solid #000000;
-    padding: 0 5px;
-    height: 42px;
+    padding: 0px 5px;
+    height: 30px;
     margin: 8px 0;
-}
-
-input[name=flavors] {
-	outline: none;
-    font-size: 25px;
-    border-radius: 10px;
-    border: 2px solid #000000;
-    padding: 0 5px;
-    height: 42px;
-    margin: 8px 0;
-	width:100%
-}
-
-input[name=sizes] {
-	outline: none;
-    font-size: 25px;
-    border-radius: 10px;
-    border: 2px solid #000000;
-    padding: 0 5px;
-    height: 42px;
-    margin: 8px 0;
-	width:100%
+	border-color: #6F4E37;
 }
 
 input[name=productPrices] {
+	width: 100%;
 	outline: none;
     font-size: 25px;
-    border-radius: 10px;
+    border-radius: 15px;
     border: 2px solid #000000;
-    padding: 0 5px;
-    height: 42px;
+    padding: 0px 5px;
+    height: 30px;
     margin: 8px 0;
+	border-color: #6F4E37;
+}
+
+select[name=productFlavors]{
+	border-color: #6F4E37;
+}
+
+select[name=productFlavors]{
+	border-color: #6F4E37;
 }
 
 label[for=productName]{
 	font-size: 20px;
     font-weight: bold;
+	color: #4A3627;
 }
 
 label[for=productFlavors]{
 	font-size: 20px;
     font-weight: bold;
+	color: #4A3627;
 }
 
 label[for=productSizes]{
 	font-size: 20px;
     font-weight: bold;
+	color: #4A3627;
 }
 
-label[for=productTypes]{
-	font-size: 20px;
-    font-weight: bold;
-}
 
 label[for=productPrices]{
 	font-size: 20px;
     font-weight: bold;
+	color: #4A3627;
 }
 
 label[for=productPictures]{
 	font-size: 20px;
     font-weight: bold;
+	color: #4A3627;
 }
 
-select[name=productTypes]{
+select[name=productFlavors]{
 	font-size:20px;
+	color: #4A3627;
 }
 
-b{
-	font-size: 13px;
-	margin-left:5px;
+select[name=productSizes]{
+	font-size:20px;
+	color: #4A3627;
 }
-
 
 .addAnotherSize{
 	font-size:20px;
+	border: 1px solid #6F4E37;
 }
 
 .addAnotherFlavor{
 	font-size:20px;
-}
-
-.deleteLastSize{
-	font-size:20px;
-}
-
-.deleteLastFlavor{
-	font-size:20px;
+	border: 1px solid #6F4E37;
 }
 
 .Btn {
@@ -207,15 +202,17 @@ b{
 
 .Submit {
     margin-left: 20px;
-    background-color: #D9D9D9;
+    background-color: #95E2A6;
+	color: #4A3627;
 }
   
 .Cancel {
     background-color: #E43939;
+	color: #4A3627;
 }
   
 .Cancel, .Submit {
-    font-size: 20px;
+    font-size: 20px;	
     padding: 20px;
     border-radius: 20px;
     font-weight: bold;
