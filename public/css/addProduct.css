@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -40,15 +42,16 @@ html, body {
 }
 
 .menuBtn {
-    background-color:#3D2115;
+    background-color:#EBD8DB;
     margin-left: 10px;
     padding: 0px 30px;
     text-decoration: none;
-    border-radius: 50px;
+	border: none;
+	border-radius: 50px;
     font-weight: bold;
-    font-family: "Times New Roman";
+    font-family: Poppins;
     font-size: 18px;
-    color: #FFFFFF;
+    color: #4A3627;
     height: 50px;
 }
 
@@ -69,10 +72,11 @@ html, body {
 .addProductHeader h1{
 	font-size: 50px;
 	text-align: center;
+	font-family: Poppins, sans-serif;
 }
 
 .addProductContainer{
-	height: 800px;
+	height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -80,8 +84,8 @@ html, body {
 
 .addProductBox{
 	position: relative;
-	height: 500px;
-	width: 1100px;
+	height: 480px;
+	width: 800px;
     margin: 0 15px;
     background-color: #FFFFFF;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
@@ -94,14 +98,14 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap;	
 }
 
 table{
 	margin-top: -20px;
-	margin-left: 200px;
+	margin-left: 30px;
 	margin-right: auto;
-	width:80%;
+	width: 100%;
 }
 
 td{
@@ -110,7 +114,7 @@ td{
 
 
 input[name=productName] {
-	width: 100%;
+	width: 500px;
 	outline: none;
     font-size: 25px;
     border-radius: 15px;
@@ -119,10 +123,11 @@ input[name=productName] {
     height: 30px;
     margin: 8px 0;
 	border-color: #6F4E37;
+	font-family: Poppins, sans-serif;
 }
 
 input[name=productPrices] {
-	width: 100%;
+	width: 500px;
 	outline: none;
     font-size: 25px;
     border-radius: 15px;
@@ -131,32 +136,41 @@ input[name=productPrices] {
     height: 30px;
     margin: 8px 0;
 	border-color: #6F4E37;
+	font-family: Poppins, sans-serif;
 }
 
-select[name=productFlavors]{
+input[name=newFlavor] {
+	width: 300px;
+	outline: none;
+    font-size: 25px;
+    border-radius: 15px;
+    border: 2px solid #000000;
+    padding: 0px 5px;
+    height: 30px;
+    margin: 8px 0;
 	border-color: #6F4E37;
-}
-
-select[name=productFlavors]{
-	border-color: #6F4E37;
+	font-family: Poppins, sans-serif;
 }
 
 label[for=productName]{
 	font-size: 20px;
     font-weight: bold;
 	color: #4A3627;
+	font-family: Poppins, sans-serif;
 }
 
 label[for=productFlavors]{
 	font-size: 20px;
     font-weight: bold;
 	color: #4A3627;
+	font-family: Poppins, sans-serif;
 }
 
 label[for=productSizes]{
 	font-size: 20px;
     font-weight: bold;
 	color: #4A3627;
+	font-family: Poppins, sans-serif;
 }
 
 
@@ -164,32 +178,61 @@ label[for=productPrices]{
 	font-size: 20px;
     font-weight: bold;
 	color: #4A3627;
+	font-family: Poppins, sans-serif;
 }
 
 label[for=productPictures]{
 	font-size: 20px;
     font-weight: bold;
 	color: #4A3627;
+	font-family: Poppins, sans-serif;
+}
+
+label[for=productTypes]{
+	font-size: 20px;
+    font-weight: bold;
+	color: #4A3627;
+	font-family: Poppins, sans-serif;
+}
+
+label[for=newFlavor]{
+	font-size: 20px;
+    font-weight: bold;
+	color: #4A3627;
+	font-family: Poppins, sans-serif;
 }
 
 select[name=productFlavors]{
 	font-size:20px;
 	color: #4A3627;
+	font-family: Poppins, sans-serif;
+	border-color: #6F4E37;
 }
 
 select[name=productSizes]{
 	font-size:20px;
 	color: #4A3627;
+	font-family: Poppins, sans-serif;
+	border-color: #6F4E37;
+}
+
+select[name=productTypes]{
+	font-size:20px;
+	color: #4A3627;
+	font-family: Poppins, sans-serif;
+	border-color: #6F4E37;
 }
 
 .addAnotherSize{
 	font-size:20px;
 	border: 1px solid #6F4E37;
+	font-family: Poppins, sans-serif;
 }
 
 .addAnotherFlavor{
 	font-size:20px;
 	border: 1px solid #6F4E37;
+	font-family: Poppins, sans-serif;
 }
 
 .Btn {
@@ -204,11 +247,13 @@ select[name=productSizes]{
     margin-left: 20px;
     background-color: #95E2A6;
 	color: #4A3627;
+	font-family: Poppins, sans-serif;
 }
   
 .Cancel {
     background-color: #E43939;
 	color: #4A3627;
+	font-family: Poppins, sans-serif;
 }
   
 .Cancel, .Submit {
@@ -218,4 +263,44 @@ select[name=productSizes]{
     font-weight: bold;
     border: none;
     cursor: pointer
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  border: 1px solid #000000;	
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
