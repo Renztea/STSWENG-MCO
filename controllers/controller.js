@@ -19,18 +19,10 @@ const controller = {
         res.render('login')
     },
 
-    getCakesPage: async function(req,res) {
+    getProductPage: async function(req,res) {
         // var productPreview = await Products.find({type: 'Cake'})
-        var productPreview = await Images.find({})
-        res.render('products', {preview: productPreview})
-    },
-
-    getCupcakesPage: async function(req,res) {
-        var productPreview = await Images.find({})
-        res.render('products', {preview: productPreview})
-    },
-
-    getCookiesPage: async function(req,res) {
+        var value = req.params.type
+        console.log(value)
         var productPreview = await Images.find({})
         res.render('products', {preview: productPreview})
     },
