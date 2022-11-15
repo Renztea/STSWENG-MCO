@@ -5,4 +5,5 @@ const loginValidation = [
   body('password').not().isEmpty().withMessage("Password is required!")
 ];
 
+
 module.exports = { loginValidation };

@@ -15,19 +15,8 @@ const controller = {
         res.render('login')
     },
 
-    getCakeProducts: async function(req, res) {
-        var productPreview = await Images.find({type: 'Cake'})
-        
-        res.render('products', {preview: productPreview})
-    },
-
-    getCupcakeProducts: async function(req, res) {
-        var productPreview = await Images.find({type: 'Cupcake'})
-        res.render('products', {preview: productPreview})
-    },
-
-    getCookieProducts: async function(req, res) {
-        var productPreview = await Images.find({type: 'Cookie'})
+    getProducts: async function(req, res) {
+        var productPreview = await Images.find({})
         res.render('products', {preview: productPreview})
     },
 

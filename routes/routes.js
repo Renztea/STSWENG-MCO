@@ -5,9 +5,7 @@ const app = express();
 // Final
 app.get('/', controller.getIndexPage)
 app.get('/admin', controller.getAdminPage)
-app.get('/cakes', controller.getCakeProducts)
-app.get('/cupcakes', controller.getCupcakeProducts)
-app.get('/cookies', controller.getCookieProducts)
+app.get('/products', controller.getProducts)
 
 
 // Testing with jasper
