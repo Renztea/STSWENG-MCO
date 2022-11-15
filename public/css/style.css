@@ -2,40 +2,53 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+  }
   
-  
-html, body {
+  html, body {
     height: 100%;
     width: 100%;
     margin: 0;
-}
-
-.homePage {
-    background: url(../images/homebackground.png) fixed;    
-    background-repeat: no-repeat;    
-    background-size: 100% 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.header {
+  }
+  
+  /* Start - Home Page Background */
+  .homePage {
+      background: url(images/HomePage.png) fixed;    
+      background-repeat: no-repeat;    
+      background-size: 100% 100%;
+      position: relative;
+      overflow: hidden;
+    /*
+    reference:https://www.w3schools.com/howto/howto_css_full_page.asp
+    */
+  }
+  /* End - Home Page Background*/
+  
+  /* Start - Website header */
+  .header {
     height: 150px;
     width: 100%;
     display: flex;
     position: relative;
-}
-
-.menu {
+  }
+  
+  .logo {
+    margin-left: 100px;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  
+  .menu {
     margin-left: 600px;
     display: flex;
     position: absolute;
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-}
-
-.menuBtn {
+  }
+  
+  .menuBtn {
     background-color:#3D2115;
     margin-left: 10px;
     padding: 0px 30px;
@@ -44,27 +57,29 @@ html, body {
     font-weight: bold;
     font-family: "Times New Roman";
     font-size: 18px;
-    color: #FFFFFF;
+    color: white;
     height: 50px;
-}
-
-.menuBtn img {
+  }
+  
+  .menuBtn img {
     height: 30px;
-}
-
-.menuBtn:hover {
-    background-color:#002ead;
+  }
+  
+  .menuBtn:hover {
+    background-color: #DF7E85;
     transition: 0.5s;
-}
-
-.inquire {
+  }
+  /* End - Website header */
+  
+  /* Start - Home Page Inquire */
+  .inquire {
     margin-top: 300px;
     margin-left: 350px;
     width: 400px;
     position: absolute;
-}
-
-.inquire button {
+  }
+  
+  .inquire button {
     background-color:#3D2115;
     color: #FFFFFF;
     padding: 10px 30px 10px 30px;
@@ -73,82 +88,87 @@ html, body {
     font-weight: bold;
     font-family: "Times New Roman";
     font-size: 18px;
-}
-
-.mainBackground {
+  }
+  /* End - Home Page Inquire */
+  
+  /* Start - All Page Background */
+  .mainBackground {
     background-color: #EBD8DB;      
-}
-
-.productContainer {
+  }
+  /* End - All Page Background */
+  
+  /* first carousel */
+  .productContainer {
     display: flex;
     justify-content: center;
     align-items: top;
-    margin: 100px 50px;
-    position: absolute;
+    margin: 100px auto;
     flex-wrap: wrap;
-}
-
-.productBox {
-    width: 350px;
+  }
+  
+  .productBox {
+    width: 300px;
     background-color: white;
     border: 1px solid purple;
     margin: 20px;
-}
-
-.productBox:hover {
+  }
+  
+  .productBox:hover {
     opacity: 0.8;
     transition: all ease 0.3s;
-}
-
-.productImage {
+  }
+  
+  .productImage {
     width: 100%;
     height: 250px;
-}
-
-.productImage img {
+  }
+  
+  .productImage img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
     object-position: center;
-}
-
-.loginPage {
-    background: url(../images/loginbackground.png) fixed;    
-    background-repeat: no-repeat;    
-    background-size: 100% 100%;
-    position: relative;
-}
-
-.loginContainer {
+  }
+  /* end carousel */
+  
+  /* Start - Login Page */
+  .loginPage {
+      background: url(images/loginbackground.png) fixed;    
+      background-repeat: no-repeat;    
+      background-size: 100% 100%;
+      position: relative;
+  }
+  
+  .loginContainer {
     height: 430px;
     width: 700px;
     margin: 170px 0px 0px 750px;
     background-color: #3D2115;
     border-radius: 50px;
     position: absolute;
-}
-
-.loginForm {
+  }
+  
+  .loginForm {
     height: 280px;
     margin-top: 75px;
     margin-left: 100px;
     width: fit-content;
-}
-
-.loginStyle {
+  }
+  
+  .loginStyle {
     color: #BBD1CD;
     font-size: 30px;
-}
-
-.loginInput {
+  }
+  
+  .loginInput {
     background-color: #DF7E85;
     border-radius: 10px;
     height: 50px;
     width: 500px;
     font-size: 40px;
-}
-
-.loginSubmit {
+  }
+  
+  .loginSubmit {
     height: 60px;
     width: 180px;
     margin-top: 30px;
@@ -158,65 +178,127 @@ html, body {
     font-size: 30px;
     padding: 10px 40px;
     border-radius: 50px;
-}
-
-.logo {
-    margin-left: 100px;
-    position: absolute;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-}
-
-/* Order Information */
-.orderContentContainer {
+  }
+  /* End Login Page */
+  
+  /* Start - Jasper */
+  .order {
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+  }
+  
+  .orderBox {
+    background: white;
+    margin: 0px 7% 10px 7%;
+    padding: 0px 0px 5px 0px;
+  }
+  
+   .orderTab{
+     width: 32%;
+     height: 60px;
+     font-size: 30px;
+     background: #EFEFEF;
+     border: none;
+     border-radius: 10px;
+     
+   }
+  
+  .orderTabContent{
+    background: white;
+    margin: 0% 7%;
+    padding: 0px 0px 0px 0px;
+    height: 300px;
+    width: parent;
+  }
+  
+  .orderTabContent img{
+    height: 90%;
+    width: 25%;
+    margin: 0px 40px 0px 10px;
+    padding: 20px 0px 0px 0px;
+    float: left;
+    display: block;
+  }
+  
+  #pendingCakeName {
+    font-size: 30px;
+    text-align: left;
+    display: block;
+  }
+  
+  #pendingCakeType {
+    font-size: 30px;
+    text-align: left;
+    display: block;
+  }
+  
+  #pendingCakePrice {
+    font-size: 40px;
+    text-align: left;
+    display: block;
+  }
+  
+  .pendingBtnPaid{
+    margin: 60px 80px 0px 0px;
+    float: right;  
+    height: 60%;
+    width: 300px;
+    font-weight: bold;
+    font-size: 70px;
+    border-radius: 50px;
+  }
+  /* End - Jasper */
+  
+  /* Start - Order Information Page */
+  .orderContentContainer {
     height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
   
-.orderInfoContainer {
+  .orderInfoContainer {
     position: relative;
     max-width: 900px;
     width: 100%;
     margin: 0 15px;
     background-color: #CDBDBF;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-}
+  }
   
-.orderHeader {
+  .orderHeader {
     width: 100%;
     background-color: #E29595;
-}
+  }
   
-.orderHeader h1 {
+  .orderHeader h1 {
     font-size: 30px;
     text-align: center;
-}
+  }
   
-.orderInfoForm {
+  .orderInfoForm {
     width: 100%;
     padding: 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-}
+  }
   
-.orderInfoGroup {
+  .orderInfoGroup {
     display: flex;
     width: calc(100% / 2 - 30px);
     flex-direction: column;
     margin: 4px 0;
-}
+  }
   
-.orderStyle {
+  .orderStyle {
     font-size: 20px;
     font-weight: bold;
-}
+  }
   
-.orderInput {
+  .orderInput {
     outline: none;
     font-size: 25px;
     border-radius: 10px;
@@ -224,35 +306,36 @@ html, body {
     padding: 0 5px;
     height: 42px;
     margin: 8px 0;
-}
+  }
   
-.orderBtn {
+  .orderBtn {
     width: 100%;
     margin-top: 30px;
     display: flex;
     justify-content: right;
-}
+  }
   
-.orderSubmit {
+  .orderSubmit {
     margin-left: 20px;
     background-color: #D9D9D9;
-}
+  }
   
-.orderCancel {
+  .orderCancel {
     background-color: #E43939;
-}
+  }
   
-.orderCancel, .orderSubmit {
+  .orderCancel, .orderSubmit {
     font-size: 20px;
     padding: 20px;
     border-radius: 20px;
     font-weight: bold;
     border: none;
     cursor: pointer
-}
-
-/* Modal */
-.modalBackground {
+  }
+  /* End - Order Information Page */
+  
+  /* Start - Modal Popup CSS */
+  .modalBackground {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
@@ -263,27 +346,27 @@ html, body {
     align-items: center;
   }
   
-.modalContent {
+  .modalContent {
     width: 1000px;
     height: 700px;
     background-color: #C4A484;
     display: flex;
     position: relative;
-}
+  }
   
-.modalContentImage {
+  .modalContentImage {
     height: 100%;
     width: 50%;
-}
+  }
   
-.modalContentImage img {
+  .modalContentImage img {
     width: 100%;
     height: 100%;
     object-fit: fill;
     object-position: center;
-}
+  }
   
-.close {
+  .close {
     position: absolute;
     top: 0;
     right: 14px;
@@ -291,28 +374,28 @@ html, body {
     font-weight: bold;
     transform: rotate(45deg);
     cursor: pointer;
-}
+  }
   
-.orderForm {
+  .orderForm {
     justify-content: center;
     text-align: center;
     margin-top: 10%;
     width: 50%;
-}
+  }
   
-.orderFlavor, .orderSize {
+  .orderFlavor, .orderSize {
     height: 60px;
     margin-top: 50px;
     text-align: center;
     font-size: 30px;
     padding: 10px;
     background-color: #E29595;
-    color: white;
+    color: #4A3627;
     border-radius: 10px;
     width: 400px;
-}
+  }
   
-.orderQuantityContainer {
+  .orderQuantityContainer {
     height: 60px;
     width: 400px;
     margin: 50px auto;
@@ -321,9 +404,9 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
   
-.orderDecrement, .orderIncrement {
+  .orderDecrement, .orderIncrement {
     font-size: 30px;
     padding: 10px;
     background-color: #3D2115;
@@ -333,19 +416,19 @@ html, body {
     text-align: center;
     border: 2px solid #DF7E85;
     cursor: pointer;
-}
+  }
   
-.orderDecrement {
+  .orderDecrement {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-}
+  }
   
-.orderIncrement {
+  .orderIncrement {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-}
-
-#orderQuantity {
+  }
+  
+  #orderQuantity {
     justify-content: center;
     text-align: center;
     font-size: 30px;
@@ -355,13 +438,191 @@ html, body {
     height: 100%;
     width: 300px;
     border: 2px solid #DF7E85;
-}
-
-.addBtn {
+  /* Firefox */
+    -moz-appearance: textfield;
+  } 
+  
+    /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  .addBtn {
     padding: 20px;
-    border-radius: 10px;
-    background-color: #FDFFFC;
+    border-radius: 30px;
+    background-color: #95E2A6;
+    color: #4A3627;
     font-size: 30px;
     font-weight: bold;
     font-family: "Arial";
-}
+  }
+  /* End - Modal Popup CSS */
+  
+  /* Start - Basket Page */
+  .basketContainer {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    border: 2px solid green;
+    display: flex;
+    position: relative;
+  }
+  
+  .basketItemContainer {
+    border: 2px solid yellow;
+    width: 80%;
+    margin-right: 5%;
+    /*border-radius: 10px;*/ /*not yet sure*/ 
+    overflow: hidden;
+  }
+  
+  .totalPriceContainer {
+    width: 20%;
+    border: 2px solid orange;
+    background: #FFFFFF;
+    position: sticky;
+    height: 200px;
+    align-items: center;
+    top: 20%;
+  }
+  
+  .totalPrice {
+    width: 100%;
+    margin: auto;
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .basketSubmit {
+    width: 80%;
+    margin-top: 50px;
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    color: #4A3627;
+    padding: 5px;
+    border-radius: 30px;
+    border: none;
+    background: #95E2A6;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .basketItem {
+    display: flex;
+    position: relative;
+    background-color: white;
+    margin-bottom: 10px;
+  }
+  
+  .basketItem:last-child {
+    margin-bottom: 0px;
+  }
+  
+  .basketItemImage {
+    height: 100%;
+    width: 300px;
+  }
+  
+  .basketItemImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: center;
+  }
+  
+  .basketItemInfo, .basketItemQuantity, .basketItemPrice {
+    padding: 25px;
+    width: 300px;
+  }
+  
+  .basketItemQuantity {
+    width: 200px
+  }
+  
+  .basketItemPrice {
+    width: 200px;
+  }
+  
+  .removeItem {
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    right: 5%;
+    bottom: 20%;
+    background: red;
+    border-radius: 30px;
+    border: none;
+    padding: 10px;
+  }
+  
+  .editFlavor, .editSize {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    background-color: #E29595;
+    color: white;
+    width: 200px;
+  }
+  
+  .basketQuantityContainer {
+    height: 40px;
+    margin: 20px auto;
+    background-color: #DF7E85;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .basketDecrement, .basketIncrement {
+    font-size: 15px;
+    padding: 10px;
+    background-color: #3D2115;
+    color: white;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border: 2px solid #DF7E85;
+    cursor: pointer;
+  }
+  
+  .basketQuantity {
+    justify-content: center;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    background-color: #3D2115;
+    color: white;
+    height: 100%;
+    width: 80px;
+    border: 2px solid #DF7E85;
+  }
+  /* End - Basket Page */
+  
+  /* Start - Main Page(Additional Info) */
+  .carousel {
+    margin: auto;
+  }
+  
+  .carouselItemImage {
+    height: 100%;
+    width: 100%;
+  }
+  
+  .carouselItemImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: center;
+  }
+  /* End - Main Page(Additional Info) */
