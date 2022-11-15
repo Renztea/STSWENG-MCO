@@ -12,11 +12,11 @@
         <div class="loginContainer">
             <%- include("partials/messages") %>
             <form action="/login" class="loginForm" method="Post" enctype="multipart/form-data">
-                <label class="loginStyle" for="username">Username:</label><br>
-                <input class="loginInput" type="text" id="username" name="username"><br><br>
-                <label class="loginStyle" for="password">Password:</label><br>
-                <input class="loginInput" type="password" id="password" name="password"><br>
-                <button class ="loginSubmit" id="login">LOGIN</button>
+                <p class="loginStyle" for="username">Username:</p>
+                <input class="loginInput" type="text" id="username" placeholder="Enter Username" name="username">
+                <p class="loginStyle" for="password">Password:</p>
+                <input class="loginInput" type="text" id="password" placeholder="Enter Password" name="password">
+                <button class="loginSubmit" type="submit" id="login">LOGIN</button>
             </form>
         </div>
     </body>
