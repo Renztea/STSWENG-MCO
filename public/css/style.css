@@ -56,11 +56,15 @@ html, body {
   padding: 0px 30px;
   text-decoration: none;
   border-radius: 50px;
+  border: none;
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
   font-size: 18px;
   color: white;
   height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .menuBtn img {
@@ -87,6 +91,7 @@ html, body {
   padding: 10px 30px 10px 30px;
   text-decoration: none;
   border-radius: 50px;
+  border: none;
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
   font-size: 18px;
@@ -355,7 +360,7 @@ html, body {
 
 .modalContent {
   width: 1000px;
-  height: 700px;
+  height: 80%;
   background-color: #C4A484;
   display: flex;
   position: relative;
@@ -386,26 +391,26 @@ html, body {
 .orderForm {
   justify-content: center;
   text-align: center;
-  margin-top: 10%;
+  margin-top: 5%;
   width: 50%;
 }
 
 .orderFlavor, .orderSize {
-  margin-top: 50px;
+  margin-top: 30px;
   text-align: center;
-  font-size: 30px;
+  font-size: 20px;
   font-family: 'Poppins', sans-serif;
   padding: 10px;
   background-color: #E29595;
   color: #4A3627;
   border-radius: 10px;
-  width: 400px;
+  width: 80%;
 }
 
 .orderQuantityContainer {
   height: 60px;
-  width: 400px;
-  margin: 50px auto;
+  width: 80%;
+  margin: 30px auto;
   background-color: #DF7E85;
   border-radius: 10px;
   display: flex;
@@ -414,7 +419,7 @@ html, body {
 }
 
 .orderDecrement, .orderIncrement {
-  font-size: 30px;
+  font-size: 20px;
   font-family: 'Poppins', sans-serif;
   background-color: #3D2115;
   color: white;
@@ -440,7 +445,7 @@ html, body {
 #orderQuantity {
   justify-content: center;
   text-align: center;
-  font-size: 30px;
+  font-size: 20px;
   font-family: 'Poppins', sans-serif;
   padding: 10px;
   background-color: #3D2115;
@@ -460,11 +465,12 @@ input::-webkit-inner-spin-button {
 }
 
 .addBtn {
-  padding: 20px;
+  padding: 10px;
   border-radius: 30px;
+  border: none;
   background-color: #95E2A6;
   color: #4A3627;
-  font-size: 30px;
+  font-size: 20px;
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
 }
