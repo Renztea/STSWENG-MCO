@@ -1,8 +1,5 @@
 const path = require('path')
 const Products = require('../models/product')
-const Flavors = require('../models/productFlavor')
-const Sizes = require('../models/productSize')
-const Types = require('../models/productType')
 const Images = require('../models/productImage')
 
 const controller = {
@@ -19,22 +16,23 @@ const controller = {
         res.render('login')
     },
 
-    getProductPage: async function(req,res) {
-        // var productPreview = await Products.find({type: 'Cake'})
-        var value = req.params.type
-        console.log(value)
-        var productPreview = await Images.find({})
+    getProductPage: async function(req, res) {
+        var productPreview = await Images.find({name: 'Jasper', image:'/images/basket.png'})
         res.render('products', {preview: productPreview})
+    },
+
+    getAddCakePage: async function(req, res) {
+        res.render('addCake')
     },
 
     addCake: async function(req, res) {
         var productName = req.body.productName
-        var productPrice = req.body.productPrice
-        var productType = "Cake"
-        var productFlavor = req.body.productFlavor
-        var productSize = req.body.productSize
+        var productPrice = req.body.productPrices
+        var productType = 'Cake'
+        var productFlavor = req.body.productFlavors
+        var productSize = req.body.productSizes
         if (await Products.findOne({name: productName}) == null) {
-            const image = req.files.productImage
+            const image = req.files.filename
             var imagePath = '/images/' + image.name;
             image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
             Products.create({name:productName, type: productType, price:productPrice, size:productSize, flavor:productFlavor})

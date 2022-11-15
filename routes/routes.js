@@ -8,5 +8,8 @@ app.get('/main', controller.getMainPage)
 app.get('/admin', controller.getAdminPage)
 app.get('/products/:type', controller.getProductPage)
 
+//Under Testing
+app.get('/addCake', controller.getAddCakePage)
+app.post('/addCake', controller.addCake)
 
 module.exports = app;

@@ -29,7 +29,7 @@
 				<div class="addProductHeader">
 					<h1>ADD CAKE</h1>
 				</div>
-					<form class="addProductForm" method="Post" enctype="multipart/form-data">
+					<form action="/addCake" class="addProductForm" method="Post" enctype="multipart/form-data">
 					<table>
 						<tr>
 							<td><label for="productName">Cake Name:</label> </td>
@@ -62,9 +62,9 @@
 						<tr>
 						<td><label for="productSizes">Size:</label></td>
 						<td><select name="productSizes" id="productSizes">
-							<option value="Cakes">6" x 5"</option>
-							<option value="Cupcakes">8" x 5"</option>
-							<option value="Cookies">10" x  5"</option>
+							<option value="6 x 5">6" x 5"</option>
+							<option value="8 x 5">8" x 5"</option>
+							<option value="10 x 5">10" x  5"</option>
 						</select>
 						<button class="addAnotherSize">+</button></td>
 						</tr>
