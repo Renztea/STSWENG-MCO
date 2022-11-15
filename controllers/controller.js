@@ -11,55 +11,28 @@ const controller = {
         res.render('index')
     },
 
+    getMainPage: function(req, res) {
+        res.render('main')
+    },
+
     getAdminPage: function(req, res) {
         res.render('login')
     },
 
-    getProducts: async function(req, res) {
+    getCakesPage: async function(req,res) {
+        // var productPreview = await Products.find({type: 'Cake'})
         var productPreview = await Images.find({})
         res.render('products', {preview: productPreview})
     },
 
-    // Testing with Jasper
-    runAddFlavor: async function(req, res) {
-        var types = await Types.find({})
-        res.render('addFlavor', {types: types})
+    getCupcakesPage: async function(req,res) {
+        var productPreview = await Images.find({})
+        res.render('products', {preview: productPreview})
     },
 
-    runAddSize: async function(req, res) {
-        var types = await Types.find({})
-        res.render('addSize', {types: types})
-    },
-
-    runAddType: function(req, res) {
-        res.render('addType')
-    },
-
-    runAddCakePage: async function(req, res) {
-        var sizes = await Sizes.find({type: 'Cake'})
-        var flavors = await Flavors.find({type: 'Cake'})
-        res.render('testingwithJasper', {sizes: sizes, flavors: flavors})
-    },
-
-    addType: async function(req, res) {
-        var type = req.body.productType
-        await Types.create({type: type})
-        res.redirect('addType')
-    },
-
-
-    addFlavor: async function(req, res) {
-        var type = req.body.productType
-        var flavor = req.body.productFlavor
-        await Flavors.create({type: type, flavor:flavor})
-        res.redirect('addFlavor')
-    },
-
-    addSize: async function(req, res) {
-        var type = req.body.productType
-        var size = req.body.productSize
-        await Sizes.create({type: type, size:size})
-        res.redirect('addSize')
+    getCookiesPage: async function(req,res) {
+        var productPreview = await Images.find({})
+        res.render('products', {preview: productPreview})
     },
 
     addCake: async function(req, res) {

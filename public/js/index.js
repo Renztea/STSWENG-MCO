@@ -1,8 +1,4 @@
 $(document).ready(function() {
-    $(".menuBtn").click(function () {
-      alert(this.name);
-      window.location.replace("product.html");
-    });
 
     $(".productBox").click(function() {
       document.querySelector('.modalBackground').style.display = 'flex';
