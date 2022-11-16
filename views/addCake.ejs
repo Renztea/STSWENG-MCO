@@ -37,7 +37,7 @@
 					<div class="addProductHeader">
 					<h1>ADD CAKE</h1>
 					</div>
-					<form class="addProductForm" method="Post" enctype="multipart/form-data">
+					<form class="addProductForm" method="Post" enctype="multipart/form-data" action="/addCake">
 						<table>
 							<tr>
 								<td style="width: 22%;"><label for="productName">Cake Name:</label> </td>	
@@ -53,22 +53,24 @@
 								<td></td>
 								<td></td>								
 								<td><label for="allowDedication">Allow dedication:</label>
-								<input type="checkbox"><span class="checkmark"></span></td>
+								<input type="hidden" id="productDedication" name="productDedication" value="0">
+								<input type="checkbox" id="productDedication" name="productDedication" value="1"><span class="checkmark"></span></td>
 							</tr>
 						
 							<tr>
 								<td style="text-align: right;"><label for="productSizes">6 x 5</label> </td>
 								<td></td>								
-								<td><input type="text" id="productPrices" name="productPrices"></td>
+								<td><input type="text" id="productPricesVanilla1" name="productPricesVanilla1" value="0"></td>
 								<td></td>								
 								<td><label for="numberCake">Number Cake:</label>
-								<input type="checkbox"><span class="checkmark"></span></td>
+								<input type="hidden" id="productNumberCake" name="productNumberCake" value="0">
+								<input type="checkbox" id="productNumberCake" name="productNumberCake" value="1"><span class="checkmark"></span></td>
 							</tr>
 							
 							<tr>
 								<td style="text-align: right"><label for="productSizes">8 x 5</label> </td>								
 								<td></td>
-								<td><input type="text" id="productPrices" name="productPrices"></td>
+								<td><input type="text" id="productPricesVanilla2" name="productPricesVanilla2" value="0"></td>
 								<td></td>
 								<td></td>								
 							</tr>
@@ -85,7 +87,7 @@
 							<tr>
 								<td style="text-align: right"><label for="productSizes">6 x 5</label> </td>								
 								<td></td>
-								<td><input type="text" id="productPrices" name="productPrices"></td>
+								<td><input type="text" id="productPriceChocolate1s" name="productPricesChocolate1" value="0"></td>
 								<td></td>								
 								<td style="text-align: center"><button class="Add" id="addl">Add</button></td>
 							</tr>
@@ -93,7 +95,7 @@
 							<tr>
 								<td style="text-align: right"><label for="productSizes">8 x 5</label> </td>
 								<td></td>
-								<td><input type="text" id="productPrices" name="productPrices"></td>
+								<td><input type="text" id="productPricesChocolate2" name="productPricesChocolate2" value="0"></td>
 								<td></td>								
 								<td style="text-align: center"><button class="Cancel" id="cancel">Cancel</button></td>
 							</tr>
