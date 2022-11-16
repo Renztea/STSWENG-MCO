@@ -107,7 +107,7 @@ input[name=productName] {
 	width: 200px;
 	max-width: 100%;
 	outline: none;
-    font-size: 25px;
+    font-size: 18px;
     border-radius: 15px;
     border: 2px solid #000000;
     padding: 0px 5px;
@@ -193,6 +193,21 @@ label[for=numberCake]{
 	font-family: Poppins, sans-serif;
 }
 
+label[for=Frosting]{
+	font-size: 20px;
+    font-weight: bold;
+	color: #4A3627;
+	font-family: Poppins, sans-serif;
+}
+
+label[for=frostingType]{
+	font-size: 15px;
+    font-weight: bold;
+	color: #4A3627;
+	font-family: Poppins, sans-serif;
+	margin-left: 10px;
+}
+
 .addAnotherSize{
 	font-size:20px;
 	border: 1px solid #6F4E37;
@@ -253,8 +268,34 @@ label[for=numberCake]{
   margin: auto;
   margin-top: 200px;
   padding: 0;
-  width: 700px;
+  width: 750px;
   max-width: 100%;
   max-height: 100%;
   border: 2px solid #6F4E37;
 }
+
+.modal-content-cupcake {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  margin-top: 200px;
+  padding: 0;
+  width: 800px;
+  max-width: 100%;
+  max-height: 100%;
+  border: 2px solid #6F4E37;
+}
+
+.modal-content-cookie {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  margin-top: 200px;
+  padding: 0;
+  height: 400px;
+  width: 750px;
+  max-width: 100%;
+  max-height: 100%;
+  border: 2px solid #6F4E37;
+}
+
