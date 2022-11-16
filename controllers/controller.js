@@ -28,7 +28,7 @@ const controller = {
     },
 
     addCake: async function(req, res) {
-      
+
         const errors = validationResult(req)
 
         if (errors.isEmpty()) {

@@ -8,13 +8,13 @@ const loginValidation = [
 const addProductValidation = [
   body('productName').not().isEmpty().withMessage("Product name is required!"),
   body('productPricesVanilla1').not().isEmpty().withMessage("Price is required! If a cake does not have a specific size and flavor just put 0!")
-    .isInt({min : 0}).withMessage("Inputted price is not valid"),
+    .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
   body('productPricesVanilla2').not().isEmpty().withMessage("Price is required! If a cake does not have a specific size and flavor just put 0!")
-    .isInt({min : 0}).withMessage("Inputted price is not valid"),
+    .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
   body('productPricesChocolate1').not().isEmpty().withMessage("Price is required! If a cake does not have a specific size and flavor just put 0!")
-    .isInt({min : 0}).withMessage("Inputted price is not valid"),
+    .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
   body('productPricesChocolate2').not().isEmpty().withMessage("Price is required! If a cake does not have a specific size and flavor just put 0!")
-    .isInt({min : 0}).withMessage("Inputted price is not valid"),
+    .bail().isInt({min:0}).withMessage("Please provide a valid price"),
   //body('filename').not().isEmpty().withMessage("Product image is required!"),
 ]
 
