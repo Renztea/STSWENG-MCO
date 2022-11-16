@@ -62,34 +62,22 @@ html, body {
 }
   
 .addProductHeader{
-	width: 100%;
-	height: 100px;
-	line-height:90px;
-    background-color: #BBD1CD;
+	background-color: #FFFFFF;
 	color: #4A3627;
+	padding: 2px 16px;
+	width: 100%;
+	height: 50px;
+	margin-top: 30px;
+	border: 2px solid #6F4E37;
+	border-left: none;
+	border-right: none;
 }
+
 
 .addProductHeader h1{
-	font-size: 50px;
+	font-size: 30px;
 	text-align: center;
 	font-family: Poppins, sans-serif;
-}
-
-.addProductContainer{
-	height: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.addProductBox{
-	position: relative;
-	height: 480px;
-	width: 800px;
-    margin: 0 15px;
-    background-color: #FFFFFF;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-	border: 1px solid #000000;	
 }
 
 .addProductForm {
@@ -104,17 +92,20 @@ html, body {
 table{
 	margin-top: -20px;
 	margin-left: 30px;
-	margin-right: auto;
 	width: 100%;
+	table-layout: fixed;
 }
 
 td{
 	height: 50px;
+	max-height: 100%;
+	max-width: 100%;
 }
 
 
 input[name=productName] {
-	width: 500px;
+	width: 200px;
+	max-width: 100%;
 	outline: none;
     font-size: 25px;
     border-radius: 15px;
@@ -127,7 +118,8 @@ input[name=productName] {
 }
 
 input[name=productPrices] {
-	width: 500px;
+	width: 200px;
+	max-width: 100%;
 	outline: none;
     font-size: 25px;
     border-radius: 15px;
@@ -139,17 +131,8 @@ input[name=productPrices] {
 	font-family: Poppins, sans-serif;
 }
 
-input[name=newFlavor] {
-	width: 300px;
-	outline: none;
-    font-size: 25px;
-    border-radius: 15px;
-    border: 2px solid #000000;
-    padding: 0px 5px;
-    height: 30px;
-    margin: 8px 0;
-	border-color: #6F4E37;
-	font-family: Poppins, sans-serif;
+input[type=checkbox]:hover{
+    cursor: pointer;
 }
 
 label[for=productName]{
@@ -167,6 +150,7 @@ label[for=productFlavors]{
 }
 
 label[for=productSizes]{
+	
 	font-size: 20px;
     font-weight: bold;
 	color: #4A3627;
@@ -195,32 +179,18 @@ label[for=productTypes]{
 	font-family: Poppins, sans-serif;
 }
 
-label[for=newFlavor]{
+label[for=allowDedication]{
 	font-size: 20px;
     font-weight: bold;
 	color: #4A3627;
 	font-family: Poppins, sans-serif;
 }
 
-select[name=productFlavors]{
-	font-size:20px;
+label[for=numberCake]{
+	font-size: 20px;
+    font-weight: bold;
 	color: #4A3627;
 	font-family: Poppins, sans-serif;
-	border-color: #6F4E37;
-}
-
-select[name=productSizes]{
-	font-size:20px;
-	color: #4A3627;
-	font-family: Poppins, sans-serif;
-	border-color: #6F4E37;
-}
-
-select[name=productTypes]{
-	font-size:20px;
-	color: #4A3627;
-	font-family: Poppins, sans-serif;
-	border-color: #6F4E37;
 }
 
 .addAnotherSize{
@@ -235,33 +205,29 @@ select[name=productTypes]{
 	font-family: Poppins, sans-serif;
 }
 
-.Btn {
-    width: 100%;
-    margin-top: 30px;
-    display: flex;
-    justify-content: right;
-}
-  
-
-.Submit {
-    margin-left: 20px;
-    background-color: #95E2A6;
-	color: #4A3627;
+.Add {
+    background-color: #FFFFFF;
+	color: #3F9752;
 	font-family: Poppins, sans-serif;
+	width: 100px;
+	max-width: 100%;
+	border: 2px solid #3F9752;
 }
   
 .Cancel {
-    background-color: #E43939;
-	color: #4A3627;
+    background-color: #FFFFFF;
+	color: #BA0C16;
 	font-family: Poppins, sans-serif;
+	width: 100px;
+	max-width: 100%;
+	border: 2px solid #BA0C16;
 }
   
-.Cancel, .Submit {
+.Add, .Cancel {
     font-size: 20px;	
-    padding: 20px;
+    padding: 5px;
     border-radius: 20px;
     font-weight: bold;
-    border: none;
     cursor: pointer
 }
 
@@ -282,25 +248,13 @@ select[name=productTypes]{
 
 /* Modal Content */
 .modal-content {
+  position: relative;
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 60%;
-  border: 1px solid #000000;	
-}
-
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
+  margin-top: 200px;
+  padding: 0;
+  width: 700px;
+  max-width: 100%;
+  max-height: 100%;
+  border: 2px solid #6F4E37;
 }
