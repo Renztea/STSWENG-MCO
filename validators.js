@@ -5,5 +5,18 @@ const loginValidation = [
   body('password').not().isEmpty().withMessage("Password is required!")
 ];
 
+const addProductValidation = [
+  body('productName').not().isEmpty().withMessage("Product name is required!"),
+  body('productPricesVanilla1').not().isEmpty().withMessage("Price is required! If a cake does not have a specific size and flavor just put 0!")
+    .isInt({min : 0}).withMessage("Inputted price is not valid"),
+  body('productPricesVanilla2').not().isEmpty().withMessage("Price is required! If a cake does not have a specific size and flavor just put 0!")
+    .isInt({min : 0}).withMessage("Inputted price is not valid"),
+  body('productPricesChocolate1').not().isEmpty().withMessage("Price is required! If a cake does not have a specific size and flavor just put 0!")
+    .isInt({min : 0}).withMessage("Inputted price is not valid"),
+  body('productPricesChocolate2').not().isEmpty().withMessage("Price is required! If a cake does not have a specific size and flavor just put 0!")
+    .isInt({min : 0}).withMessage("Inputted price is not valid"),
+  //body('filename').not().isEmpty().withMessage("Product image is required!"),
+]
 
-module.exports = { loginValidation };
+
+module.exports = { loginValidation , addProductValidation};

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const productInfoSchema = new mongoose.Schema ({
+    /*
     name: {
         type: String,
         required: true
@@ -17,7 +18,19 @@ const productInfoSchema = new mongoose.Schema ({
         type: Boolean,
         required: true
     }
-
+    */
+    size: {
+        type: String,
+        required: true
+    },
+    flavor: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: String,
+        required: true
+    },
 
 })
 

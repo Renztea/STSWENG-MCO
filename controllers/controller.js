@@ -1,6 +1,7 @@
 const path = require('path')
-const Products = require('../models/product')
-const Info = require('../models/productInfo')
+const Products = require('../models/testingProduct')
+const { validationResult } = require('express-validator');
+// const Info = require('../models/testingProduct')
 
 const controller = {
 
@@ -26,44 +27,39 @@ const controller = {
     },
 
     addCake: async function(req, res) {
-        /*var productName = req.body.productName
-        var productPrice = req.body.productPrices
-        var productType = 'Cake'
-        var productFlavor = req.body.productFlavors
-        var productSize = req.body.productSizes
-        if (await Products.findOne({name: productName}) == null) {
+      
+        const errors = validationResult(req)
+
+        if (errors.isEmpty()) {
+            var productName = req.body.productName
+            var productType = 'Cake'
+            var productInfo = [
+                {size: '6" x 5"', flavor: 'Vanilla', price: req.body.productPricesVanilla1},
+                {size: '8" x 5"', flavor: 'Vanilla', price: req.body.productPricesVanilla2},
+                {size: '6" x 5"', flavor: 'Chocolate', price: req.body.productPricesChocolate1},
+                {size: '8" x 5"', flavor: 'Chocolate', price: req.body.productPricesChocolate2},
+            ]
+            var productDedication = req.body.productDedication
+                if (productDedication == null) {
+                    productDedication = '0'
+                }
+            var productNumberCake = req.body.productNumberCake
+                if (productNumberCake == null) {
+                    productNumberCake = '0'
+                }
             const image = req.files.filename
+            console.log(image)
             var imagePath = '/images/' + image.name;
             image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
-            Products.create({name:productName, type: productType, price:productPrice, size:productSize, flavor:productFlavor})
-            Images.create({name: productName, image:imagePath})
-        })} else {
-            Products.create({name:productName, type: productType, price:productPrice, size:productSize, flavor:productFlavor})
+                Products.create({name: productName, info: productInfo, type: productType, image: imagePath, dedication: productDedication, numbercake: productNumberCake})
+            })
+            res.redirect('addCake')
+        } else {
+            const messages = errors.array().map((item) => item.msg);
+            req.flash('error_msg', messages.join("\r\n"));
+            res.redirect('addCake');
         }
-        res.redirect('addCake')*/
-
-        var productName = req.body.productName
-        var productType = 'Cake'
-        var productFlavor1 = 'Vanilla'
-        var productFlavor2 = 'Chocolate'
-        var productSize1 = '6" x 5"'
-        var productSize2 = '8" x 5"'
-        var productPricesVanilla1 = req.body.productPricesVanilla1
-        var productPricesVanilla2 = req.body.productPricesVanilla2
-        var productPricesChocolate1 = req.body.productPricesChocolate1
-        var productPricesChocolate2 = req.body.productPricesChocolate2
-        var productDedication = req.body.productDedication
-        var productNumberCake = req.body.productNumberCake
-        const image = req.files.filename
-        var imagePath = '/images/' + image.name;
-        image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
-            Products.create({name:productName, type: productType, size: productSize1, flavor:productFlavor1, price:productPricesVanilla1})
-            Products.create({name:productName, type: productType, size: productSize2, flavor:productFlavor1, price:productPricesVanilla2})
-            Products.create({name:productName, type: productType, size: productSize1, flavor:productFlavor2, price:productPricesChocolate1})
-            Products.create({name:productName, type: productType, size: productSize2, flavor:productFlavor2, price:productPricesChocolate2})
-            Info.create({name: productName, image:imagePath, dedication:productDedication, numbercake:productNumberCake})
-        })
-        res.redirect('addCake')
+        
     },
 
 }   
