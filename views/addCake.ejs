@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <title>Add Cake Page</title>
-        <link href="../css/addProduct.css" rel="stylesheet" type="text/css" />
+        <link href="addProduct.css" rel="stylesheet" type="text/css" />
         <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
     </head>
 
@@ -37,14 +37,13 @@
 					<div class="addProductHeader">
 					<h1>ADD CAKE</h1>
 					</div>
-					<%- include("partials/messages") %>
-					<form class="addProductForm" method="Post" enctype="multipart/form-data" action="/addCake">
+					<form class="addProductForm" method="Post" enctype="multipart/form-data">
 						<table>
 							<tr>
-								<td style="width: 22%;"><label for="productName">Cake Name:</label> </td>	
+								<td style="width: 20%;"><label for="productName">Cake Name:</label> </td>	
 								<td style="width: 3%;"></td>
-								<td style="width: 20%;"><input type="text" id="productName" name="productName"></td>
-								<td style="text-align: center; width: 22%;"><label for="productPictures">Image:</label></td>								
+								<td style="width: 25%;"><input type="text" id="productName" name="productName"></td>
+								<td style="text-align: center; width: 17%;"><label for="productPictures">Image:</label></td>								
 								<td><input type="file" id="myFile" name="filename" ></td>
 							</tr>
 						
@@ -54,22 +53,22 @@
 								<td></td>
 								<td></td>								
 								<td><label for="allowDedication">Allow dedication:</label>
-								<input type="checkbox" id="productDedication" name="productDedication" value="1"><span class="checkmark"></span></td>
+								<input type="checkbox"><span class="checkmark"></span></td>
 							</tr>
 						
 							<tr>
 								<td style="text-align: right;"><label for="productSizes">6 x 5</label> </td>
 								<td></td>								
-								<td><input type="number" id="productPricesVanilla1" name="productPricesVanilla1" value="0"></td>
+								<td><input type="number" id="productPrices" name="productPrices"></td>
 								<td></td>								
 								<td><label for="numberCake">Number Cake:</label>
-								<input type="checkbox" id="productNumberCake" name="productNumberCake" value="1"><span class="checkmark"></span></td>
+								<input type="checkbox"><span class="checkmark"></span></td>
 							</tr>
 							
 							<tr>
 								<td style="text-align: right"><label for="productSizes">8 x 5</label> </td>								
 								<td></td>
-								<td><input type="number" id="productPricesVanilla2" name="productPricesVanilla2" value="0"></td>
+								<td><input type="number" id="productPrices" name="productPrices"></td>
 								<td></td>
 								<td></td>								
 							</tr>
@@ -86,7 +85,7 @@
 							<tr>
 								<td style="text-align: right"><label for="productSizes">6 x 5</label> </td>								
 								<td></td>
-								<td><input type="number" id="productPriceChocolate1s" name="productPricesChocolate1" value="0"></td>
+								<td><input type="number" id="productPrices" name="productPrices"></td>
 								<td></td>								
 								<td style="text-align: center"><button class="Add" id="addl">Add</button></td>
 							</tr>
@@ -94,7 +93,7 @@
 							<tr>
 								<td style="text-align: right"><label for="productSizes">8 x 5</label> </td>
 								<td></td>
-								<td><input type="number" id="productPricesChocolate2" name="productPricesChocolate2" value="0"></td>
+								<td><input type="number" id="productPrices" name="productPrices"></td>
 								<td></td>								
 								<td style="text-align: center"><button class="Cancel" id="cancel">Cancel</button></td>
 							</tr>
