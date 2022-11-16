@@ -24,51 +24,91 @@
 			</div>
 		</div>
 		
-		<div class="addProductContainer" style="height:520px;">
-			<div class="addProductBox"  style="height:400px;">
-				<div class="addProductHeader">
-					<h1>ADD COOKIE</h1>
-				</div>
+		<!-- Trigger/Open The Modal -->
+		<button id="myBtn">Open Add Cookie</button>
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+			<div class="modal-content-cookie" style="background-color: #EBD8DB;">
+				<span class="close"></span>
+					<div class="addProductHeader">
+						<h1>ADD COOKIE</h1>
+					</div>
 					<form class="addProductForm" method="Post" enctype="multipart/form-data">
-					<table>
-						<tr>
-							<td><label for="productName">Cookie Name:</label> </td>
-							<td><input type="text" id="productName" name="productName"></td>
-						</tr>
-						
-						<tr>
-						</tr>
-					
-						<tr>
-						<td><label for="productPrices">Price:</label></td>
-						<td><input type="number" id="productPrices" name="productPrices"></td>
-						</tr>
-					
-						<tr>
-						</tr>
-					
-						<tr>
-						<td><label for="productPictures">Image:</label></td>
-						<td><input type="file" id="myFile" name="filename" ></td>
-						</tr>
-						</tr>
-						
 						<table>
 							<tr>
-								<div class="Btn">
-									<td style="height: 130px; width: 420px;"></td>
-									<td><button class="Cancel" id="cancel">CANCEL</button>
-									<button class ="Submit" id="order">SUBMIT</button></td>
-								</div>
+								<td style="width: 20%;"><label for="productName">Cake Name:</label> </td>	
+								<td style="width: 3%;"></td>
+								<td style="width: 25%;"><input type="text" id="productName" name="productName"></td>
+								<td style="text-align: center; width: 17%;"><label for="productPictures">Image:</label></td>								
+								<td><input type="file" id="myFile" name="filename" ></td>
+							</tr>
+						
+							<tr>
+								<td><label for="productFlavors">Butter Cookie</label></td>
+								<td></td>
+								<td></td>
+								<td></td>								
+								<td><label for="allowDedication">Allow dedication:</label>
+								<input type="checkbox"><span class="checkmark"></span></td>
+							</tr>
+						
+							<tr>
+								<td style="text-align: right;"><label for="productSizes">One Dozen</label> </td>
+								<td></td>								
+								<td><input type="number" id="productPrices" name="productPrices"></td>
+								<td></td>								
+								<td></td>
+							</tr>
+							
+							<tr>
+								<td></td>								
+								<td></td>
+								<td></td>
+								<td></td>
+								<td style="text-align: center"><button class="Add" id="addl">Add</button></td>								
+							</tr>
+							
+							<tr>
+								<td></td>								
+								<td></td>
+								<td></td>
+								<td></td>
+								<td style="text-align: center"><button class="Cancel" id="cancel">Cancel</button></td>														
 							</tr>
 						</table>
-					</table>
 					</form>
 			</div>
 		</div>
-	</body>
 
 	<script>
+		// Get the modal
+		var modal = document.getElementById("myModal");
+
+		// Get the button that opens the modal
+		var btn = document.getElementById("myBtn");
+
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+
+		// When the user clicks the button, open the modal 
+		btn.onclick = function() {
+		  modal.style.display = "block";
+		}
+
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+		  modal.style.display = "none";
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+		  if (event.target == modal) {
+			modal.style.display = "none";
+		  }
+		}
 		$(document).ready(function() {
 			// Adds another textbox for additional flavor inputs
 			$(".addAnotherFlavor").click(function () {
