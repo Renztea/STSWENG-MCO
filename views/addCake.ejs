@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <title>Add Cake Page</title>
-        <link href="addProduct.css" rel="stylesheet" type="text/css" />
+        <link href="../css/addProduct.css" rel="stylesheet" type="text/css" />
         <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
     </head>
 
@@ -37,7 +37,8 @@
 					<div class="addProductHeader">
 					<h1>ADD CAKE</h1>
 					</div>
-					<form class="addProductForm" method="Post" enctype="multipart/form-data">
+					<%- include("partials/messages") %>
+					<form action="/addCake" class="addProductForm" method="Post" enctype="multipart/form-data">
 						<table>
 							<tr>
 								<td style="width: 20%;"><label for="productName">Cake Name:</label> </td>	
