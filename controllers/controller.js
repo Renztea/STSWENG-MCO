@@ -1,5 +1,5 @@
 const path = require('path')
-const Products = require('../models/testingProduct')
+const Products = require('../models/product')
 const { validationResult } = require('express-validator');
 // const Info = require('../models/testingProduct')
 
@@ -18,7 +18,8 @@ const controller = {
     },
 
     getProductPage: async function(req, res) {
-        var productPreview = await Images.find({name: 'Jasper', image:'/images/basket.png'})
+        var productType = req.params.type
+        var productPreview = await Products.find({type: productType})
         res.render('products', {preview: productPreview})
     },
 
