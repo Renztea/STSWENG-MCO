@@ -7,13 +7,15 @@ const Cookie = require('../models/cookie')
 const controller = {
 
     getIndexPage: function(req, res) {
-        res.render('index')
-    },
-
-    getMainPage: function(req, res) {
         res.render('main')
     },
 
+    /*
+    getMainPage: function(req, res) {
+        res.render('main')
+    },
+    */
+   
     getAdminPage: function(req, res) {
         res.render('login')
     },
