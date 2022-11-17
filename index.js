@@ -15,9 +15,9 @@ const authRouter = require('./routes/auth');
 // Sessions
 const session = require('express-session');
 const connectMongo = require('connect-mongo');
+const MongoStore = require('connect-mongo');
 // Error Messages
 const flash = require('connect-flash');
-const MongoStore = require('connect-mongo');
 
 const app = express();
 

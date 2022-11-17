@@ -12,9 +12,13 @@ html, body {
   margin: 0;
 }
 
+a {
+  text-decoration: none
+}
+
 /* Start - Home Page Background */
 .homePage {
-    background: url(images/HomePage.png) fixed;    
+    background: url(../images/homebackground.png) fixed;    
     background-repeat: no-repeat;    
     background-size: 100% 100%;
     position: relative;
@@ -141,7 +145,7 @@ html, body {
 
 /* Start - Login Page */
 .loginPage {
-  background: url(images/loginbackground.png) fixed;    
+  background: url(../images/loginbackground.png) fixed;    
   background-repeat: no-repeat;    
   background-size: 100% 100%;
   position: relative;
