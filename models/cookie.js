@@ -13,6 +13,10 @@ const cookieSchema = new mongoose.Schema ({
         type: String,
         required: true
     },
+    design: {
+        type: Boolean,
+        required: true
+    }
 })
 
 module.exports = mongoose.model('cookie', cookieSchema)

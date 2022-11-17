@@ -33,8 +33,16 @@ const controller = {
         res.render('products', {preview: productPreview})
     },
 
-    getAddCakePage: async function(req, res) {
+    adminCakePage: async function(req, res) {
         res.render('addCake')
+    },
+
+    adminCupcakePage: async function(req, res) {
+        res.render('addCupcake')
+    },
+
+    adminCookiePage: async function(req, res) {
+        res.render('addCookie')
     },
 
     addCake: async function(req, res) {
@@ -42,7 +50,7 @@ const controller = {
         const errors = validationResult(req)
 
         if (errors.isEmpty()) {
-            var productName = req.body.productName
+            var productName = (req.body.productName).trim()
             var productVanilla6x5price = req.body.productPricesVanilla1
             var productVanilla8x5price = req.body.productPricesVanilla2
             var productChocolate6x5price = req.body.productPricesChocolate1
@@ -60,20 +68,81 @@ const controller = {
             image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
                 Cake.create({
                     name: productName, 
-                    vanilla6x5price: productVanilla6x5price,
-                    vanilla8x5price: productVanilla8x5price,
-                    chocolate6x5price: productChocolate6x5price,
-                    chocolate8x5price: productChocolate8x5price,
+                    vanilla6x5Price: productVanilla6x5price,
+                    vanilla8x5Price: productVanilla8x5price,
+                    chocolate6x5Price: productChocolate6x5price,
+                    chocolate8x5Price: productChocolate8x5price,
                     image: imagePath,
                     dedication: productDedication,
-                    numbercake: productNumberCake
+                    numberCake: productNumberCake
                 })
             })
-            res.redirect('addCake')
+            res.redirect('admin/addCake')
         } else {
             const messages = errors.array().map((item) => item.msg);
             req.flash('error_msg', messages[0]);
-            res.redirect('addCake');
+            res.redirect('admin/addCake');
+        }
+        
+    },
+
+    addCupcake: async function(req, res) {
+
+        const errors = validationResult(req)
+
+        if (errors.isEmpty()) {
+            var productName = (req.body.productName).trim()
+            var productVanilla = req.body.productPricesVanilla
+            var productChocolate = req.body.productPricesChocolate
+            var productRedVelvet = req.body.productPricesRedVelvet
+            var productFrosting = req.body.productFrosting
+            const image = req.files.filename
+            var imagePath = '/images/' + image.name;
+            image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
+                Cupcake.create({
+                    name: productName, 
+                    vanillaPrice: productVanilla,
+                    chocolatePrice: productChocolate,
+                    redvelvetPrice: productRedVelvet,
+                    frosting: productFrosting,
+                    image: imagePath,
+                })
+            })
+            res.redirect('admin/addCupcake')
+        } else {
+            const messages = errors.array().map((item) => item.msg);
+            req.flash('error_msg', messages[0]);
+            res.redirect('admin/addCupcake');
+        }
+        
+    },
+
+    addCookie: async function(req, res) {
+
+        const errors = validationResult(req)
+
+        if (errors.isEmpty()) {
+            var productName = (req.body.productName).trim()
+            var productPrices = req.body.productPrices
+            var productDesign = req.body.productDesign
+                if (productDesign == null) {
+                    productDesign = '0'
+                }
+            const image = req.files.filename
+            var imagePath = '/images/' + image.name;
+            image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
+                Cookie.create({
+                    name: productName, 
+                    price: productPrices,
+                    image: imagePath,
+                    design: productDesign, 
+                })
+            })
+            res.redirect('admin/addCookie')
+        } else {
+            const messages = errors.array().map((item) => item.msg);
+            req.flash('error_msg', messages[0]);
+            res.redirect('admin/addCookie');
         }
         
     },

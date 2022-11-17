@@ -5,19 +5,23 @@ const cupcakeSchema = new mongoose.Schema ({
         type: String,
         required: true
     },
-    vanilla3ouncesprice: {
+    vanillaPrice: {
         type: Number,
         required: true
     },
-    chocolate3ouncesprice: {
+    chocolatePrice: {
         type: Number,
         required: true
     },
-    redvelvet3ouncesprice: {
+    redvelvetPrice: {
         type: Number,
         required: true
     },
     image: {
+        type: String,
+        required: true
+    },
+    frosting: {
         type: String,
         required: true
     },

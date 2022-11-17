@@ -5,19 +5,19 @@ const cakeSchema = new mongoose.Schema ({
         type: String,
         required: true
     },
-    vanilla6x5price: {
+    vanilla6x5Price: {
         type: Number,
         required: true
     },
-    vanilla8x5price: {
+    vanilla8x5Price: {
         type: Number,
         required: true
     },
-    chocolate6x5price: {
+    chocolate6x5Price: {
         type: Number,
         required: true
     },
-    chocolate8x5price: {
+    chocolate8x5Price: {
         type: Number,
         required: true
     },
@@ -29,7 +29,7 @@ const cakeSchema = new mongoose.Schema ({
         type: Boolean,
         required: true
     },
-    numbercake: {
+    numberCake: {
         type: Boolean,
         required: true
     }

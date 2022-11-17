@@ -27,10 +27,11 @@
 					<div class="addProductHeader">
 						<h1>ADD COOKIE</h1>
 					</div>
-					<form action"=/addCookie" class="addProductForm" method="Post" enctype="multipart/form-data">
+					<%- include("partials/messages") %>
+					<form action="/addCookie" class="addProductForm" method="Post" enctype="multipart/form-data">
 						<table>
 							<tr>
-								<td style="width: 20%;"><div class="productCss"><label for="productName">Cake Name:</label></div></td>	
+								<td style="width: 20%;"><div class="productCss"><label for="productName">Cookie Name:</label></div></td>	
 								<td style="width: 3%;"></td>
 								<td style="width: 25%;"><input class="input" type="text" id="productName" name="productName"></td>
 								<td style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
@@ -43,7 +44,7 @@
 								<td></td>
 								<td></td>								
 								<td><div class="productCss"><label for="numberOfDesigns">Number of Designs:</label>
-								<input class="inputCheckbox" type="checkbox"><span class="checkmark"></span></div></td>
+								<input class="inputCheckbox" type="checkbox" name="productDesign" value="1"><span class="checkmark"></span></div></td>
 							</tr>
 						
 							<tr>
@@ -59,7 +60,7 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td style="text-align: center"><button class="Add" id="addl">Add</button></td>								
+								<td style="text-align: center"><button type="submit" class="Add" id="addl">Add</button></td>								
 							</tr>
 							
 							<tr>
@@ -67,7 +68,7 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td style="text-align: center"><button class="Cancel" id="cancel">Cancel</button></td>														
+								<td style="text-align: center"><button type="button" class="Cancel" id="cancel">Cancel</button></td>														
 							</tr>
 						</table>
 					</form>
@@ -100,44 +101,5 @@
 			modal.style.display = "none";
 		  }
 		}
-		$(document).ready(function() {
-			// Adds another textbox for additional flavor inputs
-			$(".addAnotherFlavor").click(function () {
-				var inputFlavor = document.createElement("input");
-            	inputFlavor.className="flavors";
-				inputFlavor.name="flavors"
-				inputFlavor.type="text"
-				inputFlavor.required = true
-				$(".productFlavors").append(inputFlavor)
-				$(".productFlavors").append("<br>")
-			});
-			
-			// Adds another textbox for additional size inputs
-			$(".addAnotherSize").click(function () {
-				var inputSize = document.createElement("input");
-            	inputSize.className="sizes";
-				inputSize.name="sizes"
-				inputSize.type="text"
-				inputSize.required = true
-				$(".productSizes").append(inputSize)
-				$(".productSizes").append("<br>")
-				console.log('Remove last Flavor')
-			});
-			
-			// Deletes the most recent added flavor textbox
-			$(".deleteLastFlavor").click(function () {
-				if ($(".flavors").length > 1) {
-					$(".productFlavors").find(".flavors:last").remove();
-					$(".productFlavors").find("br:last").remove();
-				}
-			});
-			// Deletes the most recent added size textbox
-			$(".deleteLastSize").click(function () {
-				if ($(".sizes").length > 1) {
-					$(".productSizes").find(".sizes:last").remove();
-					$(".productSizes").find("br:last").remove();
-				} 
-			});
-    	});
 	</script>
 </html>	
