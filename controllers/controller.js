@@ -1,8 +1,8 @@
 const path = require('path')
-const Products = require('../models/product')
 const { validationResult } = require('express-validator');
-// const Info = require('../models/testingProduct')
-const Cakes = require('../models/cake')
+const Cake = require('../models/cake')
+const Cupcake = require('../models/cupcake')
+const Cookie = require('../models/cookie')
 
 const controller = {
 
@@ -20,7 +20,14 @@ const controller = {
 
     getProductPage: async function(req, res) {
         var productType = req.params.type
-        var productPreview = await Products.find({type: productType})
+        if (productType == 'Cake') {
+            var productPreview = await Cake.find({})
+        } else if (productType == 'Cupcake') {
+            var productPreview = await Cupcake.find({})
+        } else {
+            var productPreview = await Cookie.find({})
+        }
+        
         res.render('products', {preview: productPreview})
     },
 
@@ -34,7 +41,6 @@ const controller = {
 
         if (errors.isEmpty()) {
             var productName = req.body.productName
-            var productType = 'Cake'
             var productVanilla6x5price = req.body.productPricesVanilla1
             var productVanilla8x5price = req.body.productPricesVanilla2
             var productChocolate6x5price = req.body.productPricesChocolate1
@@ -48,12 +54,10 @@ const controller = {
                     productNumberCake = '0'
                 }
             const image = req.files.filename
-            console.log(image)
             var imagePath = '/images/' + image.name;
             image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
-                Cakes.create({
+                Cake.create({
                     name: productName, 
-                    type: productType, 
                     vanilla6x5price: productVanilla6x5price,
                     vanilla8x5price: productVanilla8x5price,
                     chocolate6x5price: productChocolate6x5price,
