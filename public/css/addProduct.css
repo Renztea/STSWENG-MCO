@@ -1,79 +1,62 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
 * {
-    	margin: 0;
-    	padding: 0;
-    	box-sizing: border-box;
-}
-
-a {
-    	text-decoration: none
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
   
+  
 html, body {
-    	height: 100%;
-    	width: 100%;
-   	margin: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
 }
 
 .logo {
-    	margin-left: 100px;
-    	position: absolute;
-    	top: 50%;
-    	-ms-transform: translateY(-50%);
-    	transform: translateY(-50%);
-}
-
-.picture {
-	margin: 20px 50px;
-	width: 150px;
-	height: 250px;
-	border: 2px solid #6F4E37;
-}
-
-.picture img{
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	border: 2px solid #6F4E37;
+    margin-left: 100px;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 .mainBackground {
-    	background-color: #EBD8DB;      
+    background-color: #EBD8DB;      
 }
 
 .header {
-    	height: 150px;
-   	width: 100%;
-    	display: flex;
-    	position: relative;
+    height: 150px;
+    width: 100%;
+    display: flex;
+    position: relative;
 }
 
 .menu {
-    	margin-left: 600px;
-    	display: flex;
-    	position: absolute;
-    	top: 50%;
-    	-ms-transform: translateY(-50%);
-    	transform: translateY(-50%);
+    margin-left: 600px;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 .menuBtn {
-    	background-color:#EBD8DB;
-    	margin-left: 10px;
-    	padding: 0px 30px;
-    	text-decoration: none;
+    background-color:#EBD8DB;
+    margin-left: 10px;
+    padding: 0px 30px;
+    text-decoration: none;
 	border: none;
 	border-radius: 50px;
-    	font-family: Poppins;
-    	font-size: 18px;
-    	color: #4A3627;
-    	height: 50px;
+    font-family: Poppins;
+    font-size: 18px;
+    color: #4A3627;
+    height: 50px;
 }
 
 .menuBtn:hover {
-    	background-color:#DF7E85;
-    	transition: 0.5s;
+    background-color:#DF7E85;
+    transition: 0.5s;
 	cursor: pointer;
 }
   
@@ -96,31 +79,15 @@ html, body {
 	font-family: Poppins, sans-serif;
 }
 
-.addProductBox{
-	margin: 100px 150px;
-	width: 80%;
-	height: 80%;
-	overflow: auto;
-	border: 2px solid #6F4E37;
-}
-.addProductForm {
-    	width: 100%;
-	padding: 30px;
-    	display: flex;
-    	align-items: center;
-    	justify-content: center;
-    	flex-wrap: wrap;
-	overflow: auto;
-}
 
-.addProductCard{
-	margin: 20px;
-	width: 250px;
-	height: 500px;
-	max-width: 100%;
-	max-height: 100%;
-	background-color: #FFFFFF;
-	border: 2px solid #6F4E37;
+.addProductForm {
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+	overflow: auto;
 }
 
 table{
@@ -131,7 +98,6 @@ table{
 }
 
 td{
-	height: 50px;
 	max-height: 100%;
 	max-width: 100%;
 }
@@ -141,12 +107,12 @@ td{
 	width: 200px;
 	max-width: 100%;
 	outline: none;
-   	font-size: 18px;
-    	border-radius: 15px;
-    	border: 2px solid #000000;
-    	padding: 0px 5px;
-    	height: 30px;
-    	margin: 8px 0;
+    font-size: 18px;
+    border-radius: 15px;
+    border: 2px solid #000000;
+    padding: 0px 5px;
+    height: 30px;
+    margin: 8px 0;
 	border-color: #6F4E37;
 	font-family: Poppins, sans-serif;
 }
@@ -156,18 +122,24 @@ td{
     cursor: pointer;
 }
 
-.productCss{
+.productCss, .nameCss{
 	font-size: 20px;
-   	font-weight: bold;
+    font-weight: bold;
 	color: #4A3627;
 	font-family: Poppins, sans-serif;
 }
 
-.frostingCss{
+.frostingCss, .choicesCss{
 	font-size: 14px;
-    	font-weight: bold;
+    font-weight: bold;
 	color: #4A3627;
 	font-family: Poppins, sans-serif;
+}
+
+.nameCss{
+	display: flex;
+	justify-content: center;
+	margin: 5px 15px;
 }
 
 .Add {
@@ -189,63 +161,63 @@ td{
 }
   
 .Add, .Cancel {
-    	font-size: 20px;	
-    	padding: 5px;
-    	border-radius: 20px;
-    	font-weight: bold;
-    	cursor: pointer
+    font-size: 20px;	
+    padding: 5px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer
 }
 
 /* The Modal (background) */
 .modal {
-  	display: none; /* Hidden by default */
-  	position: fixed; /* Stay in place */
-  	z-index: 1; /* Sit on top */
-  	padding-top: 100px; /* Location of the box */
-  	left: 0;
-  	top: 0;
-  	width: 100%; /* Full width */
-  	height: 100%; /* Full height */
-  	overflow: auto; /* Enable scroll if needed */
-  	background-color: rgb(0,0,0); /* Fallback color */
-  	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 /* Modal Content */
 .modal-content {
-  	position: relative;
-  	background-color: #fefefe;
-  	margin: auto;
-  	margin-top: 200px;
-  	padding: 0;
-  	width: 750px;
-  	max-width: 100%;
-  	max-height: 100%;
-  	border: 2px solid #6F4E37;
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  margin-top: 200px;
+  padding: 0;
+  width: 750px;
+  max-width: 100%;
+  max-height: 100%;
+  border: 2px solid #6F4E37;
 }
 
 .modal-content-cupcake {
-  	position: relative;
-  	background-color: #fefefe;
-  	margin: auto;
-  	margin-top: 200px;
-  	padding: 0;
-  	width: 850px;
-  	max-width: 100%;
-  	max-height: 100%;
-  	border: 2px solid #6F4E37;
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  margin-top: 200px;
+  padding: 0;
+  width: 850px;
+  max-width: 100%;
+  max-height: 100%;
+  border: 2px solid #6F4E37;
 }
 
 .modal-content-cookie {
-  	position: relative;
-  	background-color: #fefefe;
-  	margin: auto;
-  	margin-top: 200px;
-  	padding: 0;
-  	height: 400px;
-  	width: 800px;
-  	max-width: 100%;
-  	max-height: 100%;
-  	border: 2px solid #6F4E37;
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  margin-top: 200px;
+  padding: 0;
+  height: 400px;
+  width: 800px;
+  max-width: 100%;
+  max-height: 100%;
+  border: 2px solid #6F4E37;
 }
 
