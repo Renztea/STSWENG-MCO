@@ -11,8 +11,17 @@
 
 	<body class="mainBackground">
 		<div class="header">
-			<%- include("partials/logo") %>
-			<%- include("partials/menubuttons") %>
+			<div class="logo">
+                <img src="logo.png" placeholder="G-Cakes Logo" alt="1">
+            </div>
+		
+			<div class="menu">
+				<button class="menuBtn">CAKES</button>
+				<button class="menuBtn">CUPCAKES</button>
+				<button class="menuBtn">DECORATED COOKIES</button>
+				<button class="menuBtn">ABOUT</button>
+				<button class="menuBtn">ORDERS</button>
+			</div>
 		</div>
 		
 		<button id="myBtn">Open Add Cucake</button>
@@ -29,33 +38,33 @@
 					<form class="addProductForm" method="Post" enctype="multipart/form-data">
 						<table>
 							<tr>
-								<td style="width: 22%;"><label for="productName">Cupcake Name:</label> </td>	
+								<td style="width: 22%;"><div class="productCss"><label for="productName">Cupcake Name:</label></div></td>	
 								<td style="width: 3%;"></td>
-								<td style="width: 25%;"><input type="text" id="productName" name="productName"></td>
-								<td style="text-align: center; width: 17%;"><label for="productPictures">Image:</label></td>								
+								<td style="width: 25%;"><input class="input" type="text" id="productName" name="productName"></td>
+								<td style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
 								<td><input type="file" id="myFile" name="filename" ></td>
 							</tr>
 						
 							<tr>
-								<td><label for="productFlavors">Vanilla</label></td>
+								<td><div class="productCss"><label for="productFlavors">Vanilla</label></div></td>
 								<td></td>
 								<td></td>
-								<td style="text-align: center;"><label for="Frosting">Frosting:</label></td>								
-								<td><label for="frostingType">Fondant:</label>
-								<input type="checkbox"><span class="checkmark"></span><label for="frostingType">Icing:</label>
-								<input type="checkbox"><span class="checkmark"></span></td>
+								<td style="text-align: center;"><div class="productCss"><label for="Frosting">Frosting:</label></div></td>								
+								<td><div class="frostingCss"><label for="frostingType">Fondant:</label>
+								<input class="inputCheckbox" type="checkbox"><span class="checkmark"></span></div><div class="frostingCss"><label for="frostingType">Icing:</label>
+								<input class="inputCheckbox" type="checkbox"><span class="checkmark"></span></div></td>
 							</tr>
 						
 							<tr>
-								<td style="text-align: right;"><label for="productSizes">One Dozen</label> </td>
+								<td style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>
 								<td></td>								
-								<td><input type="number" id="productPrices" name="productPrices"></td>
+								<td><input class="input" type="number" id="productPrices" name="productPricesVanilla"></td>
 								<td></td>								
 								<td></td>
 							</tr>				
 						
 							<tr>
-								<td><label for="productFlavors">Chocolate</label> </td>								
+								<td><div class="productCss"><label for="productFlavors">Chocolate</label></div></td>								
 								<td></td>
 								<td></td>
 								<td></td>
@@ -64,15 +73,15 @@
 							</tr>
 							
 							<tr>
-								<td style="text-align: right"><label for="productSizes">One Dozen</label> </td>								
+								<td style="text-align: right"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>								
 								<td></td>
-								<td><input type="number" id="productPrices" name="productPrices"></td>
+								<td><input class="input" type="number" id="productPrices" name="productPricesChocolate"></td>
 								<td></td>								
 								<td></td>
 							</tr>
 							
 							<tr>
-								<td><label for="productFlavors">Red Velvet</label> </td>								
+								<td><div class="productCss"><label for="productFlavors">Red Velvet</label></div></td>								
 								<td></td>
 								<td></td>
 								<td></td>
@@ -81,9 +90,9 @@
 							</tr>
 							
 							<tr>
-								<td style="text-align: right"><label for="productSizes">One Dozen</label> </td>
+								<td style="text-align: right"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>
 								<td></td>
-								<td><input type="number" id="productPrices" name="productPrices"></td>
+								<td><input class="input" type="number" id="productPrices" name="productPricesRedVelvet"></td>
 								<td></td>								
 								<td style="text-align: center"><button class="Cancel" id="cancel">Cancel</button></td>
 							</tr>
