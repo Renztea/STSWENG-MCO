@@ -44,9 +44,9 @@
             <% if (category != "CANCELLED" && category != "PICKEDUP") { %>
             <td class="orderTableInfo" data-label="Action">
                 <% if (order.status == "UNPAID") { %>
-                    <button class="orderStatusBtn"></button>PAID</button>
+                    <button class="orderStatusBtn">PAID</button>
                 <% } else if (order.status == "PAID") { %>
-                    <button class="orderStatusBtn"></button>PICKED UP</button>
+                    <button class="orderStatusBtn">PICKED UP</button>
                 <% } %>
             </td>
             <% } %>
