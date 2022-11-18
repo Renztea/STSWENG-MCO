@@ -147,6 +147,45 @@ const controller = {
         
     },
 
+    getOrdersPage: async function(req, res) { //Added Here(John)
+        var category = req.params.category
+        var pageNumber = req.params.numberPage
+        var orders;
+        var orderCount;
+        var offSet = 0;
+
+        if(pageNumber > 0) {
+          offSet = pageNumber - 1;
+        }
+
+        orderCount = 2;
+
+        orders = [{orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022001",
+                    name: "Jeff", cellphoneNo: "0123456789", price: "1000", status: "UNPAID"}, 
+                {orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022002",
+                name: "Josh", cellphoneNo: "0123456789", price: "2000", status: "PAID"}]
+        /*
+        if (category == 'All') {
+            orders = Orders.find({}).limit(5).skip(5 * offSet)
+            orderCount = Orders.find({}).count()
+        } else {
+            orders = Orders.find({"Status": category}).limit(5).skip(5 * offSet)
+          orderCount = Orders.find({"Status": category}).count()
+        }
+        */
+
+        if(pageNumber > 0) {
+          var options = "cache";
+          var dir = path.join(__dirname, '../views/partials/');
+          
+          ejs.renderFile(dir + 'orderList.ejs', orders, options, function(err, str) {       
+              res.send(str);
+          });
+        } else {
+          res.render('order', {orderList: orders, count: orderCount, category: category})
+        }
+    }
+
 }   
 
 module.exports = controller

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Order page</title>
+        
+        <link href="../css/order.css" rel="stylesheet" type="text/css" />
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+    </head>
+
+    <body class="mainBackground">
+        <div class="orderContainer">
+            <div class="orderNavigation">
+                <span class="orderNavigationItem">ALL</span>
+                <span class="orderNavigationItem">UNPAID</span>
+                <span class="orderNavigationItem">PICKEDUP</span>
+                <span class="orderNavigationItem">RECIEVED</span>
+                <span class="orderNavigationItem">CANCELED</span>
+            </div>
+
+            <div class="orderDataContainer">
+                <%- include("partials/orderList") %>
+                <div class="pagination">
+                    <li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
+                    <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+                    <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
+                    <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+                    <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
+                    <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>
+                </div>
+            </div>
+        </div>
+    
+    </body>
+
+</html>

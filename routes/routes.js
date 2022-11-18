@@ -12,6 +12,7 @@ app.get('/admin', controller.getAdminPage)
 app.get('/admin/addCake', controller.adminCakePage)
 app.get('/admin/addCupcake', controller.adminCupcakePage)
 app.get('/admin/addCookie', controller.adminCookiePage)
+app.get('/admin/viewOrders/:category/:pageNumber', controller.getOrdersPage)
 
 // Form controllers
 app.post('/addCake', addCakeValidation, controller.addCake)
