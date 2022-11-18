@@ -486,22 +486,19 @@ input::-webkit-inner-spin-button {
   width: 80%;
   margin: auto;
   padding: 20px;
-  border: 2px solid green;
   display: flex;
   position: relative;
 }
 
 .basketItemContainer {
-  border: 2px solid yellow;
   width: 80%;
   margin-right: 5%;
-  /*border-radius: 10px;*/ /*not yet sure*/ 
+  border-radius: 20px;
   overflow: hidden;
 }
 
 .totalPriceContainer {
   width: 20%;
-  border: 2px solid orange;
   background: #FFFFFF;
   position: sticky;
   height: 200px;
@@ -537,11 +534,13 @@ input::-webkit-inner-spin-button {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  cursor: pointer;
 }
 
 .basketItem {
   display: flex;
   height: 300px;
+  width: 100%;
   position: relative;
   background-color: white;
   margin-bottom: 10px;
@@ -551,42 +550,76 @@ input::-webkit-inner-spin-button {
   margin-bottom: 0px;
 }
 
-.basketItemImage {
+.basketItemImage, .basketItemInfo, .basketItemQuantity, .basketGroupPriceNRemove {
   height: 100%;
-  width: 300px;
+}
+
+.basketItemImage, .basketItemInfo {
+  width: 30%;
+}
+
+.basketItemQuantity, .basketGroupPriceNRemove {
+  width: 20%;
+}
+
+.basketItemImage {
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
 }
 
 .basketItemImage img {
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-  object-position: center;
+  max-width: 100%;
+  max-height: 100%;
 }
 
-.basketItemInfo, .basketItemQuantity, .basketItemPrice {
+.basketItemInfo, .basketItemQuantity, .basketGroupPriceNRemove {
   padding: 25px;
-  width: 300px;
 }
 
-.basketItemQuantity {
-  width: 200px
+.basketItemInfo, .basketItemPrice {
+  font-family: 'Poppins', sans-serif;
+}
+
+.basketNameContainer, .basketTypeContainer {
+  width: 100%;
+}
+
+.basketNameContainer {
+  height: 40%;
+  line-height: 25px;
+  overflow: hidden;
+}
+
+.basketTypeContainer {
+  height: 60%;
+}
+
+.basketTypeContainer {
+  margin-top: 5%;
 }
 
 .basketItemPrice {
-  width: 200px;
+  height: 70%;
+}
+
+.basketItemRemove {
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .removeItem {
-  position: absolute;
   font-size: 20px;
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
-  right: 5%;
-  bottom: 20%;
-  background: red;
+  color: #FFFFFF;
+  background: #E43939;
   border-radius: 30px;
   border: none;
   padding: 10px;
+  cursor: pointer;
 }
 
 .editFlavor, .editSize {
