@@ -31,7 +31,7 @@ app.use(fileUpload());
 
 app.use(session({
     secret: 'GCAKESISTHEBESTCAKEANDCOOKIESHOPINTHEWORLD',
-    store: MongoStore.create({mongoUrl: 'mongodb://localhost:27017/G-Cakes'}),
+    store: MongoStore.create({mongoUrl: 'mongodb+srv://Gcakes:faga4791@gcakes.u6zonhc.mongodb.net/?retryWrites=true&w=majority'}),
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 * 7 },
