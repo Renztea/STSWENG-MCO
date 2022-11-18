@@ -18,7 +18,7 @@ a {
 
 /* Start - Home Page Background */
 .homePage {
-    background: url(../images/homebackground.png) fixed;    
+    background: url(/images/homebackground.png) fixed;    
     background-repeat: no-repeat;    
     background-size: 100% 100%;
     position: relative;
@@ -145,7 +145,7 @@ a {
 
 /* Start - Login Page */
 .loginPage {
-  background: url(../images/loginbackground.png) fixed;    
+  background: url(/images/loginbackground.png) fixed;    
   background-repeat: no-repeat;    
   background-size: 100% 100%;
   position: relative;

@@ -23,9 +23,9 @@ exports.login = async (req, res) => {
 
     if (errors.isEmpty()) {
         const {username, password} = req.body;
-        const checkUsername = await user.findOne({"name": username})
+        const checkUsername = await user.findOne({username: username})
         if (checkUsername != null && checkUsername.password == password) {
-            console.log("login accepted for " + checkUsername.name + " with passsword " + checkUsername.password)
+            console.log("login accepted for " + checkUsername.name + " with password " + checkUsername.password)
             res.redirect('/admin/viewOrders/ALL/0'); // Made Changes Here(John)
         } else if (checkUsername == null) {
             console.log("user don't exist")
