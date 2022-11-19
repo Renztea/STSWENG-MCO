@@ -1,56 +1,56 @@
 <table class="orderTable">
     <thead class="orderTableHeader">
         <tr>
-          <th class="orderTableHeaderItem">Order Date</th>
-          <% if (category == "ALL" || category == "PAID" || category == "PICKEDUP") { %>
+          <th class="orderTableHeaderItem">Order Date</th>          
+          <%_ if (orderList.category == "ALL" || orderList.category == "PAID" || orderList.category == "PICKEDUP") { _%>
           <th class="orderTableHeaderItem">Pay Date</th>
-          <% } %>
-          <% if (category == "ALL" || category == "PICKEDUP") { %>
+          <%_ } _%>
+          <%_ if (orderList.category == "ALL" || orderList.category == "PICKEDUP") { _%>
           <th class="orderTableHeaderItem">Picked Up Date</th>
-          <% } %>
-          <% if (category == "ALL" || category == "CANCELLED") { %>
+          <%_ } _%>
+          <%_ if (orderList.category == "ALL" || orderList.category == "CANCELLED") { _%>
           <th class="orderTableHeaderItem">Cancelled Date</th>
-          <% } %>
+          <%_ } _%>
           <th class="orderTableHeaderItem">Order I.D.</th>
           <th class="orderTableHeaderItem">Name</th>
           <th class="orderTableHeaderItem">Cellphone No.</th>
           <th class="orderTableHeaderItem">View Orders</th>
           <th class="orderTableHeaderItem">Price</th>
           <th class="orderTableHeaderItem">Status</th>
-          <% if (category != "CANCELLED" && category != "PICKEDUP") { %>
+          <%_ if (orderList.category != "CANCELLED" && orderList.category != "PICKEDUP") { _%>
           <th class="orderTableHeaderItem">Action</th>
-          <% } %>
+          <%_ } _%>
         </tr>
     </thead>
     <tbody>
-        <% orderList.forEach(function(order) { %>
+        <%_ orderList.forEach(function(order) { _%>
         <tr class="orderTableInfoRow">
             <td class="orderTableInfo" data-label="Order Date"><%= order.orderDate %></td>
-            <% if (category == "ALL" || category == "PAID" || category == "PICKEDUP") { %>
+            <%_ if (orderList.category == "ALL" || orderList.category == "PAID" || orderList.category == "PICKEDUP") { _%>
             <td class="orderTableInfo" data-label="Pay Date"><%= order.payDate %></td>
-            <% } %>
-            <% if (category == "ALL" || category == "PICKEDUP") { %>
+            <%_ } _%>
+            <%_ if (orderList.category == "ALL" || orderList.category == "PICKEDUP") { _%>
             <td class="orderTableInfo" data-label="Picked Up Date"><%= order.pickedUpDate %></td>
-            <% } %>
-            <% if (category == "ALL" || category == "CANCELLED") { %>
+            <%_ } _%>
+            <%_ if (orderList.category == "ALL" || orderList.category == "CANCELLED") { _%>
             <td class="orderTableInfo" data-label="Cancelled Date"><%= order.cancelledDate %></td>
-            <% } %>
+            <%_ } _%>
             <td class="orderTableInfo" data-label="Order I.D."><%= order.orderId %></td>
             <td class="orderTableInfo" data-label="Name"><%= order.name %></td>
             <td class="orderTableInfo" data-label="Cellphone No."><%= order.cellphoneNo %></td>
             <td class="orderTableInfo" data-label="View Orders"><button class="orderViewBtn">Open</button></td>
             <td class="orderTableInfo" data-label="Price"><%= order.price %></td>
             <td class="orderTableInfo" data-label="Status"><%= order.status %></td>
-            <% if (category != "CANCELLED" && category != "PICKEDUP") { %>
+            <%_ if (orderList.category != "CANCELLED" && orderList.category != "PICKEDUP") { _%>
             <td class="orderTableInfo" data-label="Action">
-                <% if (order.status == "UNPAID") { %>
-                    <button class="orderStatusBtn">PAID</button>
-                <% } else if (order.status == "PAID") { %>
-                    <button class="orderStatusBtn">PICKED UP</button>
-                <% } %>
+                <%_ if (order.status == "UNPAID") { _%>
+                <button class="orderStatusBtn">PAID</button>
+                <%_ } else if (order.status == "PAID") { _%>
+                <button class="orderStatusBtn">PICKED UP</button>
+                <%_ } _%>
             </td>
-            <% } %>
+            <%_ } _%>
         </tr>
-        <% }) %>
+        <%_ }) _%>
      </tbody>
 </table>
