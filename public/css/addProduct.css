@@ -117,6 +117,28 @@ td{
 	font-family: Poppins, sans-serif;
 }
 
+.inputNum{
+	width: 170px;
+	max-width: 100%;
+	outline: none;
+    font-size: 18px;
+    border-radius: 15px;
+    border: 2px solid #000000;
+    padding: 0px 5px;
+    height: 30px;
+    margin: 8px 0;
+	border-color: #6F4E37;
+	font-family: Poppins, sans-serif;
+}
+
+.input::-webkit-input-placeholder, .inputNum::-webkit-input-placeholder {
+  text-align: left;
+  font-size: 14px;
+}
+
+.input:focus::-webkit-input-placeholder, .inputNum:focus::-webkit-input-placeholder {
+  color: transparent;
+}
 
 .inputCheckbox:hover{
     cursor: pointer;
@@ -190,7 +212,7 @@ td{
   margin: auto;
   margin-top: 200px;
   padding: 0;
-  width: 750px;
+  width: 780px;
   max-width: 100%;
   max-height: 100%;
   border: 2px solid #6F4E37;
@@ -219,5 +241,9 @@ td{
   max-width: 100%;
   max-height: 100%;
   border: 2px solid #6F4E37;
+}
+
+.numberCakeOption {
+  display: none;
 }
 
