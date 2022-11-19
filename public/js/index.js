@@ -1,8 +1,57 @@
 $(document).ready(function() {
-
     $(".productBox").click(function() {
+      var productName = $(this).find('img').attr('placeholder');
+      var productType = $(this).find('input').val();
+
+      $.get('/getProductInfo', {name: productName, type: productType}, function(result){
+        if (result) {
+          if (productType == 'Cake') {
+            $('#displayProductName').text(result.name)
+            $('#displayProductPrice').text(result.vanilla6x5Price)
+            $('#displayProductFlavor').change(function() {
+              updateCakePrice(result)
+            })
+            $('#displayProductSize').change(function() {
+              updateCakePrice(result)
+            })
+          } else if (productType == 'Cupcake'){
+            $('#displayProductPrice').text(result.vanillaPrice)
+            $('#displayProductFlavor').change(function() {
+              updateCupcakePrice(result)
+            })
+          } else {
+            $('#displayProductPrice').text(result.price)
+          }
+        }
+      })
+
       document.querySelector('.modalBackground').style.display = 'flex';
     });
+
+    function updateCakePrice(result) {
+      var currentFlavor = $('#displayProductFlavor').val()
+      var currentSize = $('#displayProductSize').val()
+      if (currentFlavor == 'Vanilla' && currentSize == '6x5') {
+        $('#displayProductPrice').text(result.vanilla6x5Price)
+      } else if (currentFlavor == 'Chocolate' && currentSize == '6x5'){
+        $('#displayProductPrice').text(result.chocolate6x5Price)
+      } else if (currentFlavor == 'Vanilla' && currentSize == '8x5') {
+        $('#displayProductPrice').text(result.vanilla8x5Price)
+      } else {
+        $('#displayProductPrice').text(result.chocolate8x5Price)
+      }
+    }
+
+    function updateCupcakePrice(result) {
+      var currentFlavor = $('#displayProductFlavor').val()
+      if (currentFlavor == 'Vanilla') {
+        $('#displayProductPrice').text(result.vanillaPrice)
+      } else if (currentFlavor == 'Chocolate'){
+        $('#displayProductPrice').text(result.chocolatePrice)
+      } else {
+        $('#displayProductPrice').text(result.redVelvetPrice)
+      }
+    }
 
     $(".close").click(function() {
       document.querySelector('.modalBackground').style.display = 'none';

@@ -30,13 +30,26 @@ const controller = {
             var productPreview = await Cookie.find({})
         }
         
-        res.render('products', {preview: productPreview})
+        res.render('products', {preview: productPreview, type:productType})
+    },
+
+    getProductInfo: async function(req, res) {
+        var name = req.query.name
+        var type = req.query.type
+        if (type == 'Cake') {
+            var productInfo = await Cake.findOne({name: name})
+        } else if (type == 'Cupcake') {
+            var productInfo = await Cupcake.findOne({name: name})
+        } else {
+            var productInfo = await Cookie.findOne({name: name})
+        }
+        res.send(productInfo)
     },
 
     adminCakePage: async function(req, res) {
         var cakes = await Cake.find({})
         res.render('cakesPage', {cakes: cakes})
-        // res.render('addCake')
+        //res.render('addCake')
     },
 
     adminCupcakePage: async function(req, res) {
@@ -171,7 +184,6 @@ const controller = {
             orderCount = Orders.find({"Status": category}).count()
         }
         */
-        
 
        orderList["category"] = category;
         if(pageNumber > 0) {

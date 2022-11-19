@@ -6,8 +6,11 @@
         <meta name="viewport" content="width=device-width">
         <title>Cakes page</title>
         <link href="/css/style.css" rel="stylesheet" type="text/css" />
-        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
-        <script type="text/javascript" src="../js/index.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" 
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" 
+            crossorigin="anonymous">
+        </script>
+        <script type="text/javascript" src="/js/index.js"></script>
     </head>
 
     <body class="mainBackground">
@@ -22,7 +25,8 @@
                 <button class="productBox">      
                     <div class="productImage">
                         <img src="<%= preview.image %>" placeholder="<%= preview.name %>" alt="<%= preview.name %>">
-                    </div>
+                        <input type="hidden" value="<%= type %>">
+                    </div> 
                 </button>
             <% }) %>
 
@@ -37,21 +41,17 @@
                 </div>
 
                 <form class="orderForm">
-                    <h1>ProductName(FIX THIS)</h1>
+                    <h1 id="displayProductName"></h1>
 
-                    <h2>Price(FIX THIS)</h2>
+                    <h2>&#8369;<span id="displayProductPrice">0</span></h2>
 
                     <input type="hidden" name="productName" value="productName">
 
-                    <select class="orderFlavor" title="Flavor" id="flavor" name="flavor">
-                        <option>Select Flavor</option>
-                        <!--add Flavors--> 
-                    </select>
-
-                    <select class="orderSize" title="Size" id="size" name="size">
-                        <option>Select Size</option>
-                        <!--add Sizes--> 
-                    </select>
+                    <% if (type == 'Cake') { %>
+                        <%- include("partials/cakeModal") %>
+                    <% } else if (type == 'Cupcake') { %>
+                        <%- include("partials/cupcakeModal") %>
+                    <% } %>
 
                     <div class="orderQuantityContainer">
                         <span id="decrement" class="incdec orderDecrement">-</span>

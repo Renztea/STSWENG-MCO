@@ -6,13 +6,14 @@ const app = express();
 // Customer pages
 app.get('/', controller.getIndexPage)
 app.get('/products/:type', controller.getProductPage)
+app.get('/getProductInfo', controller.getProductInfo)
 
 // Admin pages
 app.get('/admin', controller.getAdminPage)
 app.get('/admin/addCake', controller.adminCakePage)
 app.get('/admin/addCupcake', controller.adminCupcakePage)
 app.get('/admin/addCookie', controller.adminCookiePage)
-app.get('/admin/viewOrders/:category', controller.getOrdersPage)
+app.get('/admin/orders/:category', controller.getOrdersPage)
 
 // Form controllers
 app.post('/addCake', addCakeValidation, controller.addCake)
