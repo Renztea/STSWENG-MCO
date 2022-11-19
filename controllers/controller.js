@@ -47,9 +47,9 @@ const controller = {
     },
 
     adminCakePage: async function(req, res) {
-        var cakes = await Cake.find({})
-        res.render('cakesPage', {cakes: cakes})
-        //res.render('addCake')
+        //var cakes = await Cake.find({})
+        //res.render('cakesPage', {cakes: cakes})
+        res.render('addCake')
     },
 
     adminCupcakePage: async function(req, res) {

@@ -32,9 +32,9 @@
 					<form action="/addCake" class="addProductForm" method="Post" enctype="multipart/form-data">
 						<table>
 							<tr>
-								<td style="width: 20%;"><div class="productCss"><label for="productName">Cake Name:</label></div></td>	
+								<td style="width: 22%;"><div class="productCss"><label for="productName">Cake Name:</label></div></td>	
 								<td style="width: 3%;"></td>
-								<td style="width: 25%;"><input class="input" type="text" id="productName" name="productName"></td>
+								<td style="width: 25%;"><input class="input" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
 								<td style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
 								<td><input type="file" id="myFile" name="filename"></td>
 							</tr>
@@ -45,24 +45,24 @@
 								<td></td>
 								<td></td>								
 								<td><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productDedication" name="productDedication" value="1">
-								<span class="checkmark"></span><label for="allowDedication">Allow dedication</label></div></td>
+								<span class="checkmark"></span><label for="allowDedication">Allow dedication:</label></div></td>
 							</tr>
 						
 							<tr>
 								<td style="text-align: right;"><div class="productCss"><label for="productSizes">6 x 5</label></div></td>
 								<td></td>								
-								<td><input class="input" type="number" id="productPrices" name="productPricesVanilla1"></td>
+								<td><input class="input" type="number" id="productPrices1" name="productPricesVanilla1" placeholder="Enter Price"></td>
 								<td></td>								
 								<td><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productNumberCake" name="productNumberCake" value="1">
-								<span class="checkmark"></span><label for="numberCake">Number Cake</label></div></td>
+								<label for="numberCake">Number Cake:</label><span class="checkmark"></span></div></td>
 							</tr>
 							
 							<tr>
 								<td style="text-align: right"><div class="productCss"><label for="productSizes">8 x 5</label></div></td>								
 								<td></td>
-								<td><input class="input" type="number" id="productPrices" name="productPricesVanilla2"></td>
-								<td></td>
-								<td></td>								
+								<td><input class="input" type="number" id="productPrices2" name="productPricesVanilla2" placeholder="Enter Price"></td>
+								<td colspan="2" style="text-align: center;"><div class="productCss"><label for="productSizes">Number Cake</label>
+								<a>&nbsp;</a><input class="inputNum" type="number" id="productPricesN" name="productPricesNumberCake" disabled="disabled" placeholder="Not Applicable"></td>								
 							</tr>
 						
 							<tr>
@@ -77,7 +77,7 @@
 							<tr>
 								<td style="text-align: right"><div class="productCss"><label for="productSizes">6 x 5</label></div></td>								
 								<td></td>
-								<td><input class="input" type="number" id="productPrices" name="productPricesChocolate1"></td>
+								<td><input class="input" type="number" id="productPrices3" name="productPricesChocolate1" placeholder="Enter Price"></td>
 								<td></td>								
 								<td style="text-align: center"><button type="submit" class="Add" id="addl">Add</button></td>
 							</tr>
@@ -85,10 +85,10 @@
 							<tr>
 								<td style="text-align: right"><div class="productCss"><label for="productSizes">8 x 5</label></div></td>
 								<td></td>
-								<td><input class="input" type="number" id="productPrices" name="productPricesChocolate2"></td>
+								<td><input class="input" type="number" id="productPrices4" name="productPricesChocolate2" placeholder="Enter Price"></td>
 								<td></td>								
 								<td style="text-align: center"><button type="button" class="Cancel" id="cancel">Cancel</button></td>
-							</tr>
+							</tr>							
 						</table>
 					</form>
 				</div>
@@ -117,5 +117,56 @@
 			modal.style.display = "none";
 		  }
 		}
+		
+		$('#productNumberCake').change(function(e) {
+			if ($(this).is(":checked") == true) {
+				$(".input").text('');
+				$(".input").attr('placeholder', 'Not Applicable');
+				$(".input").prop("disabled", true);
+				
+			} else {
+				$(".input").attr('placeholder', 'Enter Price');
+				$(".input").prop("disabled", false);
+			}
+        })
+		// When the user clicks number cake, it makes the other textbox disabled except for Number Cake textbox
+		/*
+		function EnableDisableTextBox(numberCake) {
+			var productPricesN = document.getElementById("productPricesN");
+			var productPrices = document.getElementById("productPrices1");
+			var productPrices2 = document.getElementById("productPrices2");
+			var productPrices3 = document.getElementById("productPrices3");
+			var productPrices4 = document.getElementById("productPrices4");
+			productPricesN.disabled = numberCake.checked ? false : true;
+			if (!productPricesN.disabled) {
+				productPricesN.placeholder = "Enter Price";
+				productPrices.disabled = "disabled";
+				productPrices2.disabled = "disabled";
+				productPrices3.disabled = "disabled";
+				productPrices4.disabled = "disabled";
+				productPrices.value = "";
+				productPrices2.value = "";
+				productPrices3.value = "";
+				productPrices4.value = "";
+				productPrices.placeholder = "Not Applicable";
+				productPrices2.placeholder = "Not Applicable";
+				productPrices3.placeholder = "Not Applicable";
+				productPrices4.placeholder = "Not Applicable";
+			}
+			else{
+				productPricesN.value = "";
+				productPricesN.placeholder = "Not Applicable";
+				productPrices.disabled = "";
+				productPrices2.disabled = "";
+				productPrices3.disabled = "";
+				productPrices4.disabled = "";
+				productPrices.placeholder = "Enter Price";
+				productPrices2.placeholder = "Enter Price";
+				productPrices3.placeholder = "Enter Price";
+				productPrices4.placeholder = "Enter Price";
+			}
+		}
+		*/
+</script>
 	</script>
 </html>	
