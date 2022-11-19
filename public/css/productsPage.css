@@ -124,13 +124,24 @@ td img{
 	border-radius: 15px;
 }
 
-.Add {
+.AddA, .AddB, .AddC {
     background-color: #FFFFFF;
 	color: #3F9752;
 	font-family: Poppins, sans-serif;
-	width: 100px;
 	max-width: 100%;
 	border: 2px solid #3F9752;
+}
+
+.AddA{
+	width: 100px;
+}
+
+.AddB{
+	width: 125px;
+}
+
+.AddC{
+	width: 110px;
 }
   
 .Remove {
@@ -146,12 +157,12 @@ td img{
     background-color: #FFFFFF;
 	color: #0096FF;
 	font-family: Poppins, sans-serif;
-	width: 60px;
+	width: 50px;
 	max-width: 100%;
 	border: 2px solid #0096FF;
 }
   
-.Add, .Remove, .Edit {
+.AddA, .AddB, .AddC, .Remove, .Edit {
     font-size: 15px;	
     padding: 5px;
     border-radius: 20px;
@@ -183,4 +194,3 @@ td img{
 	background-color: #EBD8DB;
 	cursor: pointer;	
 }
-
