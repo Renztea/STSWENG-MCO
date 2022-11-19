@@ -96,7 +96,7 @@
 										<td class="td2"></td>								
 										<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"></td>
 										<td class="td2"></td>								
-										<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productNumberCake" name="productNumberCake" value="1" onclick="EnableDisableTextBox(this)">
+										<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productNumberCake" name="productNumberCake" value="1">
 										<label for="numberCake">Number Cake</label><span class="checkmark"></span></div></td>
 									</tr>
 									
@@ -160,7 +160,7 @@
 		}
 		
 		// When the user clicks number cake, it makes the other textbox disabled except for Number Cake textbox
-		$('#productNumberCake').change(function(e) {
+		$('#productNumberCake').change(function() {
 			if ($(this).is(":checked") == true) {
 				$(".input").val('');
 				$(".input").attr('placeholder', 'Not Applicable');

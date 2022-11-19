@@ -40,7 +40,7 @@ exports.login = async (req, res) => {
                 if (result) {
                     // req.session.user = user._id;
                     // req.session.name = user.username;
-                    res.redirect('/admin/addCake');
+                    res.redirect('/admin/orders/all');
                 } else {
                     req.flash('error_msg', 'Incorrect password!');
                     res.redirect('/admin');

@@ -9,6 +9,29 @@ const controller = {
 
     getIndexPage: async function(req, res) {
         var products = await Cake.find({})
+        /*
+        var cakeProducts = await Cake.find({});
+        var cupcakeProducts = await Cupcake.find({});
+        var cookieProducts = await Cookie.find({});
+        var products = [];
+        var index = 0, num = 0;
+            while (index < 9) {
+                if (index < 3) {
+                    num = Math.floor(Math.random() * cakeProducts.length);
+                    products.push(cakeProducts[num]);
+                    cakeProducts.splice(num, 1);
+                } else if (index < 6) {
+                    num = Math.floor(Math.random() * cupcakeProducts.length);
+                    products.push(cupcakeProducts[num]);
+                    cupcakeProducts.splice(num, 1);
+                } else {
+                    num = Math.floor(Math.random() * cookieProducts.length);
+                    products.push(cookieProducts[num]);
+                    cookieProducts.splice(num, 1);
+                }
+                index++;
+            }
+            */
         res.render('main', {display: products})
     },
    
@@ -47,9 +70,9 @@ const controller = {
     },
 
     adminCakePage: async function(req, res) {
-        //var cakes = await Cake.find({})
-        //res.render('cakesPage', {cakes: cakes})
-        res.render('addCake')
+        var cakes = await Cake.find({})
+        res.render('cakesPage', {cakes: cakes})
+        // res.render('addCake')
     },
 
     adminCupcakePage: async function(req, res) {
@@ -168,8 +191,6 @@ const controller = {
         var orders;
         var orderCount = 7;
         var offSet = 0;
-
-        console.log("cat: " + category, "\npageNumber: " + pageNumber);
 
         if(pageNumber > 0) {
           offSet = pageNumber - 1;
