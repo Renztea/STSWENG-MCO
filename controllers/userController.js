@@ -1,18 +1,26 @@
 const user = require('../models/users');
+const bcrypt = require('bcrypt')
 const { validationResult } = require('express-validator');
 
 /*
-// Juse in case a Register function becomes needed
+// Just used when creating the initial admin account for the client
 exports.register = async (req, res) => {
     const {username, password} = req.body;
     const checkUsername = await user.findOne({username:username})
     if (checkUsername) {
-        console.log('Already Available')
-        res.redirect('/')
+        console.log('Username is already in use')
+        res.redirect('/register')
     } else {
-        const newUser = await user.create({username, password})
-        console.log('registered')
-        res.redirect('/')
+        const saltRounds = 10;
+        bcrypt.hash(password, saltRounds, async (err, hashed) => {
+            const newUser = {
+                username,
+                password: hashed,
+            };
+            await user.create(newUser)
+            console.log('registered')
+            res.redirect('/admin')
+        });
     }
 };
 */
@@ -23,18 +31,21 @@ exports.login = async (req, res) => {
 
     if (errors.isEmpty()) {
         const {username, password} = req.body;
-        const checkUsername = await user.findOne({username: username})
-        if (checkUsername != null && checkUsername.password == password) {
-            console.log("login accepted for " + checkUsername.name + " with password " + checkUsername.password)
-            res.redirect('/admin/viewOrders/ALL/0'); // Made Changes Here(John)
-        } else if (checkUsername == null) {
-            console.log("user don't exist")
+        const checkUser = await user.findOne({username: username})
+        if (checkUser == null) {
             req.flash('error_msg', 'Username does not exist!');
             res.redirect('/admin');
         } else {
-            console.log("wrong password")
-            req.flash('error_msg', 'Incorrect Password!');
-            res.redirect('/admin');
+            bcrypt.compare(password, checkUser.password, (err, result) => {
+                if (result) {
+                    // req.session.user = user._id;
+                    // req.session.name = user.username;
+                    res.redirect('/admin/addCake');
+                } else {
+                    req.flash('error_msg', 'Incorrect password!');
+                    res.redirect('/admin');
+                }
+            });
         }
     } else {
         const messages = errors.array().map((item) => item.msg);
@@ -42,4 +53,13 @@ exports.login = async (req, res) => {
         res.redirect('/admin');
     }
 }
+
+exports.logoutUser = (req, res) => {
+    if (req.session) {
+      req.session.destroy(() => {
+        res.clearCookie('connect.sid');
+        res.redirect('/admin');
+      });
+    }
+};
 

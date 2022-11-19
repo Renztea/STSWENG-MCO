@@ -9,12 +9,6 @@ const controller = {
     getIndexPage: function(req, res) {
         res.render('main')
     },
-
-    /*
-    getMainPage: function(req, res) {
-        res.render('main')
-    },
-    */
    
     getAdminPage: function(req, res) {
         res.render('login')
@@ -34,7 +28,7 @@ const controller = {
     },
 
     adminCakePage: async function(req, res) {
-        res.render('addCake')
+        res.render('cakesPage')
     },
 
     adminCupcakePage: async function(req, res) {
