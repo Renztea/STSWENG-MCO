@@ -120,7 +120,7 @@
 		
 		$('#productNumberCake').change(function(e) {
 			if ($(this).is(":checked") == true) {
-				$(".input").text('');
+				$(".input").val('');
 				$(".input").attr('placeholder', 'Not Applicable');
 				$(".input").prop("disabled", true);
 				$(".inputNum").attr('placeholder', 'Enter Price');
@@ -128,6 +128,7 @@
 			} else {
 				$(".input").attr('placeholder', 'Enter Price');
 				$(".input").prop("disabled", false);
+				$(".inputNum").val('');
 				$(".inputNum").attr('placeholder', 'Not Applicable');
 				$(".inputNum").prop("disabled", true)
 			}
