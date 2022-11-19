@@ -165,8 +165,8 @@ const controller = {
     getOrdersPage: async function(req, res) { //Added Here(John)
         var category = req.params.category
         var pageNumber = req.query.pageNumber || 0
-        var orderList;
-        var orderCount;
+        var orders;
+        var orderCount = 7;
         var offSet = 0;
 
         console.log("cat: " + category, "\npageNumber: " + pageNumber);
@@ -174,6 +174,24 @@ const controller = {
         if(pageNumber > 0) {
           offSet = pageNumber - 1;
         }
+
+        if (offSet == 0) { 
+            orders = [{orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022001",
+                        name: "Jeff", cellphoneNo: "0123456789", price: "1000", status: "UNPAID"}, 
+                    {orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022002",
+                    name: "Josh", cellphoneNo: "0123456789", price: "2000", status: "PAID"},
+                    {orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022002",
+                    name: "Josh", cellphoneNo: "0123456789", price: "2000", status: "PAID"},
+                    {orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022002",
+                    name: "Josh", cellphoneNo: "0123456789", price: "2000", status: "PAID"},
+                    {orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022002",
+                    name: "Josh", cellphoneNo: "0123456789", price: "2000", status: "PAID"}]
+            } else {
+                orders = [{orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022001",
+                        name: "Jeff", cellphoneNo: "0123456789", price: "1000", status: "UNPAID"}, 
+                    {orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022002",
+                    name: "Josh", cellphoneNo: "0123456789", price: "2000", status: "PAID"}]
+            }
         
         /*
         if (category == 'All') {
@@ -185,15 +203,15 @@ const controller = {
         }
         */
 
-       orderList["category"] = category;
+       orders["category"] = category;
         if(pageNumber > 0) {
             var options = "cache: false";
             var dir = path.join(__dirname, '../views/partials/');
-            ejs.renderFile(dir + 'orderList.ejs', {orderList: orderList}, options, function(err, str) { 
+            ejs.renderFile(dir + 'orderList.ejs', {orderList: orders}, options, function(err, str) { 
                 res.send(str);
             });
         } else {
-            res.render('order', {orderList: orderList, count: orderCount})
+            res.render('order', {orderList: orders, count: orderCount})
         }
     }
 

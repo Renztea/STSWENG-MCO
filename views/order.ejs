@@ -90,7 +90,7 @@
                 function getOrders(pageNumber) {                    
                     $.ajax({
                         type: 'GET',
-                        url: '/admin/viewOrders/<%= orderList.category %>',
+                        url: '/admin/orders/<%= orderList.category %>',
                         cache: false,
                         data: {pageNumber: pageNumber},
                         dataType: 'html' //return type json or html or blank
@@ -110,13 +110,23 @@
                 });
 
                 $(".next-page").on("click", function() {
+                    /*
                     getOrders(currentPage + 1);
                     showPage(currentPage + 1);
+                    */
+                    if(showPage(currentPage + 1)) {
+                        getOrders(currentPage);
+                    }
                 });
 
                 $(".previous-page").on("click", function() {
+                    /*
                     getOrders(currentPage - 1);
                     showPage(currentPage - 1);
+                    */
+                    if(showPage(currentPage - 1)) {
+                        getOrders(currentPage);
+                    }
                 });
             });
         });
