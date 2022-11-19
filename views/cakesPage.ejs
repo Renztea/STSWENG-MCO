@@ -12,7 +12,7 @@
 	<body class="mainBackground">
 		<div class="header">
 			<div class="logo">
-                <img src="logo.png" placeholder="G-Cakes Logo" alt="1">
+                <img src="/images/logo.png" placeholder="G-Cakes Logo" alt="1">
             </div>
 		
 			<div class="menu">
@@ -37,41 +37,16 @@
 						<th>Price</th>
 					</tr>
 					
+					<% cakes.forEach(function(cakes) { %>
 					<tr class="border">
-						<td><img src="teal1.png"></td>
-						<td>Teal Cake</td>
+						<td><img src="<%= cakes.image %>"></td>
+						<td><%= cakes.name %></td>
 						<td>Chocolate<br><br><br>Vanilla</td>
 						<td>6 X 5<br>8 X 5<br><br>6 X 5<br>8 X 5</td>
-						<td>P1200<br>P1700<br><br>P1000<br>P1500</td>
+						<td>&#8369;<%= cakes.chocolate6x5Price %><br>&#8369;<%= cakes.chocolate8x5Price %><br><br>&#8369;<%= cakes.vanilla6x5Price %><br>&#8369;<%= cakes.vanilla8x5Price %></td>
 						<td><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
 					</tr>
-
-					<tr class="border">
-						<td><img src="mcdo1.png"></td>
-						<td>Mcdo Number Cake</td>
-						<td>Chocolate</td>
-						<td>6 X 5<br>8 X 5</td>
-						<td>P1100<br>P1400</td>
-						<td><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>						
-					</tr>
-					
-					<tr class="border">
-						<td><img src="mermaid_red.png"></td>
-						<td>Little Mermaid Cake</td>
-						<td>Chocolate<br><br><br>Vanilla</td>
-						<td>6 X 5<br>8 X 5<br><br>6 X 5<br>8 X 5</td>
-						<td>P1400<br>P1900<br><br>P1600<br>P2100</td>
-						<td><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
-					</tr>
-					
-					<tr class="border">
-						<td><img src="minecraft.png"></td>
-						<td>Minecraft Cake</td>
-						<td>Chocolate<br><br><br>Vanilla</td>
-						<td>6 X 5<br>8 X 5<br><br>6 X 5<br>8 X 5</td>
-						<td>P1300<br>P1800<br><br>P1100<br>P1600</td>
-						<td><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>							
-					</tr>
+					<% }) %>
 					</div>
 				</table>
 				<br>
@@ -91,5 +66,6 @@
 		</div>
 		
 		</body>
+		
 
 </html>	

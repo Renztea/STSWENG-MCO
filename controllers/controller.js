@@ -6,8 +6,9 @@ const Cookie = require('../models/cookie')
 
 const controller = {
 
-    getIndexPage: function(req, res) {
-        res.render('main')
+    getIndexPage: async function(req, res) {
+        var products = await Cake.find({})
+        res.render('main', {display: products})
     },
    
     getAdminPage: function(req, res) {
@@ -28,7 +29,8 @@ const controller = {
     },
 
     adminCakePage: async function(req, res) {
-        res.render('cakesPage')
+        var cakes = await Cake.find({})
+        res.render('cakesPage', {cakes: cakes})
     },
 
     adminCupcakePage: async function(req, res) {
@@ -58,6 +60,7 @@ const controller = {
                     productNumberCake = '0'
                 }
             const image = req.files.filename
+            console.log(req.files.buffer)
             var imagePath = '/images/' + image.name;
             image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
                 Cake.create({

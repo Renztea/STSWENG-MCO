@@ -23,29 +23,13 @@
 
         <div class="soloCarousel">
             <div id="my-keen-slider" class="keen-slider adjust">
-                <button class="keen-slider__slide productCarouselDisplay">      
-                    <div class="carouselItemImage">
-                        <img src="images/cake1.jpg" placeholder="picture of an icecream" alt="1">
-                    </div>
-                </button>
-        
-                <button class="keen-slider__slide">      
-                    <div class="carouselItemImage productCarouselDisplay">
-                        <img src="images/cake2.jpg" placeholder="picture of an icecream" alt="1">
-                    </div>
-                </button>
-        
-                <button class="keen-slider__slide productCarouselDisplay">      
-                    <div class="carouselItemImage">
-                        <img src="images/cake3.jpg" placeholder="picture of an icecream" alt="1">
-                    </div>
-                </button>
-        
-                <button class="keen-slider__slide productCarouselDisplay">      
-                    <div class="carouselItemImage">
-                        <img src="images/cake4.jpg" placeholder="picture of an icecream" alt="1">
-                    </div>
-                </button>
+                <% display.forEach(function(display) { %>
+                    <button class="keen-slider__slide productCarouselDisplay">      
+                        <div class="carouselItemImage">
+                            <img src="<%= display.image %>" placeholder="<%= display.name %>" alt="<%= display.name %>">
+                        </div>
+                    </button>
+                <% }) %>
             </div>
         
             <div class="soloCarouselBtn soloCarouselPrev">&#10094;</div>
@@ -54,31 +38,14 @@
 
         <div class="multiCarousel">
             <div id="multi" class="keen-slider adjust">
+                <% display.forEach(function(display) { %>
                 <button class="keen-slider__slide productBoxCarousel">      
                     <div class="carouselItemImage">
-                        <img src="images/cake1.jpg" placeholder="picture of an icecream" alt="1">
+                        <img src="<%= display.image %>" placeholder="<%= display.name %>" alt="<%= display.name %>">
                     </div>
                 </button>
-        
-                <button class="keen-slider__slide productBoxCarousel">      
-                    <div class="carouselItemImage">
-                        <img src="images/cake2.jpg" placeholder="picture of an icecream" alt="1">
-                    </div>
-                </button>
-        
-                <button class="keen-slider__slide productBoxCarousel">      
-                    <div class="carouselItemImage">
-                        <img src="images/cake3.jpg" placeholder="picture of an icecream" alt="1">
-                    </div>
-                </button>
-        
-                <button class="keen-slider__slide productBoxCarousel">      
-                    <div class="carouselItemImage">
-                        <img src="images/cake4.jpg" placeholder="picture of an icecream" alt="1">
-                    </div>
-                </button>
+                <% }) %>
             </div>
-
             <div class="multiCarouselBtn multiCarouselPrev">&#10094;</div>
             <div class="multiCarouselBtn multiCarouselNext">&#10095;</div>
         </div>
