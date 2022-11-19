@@ -5,6 +5,7 @@ $(document).ready(function() {
 
       $.get('/getProductInfo', {name: productName, type: productType}, function(result){
         if (result) {
+          $('#displayProductImage').attr('src', result.image)
           if (productType == 'Cake') {
             $('#displayProductName').text(result.name)
             $('#displayProductPrice').text(result.vanilla6x5Price)
