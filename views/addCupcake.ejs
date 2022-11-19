@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Add Cupcake Page</title>
+        <link href="/css/addProduct.css" rel="stylesheet" type="text/css" />
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
+    </head>
+
+	<body class="mainBackground">
+		<div class="header">
+			<%- include("partials/logo") %>
+			<%- include("partials/menubuttons") %>
+		</div>
+		
+		<button id="myBtn">Open Add Cucake</button>
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+			<div class="modal-content-cupcake" style="background-color: #EBD8DB;">
+				<span class="close"></span>
+					<div class="addProductHeader">
+						<h1>ADD CUPCAKE</h1>
+					</div>
+					<%- include("partials/messages") %>
+					<form action="/addCupcake" class="addProductForm" method="Post" enctype="multipart/form-data">
+						<table>
+							<tr>
+								<td style="width: 22%;"><div class="productCss"><label for="productName">Cupcake Name:</label></div></td>	
+								<td style="width: 3%;"></td>
+								<td style="width: 25%;"><input class="input" type="text" id="productName" name="productName"></td>
+								<td style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
+								<td><input type="file" id="myFile" name="filename" ></td>
+							</tr>
+						
+							<tr>
+								<td><div class="productCss"><label for="productFlavors">Vanilla</label></div></td>
+								<td></td>
+								<td></td>
+								<td style="text-align: center;"><div class="productCss"><label for="Frosting">Frosting:</label></div></td>								
+								<td><div class="frostingCss"><label for="frostingType">Fondant:</label>
+								<input class="inputCheckbox" type="radio" name="productFrosting" value="Fondant"><span class="checkmark"></span></div>
+								<div class="frostingCss"><label for="frostingType">Icing:</label>
+								<input class="inputCheckbox" type="radio" name="productFrosting" value="Icing"><span class="checkmark"></span></div></td>
+							</tr>
+						
+							<tr>
+								<td style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>
+								<td></td>								
+								<td><input class="input" type="number" id="productPrices" name="productPricesVanilla"></td>
+								<td></td>								
+								<td></td>
+							</tr>				
+						
+							<tr>
+								<td><div class="productCss"><label for="productFlavors">Chocolate</label></div></td>								
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								
+							</tr>
+							
+							<tr>
+								<td style="text-align: right"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>								
+								<td></td>
+								<td><input class="input" type="number" id="productPrices" name="productPricesChocolate"></td>
+								<td></td>								
+								<td></td>
+							</tr>
+							
+							<tr>
+								<td><div class="productCss"><label for="productFlavors">Red Velvet</label></div></td>								
+								<td></td>
+								<td></td>
+								<td></td>
+								<td style="text-align: center"><button type="submit" class="Add" id="addl">Add</button></td>
+								
+							</tr>
+							
+							<tr>
+								<td style="text-align: right"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>
+								<td></td>
+								<td><input class="input" type="number" id="productPrices" name="productPricesRedVelvet"></td>
+								<td></td>								
+								<td style="text-align: center"><button type="button" class="Cancel" id="cancel">Cancel</button></td>
+							</tr>
+						</table>
+					</form>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		// Get the modal
+		var modal = document.getElementById("myModal");
+
+		// Get the button that opens the modal
+		var btn = document.getElementById("myBtn");
+
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+
+		// When the user clicks the button, open the modal 
+		btn.onclick = function() {
+		  modal.style.display = "block";
+		}
+
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+		  modal.style.display = "none";
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+		  if (event.target == modal) {
+			modal.style.display = "none";
+		  }
+		}
+	</script>
+</html>	

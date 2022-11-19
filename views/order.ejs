@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Order page</title>
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/css/order.css" rel="stylesheet" type="text/css" />
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    </head>
+
+    <body class="mainBackground">
+        <div class="orderContainer">
+            <div class="orderNavigation">
+                <a href="/admin/orders/all"><span class="orderNavigationItem">ALL</span></a>
+                <a href="/admin/orders/unpaid"><span class="orderNavigationItem">UNPAID</span></a>
+                <a href="/admin/orders/paid"><span class="orderNavigationItem">PAID</span></a>
+                <a href="/admin/orders/pickedup"><span class="orderNavigationItem">PICKEDUP</span></a>
+                <a href="/admin/orders/cancelled"><span class="orderNavigationItem">CANCELLED</span></a>
+            </div>
+
+            <div class="orderDataContainer">
+                <div id="orderTable">
+                    <%- include("partials/orderList") %>
+                </div>
+                <div class="pagination">
+                </div>
+            </div>
+        </div>
+    <script>
+        $(document).ready(function() {
+            function getPageList(totalPages, page, maxLength) {
+                function range(start, end) {
+                    return Array.from(Array(end - start + 1), (_, i) => i + start);
+                }
+
+                var sideWidth = maxLength < 9 ? 1 : 2;
+                var leftWidth = (maxLength - sideWidth * 2 - 3) >> 1;
+                var rightWidth = (maxLength - sideWidth * 2 - 3) >> 1;
+
+                if(totalPages <= maxLength) {
+                    return range(1, totalPages);
+                }
+
+                if(page <= maxLength - sideWidth - 1 - rightWidth) {
+                    return range(1, maxLength - sideWidth - 1).concat(0, range(totalPages - sideWidth + 1, totalPages));
+                }
+
+                if(page >= totalPages - sideWidth - 1 - rightWidth) {
+                    return range(1, sideWidth).concat(0, range(totalPages - sideWidth - 1 - rightWidth - leftWidth, totalPages));
+                }
+
+                return range(1, sideWidth).concat(0, range(page - leftWidth, page + rightWidth), 0, range(totalPages - sideWidth + 1, totalPages));
+            }
+
+            $(function() {
+                var numberOfItems = <%= count %>;
+                var limitPerPage = 5;
+                var totalPages = Math.ceil(numberOfItems / limitPerPage);
+                var paginationSize = 7;
+                var currentPage;
+
+                function showPage(whichPage) {
+                    if(whichPage < 1 || whichPage > totalPages) {
+                        return false;
+                    }
+
+                    currentPage = whichPage;
+
+                    $(".pagination li").slice(1, -1).remove();
+
+                    getPageList(totalPages, currentPage, paginationSize).forEach(item => {
+                        $("<li>").addClass("page-item").addClass(item ? "current-page" : "dots").toggleClass("active", item === currentPage).append($("<a>").addClass("page-link").attr({href: "javascript:void(0)"}).text(item || "...")).insertBefore(".next-page");
+                    });
+
+                    $(".previous-page").toggleClass("disable", currentPage === 1);
+                    $(".next-page").toggleClass("disable", currentPage === totalPages);
+                    return true;
+                }
+
+                $(".pagination").append(
+                $("<li>").addClass("page-item").addClass("previous-page").append($("<a>").addClass("page-link").attr({href: "javascript:void(0)"}).text("Prev")),
+                $("<li>").addClass("page-item").addClass("next-page").append($("<a>").addClass("page-link").attr({href: "javascript:void(0)"}).text("Next"))
+                );
+                
+                showPage(1);
+
+                function getOrders(pageNumber) {                    
+                    $.ajax({
+                        type: 'GET',
+                        url: '/admin/orders/<%= orderList.category %>',
+                        cache: false,
+                        data: {pageNumber: pageNumber},
+                        dataType: 'html' //return type json or html or blank
+                    })
+                    .fail(function(jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                    })
+                    .done(function(resp) {                                   
+                        $("#orderTable").html(resp);
+                    });
+                }
+                
+
+                $(document).on("click", ".pagination li.current-page:not(.active)", function() {
+                    getOrders(+$(this).text());
+                    showPage(+$(this).text());
+                });
+
+                $(".next-page").on("click", function() {
+                    /*
+                    getOrders(currentPage + 1);
+                    showPage(currentPage + 1);
+                    */
+                    if(showPage(currentPage + 1)) {
+                        getOrders(currentPage);
+                    }
+                });
+
+                $(".previous-page").on("click", function() {
+                    /*
+                    getOrders(currentPage - 1);
+                    showPage(currentPage - 1);
+                    */
+                    if(showPage(currentPage - 1)) {
+                        getOrders(currentPage);
+                    }
+                });
+            });
+        });
+    </script>
+    </body>
+
+</html>

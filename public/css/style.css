@@ -1,0 +1,720 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+a {
+  text-decoration: none
+}
+
+/* Start - Home Page Background */
+.homePage {
+    background: url(/images/homebackground.png) fixed;    
+    background-repeat: no-repeat;    
+    background-size: 100% 100%;
+    position: relative;
+    overflow: hidden;
+  /*
+  reference:https://www.w3schools.com/howto/howto_css_full_page.asp
+  */
+}
+/* End - Home Page Background*/
+
+/* Start - Website header */
+.header {
+  height: 150px;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.logo {
+  margin-left: 100px;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.menu {
+  margin-left: 600px;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.menuBtn {
+  background-color:#3D2115;
+  margin-left: 10px;
+  padding: 0px 30px;
+  text-decoration: none;
+  border-radius: 50px;
+  border: none;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  color: white;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuBtn img {
+  height: 30px;
+}
+
+.menuBtn:hover {
+  background-color: #DF7E85;
+  transition: 0.5s;
+}
+/* End - Website header */
+
+/* Start - Home Page Inquire */
+.inquire {
+  margin-top: 300px;
+  margin-left: 350px;
+  width: 400px;
+  position: absolute;
+}
+
+.inquire button {
+  background-color:#3D2115;
+  color: #FFFFFF;
+  padding: 10px 30px 10px 30px;
+  text-decoration: none;
+  border-radius: 50px;
+  border: none;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+}
+/* End - Home Page Inquire */
+
+/* Start - All Page Background */
+.mainBackground {
+  background-color: #EBD8DB;      
+}
+/* End - All Page Background */
+
+/* first carousel */
+.productContainer {
+  display: flex;
+  justify-content: center;
+  align-items: top;
+  margin: 100px auto;
+  flex-wrap: wrap;
+}
+
+.productBox {
+  width: 300px;
+  background-color: white;
+  border: 1px solid purple;
+  margin: 20px;
+}
+
+.productBox:hover {
+  opacity: 0.8;
+  transition: all ease 0.3s;
+}
+
+.productImage {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productImage img {
+  max-width: 100%;
+  max-height: 100%;
+}
+/* end carousel */
+
+/* Start - Login Page */
+.loginPage {
+  background: url(/images/loginbackground.png) fixed;    
+  background-repeat: no-repeat;    
+  background-size: 100% 100%;
+  position: relative;
+}
+
+.loginContainer {
+  height: 430px;
+  width: 700px;
+  margin: 170px 0px 0px 750px;
+  background-color: #3D2115;
+  border-radius: 50px;
+  position: absolute;
+  padding: 50px;
+}
+
+.loginForm {
+  margin: auto;
+  width: 80%;
+}
+
+.loginStyle {
+  color: #BBD1CD;
+  font-size: 30px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.loginInput {
+  background-color: #DF7E85;
+  border-radius: 10px;
+  height: 50px;
+  width: 100%;
+  font-size: 40px;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 5%;
+}
+
+.loginSubmit {
+  width: 50%;
+  display: block;
+  margin: auto;
+  background-color: #FDFFFC;
+  font-weight: bold;
+  font-size: 30px;
+  font-family: 'Poppins', sans-serif;
+  padding: 10px 40px;
+  border-radius: 50px;
+}
+/* End Login Page */
+
+/* Start - Jasper */
+.order {
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.orderBox {
+  background: white;
+  margin: 0px 7% 10px 7%;
+  padding: 0px 0px 5px 0px;
+}
+
+ .orderTab{
+   width: 32%;
+   height: 60px;
+   font-size: 30px;
+   background: #EFEFEF;
+   border: none;
+   border-radius: 10px;
+ }
+
+.orderTabContent{
+  background: white;
+  margin: 0% 7%;
+  padding: 0px 0px 0px 0px;
+  height: 300px;
+  width: parent;
+}
+
+.orderTabContent img{
+  height: 90%;
+  width: 25%;
+  margin: 0px 40px 0px 10px;
+  padding: 20px 0px 0px 0px;
+  float: left;
+  display: block;
+}
+
+#pendingCakeName {
+  font-size: 30px;
+  text-align: left;
+  display: block;
+}
+
+#pendingCakeType {
+  font-size: 30px;
+  text-align: left;
+  display: block;
+}
+
+#pendingCakePrice {
+  font-size: 40px;
+  text-align: left;
+  display: block;
+}
+
+.pendingBtnPaid{
+  margin: 60px 80px 0px 0px;
+  float: right;  
+  height: 60%;
+  width: 300px;
+  font-weight: bold;
+  font-size: 70px;
+  border-radius: 50px;
+}
+/* End - Jasper */
+
+/* Start - Order Information Page */
+.orderContentContainer {
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orderInfoContainer {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 15px;
+  background-color: #CDBDBF;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.orderHeader {
+  width: 100%;
+  background-color: #E29595;
+}
+
+.orderHeader h1 {
+  font-size: 30px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.orderInfoForm {
+  width: 100%;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.orderInfoGroup {
+  display: flex;
+  width: calc(100% / 2 - 30px);
+  flex-direction: column;
+  margin: 4px 0;
+}
+
+.orderStyle {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+}
+
+.orderInput {
+  outline: none;
+  font-size: 25px;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 10px;
+  border: 2px solid #000000;
+  padding: 0 5px;
+  height: 42px;
+  margin: 8px 0;
+}
+
+.orderBtn {
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  justify-content: right;
+}
+
+.orderSubmit {
+  margin-left: 20px;
+  background-color: #D9D9D9;
+}
+
+.orderCancel {
+  background-color: #E43939;
+}
+
+.orderCancel, .orderSubmit {
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer
+}
+/* End - Order Information Page */
+
+/* Start - Modal Popup CSS */
+.modalBackground {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  width: 1000px;
+  height: 80%;
+  background-color: #C4A484;
+  display: flex;
+  position: relative;
+}
+
+.modalContentImage {
+  height: 100%;
+  width: 50%;
+}
+
+.modalContentImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  object-position: center;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 14px;
+  font-size: 42px;
+  font-weight: bold;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+.orderForm {
+  justify-content: center;
+  text-align: center;
+  margin-top: 5%;
+  width: 50%;
+}
+
+.orderFlavor, .orderSize {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  padding: 10px;
+  background-color: #E29595;
+  color: #4A3627;
+  border-radius: 10px;
+  width: 80%;
+}
+
+.orderQuantityContainer {
+  height: 60px;
+  width: 80%;
+  margin: 30px auto;
+  background-color: #DF7E85;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orderDecrement, .orderIncrement {
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  background-color: #3D2115;
+  color: white;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #DF7E85;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orderDecrement {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.orderIncrement {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+#orderQuantity {
+  justify-content: center;
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  padding: 10px;
+  background-color: #3D2115;
+  color: white;
+  height: 100%;
+  width: 300px;
+  border: 2px solid #DF7E85;
+/* Firefox */
+  -moz-appearance: textfield;
+} 
+
+  /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.addBtn {
+  padding: 10px;
+  border-radius: 30px;
+  border: none;
+  background-color: #95E2A6;
+  color: #4A3627;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+}
+/* End - Modal Popup CSS */
+
+/* Start - Basket Page */
+.basketContainer {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  position: relative;
+}
+
+.basketItemContainer {
+  width: 80%;
+  margin-right: 5%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.totalPriceContainer {
+  width: 20%;
+  background: #FFFFFF;
+  position: sticky;
+  height: 200px;
+  align-items: center;
+  top: 20%;
+}
+
+.totalPrice {
+  width: 100%;
+  margin: auto;
+  position: absolute;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.basketSubmit {
+  width: 80%;
+  margin-top: 50px;
+  position: absolute;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  color: #4A3627;
+  padding: 5px;
+  border-radius: 30px;
+  border: none;
+  background: #95E2A6;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.basketItem {
+  display: flex;
+  height: 300px;
+  width: 100%;
+  position: relative;
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+.basketItem:last-child {
+  margin-bottom: 0px;
+}
+
+.basketItemImage, .basketItemInfo, .basketItemQuantity, .basketGroupPriceNRemove {
+  height: 100%;
+}
+
+.basketItemImage, .basketItemInfo {
+  width: 30%;
+}
+
+.basketItemQuantity, .basketGroupPriceNRemove {
+  width: 20%;
+}
+
+.basketItemImage {
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+
+.basketItemImage img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.basketItemInfo, .basketItemQuantity, .basketGroupPriceNRemove {
+  padding: 25px;
+}
+
+.basketItemInfo, .basketItemPrice {
+  font-family: 'Poppins', sans-serif;
+}
+
+.basketNameContainer, .basketTypeContainer {
+  width: 100%;
+}
+
+.basketNameContainer {
+  height: 40%;
+  line-height: 25px;
+  overflow: hidden;
+}
+
+.basketTypeContainer {
+  height: 60%;
+}
+
+.basketTypeContainer {
+  margin-top: 5%;
+}
+
+.basketItemPrice {
+  height: 70%;
+}
+
+.basketItemRemove {
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.removeItem {
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #E43939;
+  border-radius: 30px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.editFlavor, .editSize {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  padding: 10px;
+  background-color: #E29595;
+  color: white;
+  width: 200px;
+}
+
+.basketQuantityContainer {
+  height: 40px;
+  margin: 20px auto;
+  background-color: #DF7E85;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.basketDecrement, .basketIncrement {
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  background-color: #3D2115;
+  color: white;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #DF7E85;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.basketQuantity {
+  justify-content: center;
+  text-align: center;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  padding: 10px;
+  background-color: #3D2115;
+  color: white;
+  height: 100%;
+  width: 80px;
+  border: 2px solid #DF7E85;
+}
+/* End - Basket Page */
+
+/* Start - Main Page(Additional Info) */
+.carousel {
+  margin: auto;
+}
+
+.carouselItemImage {
+  height: 100%;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+
+.carouselItemImage img {
+  max-width: 100%;
+  max-height: 100%;
+}
+/* End - Main Page(Additional Info) */
+
+/* Error Page Start */
+.errorContainer {
+  border-radius:20px; 
+  background:#3D2115; 
+  margin: 0; 
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translateY(-50%);
+  padding: 20px;
+}
+
+.errorMessage {
+  font-size:100px; 
+  color:white; 
+  padding:20px;
+}
+
+.errorButton {
+  width: 50%;
+  display: block;
+  margin: auto;
+  background-color: #FDFFFC;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 50px;
+  font-size:20px; 
+  padding: 10px;
+}

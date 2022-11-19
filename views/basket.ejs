@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Basket page</title>
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+    </head>
+
+    <body class="mainBackground">
+        <div class="header">
+            <div class="logo">
+                <img src="images/Logo.png" placeholder="G-Cakes Logo" alt="1">
+            </div>
+
+            <div class="menu">
+                <button class="menuBtn">CAKES</button>
+                <button class="menuBtn">CUPCAKES</button>
+                <button class="menuBtn">DECORATED COOKIES</button>
+                <button class="menuBtn">ABOUT</button>
+                <button class="menuBtn"><img src="images/basket.png"></button>
+            </div>
+        </div>
+
+        <div class="basketContainer">
+            <div class="basketItemContainer">
+                <div class="basketItem">
+                
+                    <div class="basketItemImage">
+                        <img src="images/cake1.jpg" placeholder="trial" alt="1">
+                    </div>
+                    
+                    <div class="basketItemInfo">
+                        <div class="basketNameContainer">
+                            <h2>Birthday chocolate</h2>
+                            <input type="hidden" name="productName" value="productName">
+                        </div>
+                        <div class="basketTypeContainer">
+                            <h3>Type of Cake:</h3>
+                            <select class="editFlavor" title="Flavor" id="flavor" name="flavor">
+                                <option>Select Flavor</option>
+                                
+                            </select>
+                            <select class="editSize" title="Size" id="size" name="size">
+                                <option>Select Size</option>
+                                
+                            </select> 
+                        </div>
+                    </div>
+                    
+                    <div class="basketItemQuantity">
+                        <div class="basketQuantityContainer">
+                            <span id="decrement" class="incdec basketDecrement">-</span>
+                            <input class="quantity basketQuantity" type="number" value="1">
+                            <span id="increment" class="incdec basketIncrement">+</span>
+                        </div>
+                    </div>
+
+                    <div class="basketGroupPriceNRemove">
+                        <div class="basketItemPrice">
+                            <h2>100000</h2>
+                        </div>
+                        <div class="basketItemRemove">
+                            <button class="removeItem">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="totalPriceContainer">
+                <span class="totalPrice">Total: 1200</span>
+                <button class="basketSubmit">CHECK OUT</button>
+            </div>
+        </div>
+    </body>
+
+</html>

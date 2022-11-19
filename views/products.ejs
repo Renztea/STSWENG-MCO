@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Cakes page</title>
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" 
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" 
+            crossorigin="anonymous">
+        </script>
+        <script type="text/javascript" src="/js/index.js"></script>
+    </head>
+
+    <body class="mainBackground">
+        <div class="header">
+            <%- include("partials/logo") %>
+			<%- include("partials/menubuttons") %>
+        </div>
+
+        <div class="productContainer">
+
+            <% preview.forEach(function(preview) { %>
+                <button class="productBox">      
+                    <div class="productImage">
+                        <img src="<%= preview.image %>" placeholder="<%= preview.name %>" alt="<%= preview.name %>">
+                        <input type="hidden" value="<%= type %>">
+                    </div> 
+                </button>
+            <% }) %>
+
+        </div>
+
+        <div class="modalBackground">
+            <div class="modalContent">
+                <div class="close">+</div>
+
+                <div class="modalContentImage">
+                    <img id="displayProductImage" src="images/loginbackground.png" alt="placeholder">
+                </div>
+
+                <form class="orderForm">
+                    <h1 id="displayProductName"></h1>
+
+                    <h2>&#8369;<span id="displayProductPrice">0</span></h2>
+
+                    <input type="hidden" name="productName" value="productName">
+
+                    <% if (type == 'Cake') { %>
+                        <%- include("partials/cakeModal") %>
+                    <% } else if (type == 'Cupcake') { %>
+                        <%- include("partials/cupcakeModal") %>
+                    <% } %>
+
+                    <div class="orderQuantityContainer">
+                        <span id="decrement" class="incdec orderDecrement">-</span>
+                        <input id="orderQuantity" name="orderQuantity" class="quantity" type="number" min="1" value="1" >
+                        <span id="increment" class="incdec orderIncrement">+</span>
+                    </div>
+                    <button class="addBtn">ADD TO BASKET</button>
+                </form>
+            </div>
+        </div>
+    </body>
+
+</html>

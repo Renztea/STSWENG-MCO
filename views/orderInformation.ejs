@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Order Information</title>
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body class="mainBackground">
+        <div class="header">
+            <%- include("partials/logo") %>
+			<%- include("partials/menubuttons") %>
+        </div>
+
+        <div class="orderContentContainer">
+            <div class="orderInfoContainer">
+                <div class="orderHeader">
+                    <h1>ORDER INFORMATION</h1>
+                </div>
+
+                <form class="orderInfoForm" method="Post" enctype="multipart/form-data">
+                    <div class="orderInfoGroup">
+                        <label class="orderStyle" for="name">Name:</label>
+                        <input class="orderInput" type="text" id="name" name="name" placeholder="Enter Name">
+                    </div>
+                    
+                    <div class="orderInfoGroup">
+                        <label class="orderStyle" for="celebrant">Celebrant:</label>
+                        <input class="orderInput" type="text" id="celebrant" name="celebrant" placeholder="Enter Celebrant's Name">       
+                    </div>
+
+                    <div class="orderInfoGroup">
+                        <label class="orderStyle" for="celebrantGender">Celebrant Gender:</label>
+                        <select class="orderInput" id="celebrantGender" name="celebrantGender">
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="orderInfoGroup">
+                        <label class="orderStyle" for="celebrantAge">Celebrant Age:</label>
+                        <input class="orderInput" type="text" id="celebrantAge" name="celebrantAge" placeholder="Enter Celebrant's Age">
+                    </div>
+
+                    <div class="orderInfoGroup">
+                        <label class="orderStyle" for="pickupDate">Pickup Date:</label>
+                        <input class="orderInput" type="date" id="pickupDate" name="pickupDate">
+                    </div>
+
+                    <div class="orderInfoGroup">
+                        <label class="orderStyle" for="contactNo">Contact No:</label>
+                        <input class="orderInput" type="tel" id="contactNo" name="contactNo" placeholder="Enter Contact Number">
+                    </div>
+
+                    <div class="orderBtn">
+                        <button class="orderCancel" type="submit" id="cancel">RETURN</button>
+                        <button class ="orderSubmit" type="submit" id="order">ORDER</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+
+</html>

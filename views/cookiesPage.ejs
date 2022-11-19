@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Cookies Page</title>
+        <link href="../css/productsPage.css" rel="stylesheet" type="text/css" />
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
+    </head>
+
+	<body class="mainBackground">
+		<div class="header">
+			<div class="logo">
+                <img src="logo.png" placeholder="G-Cakes Logo" alt="1">
+            </div>
+		
+			<div class="menu">
+				<button class="menuBtn">CAKES</button>
+				<button class="menuBtn">CUPCAKES</button>
+				<button class="menuBtn" style="font-weight:bold;">DECORATED COOKIES</button>
+				<button class="menuBtn">ABOUT</button>
+				<button class="menuBtn">ORDERS</button>
+			</div>
+		</div>
+		
+		<div class="productBox">
+			<div class="buttonHolder">	
+				<button type="submit" class="AddC" id="add">Add Cookie</button>
+			</div>
+			<form class="productForm" method="Post" enctype="multipart/form-data">
+				<table class="table1">
+					<tr>
+						<th class="th1">Picture</th>
+						<th class="th1">Name</th>
+						<th class="th1">Flavor</th>
+						<th class="th1">Size</th>
+						<th class="th1">Price</th>
+					</tr>
+					<tr class="border">
+						<td class="td1"><img src="roblox.jpg"></td>
+						<td class="td1">Roblox Cookies</td>
+						<td class="td1">Butter Cookies</td>
+						<td class="td1">One Dozen</td>
+						<td class="td1">P800</td>
+						<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
+					</tr>
+					<tr class="border">
+						<td class="td1"><img src="sailor.png"></td>
+						<td class="td1">Sailor Cookies</td>
+						<td class="td1">Butter Cookies</td>
+						<td class="td1">One Dozen</td>
+						<td class="td1">P800</td>	
+						<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
+					</tr>
+					<tr class="border">
+						<td class="td1"><img src="tropical.jpg"></td>
+						<td class="td1">Tropical Cookies</td>
+						<td class="td1">Butter Cookies</td>
+						<td class="td1">One Dozen</td>
+						<td class="td1">P800</td>
+						<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
+					</tr>
+					<tr class="border">
+						<td class="td1"><img src="unicorn2.jpg"></td>
+						<td class="td1"Unicorn Cookies</td>
+						<td class="td1">Butter Cookies</td>
+						<td class="td1">One Dozen</td>
+						<td class="td1">P800</td>
+						<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
+					</tr>
+				</table>
+				<br>
+				<div class="paginationHolder">	
+					<div class="pagination">
+						<button type="button" class="pageBtn" id="pagebtn"><a>&laquo;</a></button>
+						<button type="button" class="pageBtn" id="pagebtn"><a>1</a></button>
+						<button type="button" class="pageBtn" id="pagebtn"><a>2</a></button>
+						<button type="button" class="pageBtn" id="pagebtn"><a>3</a></button>
+						<button type="button" class="pageBtn" id="pagebtn"><a>4</a></button>
+						<button type="button" class="pageBtn" id="pagebtn"><a>5</a></button>
+						<button type="button" class="pageBtn" id="pagebtn"><a>6</a></button>
+						<button type="button" class="pageBtn" id="pagebtn"><a>&raquo;</a></button>
+					</div>
+				</div>		
+			</form>	
+		</div>
+		<div id="cookieModal" class="modal">
+
+		<!-- Modal content -->
+			<div class="modal-content-cookie" style="background-color: #EBD8DB;">
+				<span class="close"></span>
+					<div class="addProductHeader">
+						<h1>ADD COOKIE</h1>
+					</div>
+					<form action="/addCookie" class="addProductForm" method="Post" enctype="multipart/form-data">
+						<table class="table2">
+							<tr>
+								<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cake Name:</label></div></td>	
+								<td class="td2" style="width: 3%;"></td>
+								<td class="td2" style="width: 25%;"><input class="input" type="text" id="productName" name="productName"></td>
+								<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
+								<td class="td2"><input type="file" id="myFile" name="filename" ></td>
+							</tr>
+						
+							<tr>
+								<td class="td2"><div class="productCss"><label for="productFlavors">Butter Cookie</label></div></td>
+								<td class="td2"></td>
+								<td class="td2"></td>
+								<td class="td2"></td>								
+								<td class="td2"></td>
+							</tr>
+						
+							<tr>
+								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>
+								<td class="td2"></td>								
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPrices"></td>
+								<td class="td2"></td>								
+								<td class="td2" style="text-align: center;"><button class="Add" id="addl">Add</button></td>					
+							</tr>
+							
+							<tr>
+								<td class="td2"></td>								
+								<td class="td2"></td>
+								<td class="td2"></td>
+								<td class="td2"></td>
+								<td class="td2" style="text-align: center; padding-top: 10px;"><button class="Cancel" id="cancel">Cancel</button></td>									
+							</tr>
+						</table>
+					</form>
+			</div>
+		</div>
+		</body>
+		<script>
+		// Get the modal
+		var modal = document.getElementById("cookieModal");
+
+		// Get the button that opens the modal
+		var btn = document.getElementById("add");
+
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+
+		// When the user clicks the button, open the modal 
+		btn.onclick = function() {
+		  modal.style.display = "block";
+		}
+
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+		  modal.style.display = "none";
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+		  if (event.target == modal) {
+			modal.style.display = "none";
+		  }
+		}
+		</script>
+</html>	
