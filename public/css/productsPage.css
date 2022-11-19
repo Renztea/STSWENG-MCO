@@ -222,7 +222,6 @@ html, body {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-	overflow: auto;
 }
 
 .table2{
@@ -238,7 +237,7 @@ html, body {
 }
 
 
-.input{
+.input, .inputName{
 	width: 200px;
 	max-width: 100%;
 	outline: none;
@@ -266,12 +265,12 @@ html, body {
 	font-family: Poppins, sans-serif;
 }
 
-.input::-webkit-input-placeholder, .inputNum::-webkit-input-placeholder {
+.input::-webkit-input-placeholder, .inputNum::-webkit-input-placeholder, .inputName::-webkit-input-placeholder {
   text-align: left;
   font-size: 14px;
 }
 
-.input:focus::-webkit-input-placeholder, .inputNum:focus::-webkit-input-placeholder {
+.input:focus::-webkit-input-placeholder, .inputNum:focus::-webkit-input-placeholder, .inputName:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
@@ -281,13 +280,6 @@ html, body {
 
 .productCss{
 	font-size: 20px;
-    font-weight: bold;
-	color: #4A3627;
-	font-family: Poppins, sans-serif;
-}
-
-.frostingCss, .choicesCss{
-	font-size: 14px;
     font-weight: bold;
 	color: #4A3627;
 	font-family: Poppins, sans-serif;
@@ -365,7 +357,7 @@ html, body {
   margin: auto;
   margin-top: 200px;
   padding: 0;
-  height: 400px;
+  height: 300px;
   width: 800px;
   max-width: 100%;
   max-height: 100%;
