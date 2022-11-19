@@ -123,10 +123,13 @@
 				$(".input").text('');
 				$(".input").attr('placeholder', 'Not Applicable');
 				$(".input").prop("disabled", true);
-				
+				$(".inputNum").attr('placeholder', 'Enter Price');
+				$(".inputNum").prop("disabled", false)
 			} else {
 				$(".input").attr('placeholder', 'Enter Price');
 				$(".input").prop("disabled", false);
+				$(".inputNum").attr('placeholder', 'Not Applicable');
+				$(".inputNum").prop("disabled", true)
 			}
         })
 		// When the user clicks number cake, it makes the other textbox disabled except for Number Cake textbox
@@ -167,6 +170,5 @@
 			}
 		}
 		*/
-</script>
 	</script>
 </html>	
