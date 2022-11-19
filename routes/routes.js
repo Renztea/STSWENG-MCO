@@ -19,4 +19,7 @@ app.post('/addCake', addCakeValidation, controller.addCake)
 app.post('/addCupcake', addCupcakeValidation, controller.addCupcake)
 app.post('/addCookie', addCookieValidation, controller.addCookie)
 
+// Page not found
+app.get('*', controller.getErrorPage)
+
 module.exports = app;

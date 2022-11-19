@@ -688,3 +688,33 @@ input::-webkit-inner-spin-button {
   object-position: center;
 }
 /* End - Main Page(Additional Info) */
+
+/* Error Page Start */
+.errorContainer {
+  border-radius:20px; 
+  background:#3D2115; 
+  margin: 0; 
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translateY(-50%);
+  padding: 20px;
+}
+
+.errorMessage {
+  font-size:100px; 
+  color:white; 
+  padding:20px;
+}
+
+.errorButton {
+  width: 50%;
+  display: block;
+  margin: auto;
+  background-color: #FDFFFC;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 50px;
+  font-size:20px; 
+  padding: 10px;
+}
