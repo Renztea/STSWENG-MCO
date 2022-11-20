@@ -200,6 +200,32 @@ const controller = {
         
     },
 
+    deleteProduct: async function(req, res) {
+        var name = req.query.name
+        var type = req.query.type
+        var successMessage = "Product deleted successfully"
+        var errorMessage = "Error"
+        if (type == 'Cake') {
+            await Cake.deleteOne({name: name}).then(function() {
+                res.send(successMessage)
+            }).catch(function(errorMessage){
+                res.send(errorMessage); // Failure
+            });
+        } else if (type == 'Cupcake') {
+            await Cupcake.deleteOne({name: name}).then(function() {
+                res.send(successMessage)
+            }).catch(function(errorMessage){
+                res.send(errorMessage); // Failure
+            });
+        } else {
+            await Cookie.deleteOne({name: name}).then(function() {
+                res.send(successMessage)
+            }).catch(function(errorMessage){
+                res.send(errorMessage);
+            });
+        }
+    },
+
     getOrdersPage: async function(req, res) { //Added Here(John)
         var category = req.params.category
         var pageNumber = req.query.pageNumber || 0

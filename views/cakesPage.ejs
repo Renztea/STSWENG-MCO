@@ -40,7 +40,7 @@
 					<% cakes.forEach(function(cakes) { %>
 					<tr class="border">
 						<td class="td1"><img src="<%= cakes.image %>" placeholder="<%= cakes.name %>" alt="<%= cakes.name %>"></td>
-						<td class="td1"><%= cakes.name %></td>
+						<td id="displayProductName" class="td1"><%= cakes.name %></td>
 						<td class="td1">Chocolate<br><br><br>Vanilla</td>
 						<td class="td1">6 X 5<br>8 X 5<br><br>6 X 5<br>8 X 5</td>
 						<td class="td1">&#8369;<%= cakes.chocolate6x5Price %><br>&#8369;<%= cakes.chocolate8x5Price %><br><br>&#8369;<%= cakes.vanilla6x5Price %><br>&#8369;<%= cakes.vanilla8x5Price %></td>
@@ -140,7 +140,6 @@
 	// Checks if there are error messages to automatically open the modal.
 	$( document ).ready(function() {
 		var errors = '<%= error_msg %>';
-		console.log(errors)
 		if(errors.length > 0) {
 			$('#cakeModal').css('display', 'block')
 		}	
@@ -167,9 +166,19 @@
 	}
 	
 	$('.Remove').click(function() {
-		alert('Hello')
+		if (confirm('Are you sure you want to delete the product?') == true) {
+			var border = $(this).parents('.border')
+			var productName = border.children('#displayProductName').text()
+			var productType = window.location.pathname.split("/").pop()
+			border.empty()
+			border.remove()
+			$.get('/deleteProduct', {name: productName, type: productType}, function(result) {
+				alert(result)
+			})
+		}
 	})
 
+	
 	$('#productNumberCake').change(function() {
 		if ($(this).is(":checked") == true) {
 			$(".input").val('');
