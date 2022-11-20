@@ -49,10 +49,11 @@ const controller = {
             var productPreview = await Cake.find({})
         } else if (productType == 'Cupcake') {
             var productPreview = await Cupcake.find({})
-        } else {
+        } else if (productType == 'Cookie'){
             var productPreview = await Cookie.find({})
+        } else {
+            res.render('errorPage')
         }
-        
         res.render('products', {preview: productPreview, type:productType})
     },
 
@@ -69,18 +70,20 @@ const controller = {
         res.send(productInfo)
     },
 
-    adminCakePage: async function(req, res) {
-        var cakes = await Cake.find({})
-        res.render('cakesPage', {cakes: cakes})
-        // res.render('addCake')
-    },
-
-    adminCupcakePage: async function(req, res) {
-        res.render('addCupcake')
-    },
-
-    adminCookiePage: async function(req, res) {
-        res.render('addCookie')
+    adminProductPage: async function (req, res) {
+        var productType = req.params.type
+        if (productType == 'Cake') {
+            var cakes = await Cake.find({})
+            res.render('cakesPage', {cakes: cakes})
+        } else if (productType == 'Cupcake') {
+            var cupcakes = await Cupcake.find({})
+            res.render('cupcakesPage', {cupcakes: cupcakes})
+        } else if (productType == 'Cookie') {
+            var cookies = await Cookie.find({})
+            res.render('cookiesPage', {cookies: cookies})
+        } else {
+            res.render('errorPage')
+        }
     },
 
     addCake: async function(req, res) {
@@ -118,11 +121,11 @@ const controller = {
                     numberCake: productNumberCake
                 })
             })
-            res.redirect('admin/addCake')
+            res.redirect('admin/Cake')
         } else {
             const messages = errors.array().map((item) => item.msg);
             req.flash('error_msg', messages[0]);
-            res.redirect('admin/addCake');
+            res.redirect('admin/Cake');
         }
         
     },
@@ -152,11 +155,11 @@ const controller = {
                     image: imagePath,
                 })
             })
-            res.redirect('admin/addCupcake')
+            res.redirect('admin/Cupcake')
         } else {
             const messages = errors.array().map((item) => item.msg);
             req.flash('error_msg', messages[0]);
-            res.redirect('admin/addCupcake');
+            res.redirect('admin/Cupcake');
         }
         
     },
@@ -188,11 +191,11 @@ const controller = {
                     design: productDesign, 
                 })
             })
-            res.redirect('admin/addCookie')
+            res.redirect('admin/Cookie')
         } else {
             const messages = errors.array().map((item) => item.msg);
             req.flash('error_msg', messages[0]);
-            res.redirect('admin/addCookie');
+            res.redirect('admin/Cookie');
         }
         
     },

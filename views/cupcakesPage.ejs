@@ -4,23 +4,23 @@
 	<head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-        <title>Cupcakes Page</title>
-        <link href="../css/productsPage.css" rel="stylesheet" type="text/css" />
-        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
+        <title>Cupcakes</title>
+        <link href="/css/productsPage.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     </head>
 
 	<body class="mainBackground">
 		<div class="header">
 			<div class="logo">
-                <img src="logo.png" placeholder="G-Cakes Logo" alt="1">
+                <img src="/images/logo.png" placeholder="G-Cakes Logo" alt="G-Cakes Logo" >
             </div>
-		
+			
 			<div class="menu">
-				<button class="menuBtn">CAKES</button>
+				<a href="/admin/Cake"><button class="menuBtn">CAKES</button></a>
 				<button class="menuBtn" style="font-weight:bold;">CUPCAKES</button>
-				<button class="menuBtn">DECORATED COOKIES</button>
-				<button class="menuBtn">ABOUT</button>
-				<button class="menuBtn">ORDERS</button>
+				<a href="/admin/Cookie"><button class="menuBtn">DECORATED COOKIES</button></a>
+				<a href="/admin/About"><button class="menuBtn">ABOUT</button></a>
+				<a href="/admin/orders/all"><button class="menuBtn">ORDERS</button></a>
 			</div>
 		</div>
 		
@@ -28,7 +28,7 @@
 			<div class="buttonHolder">	
 				<button type="submit" class="AddB" id="add">Add Cupcake</button>
 			</div>
-				<form class="productForm" method="Post" enctype="multipart/form-data">
+				<form action="/addCupcake" class="productForm" method="Post" enctype="multipart/form-data">
 					<table class="table1">
 						<tr>
 							<th class="th1">Picture</th>
@@ -37,38 +37,16 @@
 							<th class="th1">Size</th>
 							<th class="th1">Price</th>
 						</tr>
+						<% cupcakes.forEach(function(cupcakes) { %>
 						<tr class="border">
-							<td class="td1"><img src="elmo2.png"></td>
-							<td class="td1">Elmo Cupcakes</td>
+							<td class="td1"><img src="<%= cupcakes.image %>"></td>
+							<td class="td1"><%= cupcakes.name %></td>
 							<td class="td1">Vanilla<br>Chocolate<br>Red Velvet</td>
 							<td class="td1">One Dozen<br>One Dozen<br>One Dozen</td>
-							<td class="td1">P800<br>P900<br>P1000</td>
+							<td class="td1"><%= cupcakes.vanillaPrice %><br><%= cupcakes.chocolatePrice %><br><%= cupcakes.redvelvetPrice %></td>
 							<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
 						</tr>
-						<tr class="border">
-							<td class="td1"><img src="frozen.png"></td>
-							<td class="td1">Frozen Cupcakes</td>
-							<td class="td1">Vanilla<br>Chocolate<br>Red Velvet</td>
-							<td class="td1">One Dozen<br>One Dozen<br>One Dozen</td>
-							<td class="td1">P800<br>P900<br>P1000</td>		
-							<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
-						</tr>
-						<tr class="border">
-							<td class="td1"><img src="mineons.png"></td>
-							<td class="td1">Minions Cupcakes</td>
-							<td class="td1">Vanilla<br>Chocolate<br>Red Velvet</td>
-							<td class="td1">One Dozen<br>One Dozen<br>One Dozen</td>
-							<td class="td1">P600<br>P700<br>P800</td>
-							<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
-						</tr>
-						<tr class="border">
-							<td class="td1"><img src="oddbuds.png"></td>
-							<td class="td1">Oddbuds Cupcakes</td>
-							<td class="td1">Vanilla<br>Chocolate<br>Red Velvet</td>
-							<td class="td1">One Dozen<br>One Dozen<br>One Dozen</td>
-							<td class="td1">P700<br>P800<br>P900</td>
-							<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
-						</tr>
+						<% }) %>
 					</table>
 					<br>
 					<div class="paginationHolder">	
@@ -86,78 +64,84 @@
 				</form>	
 		</div>
 		<div id="cupcakeModal" class="modal">
-
 		<!-- Modal content -->
 			<div class="modal-content-cupcake" style="background-color: #EBD8DB;">
 				<span class="close"></span>
-					<div class="addProductHeader">
-						<h1>ADD CUPCAKE</h1>
-					</div>
-					<form action="/addCupcake" class="addProductForm" method="Post" enctype="multipart/form-data">
-						<table class="table2">
-							<tr>
-								<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cupcake Name:</label></div></td>	
-								<td class="td2" style="width: 3%;"></td>
-								<td class="td2" style="width: 25%;"><input class="input" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
-								<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
-								<td class="td2"><input type="file" id="myFile" name="filename" ></td>
-							</tr>
-						
-							<tr>
-								<td class="td2"><div class="productCss"><label for="productFlavors">Vanilla</label></div></td>
-								<td class="td2"></td>
-								<td class="td2"></td>
-								<td class="td2"></td>								
-								<td class="td2"></td>
-							</tr>
-						
-							<tr>
-								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>
-								<td class="td2"></td>								
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla" placeholder="Enter Price"></td>
-								<td class="td2"></td>								
-								<td class="td2"></td>
-							</tr>				
-						
-							<tr>
-								<td class="td2"><div class="productCss"><label for="productFlavors">Chocolate</label></div></td>								
-								<td class="td2"></td>
-								<td class="td2"></td>
-								<td class="td2"></td>
-								<td class="td2"></td>
-								
-							</tr>
+				<div class="addProductHeader">
+					<h1>ADD CUPCAKE</h1>
+				</div>
+				<form action="/addCupcake" class="addProductForm" method="Post" enctype="multipart/form-data">
+					<table class="table2">
+						<tr>
+							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cupcake Name:</label></div></td>	
+							<td class="td2" style="width: 3%;"></td>
+							<td class="td2" style="width: 25%;"><input class="input" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
+							<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
+							<td class="td2"><input type="file" id="myFile" name="filename" ></td>
+						</tr>
+					
+						<tr>
+							<td class="td2"><div class="productCss"><label for="productFlavors">Vanilla</label></div></td>
+							<td class="td2"></td>
+							<td class="td2"></td>
+							<td class="td2"></td>								
+							<td class="td2"></td>
+						</tr>
+					
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>
+							<td class="td2"></td>								
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla" placeholder="Enter Price"></td>
+							<td class="td2"></td>								
+							<td class="td2"></td>
+						</tr>				
+					
+						<tr>
+							<td class="td2"><div class="productCss"><label for="productFlavors">Chocolate</label></div></td>								
+							<td class="td2"></td>
+							<td class="td2"></td>
+							<td class="td2"></td>
+							<td class="td2"></td>
 							
-							<tr>
-								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>								
-								<td class="td2"</td>
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate" placeholder="Enter Price"></td>
-								<td class="td2"></td>								
-								<td class="td2"></td>
-							</tr>
+						</tr>
+						
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>								
+							<td class="td2"></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate" placeholder="Enter Price"></td>
+							<td class="td2"></td>								
+							<td class="td2"></td>
+						</tr>
+						
+						<tr>
+							<td class="td2"><div class="productCss"><label for="productFlavors">Red Velvet</label></div></td>								
+							<td class="td2"></td>
+							<td class="td2"></td>
+							<td class="td2"></td>
+							<td class="td2" style="text-align: center;"><button class="Add" id="addl">Add</button></td>
 							
-							<tr>
-								<td class="td2"><div class="productCss"><label for="productFlavors">Red Velvet</label></div></td>								
-								<td class="td2"></td>
-								<td class="td2"></td>
-								<td class="td2"></td>
-								<td class="td2" style="text-align: center;"><button class="Add" id="addl">Add</button></td>
-								
-							</tr>
-							
-							<tr>
-								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>
-								<td class="td2"></td>
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet" placeholder="Enter Price"></td>
-								<td class="td2"></td>								
-								<td class="td2" style="text-align: center; padding-top: 10px;"><button class="Cancel" id="cancel">Cancel</button></td>
-							</tr>
-						</table>
-					</form>
+						</tr>
+						
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>
+							<td class="td2"></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet" placeholder="Enter Price"></td>
+							<td class="td2"></td>								
+							<td class="td2" style="text-align: center; padding-top: 10px;"><button class="Cancel" id="cancel">Cancel</button></td>
+						</tr>
+					</table>
+				</form>
 			</div>
 		</div>
-		</body>
-			<script>
+	</body>
+	<script>
+		$( document ).ready(function() {
+			var errors = '<%= error_msg %>';
+			console.log(errors)
+			if(errors.length > 0) {
+				$('#cupcakeModal').css('display', 'block')
+			}	
+		});	
 		// Get the modal
 		var modal = document.getElementById("cupcakeModal");
 
@@ -169,19 +153,19 @@
 
 		// When the user clicks the button, open the modal 
 		btn.onclick = function() {
-		  modal.style.display = "block";
+		modal.style.display = "block";
 		}
 
 		// When the user clicks on <span> (x), close the modal
 		span.onclick = function() {
-		  modal.style.display = "none";
+		modal.style.display = "none";
 		}
 
 		// When the user clicks anywhere outside of the modal, close it
 		window.onclick = function(event) {
-		  if (event.target == modal) {
+		if (event.target == modal) {
 			modal.style.display = "none";
-		  }
 		}
-		</script>
+		}
+	</script>
 </html>	

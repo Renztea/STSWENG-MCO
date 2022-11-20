@@ -4,23 +4,23 @@
 	<head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-        <title>Cakes Page</title>
-        <link href="../css/productsPage.css" rel="stylesheet" type="text/css" />
-        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"></script>
+        <title>Cakes</title>
+        <link href="/css/productsPage.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     </head>
 
 	<body class="mainBackground">
 		<div class="header">
 			<div class="logo">
-                <img src="/images/logo.png" placeholder="G-Cakes Logo" alt="1">
+                <img src="/images/logo.png" placeholder="G-Cakes Logo" alt="G-Cakes Logo" >
             </div>
 		
 			<div class="menu">
 				<button class="menuBtn" style="font-weight:bold;">CAKES</button>
-				<button class="menuBtn">CUPCAKES</button>
-				<button class="menuBtn">DECORATED COOKIES</button>
-				<button class="menuBtn">ABOUT</button>
-				<button class="menuBtn">ORDERS</button>
+				<a href="/admin/Cupcake"><button class="menuBtn">CUPCAKES</button></a>
+				<a href="/admin/Cookie"><button class="menuBtn">DECORATED COOKIES</button></a>
+				<a href="/admin/About"><button class="menuBtn">ABOUT</button></a>
+				<a href="/admin/orders/all"><button class="menuBtn">ORDERS</button></a>
 			</div>
 		</div>
 		<div class="productBox">
@@ -39,7 +39,7 @@
 					
 					<% cakes.forEach(function(cakes) { %>
 					<tr class="border">
-						<td class="td1"><img src="<%= cakes.image %>"></td>
+						<td class="td1"><img src="<%= cakes.image %>" placeholder="<%= cakes.name %>" alt="<%= cakes.name %>"></td>
 						<td class="td1"><%= cakes.name %></td>
 						<td class="td1">Chocolate<br><br><br>Vanilla</td>
 						<td class="td1">6 X 5<br>8 X 5<br><br>6 X 5<br>8 X 5</td>
@@ -64,116 +64,126 @@
 			</form>
 		</div>
 		<div id="cakeModal" class="modal">
-
-				<!-- Modal content -->
-					<div class="modal-content" style="background-color: #EBD8DB;">
-						<span class="close"></span>
-							<div class="addProductHeader">
-								<h1>ADD CAKE</h1>
-							</div>
-							<%- include("partials/messages") %>
-							<form action="/addCake" class="addProductForm" method="Post" enctype="multipart/form-data">
-								<table class="table2">
-									<tr>
-										<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cake Name:</label></div></td>	
-										<td class="td2" style="width: 3%;"></td>
-										<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
-										<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
-										<td class="td2"><input type="file" id="myFile" name="filename"></td>
-									</tr>
-								
-									<tr>
-										<td class="td2"><div class="productCss"><label for="productFlavors">Vanilla</label></div></td>
-										<td class="td2"></td>
-										<td class="td2"></td>
-										<td class="td2"></td>								
-										<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productDedication" name="productDedication" value="1">
-										<span class="checkmark"></span><label for="allowDedication">Allow dedication</label></div></td>
-									</tr>
-								
-									<tr>
-										<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">6 x 5</label></div></td>
-										<td class="td2"></td>								
-										<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"></td>
-										<td class="td2"></td>								
-										<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productNumberCake" name="productNumberCake" value="1">
-										<label for="numberCake">Number Cake</label><span class="checkmark"></span></div></td>
-									</tr>
-									
-									<tr>
-										<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">8 x 5</label></div></td>								
-										<td class="td2"></td>
-										<td class="td2"><input class="input" type="number" name="productPricesVanilla2" placeholder="Enter Price"></td>
-										<td class="td2" colspan="2" style="text-align: center;"><div class="productCss"><label for="productSizes">Number Cake</label>
-										<a>&nbsp;</a><input class="inputNum" type="number" name="productPricesNumberCake" disabled="disabled" placeholder="Not Applicable"></td>								
-									</tr>
-								
-									<tr>
-										<td class="td2"><div class="productCss"><label for="productFlavors">Chocolate</label></div></td>								
-										<td class="td2"></td>
-										<td class="td2"></td>
-										<td class="td2"></td>
-										<td class="td2"></td>
-										
-									</tr>
-									
-									<tr>
-										<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">6 x 5</label></div></td>								
-										<td class="td2"></td>
-										<td class="td2"><input class="input" type="number" name="productPricesChocolate1" placeholder="Enter Price"></td>
-										<td class="td2"></td>								
-										<td class="td2" style="text-align: center;"><button type="submit" class="Add" id="addl">Add</button></td>
-									</tr>
-									
-									<tr>
-										<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">8 x 5</label></div></td>
-										<td class="td2"></td>
-										<td class="td2"><input class="input" type="number" name="productPricesChocolate2" placeholder="Enter Price"></td>
-										<td class="td2"></td>								
-										<td class="td2" style="text-align: center; padding-top:10px;"><button type="button" class="Cancel" id="cancel">Cancel</button></td>
-									</tr>							
-								</table>
-							</form>
-					</div>
+			<!-- Modal content -->
+			<div class="modal-content" style="background-color: #EBD8DB;">
+				<span class="close"></span>
+				<div class="addProductHeader">
+					<h1>ADD CAKE</h1>
 				</div>
-		</body>
-		<script>
-		// Get the modal
-		var modal = document.getElementById("cakeModal");
-		// Get the button that opens the modal
-		var btn = document.getElementById("add");
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-		// When the user clicks the button, open the modal 
-		btn.onclick = function() {
-		  modal.style.display = "block";
-		}
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() {
-		  modal.style.display = "none";
-		}
-		// When the user clicks anywhere outside of the modal, close it
-		window.onclick = function(event) {
-		  if (event.target == modal) {
+				<%- include("partials/messages") %>
+				<form action="/addCake" class="addProductForm" method="Post" enctype="multipart/form-data">
+					<table class="table2">
+						<tr>
+							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cake Name:</label></div></td>	
+							<td class="td2" style="width: 3%;"></td>
+							<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
+							<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
+							<td class="td2"><input type="file" id="myFile" name="filename"></td>
+						</tr>
+					
+						<tr>
+							<td class="td2"><div class="productCss"><label for="productFlavors">Vanilla</label></div></td>
+							<td class="td2"></td>
+							<td class="td2"></td>
+							<td class="td2"></td>								
+							<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productDedication" name="productDedication" value="1">
+							<span class="checkmark"></span><label for="allowDedication">Allow dedication</label></div></td>
+						</tr>
+					
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">6 x 5</label></div></td>
+							<td class="td2"></td>								
+							<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"></td>
+							<td class="td2"></td>								
+							<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productNumberCake" name="productNumberCake" value="1">
+							<label for="numberCake">Number Cake</label><span class="checkmark"></span></div></td>
+						</tr>
+						
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">8 x 5</label></div></td>								
+							<td class="td2"></td>
+							<td class="td2"><input class="input" type="number" name="productPricesVanilla2" placeholder="Enter Price"></td>
+							<td class="td2" colspan="2" style="text-align: center;"><div class="productCss"><label for="productSizes">Number Cake</label>
+							<a>&nbsp;</a><input class="inputNum" type="number" name="productPricesNumberCake" disabled="disabled" placeholder="Not Applicable"></td>								
+						</tr>
+					
+						<tr>
+							<td class="td2"><div class="productCss"><label for="productFlavors">Chocolate</label></div></td>								
+							<td class="td2"></td>
+							<td class="td2"></td>
+							<td class="td2"></td>
+							<td class="td2"></td>
+							
+						</tr>
+						
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">6 x 5</label></div></td>								
+							<td class="td2"></td>
+							<td class="td2"><input class="input" type="number" name="productPricesChocolate1" placeholder="Enter Price"></td>
+							<td class="td2"></td>								
+							<td class="td2" style="text-align: center;"><button type="submit" class="Add" id="addl">Add</button></td>
+						</tr>
+						
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">8 x 5</label></div></td>
+							<td class="td2"></td>
+							<td class="td2"><input class="input" type="number" name="productPricesChocolate2" placeholder="Enter Price"></td>
+							<td class="td2"></td>								
+							<td class="td2" style="text-align: center; padding-top:10px;"><button type="button" class="Cancel" id="cancel">Cancel</button></td>
+						</tr>							
+					</table>
+				</form>
+			</div>
+		</div>
+	</body>
+	<script>
+	// Checks if there are error messages to automatically open the modal.
+	$( document ).ready(function() {
+		var errors = '<%= error_msg %>';
+		console.log(errors)
+		if(errors.length > 0) {
+			$('#cakeModal').css('display', 'block')
+		}	
+	});
+	// Get the modal
+	var modal = document.getElementById("cakeModal");
+	// Get the button that opens the modal
+	var btn = document.getElementById("add");
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+	// When the user clicks the button, open the modal 
+	btn.onclick = function() {
+		modal.style.display = "block";
+	}
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+		modal.style.display = "none";
+	}
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+		if (event.target == modal) {
 			modal.style.display = "none";
-		  }
 		}
-		
-		// When the user clicks number cake, it makes the other textbox disabled except for Number Cake textbox
-		$('#productNumberCake').change(function() {
-			if ($(this).is(":checked") == true) {
-				$(".input").val('');
-				$(".input").attr('placeholder', 'Not Applicable');
-				$(".input").prop("disabled", true);
-				$(".inputNum").attr('placeholder', 'Enter Price');
-				$(".inputNum").prop("disabled", false)
-			} else {
-				$(".input").attr('placeholder', 'Enter Price');
-				$(".input").prop("disabled", false);
-				$(".inputNum").val('');
-				$(".inputNum").attr('placeholder', 'Not Applicable');
-				$(".inputNum").prop("disabled", true)
-			}
-        })
-		</script>
+	}
+	
+	$('.Remove').click(function() {
+		alert('Hello')
+	})
+
+	$('#productNumberCake').change(function() {
+		if ($(this).is(":checked") == true) {
+			$(".input").val('');
+			$(".input").attr('placeholder', 'Not Applicable');
+			$(".input").prop("disabled", true);
+			$(".inputNum").attr('placeholder', 'Enter Price');
+			$(".inputNum").prop("disabled", false)
+		} else {
+			$(".input").attr('placeholder', 'Enter Price');
+			$(".input").prop("disabled", false);
+			$(".inputNum").val('');
+			$(".inputNum").attr('placeholder', 'Not Applicable');
+			$(".inputNum").prop("disabled", true)
+		}
+	})
+	</script>
 </html>	
