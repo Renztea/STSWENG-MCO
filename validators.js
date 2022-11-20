@@ -27,7 +27,9 @@ const addCakeValidation = [
         return false
         break;
     }
-  }).withMessage("Please provide a valid image"),
+  }).withMessage("Please provide a valid image").bail(),
+  body('productPricesNumberCake').not().isEmpty().withMessage('Price is required for a number cake!!!')
+    .bail().isInt({min:0}).withMessage("Please provide a valid price!"),
 ]
 
 const addCupcakeValidation = [

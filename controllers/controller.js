@@ -1,5 +1,6 @@
 const path = require('path')
 const ejs = require('ejs') // Added
+const fs = require('fs')
 const { validationResult } = require('express-validator');
 const Cake = require('../models/cake')
 const Cupcake = require('../models/cupcake')
@@ -96,14 +97,17 @@ const controller = {
             var productVanilla8x5price = req.body.productPricesVanilla2
             var productChocolate6x5price = req.body.productPricesChocolate1
             var productChocolate8x5price = req.body.productPricesChocolate2
-            var productDedication = req.body.productDedication
-                if (productDedication == null) {
-                    productDedication = '0'
-                }
             var productNumberCake = req.body.productNumberCake
-                if (productNumberCake == null) {
-                    productNumberCake = '0'
-                }
+            var productNumberCakePrice = req.body.productPricesNumberCake
+            var productDedication = req.body.productDedication
+            // when checkbox isn't checked
+            if (typeof productNumberCake === 'undefined') {
+                productNumberCake = false
+            }
+            // when checkbox isn't checked
+            if (typeof productDedication === 'undefined') {
+                productDedication = false
+            }
             const image = req.files.filename
             let date = new Date();
             var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
@@ -118,7 +122,8 @@ const controller = {
                     chocolate8x5Price: productChocolate8x5price,
                     image: imagePath,
                     dedication: productDedication,
-                    numberCake: productNumberCake
+                    numberCake: productNumberCake,
+                    numberCakePrice: productNumberCakePrice
                 })
             })
             res.redirect('admin/Cake')
@@ -191,6 +196,7 @@ const controller = {
                     design: productDesign, 
                 })
             })
+
             res.redirect('admin/Cookie')
         } else {
             const messages = errors.array().map((item) => item.msg);
@@ -202,23 +208,30 @@ const controller = {
 
     deleteProduct: async function(req, res) {
         var name = req.query.name
+        var image = req.query.image
         var type = req.query.type
+        //var directory = __basedir + "/public"
+        //console.log(image)
         var successMessage = "Product deleted successfully"
         var errorMessage = "Error"
         if (type == 'Cake') {
             await Cake.deleteOne({name: name}).then(function() {
+                //console.log(directory + image)
+                //fs.unlink(directory + image)
                 res.send(successMessage)
             }).catch(function(errorMessage){
-                res.send(errorMessage); // Failure
+                res.send(errorMessage); 
             });
         } else if (type == 'Cupcake') {
             await Cupcake.deleteOne({name: name}).then(function() {
+                //fs.unlink(image);
                 res.send(successMessage)
             }).catch(function(errorMessage){
-                res.send(errorMessage); // Failure
+                res.send(errorMessage); 
             });
         } else {
             await Cookie.deleteOne({name: name}).then(function() {
+                //fs.unlink(image);
                 res.send(successMessage)
             }).catch(function(errorMessage){
                 res.send(errorMessage);

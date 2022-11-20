@@ -36,16 +36,26 @@
 						<th class="th1">Size</th>
 						<th class="th1">Price</th>
 					</tr>
-					
 					<% cakes.forEach(function(cakes) { %>
-					<tr class="border">
-						<td class="td1"><img src="<%= cakes.image %>" placeholder="<%= cakes.name %>" alt="<%= cakes.name %>"></td>
-						<td id="displayProductName" class="td1"><%= cakes.name %></td>
-						<td class="td1">Chocolate<br><br><br>Vanilla</td>
-						<td class="td1">6 X 5<br>8 X 5<br><br>6 X 5<br>8 X 5</td>
-						<td class="td1">&#8369;<%= cakes.chocolate6x5Price %><br>&#8369;<%= cakes.chocolate8x5Price %><br><br>&#8369;<%= cakes.vanilla6x5Price %><br>&#8369;<%= cakes.vanilla8x5Price %></td>
-						<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
-					</tr>
+						<% if (cakes.numberCake) { %>
+							<tr class="border">
+								<td class="td1"><img src="<%= cakes.image %>" placeholder="<%= cakes.name %>" alt="<%= cakes.name %>"></td>
+								<td id="displayProductName" class="td1"><%= cakes.name %></td>
+								<td class="td1">Chocolate<br></td>
+								<td class="td1">Number Cake<br></td>
+								<td class="td1">&#8369;<%= cakes.numberCakePrice %><br></td>
+								<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
+							</tr>
+						<% } else { %>
+							<tr class="border">
+								<td class="td1"><img src="<%= cakes.image %>" placeholder="<%= cakes.name %>" alt="<%= cakes.name %>"></td>
+								<td id="displayProductName" class="td1"><%= cakes.name %></td>
+								<td class="td1">Chocolate<br><br><br>Vanilla</td>
+								<td class="td1">6 X 5<br>8 X 5<br><br>6 X 5<br>8 X 5</td>
+								<td class="td1">&#8369;<%= cakes.chocolate6x5Price %><br>&#8369;<%= cakes.chocolate8x5Price %><br><br>&#8369;<%= cakes.vanilla6x5Price %><br>&#8369;<%= cakes.vanilla8x5Price %></td>
+								<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
+							</tr>
+						<% } %>
 					<% }) %>
 				</table>
 				<br>
@@ -86,7 +96,7 @@
 							<td class="td2"></td>
 							<td class="td2"></td>
 							<td class="td2"></td>								
-							<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productDedication" name="productDedication" value="1">
+							<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productDedication" name="productDedication" value="true">
 							<span class="checkmark"></span><label for="allowDedication">Allow dedication</label></div></td>
 						</tr>
 					
@@ -95,7 +105,7 @@
 							<td class="td2"></td>								
 							<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"></td>
 							<td class="td2"></td>								
-							<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productNumberCake" name="productNumberCake" value="1">
+							<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productNumberCake" name="productNumberCake" value="true">
 							<label for="numberCake">Number Cake</label><span class="checkmark"></span></div></td>
 						</tr>
 						
@@ -104,7 +114,7 @@
 							<td class="td2"></td>
 							<td class="td2"><input class="input" type="number" name="productPricesVanilla2" placeholder="Enter Price"></td>
 							<td class="td2" colspan="2" style="text-align: center;"><div class="productCss"><label for="productSizes">Number Cake</label>
-							<a>&nbsp;</a><input class="inputNum" type="number" name="productPricesNumberCake" disabled="disabled" placeholder="Not Applicable"></td>								
+							<a>&nbsp;</a><input class="inputNum" type="number" name="productPricesNumberCake" placeholder="Not Applicable" value="0" readonly></td>								
 						</tr>
 					
 						<tr>
@@ -143,6 +153,7 @@
 		if(errors.length > 0) {
 			$('#cakeModal').css('display', 'block')
 		}	
+		$(".inputNum").css('background-color', 'gray')
 	});
 	// Get the modal
 	var modal = document.getElementById("cakeModal");
@@ -170,9 +181,11 @@
 			var border = $(this).parents('.border')
 			var productName = border.children('#displayProductName').text()
 			var productType = window.location.pathname.split("/").pop()
+			var productImage = border.find('img').attr('src')
+			console.log(productImage)
 			border.empty()
 			border.remove()
-			$.get('/deleteProduct', {name: productName, type: productType}, function(result) {
+			$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
 				alert(result)
 			})
 		}
@@ -181,17 +194,21 @@
 	
 	$('#productNumberCake').change(function() {
 		if ($(this).is(":checked") == true) {
-			$(".input").val('');
+			$(".input").val(0);
 			$(".input").attr('placeholder', 'Not Applicable');
-			$(".input").prop("disabled", true);
+			$(".input").attr('readonly', true);
+			$(".input").css('background-color', 'gray')
+			$(".inputNum").css('background-color', 'white')
 			$(".inputNum").attr('placeholder', 'Enter Price');
-			$(".inputNum").prop("disabled", false)
+			$(".inputNum").attr('readonly', false);
 		} else {
 			$(".input").attr('placeholder', 'Enter Price');
-			$(".input").prop("disabled", false);
-			$(".inputNum").val('');
+			$(".input").attr('readonly', false);
+			$(".input").css('background-color', 'white')
+			$(".inputNum").val(0);
+			$(".inputNum").css('background-color', 'gray')
 			$(".inputNum").attr('placeholder', 'Not Applicable');
-			$(".inputNum").prop("disabled", true)
+			$(".inputNum").attr('readonly', true);
 		}
 	})
 	</script>
