@@ -102,8 +102,11 @@ const controller = {
                     productNumberCake = '0'
                 }
             const image = req.files.filename
-            var imagePath = '/images/' + image.name;
-            image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
+            let date = new Date();
+            var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
+                date.getSeconds() + '_'+ image.name;
+            var imagePath = '/images/' + filenameChange;
+            image.mv(path.resolve(__dirname, '../public/images', filenameChange),(error) => {
                 Cake.create({
                     name: productName, 
                     vanilla6x5Price: productVanilla6x5price,
@@ -135,8 +138,11 @@ const controller = {
             var productRedVelvet = req.body.productPricesRedVelvet
             var productFrosting = req.body.productFrosting
             const image = req.files.filename
-            var imagePath = '/images/' + image.name;
-            image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
+            let date = new Date();
+            var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
+                date.getSeconds() + '_'+ image.name;
+            var imagePath = '/images/' + filenameChange;
+            image.mv(path.resolve(__dirname, '../public/images', filenameChange),(error) => {
                 Cupcake.create({
                     name: productName, 
                     vanillaPrice: productVanilla,
@@ -167,8 +173,14 @@ const controller = {
                     productDesign = '0'
                 }
             const image = req.files.filename
-            var imagePath = '/images/' + image.name;
-            image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
+            let date = new Date();
+
+            var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
+                date.getSeconds() + '_'+ image.name;
+
+            var imagePath = '/images/' + filenameChange;
+
+            image.mv(path.resolve(__dirname, '../public/images', filenameChange),(error) => {
                 Cookie.create({
                     name: productName, 
                     price: productPrices,
