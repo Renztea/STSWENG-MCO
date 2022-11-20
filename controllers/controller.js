@@ -47,7 +47,7 @@ const controller = {
     getProductPage: async function(req, res) {
         var productType = req.params.type
         if (productType == 'Cake') {
-            var productPreview = await Cake.find({})
+            var productPreview = await Cake.find({}, ['name', 'image'])
         } else if (productType == 'Cupcake') {
             var productPreview = await Cupcake.find({})
         } else if (productType == 'Cookie'){
@@ -55,7 +55,8 @@ const controller = {
         } else {
             res.render('errorPage')
         }
-        res.render('products', {preview: productPreview, type:productType})
+           
+        res.render('products', {preview: productPreview, type: productType})
     },
 
     getProductInfo: async function(req, res) {

@@ -44,11 +44,30 @@
 
                     <input type="hidden" name="productName" value="productName">
 
-                    <% if (type == 'Cake') { %>
-                        <%- include("partials/cakeModal") %>
-                    <% } else if (type == 'Cupcake') { %>
-                        <%- include("partials/cupcakeModal") %>
-                    <% } %>
+                    
+                    <%# if (type == 'Cake') { %>
+                        <%#- include("partials/cakeModal") %>
+                    <%# } else if (type == 'Cupcake') { %>
+                        <%#- include("partials/cupcakeModal") %>
+                    <%# } %>
+                   
+                    <%_ if(type != 'Cookie') { _%>
+                    <select id="displayProductFlavor" class="orderFlavor" title="Flavor" id="flavor" name="flavor">
+                        <!--
+                        <option value="Vanilla">Vanilla</option>
+                        <option value="Chocolate">Chocolate</option>
+                        <option value="Red Velvet">Red Velvet</option>
+                        -->
+                    </select>
+                    <%_ } _%>
+                    <%_ if (type == 'Cake') { _%>
+                    <select id="displayProductSize" class="orderSize" title="Size" id="size" name="size">
+                        <!--
+                        <option value="6x5">6" x 5"</option>
+                        <option value="8x5">8" x 5"</option>
+                        -->
+                    </select>
+                    <%_ } _%>
 
                     <div class="orderQuantityContainer">
                         <span id="decrement" class="incdec orderDecrement">-</span>
