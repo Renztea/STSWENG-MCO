@@ -177,10 +177,6 @@ const controller = {
         if (errors.isEmpty()) {
             var productName = (req.body.productName).trim()
             var productPrices = req.body.productPrices
-            var productDesign = req.body.productDesign
-                if (productDesign == null) {
-                    productDesign = '0'
-                }
             const image = req.files.filename
             let date = new Date();
 
@@ -193,8 +189,7 @@ const controller = {
                 Cookie.create({
                     name: productName, 
                     price: productPrices,
-                    image: imagePath,
-                    design: productDesign, 
+                    image: imagePath, 
                 })
             })
 
