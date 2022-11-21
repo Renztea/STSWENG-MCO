@@ -28,8 +28,55 @@
                 </div>
             </div>
         </div>
+
+        <div class="orderModalBackground">
+            <div class="orderModalContent">
+                <div class="orderClose">+</div>
+
+                <div class="orderModalInfo">
+                    <p>Buyer Name:</p>
+                    <p>Celebrant Name:</p>
+                    <p>Celebrant Gender:</p>
+                    <p>Celebrant Age:</p>
+                    <p>Contact Number:</p>
+                    <p>Pick Up Date:</p>
+                </div>
+
+                <div class="orderModalProductContainer">
+                    <fieldset class="orderModalFieldSet">
+                        <legend>Ordered Products</legend>
+                        <table class="orderModalTable ">
+                            <thead class="orderTableHeader">
+                                <tr>
+                                    <th class="orderTableHeaderItem">Order#</th>  
+                                    <th class="orderTableHeaderItem">Name</th>          
+                                    <th class="orderTableHeaderItem">Flavor</th>
+                                    <th class="orderTableHeaderItem">Size</th>
+                                    <th class="orderTableHeaderItem">Frosting</th>
+                                    <th class="orderTableHeaderItem">Quantity</th>
+                                    <th class="orderTableHeaderItem">Price</th>
+                                </tr>
+
+                            <tbody>
+                                <tr class="orderTableInfoRow">
+                                    <td class="orderTableInfo" data-label="Order#">1</td>
+                                    <td class="orderTableInfo" data-label="Name">Among Us</td>
+                                    <td class="orderTableInfo" data-label="Flavor">Chocolate</td>
+                                    <td class="orderTableInfo" data-label="Size">6"x5"</td>
+                                    <td class="orderTableInfo" data-label="Frosting"></td>
+                                    <td class="orderTableInfo" data-label="Quantity">1</td>
+                                    <td class="orderTableInfo" data-label="Price">200</td>
+                                </tr>
+                            </tbody>
+                            </thead>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
     <script>
         $(document).ready(function() {
+            // Start - Pagination
             function getPageList(totalPages, page, maxLength) {
                 function range(start, end) {
                     return Array.from(Array(end - start + 1), (_, i) => i + start);
@@ -98,7 +145,7 @@
                         alert(jqXHR.responseText);
                     })
                     .done(function(resp) {                                   
-                        $(".orderTable").html(resp);
+                        $("#orderTable").html(resp);
                     });
                 }
                 
@@ -128,6 +175,16 @@
                     }
                 });
             });
+            // End - Pagination
+
+            $(".orderViewBtn").click(function() {
+                document.querySelector('.orderModalBackground').style.display = 'flex';
+                var orderID = $(this).attr("data")
+            })
+
+            $(".orderClose").click(function() {
+                document.querySelector('.orderModalBackground').style.display = 'none';
+            })
         });
     </script>
     </body>
