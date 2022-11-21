@@ -189,7 +189,7 @@ const controller = {
                 Cookie.create({
                     name: productName, 
                     price: productPrices,
-                    image: imagePath, 
+                    image: imagePath,
                 })
             })
 
