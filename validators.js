@@ -52,8 +52,6 @@ const addCupcakeValidation = [
         break;
     }
   }).withMessage("Please provide a valid image").bail(),
-  body('productFrosting').not().isEmpty().withMessage('Choose type of frosting!')
-    .bail(),
 ]
 
 const addCookieValidation = [

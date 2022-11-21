@@ -22,9 +22,10 @@ const cupcakeSchema = new mongoose.Schema ({
         required: true
     },
     frosting: {
-        type: String,
+        type: Boolean,
         required: true
     },
+    
 })
 
 module.exports = mongoose.model('cupcake', cupcakeSchema)

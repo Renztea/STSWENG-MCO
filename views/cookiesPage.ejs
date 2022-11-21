@@ -40,7 +40,7 @@
 					<% cookies.forEach(function(cookies) { %>
 					<tr class="border">
 						<td class="td1"><img src="<%= cookies.image %>" placeholder="<%= cookies.name %>" alt="<%= cookies.name %>"></td>
-						<td class="td1"><%= cookies.name %></td>
+						<td id="displayProductName" class="td1"><%= cookies.name %></td>
 						<td class="td1">Butter Cookies</td>
 						<td class="td1">One Dozen</td>
 						<td class="td1"><%= cookies.price %></td>
@@ -70,6 +70,8 @@
 				<div class="addProductHeader">
 					<h1>ADD COOKIE</h1>
 				</div>
+				<%- include("partials/messages") %>
+				<h2><strong id="errorName"></strong></h2>
 				<form action="/addCookie" class="addProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
 						<tr>
@@ -141,5 +143,37 @@
 				modal.style.display = "none";
 			}
 		}
+
+		$('#productName').blur(function () {
+			var productName = $(this).val()
+			var productType = window.location.pathname.split("/").pop()
+			$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
+				if (result) {
+					$('#productName').css('background-color', 'red')
+					$('#errorName').text('Cookie is already available!')
+					$('#errorName').css('color', 'red')
+					$('#addl').prop('disabled', true)
+				} else {
+					$('#productName').css('background-color', 'white')
+					$('#errorName').text('')
+					$('#addl').prop('disabled', false)
+				}
+			})
+		})
+		
+		// Remove a product from the view and call the delete function from the controller
+		$('.Remove').click(function() {
+			if (confirm('Are you sure you want to delete the product?') == true) {
+				var border = $(this).parents('.border')
+				var productName = border.children('#displayProductName').text()
+				var productType = window.location.pathname.split("/").pop()
+				var productImage = border.find('img').attr('src')
+				border.empty()
+				border.remove()
+				$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
+					alert(result)
+				})
+			}
+		})
 	</script>
 </html>	

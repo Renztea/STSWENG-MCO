@@ -40,7 +40,7 @@
 						<% cupcakes.forEach(function(cupcakes) { %>
 						<tr class="border">
 							<td class="td1"><img src="<%= cupcakes.image %>"></td>
-							<td class="td1"><%= cupcakes.name %></td>
+							<td id="displayProductName" class="td1"><%= cupcakes.name %></td>
 							<td class="td1">Vanilla<br>Chocolate<br>Red Velvet</td>
 							<td class="td1">One Dozen<br>One Dozen<br>One Dozen</td>
 							<td class="td1"><%= cupcakes.vanillaPrice %><br><%= cupcakes.chocolatePrice %><br><%= cupcakes.redvelvetPrice %></td>
@@ -70,6 +70,8 @@
 				<div class="addProductHeader">
 					<h1>ADD CUPCAKE</h1>
 				</div>
+				<%- include("partials/messages") %>
+				<h2><strong id="errorName"></strong></h2>
 				<form action="/addCupcake" class="addProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
 						<tr>
@@ -167,5 +169,37 @@
 				modal.style.display = "none";
 			}
 		}
+
+		$('#productName').blur(function () {
+			var productName = $(this).val()
+			var productType = window.location.pathname.split("/").pop()
+			$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
+				if (result) {
+					$('#productName').css('background-color', 'red')
+					$('#errorName').text('Cupcake is already available!')
+					$('#errorName').css('color', 'red')
+					$('#addl').prop('disabled', true)
+				} else {
+					$('#productName').css('background-color', 'white')
+					$('#errorName').text('')
+					$('#addl').prop('disabled', false)
+				}
+			})
+		})
+		
+		// Remove a product from the view and call the delete function from the controller
+		$('.Remove').click(function() {
+			if (confirm('Are you sure you want to delete the product?') == true) {
+				var border = $(this).parents('.border')
+				var productName = border.children('#displayProductName').text()
+				var productType = window.location.pathname.split("/").pop()
+				var productImage = border.find('img').attr('src')
+				border.empty()
+				border.remove()
+				$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
+					alert(result)
+				})
+			}
+		})
 	</script>
 </html>	
