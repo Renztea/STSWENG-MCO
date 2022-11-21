@@ -3,6 +3,8 @@ $(document).ready(function() {
       var productName = $(this).find('img').attr('placeholder');
       var productType = $(this).find('input').val();
 
+      document.querySelector('.mainBackground').style.overflow = 'hidden';
+
       $.get('/getProductInfo', {name: productName, type: productType}, function(result) {
         if (result) {
           $('#displayProductImage').attr('src', result.image);
@@ -146,6 +148,7 @@ $(document).ready(function() {
     }
   
     $(".close").click(function() {
+        document.querySelector('.mainBackground').style.overflow = 'auto';
         document.querySelector('.modalBackground').style.display = 'none';
     });
   
