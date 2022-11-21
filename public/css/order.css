@@ -32,6 +32,7 @@
   width: 100%;
   border-collapse: collapse;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
 }
 
 .orderTableHeader, .orderTableInfoRow {
