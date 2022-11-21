@@ -81,6 +81,7 @@
 					<h1>ADD CAKE</h1>
 				</div>
 				<%- include("partials/messages") %>
+				<h2><strong id="errorName"></strong></h2>
 				<form action="/addCake" class="addProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
 						<tr>
@@ -175,14 +176,32 @@
 			modal.style.display = "none";
 		}
 	}
+
+	// Checks if the inputted product name is already available in the database
+	$('#productName').blur(function () {
+		var productName = $(this).val()
+		var productType = window.location.pathname.split("/").pop()
+		$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
+			if (result) {
+				$('#productName').css('background-color', 'red')
+				$('#errorName').text('Cake is already available!')
+				$('#errorName').css('color', 'red')
+				$('#addl').prop('disabled', true)
+			} else {
+				$('#productName').css('background-color', 'white')
+				$('#errorName').text('')
+				$('#addl').prop('disabled', false)
+			}
+		})
+	})
 	
+	// Remove a product from the view and call the delete function from the controller
 	$('.Remove').click(function() {
 		if (confirm('Are you sure you want to delete the product?') == true) {
 			var border = $(this).parents('.border')
 			var productName = border.children('#displayProductName').text()
 			var productType = window.location.pathname.split("/").pop()
 			var productImage = border.find('img').attr('src')
-			console.log(productImage)
 			border.empty()
 			border.remove()
 			$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
@@ -191,7 +210,7 @@
 		}
 	})
 
-	
+	// Disables textboxes that are not needed for a certain type of product
 	$('#productNumberCake').change(function() {
 		if ($(this).is(":checked") == true) {
 			$(".input").val(0);

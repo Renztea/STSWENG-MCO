@@ -60,7 +60,7 @@ const controller = {
     },
 
     getProductInfo: async function(req, res) {
-        var name = req.query.name
+        var name = (req.query.name).trim()
         var type = req.query.type
         if (type == 'Cake') {
             var productInfo = await Cake.findOne({name: name})
@@ -114,8 +114,8 @@ const controller = {
             var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
                 date.getSeconds() + '_'+ image.name;
             var imagePath = '/images/' + filenameChange;
-            image.mv(path.resolve(__dirname, '../public/images', filenameChange),(error) => {
-                Cake.create({
+            image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
+                await Cake.create({
                     name: productName, 
                     vanilla6x5Price: productVanilla6x5price,
                     vanilla8x5Price: productVanilla8x5price,
@@ -126,8 +126,8 @@ const controller = {
                     numberCake: productNumberCake,
                     numberCakePrice: productNumberCakePrice
                 })
+                res.redirect('admin/Cake')
             })
-            res.redirect('admin/Cake')
         } else {
             const messages = errors.array().map((item) => item.msg);
             req.flash('error_msg', messages[0]);
@@ -209,33 +209,30 @@ const controller = {
 
     deleteProduct: async function(req, res) {
         var name = req.query.name
-        var image = req.query.image
+        var image = ('./public' + req.query.image)
         var type = req.query.type
-        //var directory = __basedir + "/public"
-        //console.log(image)
         var successMessage = "Product deleted successfully"
-        var errorMessage = "Error"
+        var findErrorMessage = "Error"
         if (type == 'Cake') {
             await Cake.deleteOne({name: name}).then(function() {
-                //console.log(directory + image)
-                //fs.unlink(directory + image)
+                fs.unlinkSync(image)
                 res.send(successMessage)
-            }).catch(function(errorMessage){
-                res.send(errorMessage); 
+            }).catch((error) => {
+                res.send(findErrorMessage); 
             });
         } else if (type == 'Cupcake') {
             await Cupcake.deleteOne({name: name}).then(function() {
-                //fs.unlink(image);
+                fs.unlinkSync(image)
                 res.send(successMessage)
-            }).catch(function(errorMessage){
-                res.send(errorMessage); 
+            }).catch((error) => {
+                res.send(findErrorMessage); 
             });
         } else {
             await Cookie.deleteOne({name: name}).then(function() {
-                //fs.unlink(image);
+                fs.unlinkSync(image)
                 res.send(successMessage)
-            }).catch(function(errorMessage){
-                res.send(errorMessage);
+            }).catch((error) => {
+                res.send(findErrorMessage); 
             });
         }
     },
