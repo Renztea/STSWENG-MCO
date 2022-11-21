@@ -10,10 +10,9 @@ app.get('/getProductInfo', controller.getProductInfo)
 
 // Admin pages
 app.get('/admin', controller.getAdminPage)
-app.get('/admin/addCake', controller.adminCakePage)
-app.get('/admin/addCupcake', controller.adminCupcakePage)
-app.get('/admin/addCookie', controller.adminCookiePage)
+app.get('/admin/:type', controller.adminProductPage)
 app.get('/admin/orders/:category', controller.getOrdersPage)
+app.get('/deleteProduct', controller.deleteProduct)
 
 // Form controllers
 app.post('/addCake', addCakeValidation, controller.addCake)

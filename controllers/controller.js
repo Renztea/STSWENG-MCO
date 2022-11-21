@@ -1,5 +1,6 @@
 const path = require('path')
 const ejs = require('ejs') // Added
+const fs = require('fs')
 const { validationResult } = require('express-validator');
 const Cake = require('../models/cake')
 const Cupcake = require('../models/cupcake')
@@ -46,18 +47,20 @@ const controller = {
     getProductPage: async function(req, res) {
         var productType = req.params.type
         if (productType == 'Cake') {
-            var productPreview = await Cake.find({})
+            var productPreview = await Cake.find({}, ['name', 'image'])
         } else if (productType == 'Cupcake') {
             var productPreview = await Cupcake.find({})
-        } else {
+        } else if (productType == 'Cookie'){
             var productPreview = await Cookie.find({})
+        } else {
+            res.render('errorPage')
         }
-        
-        res.render('products', {preview: productPreview, type:productType})
+           
+        res.render('products', {preview: productPreview, type: productType})
     },
 
     getProductInfo: async function(req, res) {
-        var name = req.query.name
+        var name = (req.query.name).trim()
         var type = req.query.type
         if (type == 'Cake') {
             var productInfo = await Cake.findOne({name: name})
@@ -69,18 +72,20 @@ const controller = {
         res.send(productInfo)
     },
 
-    adminCakePage: async function(req, res) {
-        var cakes = await Cake.find({})
-        res.render('cakesPage', {cakes: cakes})
-        // res.render('addCake')
-    },
-
-    adminCupcakePage: async function(req, res) {
-        res.render('addCupcake')
-    },
-
-    adminCookiePage: async function(req, res) {
-        res.render('addCookie')
+    adminProductPage: async function (req, res) {
+        var productType = req.params.type
+        if (productType == 'Cake') {
+            var cakes = await Cake.find({})
+            res.render('cakesPage', {cakes: cakes})
+        } else if (productType == 'Cupcake') {
+            var cupcakes = await Cupcake.find({})
+            res.render('cupcakesPage', {cupcakes: cupcakes})
+        } else if (productType == 'Cookie') {
+            var cookies = await Cookie.find({})
+            res.render('cookiesPage', {cookies: cookies})
+        } else {
+            res.render('errorPage')
+        }
     },
 
     addCake: async function(req, res) {
@@ -93,18 +98,24 @@ const controller = {
             var productVanilla8x5price = req.body.productPricesVanilla2
             var productChocolate6x5price = req.body.productPricesChocolate1
             var productChocolate8x5price = req.body.productPricesChocolate2
-            var productDedication = req.body.productDedication
-                if (productDedication == null) {
-                    productDedication = '0'
-                }
             var productNumberCake = req.body.productNumberCake
-                if (productNumberCake == null) {
-                    productNumberCake = '0'
-                }
+            var productNumberCakePrice = req.body.productPricesNumberCake
+            var productDedication = req.body.productDedication
+            // when checkbox isn't checked
+            if (typeof productNumberCake === 'undefined') {
+                productNumberCake = false
+            }
+            // when checkbox isn't checked
+            if (typeof productDedication === 'undefined') {
+                productDedication = false
+            }
             const image = req.files.filename
-            var imagePath = '/images/' + image.name;
-            image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
-                Cake.create({
+            let date = new Date();
+            var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
+                date.getSeconds() + '_'+ image.name;
+            var imagePath = '/images/' + filenameChange;
+            image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
+                await Cake.create({
                     name: productName, 
                     vanilla6x5Price: productVanilla6x5price,
                     vanilla8x5Price: productVanilla8x5price,
@@ -112,14 +123,15 @@ const controller = {
                     chocolate8x5Price: productChocolate8x5price,
                     image: imagePath,
                     dedication: productDedication,
-                    numberCake: productNumberCake
+                    numberCake: productNumberCake,
+                    numberCakePrice: productNumberCakePrice
                 })
+                res.redirect('admin/Cake')
             })
-            res.redirect('admin/addCake')
         } else {
             const messages = errors.array().map((item) => item.msg);
             req.flash('error_msg', messages[0]);
-            res.redirect('admin/addCake');
+            res.redirect('admin/Cake');
         }
         
     },
@@ -133,10 +145,13 @@ const controller = {
             var productVanilla = req.body.productPricesVanilla
             var productChocolate = req.body.productPricesChocolate
             var productRedVelvet = req.body.productPricesRedVelvet
-            var productFrosting = req.body.productFrosting
+            var productFrosting = 1
             const image = req.files.filename
-            var imagePath = '/images/' + image.name;
-            image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
+            let date = new Date();
+            var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
+                date.getSeconds() + '_'+ image.name;
+            var imagePath = '/images/' + filenameChange;
+            image.mv(path.resolve(__dirname, '../public/images', filenameChange),(error) => {
                 Cupcake.create({
                     name: productName, 
                     vanillaPrice: productVanilla,
@@ -146,11 +161,11 @@ const controller = {
                     image: imagePath,
                 })
             })
-            res.redirect('admin/addCupcake')
+            res.redirect('admin/Cupcake')
         } else {
             const messages = errors.array().map((item) => item.msg);
             req.flash('error_msg', messages[0]);
-            res.redirect('admin/addCupcake');
+            res.redirect('admin/Cupcake');
         }
         
     },
@@ -162,27 +177,59 @@ const controller = {
         if (errors.isEmpty()) {
             var productName = (req.body.productName).trim()
             var productPrices = req.body.productPrices
-            var productDesign = req.body.productDesign
-                if (productDesign == null) {
-                    productDesign = '0'
-                }
             const image = req.files.filename
-            var imagePath = '/images/' + image.name;
-            image.mv(path.resolve(__dirname, '../public/images', image.name),(error) => {
+            let date = new Date();
+
+            var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
+                date.getSeconds() + '_'+ image.name;
+
+            var imagePath = '/images/' + filenameChange;
+
+            image.mv(path.resolve(__dirname, '../public/images', filenameChange),(error) => {
                 Cookie.create({
                     name: productName, 
                     price: productPrices,
-                    image: imagePath,
-                    design: productDesign, 
+                    image: imagePath, 
                 })
             })
-            res.redirect('admin/addCookie')
+
+            res.redirect('admin/Cookie')
         } else {
             const messages = errors.array().map((item) => item.msg);
             req.flash('error_msg', messages[0]);
-            res.redirect('admin/addCookie');
+            res.redirect('admin/Cookie');
         }
         
+    },
+
+    deleteProduct: async function(req, res) {
+        var name = req.query.name
+        var image = ('./public' + req.query.image)
+        var type = req.query.type
+        var successMessage = "Product deleted successfully"
+        var findErrorMessage = "Error"
+        if (type == 'Cake') {
+            await Cake.deleteOne({name: name}).then(function() {
+                fs.unlinkSync(image)
+                res.send(successMessage)
+            }).catch((error) => {
+                res.send(findErrorMessage); 
+            });
+        } else if (type == 'Cupcake') {
+            await Cupcake.deleteOne({name: name}).then(function() {
+                fs.unlinkSync(image)
+                res.send(successMessage)
+            }).catch((error) => {
+                res.send(findErrorMessage); 
+            });
+        } else {
+            await Cookie.deleteOne({name: name}).then(function() {
+                fs.unlinkSync(image)
+                res.send(successMessage)
+            }).catch((error) => {
+                res.send(findErrorMessage); 
+            });
+        }
     },
 
     getOrdersPage: async function(req, res) { //Added Here(John)

@@ -32,6 +32,10 @@ const cakeSchema = new mongoose.Schema ({
     numberCake: {
         type: Boolean,
         required: true
+    },
+    numberCakePrice: {
+        type: Number,
+        required: true
     }
 })
 
