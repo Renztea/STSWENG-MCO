@@ -46,6 +46,11 @@
 								<td class="td1">Number Cake<br></td>
 								<td class="td1">&#8369;<%= cakes.numberCakePrice %><br></td>
 								<td class="td1"></td>
+								<td class="td1"><% if(cakes.dedication){ %>
+												Yes
+												<%} else { %>
+												No
+												<% } %></td>
 								<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
 							</tr>
 						<% } else { %>
@@ -55,6 +60,11 @@
 								<td class="td1">Chocolate<br><br><br>Vanilla</td>
 								<td class="td1">6 X 5<br>8 X 5<br><br>6 X 5<br>8 X 5</td>
 								<td class="td1">&#8369;<%= cakes.chocolate6x5Price %><br>&#8369;<%= cakes.chocolate8x5Price %><br><br>&#8369;<%= cakes.vanilla6x5Price %><br>&#8369;<%= cakes.vanilla8x5Price %></td>
+								<td class="td1"><% if(cakes.dedication){ %>
+												Yes
+												<%} else { %>
+												No
+												<% } %></td>
 								<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
 							</tr>
 						<% } %>
