@@ -43,7 +43,6 @@
                     <h2>&#8369;<span id="displayProductPrice">0</span></h2>
 
                     <input type="hidden" name="productName" value="productName">
-
                     
                     <%# if (type == 'Cake') { %>
                         <%#- include("partials/cakeModal") %>
@@ -52,7 +51,7 @@
                     <%# } %>
                    
                     <%_ if(type != 'Cookie') { _%>
-                    <select id="displayProductFlavor" class="orderFlavor" title="Flavor" id="flavor" name="flavor">
+                    <select id="displayProductFlavor" class="orderFlavor" title="Flavor" name="flavor">
                         <!--
                         <option value="Vanilla">Vanilla</option>
                         <option value="Chocolate">Chocolate</option>
@@ -61,13 +60,19 @@
                     </select>
                     <%_ } _%>
                     <%_ if (type == 'Cake') { _%>
-                    <select id="displayProductSize" class="orderSize" title="Size" id="size" name="size">
+                    <select id="displayProductSize" class="orderSize" title="Size" name="size">
                         <!--
                         <option value="6x5">6" x 5"</option>
                         <option value="8x5">8" x 5"</option>
                         -->
                     </select>
                     <%_ } _%>
+
+                    <%_ if (type == 'Cupcake') { _%>
+                    <select id="displayProductFrosting" class="orderFrosting" title="Frosting" name="frosting">
+                    </select>
+                    <%_ } _%>
+                    
 
                     <div class="orderQuantityContainer">
                         <span id="decrement" class="incdec orderDecrement">-</span>
