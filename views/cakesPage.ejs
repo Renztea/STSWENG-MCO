@@ -35,6 +35,7 @@
 						<th class="th1">Flavor</th>
 						<th class="th1">Size</th>
 						<th class="th1">Price</th>
+						<th class="th1">Dedication</th>
 					</tr>
 					<% cakes.forEach(function(cakes) { %>
 						<% if (cakes.numberCake) { %>
@@ -44,6 +45,7 @@
 								<td class="td1">Chocolate<br></td>
 								<td class="td1">Number Cake<br></td>
 								<td class="td1">&#8369;<%= cakes.numberCakePrice %><br></td>
+								<td class="td1"></td>
 								<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
 							</tr>
 						<% } else { %>
