@@ -35,14 +35,16 @@
 							<th class="th1">Name</th>
 							<th class="th1">Flavor</th>
 							<th class="th1">Size</th>
+							<th class="th1">Frosting</th>
 							<th class="th1">Price</th>
 						</tr>
 						<% cupcakes.forEach(function(cupcakes) { %>
 						<tr class="border">
 							<td class="td1"><img src="<%= cupcakes.image %>"></td>
 							<td id="displayProductName" class="td1"><%= cupcakes.name %></td>
-							<td class="td1">Vanilla<br>Chocolate<br>Red Velvet</td>
-							<td class="td1">One Dozen<br>One Dozen<br>One Dozen</td>
+							<td class="td1">Vanilla<br><br>Chocolate<br><br>Red Velvet</td>
+							<td class="td1">One Dozen<br><br>One Dozen<br><br>One Dozen</td>
+							<td class="td1">Fondant<br>Icing<br>Fondant<br>Icing<br>Fondant<br>Icing</td>
 							<td class="td1"><%= cupcakes.vanillaPrice %><br><%= cupcakes.chocolatePrice %><br><%= cupcakes.redvelvetPrice %></td>
 							<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
 						</tr>
@@ -91,9 +93,17 @@
 						</tr>
 					
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>
 							<td class="td2"></td>								
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla" placeholder="Enter Price"></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla1" placeholder="Enter Price per Dozen"></td>
+							<td class="td2"></td>								
+							<td class="td2"></td>
+						</tr>	
+							
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>
+							<td class="td2"></td>								
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla2" placeholder="Enter Price per Dozen"></td>
 							<td class="td2"></td>								
 							<td class="td2"></td>
 						</tr>				
@@ -108,9 +118,17 @@
 						</tr>
 						
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>								
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>								
+							<td class="td2"</td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate1" placeholder="Enter Price per Dozen"></td>
+							<td class="td2"></td>								
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate" placeholder="Enter Price"></td>
+						</tr>
+							
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>								
+							<td class="td2"</td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate2" placeholder="Enter Price per Dozen"></td>
 							<td class="td2"></td>								
 							<td class="td2"></td>
 						</tr>
@@ -120,16 +138,24 @@
 							<td class="td2"></td>
 							<td class="td2"></td>
 							<td class="td2"></td>
-							<td class="td2" style="text-align: center;"><button type="submit"  class="Add" id="addl">Add</button></td>
-							
-						</tr>
-						
-						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet" placeholder="Enter Price"></td>
+								
+						</tr>
+							
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>
+							<td class="td2"></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet" placeholder="Enter Price per Dozen"></td>
 							<td class="td2"></td>								
-							<td class="td2" style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button></td>
+							<td class="td2" style="text-align: center;"><button class="Add" id="addl">Add</button></td>
+						</tr>
+							
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>
+							<td class="td2"></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet" placeholder="Enter Price per Dozen"></td>
+							<td class="td2"></td>								
+							<td class="td2" style="text-align: center; padding-top: 10px;"><button class="Cancel" id="cancel">Cancel</button></td>
 						</tr>
 					</table>
 				</form>
