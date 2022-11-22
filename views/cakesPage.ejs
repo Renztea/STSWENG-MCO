@@ -41,11 +41,10 @@
 						<% if (cakes.numberCake) { %>
 							<tr class="border">
 								<td class="td1"><img src="<%= cakes.image %>" placeholder="<%= cakes.name %>" alt="<%= cakes.name %>"></td>
-								<td id="displayProductName" class="td1"><%= cakes.name %></td>
+								<td class="td1 displayProductName"><%= cakes.name %></td>
 								<td class="td1">Chocolate<br></td>
 								<td class="td1">Number Cake<br></td>
 								<td class="td1">&#8369;<%= cakes.numberCakePrice %><br></td>
-								<td class="td1"></td>
 								<td class="td1"><% if(cakes.dedication){ %>
 												Yes
 												<%} else { %>
@@ -56,7 +55,7 @@
 						<% } else { %>
 							<tr class="border">
 								<td class="td1"><img src="<%= cakes.image %>" placeholder="<%= cakes.name %>" alt="<%= cakes.name %>"></td>
-								<td id="displayProductName" class="td1"><%= cakes.name %></td>
+								<td class="td1 displayProductName"><%= cakes.name %></td>
 								<td class="td1">Chocolate<br><br><br>Vanilla</td>
 								<td class="td1">6 X 5<br>8 X 5<br><br>6 X 5<br>8 X 5</td>
 								<td class="td1">&#8369;<%= cakes.chocolate6x5Price %><br>&#8369;<%= cakes.chocolate8x5Price %><br><br>&#8369;<%= cakes.vanilla6x5Price %><br>&#8369;<%= cakes.vanilla8x5Price %></td>
@@ -64,7 +63,7 @@
 												Yes
 												<%} else { %>
 												No
-												<% } %></td>
+												<% } %> </td>
 								<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
 							</tr>
 						<% } %>
@@ -118,7 +117,7 @@
 							<td class="td2"></td>								
 							<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"></td>
 							<td class="td2"></td>								
-							<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productNumberCake" name="productNumberCake" value="true">
+							<td class="td2"><div class="productCss"><input class="inputCheckbox productNumberCake" type="checkbox" id="productNumberCake" name="productNumberCake" value="true">
 							<label for="numberCake">Number Cake</label><span class="checkmark"></span></div></td>
 						</tr>
 						
@@ -191,7 +190,7 @@
 							<td class="td2"></td>								
 							<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"></td>
 							<td class="td2"></td>								
-							<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productNumberCake" name="productNumberCake" value="true">
+							<td class="td2"><div class="productCss"><input class="inputCheckbox productNumberCake" type="checkbox" id="productNumberCake" name="productNumberCake" value="true">
 							<label for="numberCake">Number Cake</label><span class="checkmark"></span></div></td>
 						</tr>
 						
@@ -275,8 +274,8 @@
 			}
 		}
 	}
+
 	// When the user clicks anywhere outside of the modal, close it
-	
 	window.onclick = function(event) {
 		if (event.target == modal) {
 			modal.style.display = "none";
@@ -308,12 +307,46 @@
 			}
 		})
 	})
+
+	// Modal of the edit product (Shows the current information of the product)
+	$('.Edit').click(function() {
+		var border = $(this).parents('.border')
+		var editModal = $('#editcakeModal')
+		editModal.find(".input").val(0)
+		editModal.find(".inputNum").val(0)
+		var productName = border.children('.displayProductName').text()
+		var productType = window.location.pathname.split("/").pop()
+		$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
+			editModal.find("[name='productName']").val(result.name)
+			if (result.numberCake == false) {
+				editModal.find("[name='productPricesVanilla1']").val(result.vanilla6x5Price)
+				editModal.find("[name='productPricesVanilla2']").val(result.vanilla8x5Price)
+				editModal.find("[name='productPricesChocolate1']").val(result.chocolate6x5Price)
+				editModal.find("[name='productPricesChocolate2']").val(result.chocolate8x5Price)
+				if (result.dedication == true) {
+					editModal.find("[name='productDedication']").attr('checked', true)
+				}
+			} else {
+				editModal.find(".input").attr('placeholder', 'Not Applicable');
+				editModal.find(".input").attr('readonly', true);
+				editModal.find(".input").css('background-color', 'gray')
+				editModal.find(".inputNum").css('background-color', 'white')
+				editModal.find(".inputNum").attr('placeholder', 'Enter Price');
+				editModal.find(".inputNum").attr('readonly', false);
+				editModal.find("[name='productPricesNumberCake']").val(result.numberCakePrice)
+				if (result.dedication == true) {
+					editModal.find("[name='productDedication']").attr('checked', true)
+				}
+				editModal.find("[name='productNumberCake']").attr('checked', true)
+			}
+		})
+	})
 	
 	// Remove a product from the view and call the delete function from the controller
 	$('.Remove').click(function() {
 		if (confirm('Are you sure you want to delete the product?') == true) {
 			var border = $(this).parents('.border')
-			var productName = border.children('#displayProductName').text()
+			var productName = border.children('.displayProductName').text()
 			var productType = window.location.pathname.split("/").pop()
 			var productImage = border.find('img').attr('src')
 			border.empty()
@@ -325,7 +358,7 @@
 	})
 
 	// Disables textboxes that are not needed for a certain type of product
-	$('#productNumberCake').change(function() {
+	$('.productNumberCake').change(function() {
 		if ($(this).is(":checked") == true) {
 			$(".input").val(0);
 			$(".input").attr('placeholder', 'Not Applicable');
