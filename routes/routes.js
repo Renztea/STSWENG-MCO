@@ -6,7 +6,11 @@ const app = express();
 // Customer pages
 app.get('/', controller.getIndexPage)
 app.get('/products/:type', controller.getProductPage)
+app.get('/Basket', controller.getBasketItem)
 app.get('/getProductInfo', controller.getProductInfo)
+app.post('/postBasketItem', controller.postBasketItem)
+app.get('/updateBasketItem', controller.updateBasketItem)
+app.post('/removeBasketItem', controller.removeBasketItem)
 
 // Admin pages
 app.get('/admin', controller.getAdminPage)

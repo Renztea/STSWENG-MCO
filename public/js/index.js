@@ -186,5 +186,24 @@ $(document).ready(function() {
             return false;
         }
     })
+
+    var itemNumber;
+    $(".addBtn").click(function() {
+
+      $.post('/postBasketItem', 
+            {itemNumber: itemNumber || 0,
+            name: $('#displayProductName').text(), 
+            price: $('#displayProductPrice').text(), 
+            flavor: $('#displayProductFlavor').find(":selected").val() || "", 
+            size: $('#displayProductSize').find(":selected").val() || "", 
+            frosting: $('#displayProductFrosting').find(":selected").val() || "", 
+            quantity: $("#orderQuantity").val()
+          }, function(result) {
+            itemNumber = result;
+            alert("Success");
+      }).fail(function() {
+
+      })
+    })
   
 });

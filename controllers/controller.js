@@ -281,6 +281,45 @@ const controller = {
         } else {
             res.render('order', {orderList: orders, count: orderCount})
         }
+    },
+
+    postBasketItem: async function(req, res) {
+        var itemNumber = parseInt(req.body.itemNumber) + 1;
+        var productInfo = {"itemNumber": itemNumber,
+                        "name": req.body.name,
+                        "price": req.body.price,
+                        "flavor": req.body.flavor,
+                        "size": req.body.size,
+                        "frosting": req.body.frosting,
+                        "quantity": req.body.quantity};
+
+        if(!req.session.orders) {
+            req.session.orders = [];
+            itemNumber = 0;
+        }
+
+        req.session.orders.push(productInfo);
+        console.log(req.session.orders);
+        itemNumber = toString(itemNumber)
+        res.send(itemNumber)
+    },
+
+    getBasketItem: function(req, res) {
+        if(req.session.orders) {
+            res.render('basket', {productItemList: req.session.orders})
+        } else {
+            res.redirect('/');
+        }
+    },
+
+    updateBasketItem: function(req, res) {
+
+    },
+
+    removeBasketItem: function(req, res) {
+        if(req.session.orders) {
+
+        }
     }
 
 }   
