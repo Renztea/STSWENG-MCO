@@ -8,31 +8,30 @@ const Cookie = require('../models/cookie')
 
 const controller = {
 
+    // Get a maximum of 3 random products from each schema to be displayed on the preview page.
     getIndexPage: async function(req, res) {
         var products = await Cake.find({})
-        /*
         var cakeProducts = await Cake.find({});
         var cupcakeProducts = await Cupcake.find({});
         var cookieProducts = await Cookie.find({});
         var products = [];
         var index = 0, num = 0;
             while (index < 9) {
-                if (index < 3) {
+                if (index < 3 && cakeProducts.length > 0) {
                     num = Math.floor(Math.random() * cakeProducts.length);
                     products.push(cakeProducts[num]);
                     cakeProducts.splice(num, 1);
-                } else if (index < 6) {
+                } else if (index < 6 && cupcakeProducts.length > 0) {
                     num = Math.floor(Math.random() * cupcakeProducts.length);
                     products.push(cupcakeProducts[num]);
                     cupcakeProducts.splice(num, 1);
-                } else {
+                } else if (index < 9 && cookieProducts.length > 0) {
                     num = Math.floor(Math.random() * cookieProducts.length);
                     products.push(cookieProducts[num]);
                     cookieProducts.splice(num, 1);
                 }
                 index++;
             }
-            */
         res.render('main', {display: products})
     },
    
