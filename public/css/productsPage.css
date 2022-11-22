@@ -61,8 +61,7 @@ html, body {
 }
 
 .buttonHolder{
-	width: 1500px;
-	max-width: 100%;
+	width: 100%;
 	display: flex;
 	justify-content: right;
 	margin-bottom: 10px;
@@ -70,9 +69,8 @@ html, body {
 
 .productBox{
 	margin: 50px 100px;
-	width: 1450px;
+	width: 90%;
 	height: 100%;
-	max-width: 100%;
 }
 
 .productForm {
