@@ -283,8 +283,21 @@ const controller = {
     },
 
     postBasketItem: async function(req, res) {
-        var itemNumber = parseInt(req.body.itemNumber) + 1;
-        var productInfo = {"itemNumber": itemNumber,
+        var itemLength = 0;
+        var lastItemNumber = "1";
+
+        if(!req.session.orders) {
+            req.session.orders = [];
+        } else {
+            req.session.orders.forEach(val => {
+                itemLength++;
+            })
+
+            lastItemNumber = req.session.orders[itemLength - 1].itemNumber
+            lastItemNumber = (parseInt(lastItemNumber) + 1).toString()
+        }
+
+        var productInfo = {"itemNumber": lastItemNumber,
                         "name": req.body.name,
                         "price": req.body.price,
                         "flavor": req.body.flavor,
@@ -292,20 +305,24 @@ const controller = {
                         "frosting": req.body.frosting,
                         "quantity": req.body.quantity};
 
-        if(!req.session.orders) {
-            req.session.orders = [];
-            itemNumber = 0;
-        }
-
         req.session.orders.push(productInfo);
         console.log(req.session.orders);
-        itemNumber = toString(itemNumber)
-        res.send(itemNumber)
+        res.send("Success")
     },
 
+    /*
     getBasketItem: function(req, res) {
         if(req.session.orders) {
             res.render('basket', {productItemList: req.session.orders})
+        } else {
+            res.redirect('/');
+        }
+    },
+    */
+    // test
+    getBasketItem: function(req, res) {
+        if(req.session.orders) {
+            res.json(req.session.orders)
         } else {
             res.redirect('/');
         }
@@ -316,9 +333,22 @@ const controller = {
     },
 
     removeBasketItem: function(req, res) {
+        console.log("Start: ", req.session.orders)
         if(req.session.orders) {
-
+            req.session.orders.forEach((val, key) => {
+                console.log("key: " + key)
+                    console.log("bodyNumber: " + req.body.itemNumber)
+                    console.log("valNumber: " + val.itemNumber)
+                if(req.body.itemNumber == val.itemNumber) {
+                    console.log("key: " + key)
+                    console.log("bodyNumber: " + req.body.itemNumber)
+                    console.log("valNumber: " + val.itemNumber)
+                    req.session.orders.splice(key, 1)
+                }
+            })
         }
+        console.log("End: ", req.session.orders)
+        res.send("Removed Item Success")
     }
 
 }   

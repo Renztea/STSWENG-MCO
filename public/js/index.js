@@ -1,4 +1,14 @@
 $(document).ready(function() {
+    $("#basketBtn").click(function() {
+      $.get('/Basket', {}, function(result) {
+        if(result) {
+          result.forEach(function(card) {
+            console.log(card.name)
+          })
+        }
+      })
+    })
+
     $(".productBox").click(function() {
       var productName = $(this).find('img').attr('placeholder');
       var productType = $(this).find('input').val();
@@ -187,23 +197,20 @@ $(document).ready(function() {
         }
     })
 
-    var itemNumber;
     $(".addBtn").click(function() {
 
       $.post('/postBasketItem', 
-            {itemNumber: itemNumber || 0,
-            name: $('#displayProductName').text(), 
+            {name: $('#displayProductName').text(), 
             price: $('#displayProductPrice').text(), 
             flavor: $('#displayProductFlavor').find(":selected").val() || "", 
             size: $('#displayProductSize').find(":selected").val() || "", 
             frosting: $('#displayProductFrosting').find(":selected").val() || "", 
             quantity: $("#orderQuantity").val()
           }, function(result) {
-            itemNumber = result;
-            alert("Success");
+            alert(result);
       }).fail(function() {
 
-      })
+      })    
     })
   
 });
