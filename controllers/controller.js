@@ -194,6 +194,7 @@ const controller = {
                     numberCake: productNumberCake,
                     numberCakePrice: productNumberCakePrice
                 })
+                res.redirect('admin/Cake');
             }
         } else {
             const messages = errors.array().map((item) => item.msg);
@@ -238,6 +239,65 @@ const controller = {
             res.redirect('admin/Cupcake');
         }
         
+    },
+
+    editCupcake: async function(req, res) {
+        const errors = validationResult(req)
+
+        if (errors.isEmpty()) {
+            var productID = req.body.productID
+            var productName = (req.body.productName).trim()
+            var productVanilla1 = req.body.productPricesVanilla1
+            var productVanilla2 = req.body.productPricesVanilla2
+            var productChocolate1 = req.body.productPricesChocolate1
+            var productChocolate2 = req.body.productPricesChocolate2
+            var productRedVelvet1 = req.body.productPricesRedVelvet1
+            var productRedVelvet2 = req.body.productPricesRedVelvet2
+            
+
+            if (req.files.filename != '') {
+                const image = req.files.filename
+                let date = new Date();
+                var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
+                date.getSeconds() + '_'+ image.name;
+                var imagePath = '/images/' + filenameChange;
+                image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
+                    var pastInfo = await Cake.findOne({_id: productID})
+                    var pastImage = './public' + pastInfo.image
+                    fs.unlinkSync(pastImage)
+                    await Cupcake.updateOne({
+                        _id: productID
+                    }, {
+                        name: productName, 
+                        vanillaFondantPrice: productVanilla1,
+                        vanillaIcingPrice: productVanilla2,
+                        chocolateFondantPrice: productChocolate1,
+                        chocolateIcingPrice: productChocolate2,
+                        redvelvetFondantPrice: productRedVelvet1,
+                        redvelvetIcingPrice: productRedVelvet2,
+                        image: imagePath,
+                    })
+                    res.redirect('admin/Cupcake')
+                })
+            } else {
+                await Cupcake.updateOne({
+                    _id: productID
+                }, {
+                    name: productName, 
+                    vanillaFondantPrice: productVanilla1,
+                    vanillaIcingPrice: productVanilla2,
+                    chocolateFondantPrice: productChocolate1,
+                    chocolateIcingPrice: productChocolate2,
+                    redvelvetFondantPrice: productRedVelvet1,
+                    redvelvetIcingPrice: productRedVelvet2,
+                })
+                res.redirect('admin/Cupcake')
+            }
+        } else {
+            const messages = errors.array().map((item) => item.msg);
+            req.flash('editCupcakeError_msg', messages[0]);
+            res.redirect('admin/Cupcake');
+        }
     },
 
     addCookie: async function(req, res) {

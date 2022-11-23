@@ -73,6 +73,9 @@
 					<div class="addProductHeader">
 						<h1>ADD CUPCAKE</h1>
 					</div>
+					<% if (error_msg.length != 0) { %>
+						<%- include("partials/messages") %>
+						<% } %>
 					<form action="/addCupcake" class="addProductForm" method="Post" enctype="multipart/form-data">
 						<table class="table2">
 							<tr>
@@ -99,7 +102,7 @@
 								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla1" placeholder="Enter Price per Dozen" ></td>
 								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>
 								<td class="td2"></td>								
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet1" placeholder="Enter Price per Dozen" ></td>
 							</tr>	
 							
 							<tr>
@@ -108,7 +111,7 @@
 								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla2" placeholder="Enter Price per Dozen" ></td>
 								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>								
 								<td class="td2"></td>
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet2" placeholder="Enter Price per Dozen" ></td>
 							</tr>							
 						
 							<tr>
@@ -122,7 +125,7 @@
 							
 							<tr>
 								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>								
-								<td class="td2"</td>
+								<td class="td2"></td>
 								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate1" placeholder="Enter Price per Dozen" ></td>
 								<td class="td2"></td>								
 								<td class="td2"></td>
@@ -131,7 +134,7 @@
 							
 							<tr>
 								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>								
-								<td class="td2"</td>
+								<td class="td2"></td>
 								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate2" placeholder="Enter Price per Dozen" ></td>
 								<td class="td2"></td>
 								<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
@@ -176,7 +179,7 @@
 								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla1" placeholder="Enter Price per Dozen" ></td>
 								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>
 								<td class="td2"></td>								
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet1" placeholder="Enter Price per Dozen" ></td>
 							</tr>	
 							
 							<tr>
@@ -185,7 +188,7 @@
 								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla2" placeholder="Enter Price per Dozen" ></td>
 								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>								
 								<td class="td2"></td>
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet2" placeholder="Enter Price per Dozen" ></td>
 							</tr>							
 						
 							<tr>
@@ -199,7 +202,7 @@
 							
 							<tr>
 								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>								
-								<td class="td2"</td>
+								<td class="td2"></td>
 								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate1" placeholder="Enter Price per Dozen" ></td>
 								<td class="td2"></td>								
 								<td class="td2"></td>
@@ -208,12 +211,13 @@
 							
 							<tr>
 								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>								
-								<td class="td2"</td>
+								<td class="td2"></td>
 								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate2" placeholder="Enter Price per Dozen" ></td>
 								<td class="td2"></td>
 								<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
 								<a>&nbsp;&nbsp;&nbsp;</a><button class="Edit2" id="edit2">Save</button></td>
 							</tr>
+							<input type="hidden" class="productID" name="productID">
 						</table>
 					</form>
 			</div>
@@ -221,11 +225,13 @@
 	</body>
 	<script>
 		$( document ).ready(function() {
-			var errors = '<%= error_msg %>';
-			console.log(errors)
-			if(errors.length > 0) {
+			var addCupcakeErrors = '<%= error_msg %>';
+			var editCupcakeErrors = '<%= editCupcakeError_msg %>';
+			if(addCupcakeErrors.length > 0) {
 				$('#cupcakeModal').css('display', 'block')
-			}	
+			} else if (editCupcakeErrors.length > 0) {
+				alert('Edit Failed!!!\n' + editCupcakeErrors)
+			}
 		});	
 		// Get the modal
 		var modal = document.getElementsByClassName("modal")[0];
@@ -293,6 +299,39 @@
 				}
 			})
 		})
+
+	// Modal of the add product (Initializes the modal)
+	$('.AddB').click(function() {
+		var addModal = $('#cakeModal')
+		addModal.find(".input").val('');
+		addModal.find(".input").attr('placeholder', 'Enter Price');
+		addModal.find(".input").attr('readonly', false);
+		addModal.find(".input").css('background-color', 'white')
+	})
+
+	// Modal of the edit product (Shows the current information of the product)
+	$('.Edit').click(function() {
+		var border = $(this).parents('.border')
+		var editModal = $('#editcupcakeModal')
+		editModal.find(".input").val(0)
+		var productName = border.children('.displayProductName').text()
+		var productType = window.location.pathname.split("/").pop()
+		$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
+			editModal.find("[name='productName']").val(result.name)
+			editModal.find(".productID").val(result._id)
+			if (result.numberCake == false) {
+				editModal.find("[name='productPricesVanilla1']").val(result.vanillaFondantPrice)
+				editModal.find("[name='productPricesVanilla2']").val(result.vanillaIcingPrice)
+				editModal.find("[name='productPricesChocolate1']").val(result.chocolateFondantPrice)
+				editModal.find("[name='productPricesChocolate2']").val(result.chocolateIcingPrice)
+				editModal.find("[name='productPricesRedVelvet1']").val(result.redvelvetFondantPrice)
+				editModal.find("[name='productPricesRedVelvet2']").val(result.redvelvetIcingPrice)
+				editModal.find(".input").attr('placeholder', 'Enter Price');
+				editModal.find(".input").attr('readonly', false);
+				editModal.find(".input").css('background-color', 'white')
+			}
+		})
+	})
 		
 		// Remove a product from the view and call the delete function from the controller
 		$('.Remove').click(function() {
