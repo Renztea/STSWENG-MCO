@@ -216,7 +216,9 @@ const controller = {
                 productDedication = false
             }
 
-            if (req.files.filename != '') {
+            var productImage = req.files?.filename || false;
+
+            if (productImage) {
                 const image = req.files.filename
                 let date = new Date();
                 var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
@@ -226,23 +228,28 @@ const controller = {
                     var pastInfo = await Cake.findOne({_id: productID})
                     var pastImage = './public' + pastInfo.image
                     fs.unlinkSync(pastImage)
-                    await Cake.updateOne({
-                        _id: productID
-                    }, {
-                        name: productName, 
-                        vanilla6x5Price: productVanilla6x5price,
-                        vanilla8x5Price: productVanilla8x5price,
-                        chocolate6x5Price: productChocolate6x5price,
-                        chocolate8x5Price: productChocolate8x5price,
-                        image: imagePath,
-                        dedication: productDedication,
-                        numberCake: productNumberCake,
-                        numberCakePrice: productNumberCakePrice
-                    })
+                    try {
+                        await Cake.updateOne({
+                            _id: productID
+                        }, {
+                            name: productName, 
+                            vanilla6x5Price: productVanilla6x5price,
+                            vanilla8x5Price: productVanilla8x5price,
+                            chocolate6x5Price: productChocolate6x5price,
+                            chocolate8x5Price: productChocolate8x5price,
+                            image: imagePath,
+                            dedication: productDedication,
+                            numberCake: productNumberCake,
+                            numberCakePrice: productNumberCakePrice
+                        })
+                    } catch (error) {
+                        console.log("Error on updating the Cake product with image into the database. \n" + err)
+                    }
                     res.redirect('admin/Cake')
                 })
             } else {
-                await Cake.updateOne({
+                try {
+                    await Cake.updateOne({
                     _id: productID
                 }, {
                     name: productName, 
@@ -254,6 +261,9 @@ const controller = {
                     numberCake: productNumberCake,
                     numberCakePrice: productNumberCakePrice
                 })
+                } catch (error) {
+                    console.log("Error on updating the Cake product into the database. \n" + err)
+                }
                 res.redirect('admin/Cake');
             }
         } else {
@@ -280,17 +290,21 @@ const controller = {
             var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
                 date.getSeconds() + '_'+ image.name;
             var imagePath = '/images/' + filenameChange;
-            image.mv(path.resolve(__dirname, '../public/images', filenameChange),(error) => {
-                Cupcake.create({
-                    name: productName, 
-                    vanillaFondantPrice: productVanilla1,
-                    vanillaIcingPrice: productVanilla2,
-                    chocolateFondantPrice: productChocolate1,
-                    chocolateIcingPrice: productChocolate2,
-                    redvelvetFondantPrice: productRedVelvet1,
-                    redvelvetIcingPrice: productRedVelvet2,
-                    image: imagePath,
-                })
+            image.mv(path.resolve(__dirname, '../public/images', filenameChange),async (error) => {
+                try {
+                    await Cupcake.create({
+                        name: productName, 
+                        vanillaFondantPrice: productVanilla1,
+                        vanillaIcingPrice: productVanilla2,
+                        chocolateFondantPrice: productChocolate1,
+                        chocolateIcingPrice: productChocolate2,
+                        redvelvetFondantPrice: productRedVelvet1,
+                        redvelvetIcingPrice: productRedVelvet2,
+                        image: imagePath,
+                    })
+                } catch (error) {
+                    console.log("Error on adding the new Cupcake product into the database. \n" + err)
+                }
             })
             res.redirect('admin/Cupcake')
         } else {
@@ -314,8 +328,9 @@ const controller = {
             var productRedVelvet1 = req.body.productPricesRedVelvet1
             var productRedVelvet2 = req.body.productPricesRedVelvet2
             
+            var productImage = req.files?.filename || false;
 
-            if (req.files.filename != '') {
+            if (productImage) {
                 const image = req.files.filename
                 let date = new Date();
                 var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
@@ -325,6 +340,26 @@ const controller = {
                     var pastInfo = await Cake.findOne({_id: productID})
                     var pastImage = './public' + pastInfo.image
                     fs.unlinkSync(pastImage)
+                    try {
+                        await Cupcake.updateOne({
+                            _id: productID
+                        }, {
+                            name: productName, 
+                            vanillaFondantPrice: productVanilla1,
+                            vanillaIcingPrice: productVanilla2,
+                            chocolateFondantPrice: productChocolate1,
+                            chocolateIcingPrice: productChocolate2,
+                            redvelvetFondantPrice: productRedVelvet1,
+                            redvelvetIcingPrice: productRedVelvet2,
+                            image: imagePath,
+                        })
+                    } catch (error) {
+                        console.log("Error on updating the Cupcake product with image into the database. \n" + err)
+                    }
+                    res.redirect('admin/Cupcake')
+                })
+            } else {
+                try {
                     await Cupcake.updateOne({
                         _id: productID
                     }, {
@@ -335,22 +370,10 @@ const controller = {
                         chocolateIcingPrice: productChocolate2,
                         redvelvetFondantPrice: productRedVelvet1,
                         redvelvetIcingPrice: productRedVelvet2,
-                        image: imagePath,
                     })
-                    res.redirect('admin/Cupcake')
-                })
-            } else {
-                await Cupcake.updateOne({
-                    _id: productID
-                }, {
-                    name: productName, 
-                    vanillaFondantPrice: productVanilla1,
-                    vanillaIcingPrice: productVanilla2,
-                    chocolateFondantPrice: productChocolate1,
-                    chocolateIcingPrice: productChocolate2,
-                    redvelvetFondantPrice: productRedVelvet1,
-                    redvelvetIcingPrice: productRedVelvet2,
-                })
+                } catch (error) {
+                    console.log("Error on updating the Cupcake product into the database. \n" + err)
+                }
                 res.redirect('admin/Cupcake')
             }
         } else {
@@ -375,12 +398,16 @@ const controller = {
 
             var imagePath = '/images/' + filenameChange;
 
-            image.mv(path.resolve(__dirname, '../public/images', filenameChange),(error) => {
-                Cookie.create({
-                    name: productName, 
-                    price: productPrices,
-                    image: imagePath,
-                })
+            image.mv(path.resolve(__dirname, '../public/images', filenameChange),async (error) => {
+                try {
+                    await Cookie.create({
+                        name: productName, 
+                        price: productPrices,
+                        image: imagePath,
+                    })
+                } catch (error) {
+                    console.log("Error on adding the new Cookie product into the database. \n" + err)
+                }
             })
 
             res.redirect('admin/Cookie')
@@ -390,6 +417,60 @@ const controller = {
             res.redirect('admin/Cookie');
         }
         
+    },
+
+    editCookie: async function(req, res) {
+        const errors = validationResult(req)
+
+        if (errors.isEmpty()) {
+            var productID = req.body.productID
+            var productName = (req.body.productName).trim()
+            var productPrices = req.body.productPrices
+            console.log(productPrices)
+            
+            var productImage = req.files?.filename || false;
+
+            if (productImage) {
+                const image = req.files.filename
+                let date = new Date();
+                var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
+                date.getSeconds() + '_'+ image.name;
+                var imagePath = '/images/' + filenameChange;
+                image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
+                    var pastInfo = await Cake.findOne({_id: productID})
+                    var pastImage = './public' + pastInfo.image
+                    fs.unlinkSync(pastImage)
+                    try {
+                        await Cookie.updateOne({
+                            _id: productID
+                        }, {
+                            name: productName, 
+                            price: productPrices,
+                            image: imagePath,
+                        })
+                    } catch (error) {
+                        console.log("Error on updating the Cookie product with image into the database. \n" + err)
+                    }
+                    res.redirect('admin/Cookie')
+                })
+            } else {
+                try {   
+                    await Cookie.updateOne({
+                        _id: productID
+                    }, {
+                        name: productName, 
+                        price: productPrices,
+                    }) 
+                } catch (error) {
+                    console.log("Error on updating the Cookie product into the database. \n" + err)
+                }
+                res.redirect('admin/Cookie')
+            }
+        } else {
+            const messages = errors.array().map((item) => item.msg);
+            req.flash('editCookieError_msg', messages[0]);
+            res.redirect('admin/Cookie');
+        }
     },
 
     deleteProduct: async function(req, res) {

@@ -63,15 +63,15 @@ const addCupcakeValidation = [
   body('productName').not().isEmpty().withMessage("Product name is required!"),
   body('productPricesVanilla1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Vanilla flavor with Fondant just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-    body('productPricesVanilla2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Vanilla flavor with Icing just put 0!')
+  body('productPricesVanilla2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Vanilla flavor with Icing just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
   body('productPricesChocolate1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Chocolate flavor with Fondant just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-    body('productPricesChocolate2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Chocolate flavor with Icing just put 0!')
+  body('productPricesChocolate2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Chocolate flavor with Icing just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
   body('productPricesRedVelvet1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Red Velvet flavor with Fondant just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-    body('productPricesRedVelvet2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Red Velvet flavor with Icing just put 0!')
+  body('productPricesRedVelvet2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Red Velvet flavor with Icing just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
   body('filename').custom((value, {req}) => {
     switch(path.extname(req.files.filename.name)){
@@ -91,15 +91,15 @@ const editCupcakeValidation = [
   body('productName').not().isEmpty().withMessage("Product name is required!"),
   body('productPricesVanilla1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Vanilla flavor with Fondant just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-    body('productPricesVanilla2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Vanilla flavor with Icing just put 0!')
+  body('productPricesVanilla2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Vanilla flavor with Icing just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
   body('productPricesChocolate1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Chocolate flavor with Fondant just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-    body('productPricesChocolate2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Chocolate flavor with Icing just put 0!')
+  body('productPricesChocolate2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Chocolate flavor with Icing just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
   body('productPricesRedVelvet1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Red Velvet flavor with Fondant just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-    body('productPricesRedVelvet2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Red Velvet flavor with Icing just put 0!')
+  body('productPricesRedVelvet2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Red Velvet flavor with Icing just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
 ]
 
@@ -121,4 +121,10 @@ const addCookieValidation = [
   }).withMessage("Please provide a valid image"),
 ]
 
-module.exports = { loginValidation , addCakeValidation, addCupcakeValidation, addCookieValidation, editCakeValidation, editCupcakeValidation};
+const editCookieValidation = [
+  body('productName').not().isEmpty().withMessage("Product name is required!"),
+  body('productPrices').not().isEmpty().withMessage('Price is required!')
+    .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
+]
+
+module.exports = { loginValidation , addCakeValidation, addCupcakeValidation, addCookieValidation, editCakeValidation, editCupcakeValidation, editCookieValidation};

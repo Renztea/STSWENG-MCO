@@ -102,13 +102,13 @@
 			</div>
 		</div>
 		<div id="editcookieModal" class="modal modals">
-
 		<!-- Modal content -->
 			<div class="modal-content-cookie" style="background-color: #EBD8DB;">
 				<span class="close"></span>
 					<div class="editProductHeader">
 						<h1>EDIT COOKIE</h1>
 					</div>
+					<h2><strong id="errorName"></strong></h2>
 					<form action="/editCookie" class="editProductForm" method="Post" enctype="multipart/form-data">
 						<table class="table2">
 							<tr>
@@ -134,6 +134,7 @@
 								<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
 								<a>&nbsp;&nbsp;&nbsp;</a><button class="Edit2" id="edit2">Save</button></td>												
 							</tr>
+							<input type="hidden" class="productID" name="productID">
 						</table>
 					</form>
 			</div>
@@ -141,12 +142,14 @@
 	</body>
 	<script>
 		$( document ).ready(function() {
-			var errors = '<%= error_msg %>';
-			console.log(errors)
-			if(errors.length > 0) {
-				$('#cookieModal').css('display', 'block')
-			}	
-		});
+			var addCookieErrors = '<%= error_msg %>';
+			var editCookieErrors = '<%= editCookieError_msg %>';
+			if(addCookieErrors.length > 0) {
+				$('#cookieeModal').css('display', 'block')
+			} else if (editCookieErrors.length > 0) {
+				alert('Edit Failed!!!\n' + editCookieErrors)
+			}
+		});	
 		// Get the modal
 		var modal = document.getElementsByClassName("modal")[0];
 		var modals = document.getElementsByClassName("modals");
@@ -213,20 +216,46 @@
 				}
 			})
 		})
-		
-		// Remove a product from the view and call the delete function from the controller
-		$('.Remove').click(function() {
-			if (confirm('Are you sure you want to delete the product?') == true) {
-				var border = $(this).parents('.border')
-				var productName = border.children('#displayProductName').text()
-				var productType = window.location.pathname.split("/").pop()
-				var productImage = border.find('img').attr('src')
-				border.empty()
-				border.remove()
-				$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
-					alert(result)
-				})
-			}
+
+		// Modal of the add product (Initializes the modal)
+	$('.AddC').click(function() {
+		var addModal = $('#cookieModal')
+		addModal.find(".input").val('');
+		addModal.find(".input").attr('placeholder', 'Enter Price');
+		addModal.find(".input").attr('readonly', false);
+		addModal.find(".input").css('background-color', 'white')
+	})
+
+	// Modal of the edit product (Shows the current information of the product)
+	$('.Edit').click(function() {
+		var border = $(this).parents('.border')
+		var editModal = $('#editcookieModal')
+		editModal.find(".input").val(0)
+		var productName = border.children('#displayProductName').text()
+		var productType = window.location.pathname.split("/").pop()
+		$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
+			editModal.find("[name='productName']").val(result.name)
+			editModal.find(".productID").val(result._id)
+			editModal.find("[name='productPrices']").val(result.price)
+			editModal.find(".input").attr('placeholder', 'Enter Price');
+			editModal.find(".input").attr('readonly', false);
+			editModal.find(".input").css('background-color', 'white')
 		})
+	})
+		
+	// Remove a product from the view and call the delete function from the controller
+	$('.Remove').click(function() {
+		if (confirm('Are you sure you want to delete the product?') == true) {
+			var border = $(this).parents('.border')
+			var productName = border.children('#displayProductName').text()
+			var productType = window.location.pathname.split("/").pop()
+			var productImage = border.find('img').attr('src')
+			border.empty()
+			border.remove()
+			$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
+				alert(result)
+			})
+		}
+	})
 	</script>
 </html>	

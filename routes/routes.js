@@ -1,6 +1,6 @@
 const express = require('express');
 const controller = require('../controllers/controller.js');
-const { addCakeValidation, addCupcakeValidation, addCookieValidation, editCakeValidation, editCupcakeValidation} = require('../validators.js')
+const { addCakeValidation, addCupcakeValidation, addCookieValidation, editCakeValidation, editCupcakeValidation, editCookieValidation} = require('../validators.js')
 const app = express();
 
 // Customer pages
@@ -24,7 +24,7 @@ app.post('/addCupcake', addCupcakeValidation, controller.addCupcake)
 app.post('/addCookie', addCookieValidation, controller.addCookie)
 app.post('/editCake', editCakeValidation, controller.editCake)
 app.post('/editCupcake', editCupcakeValidation, controller.editCupcake)
-//app.post('/editCake', addCakeValidation, controller.editCake)
+app.post('/editCookie', editCookieValidation, controller.editCookie)
 
 // Page not found
 app.get('*', controller.getErrorPage)

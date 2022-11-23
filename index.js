@@ -42,6 +42,8 @@ app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.editCakeError_msg = req.flash('editCakeError_msg')
+    res.locals.editCupcakeError_msg = req.flash('editCupcakeError_msg')
+    res.locals.editCookieError_msg = req.flash('editCookieError_msg')
     next();
 });
 
