@@ -102,10 +102,9 @@
                         </div>
                         <div class="basketItemButton">
                             <button class="updateItem">Update</button>
-                            <button class="removeItem">Remove</button>
+                            <button class="removeItem" value="<%= productItem.itemNumber %>">Remove</button>
                         </div>
                     </div>
-
                 </div>
                 <%_ }) _%>
             </div>
@@ -117,9 +116,12 @@
         <script>
             $(document).ready(function() {
                 $(".removeItem").click(function() {
-                    $(this).parents('.basketItem').remove()
+                    var itemNumber = $(this).val()
 
-                    $.post('/removeBasketItem', )
+                    $.post('/removeBasketItem', {itemNumber: itemNumber}, function(result) {
+                        alert(result)
+                    })
+                    $(this).parents('.basketItem').remove()
                 })
             })
         </script>
