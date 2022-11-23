@@ -5,15 +5,27 @@ const cupcakeSchema = new mongoose.Schema ({
         type: String,
         required: true
     },
-    vanillaPrice: {
+    vanillaFondantPrice: {
         type: Number,
         required: true
     },
-    chocolatePrice: {
+    vanillaIcingPrice: {
         type: Number,
         required: true
     },
-    redvelvetPrice: {
+    chocolateFondantPrice: {
+        type: Number,
+        required: true
+    },
+    chocolateIcingPrice: {
+        type: Number,
+        required: true
+    },
+    redvelvetFondantPrice: {
+        type: Number,
+        required: true
+    },
+    redvelvetIcingPrice: {
         type: Number,
         required: true
     },
@@ -21,11 +33,6 @@ const cupcakeSchema = new mongoose.Schema ({
         type: String,
         required: true
     },
-    frosting: {
-        type: Boolean,
-        required: true
-    },
-    
 })
 
 module.exports = mongoose.model('cupcake', cupcakeSchema)

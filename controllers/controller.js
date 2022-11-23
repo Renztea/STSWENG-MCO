@@ -141,10 +141,12 @@ const controller = {
 
         if (errors.isEmpty()) {
             var productName = (req.body.productName).trim()
-            var productVanilla = req.body.productPricesVanilla
-            var productChocolate = req.body.productPricesChocolate
-            var productRedVelvet = req.body.productPricesRedVelvet
-            var productFrosting = 1
+            var productVanilla1 = req.body.productPricesVanilla1
+            var productVanilla2 = req.body.productPricesVanilla2
+            var productChocolate1 = req.body.productPricesChocolate1
+            var productChocolate2 = req.body.productPricesChocolate2
+            var productRedVelvet1 = req.body.productPricesRedVelvet1
+            var productRedVelvet2 = req.body.productPricesRedVelvet2
             const image = req.files.filename
             let date = new Date();
             var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
@@ -153,10 +155,12 @@ const controller = {
             image.mv(path.resolve(__dirname, '../public/images', filenameChange),(error) => {
                 Cupcake.create({
                     name: productName, 
-                    vanillaPrice: productVanilla,
-                    chocolatePrice: productChocolate,
-                    redvelvetPrice: productRedVelvet,
-                    frosting: productFrosting,
+                    vanillaFondantPrice: productVanilla1,
+                    vanillaIcingPrice: productVanilla2,
+                    chocolateFondantPrice: productChocolate1,
+                    chocolateIcingPrice: productChocolate2,
+                    redvelvetFondantPrice: productRedVelvet1,
+                    redvelvetIcingPrice: productRedVelvet2,
                     image: imagePath,
                 })
             })
