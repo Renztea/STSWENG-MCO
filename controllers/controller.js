@@ -4,7 +4,8 @@ const fs = require('fs')
 const { validationResult } = require('express-validator');
 const Cake = require('../models/cake')
 const Cupcake = require('../models/cupcake')
-const Cookie = require('../models/cookie')
+const Cookie = require('../models/cookie');
+const { equal } = require('assert');
 
 function randomizer (currentProducts) {
     var randomProducts = []
@@ -596,20 +597,39 @@ const controller = {
     },
     */
     // test
-    getBasketItem: function(req, res) {
+    getBasketItem: async function(req, res) {
         if(req.session.orders) {
             var basketItemList = []
-            req.session.orders.forEach(item => {
+            req.session.orders.forEach(async function(item) {
                 if(item.type == 'Cake') {
-                    console.log(Cake.findOne({name: item.name}))
+                    var basketItem = await Cake.findOne({name: item.name})
+                                     .then(function(result) {
+                                        console.log(result)
+                                     })
                 } else if (item.type == 'Cupcake') {
-                    var basketItem = Cupcake.findOne({name: item.name})
+                    var basketItem = await Cupcake.findOne({name: item.name})
                 } else {
-                    var basketItem = Cookie.findOne({name: item.name})
+                    var basketItem = await Cookie.findOne({name: item.name})
                 }
-            })
+                basketItemList.push(basketItem)
+            });
+
+
+            for (const item of req.session.orders) {
+                if(item.type == 'Cake') {
+                    var basketItem = await Cake.findOne({name: item.name})
+                } else if (item.type == 'Cupcake') {
+                    var basketItem = await Cupcake.findOne({name: item.name})
+                } else {
+                    var basketItem = await Cookie.findOne({name: item.name})
+                }
+                basketItemList.push(basketItem)    
+            }
+            
+            console.log(basketItemList)
+            res.send("Success")
         } else {
-            res.redirect('/');
+            res.redirect('/products/Cake');
         }
     },
 

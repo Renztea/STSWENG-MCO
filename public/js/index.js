@@ -194,7 +194,6 @@ $(document).ready(function() {
     })
 
     $(".addBtn").click(function() {
-
       $.post('/postBasketItem', 
             {name: $('#displayProductName').text(), 
             price: $('#displayProductPrice').text(), 
