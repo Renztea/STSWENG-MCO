@@ -34,11 +34,17 @@ const addCakeValidation = [
 
 const addCupcakeValidation = [
   body('productName').not().isEmpty().withMessage("Product name is required!"),
-  body('productPricesVanilla').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Vanilla flavor just put 0!')
+  body('productPricesVanilla1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Vanilla flavor with Fondant just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesChocolate').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Chocolate flavor just put 0!')
+    body('productPricesVanilla2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Vanilla flavor with Icing just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesRedVelvet').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Red Velvet flavor just put 0!')
+  body('productPricesChocolate1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Chocolate flavor with Fondant just put 0!')
+    .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
+    body('productPricesChocolate2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Chocolate flavor with Icing just put 0!')
+    .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
+  body('productPricesRedVelvet1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Red Velvet flavor with Fondant just put 0!')
+    .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
+    body('productPricesRedVelvet2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Red Velvet flavor with Icing just put 0!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
   body('filename').custom((value, {req}) => {
     switch(path.extname(req.files.filename.name)){
