@@ -1,11 +1,7 @@
 $(document).ready(function() {
     $("#basketBtn").click(function() {
       $.get('/Basket', {}, function(result) {
-        if(result) {
-          result.forEach(function(card) {
-            console.log(card.name)
-          })
-        }
+
       })
     })
 
@@ -205,7 +201,8 @@ $(document).ready(function() {
             flavor: $('#displayProductFlavor').find(":selected").val() || "", 
             size: $('#displayProductSize').find(":selected").val() || "", 
             frosting: $('#displayProductFrosting').find(":selected").val() || "", 
-            quantity: $("#orderQuantity").val()
+            quantity: $("#orderQuantity").val(),
+            type: $(this).val()
           }, function(result) {
             alert(result);
       }).fail(function() {

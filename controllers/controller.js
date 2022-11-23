@@ -88,6 +88,7 @@ const controller = {
     },
 
     addCake: async function(req, res) {
+
         const errors = validationResult(req)
 
         if (errors.isEmpty()) {
@@ -132,7 +133,7 @@ const controller = {
             res.redirect('admin/Cake');
         }
     },
-
+        
     editCake: async function(req, res) {
         const errors = validationResult(req)
 
@@ -373,7 +374,8 @@ const controller = {
                         "flavor": req.body.flavor,
                         "size": req.body.size,
                         "frosting": req.body.frosting,
-                        "quantity": req.body.quantity};
+                        "quantity": req.body.quantity,
+                        "type": req.body.type};
 
         req.session.orders.push(productInfo);
         console.log(req.session.orders);
@@ -383,7 +385,7 @@ const controller = {
     /*
     getBasketItem: function(req, res) {
         if(req.session.orders) {
-            res.render('basket', {productItemList: req.session.orders})
+            res.render('basket', {basketItemList: req.session.orders})
         } else {
             res.redirect('/');
         }
@@ -392,7 +394,16 @@ const controller = {
     // test
     getBasketItem: function(req, res) {
         if(req.session.orders) {
-            res.json(req.session.orders)
+            var basketItemList = []
+            req.session.orders.forEach(item => {
+                if(item.type == 'Cake') {
+                    console.log(Cake.findOne({name: item.name}))
+                } else if (item.type == 'Cupcake') {
+                    var basketItem = Cupcake.findOne({name: item.name})
+                } else {
+                    var basketItem = Cookie.findOne({name: item.name})
+                }
+            })
         } else {
             res.redirect('/');
         }
