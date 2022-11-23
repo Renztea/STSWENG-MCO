@@ -166,9 +166,6 @@
 				<div class="editProductHeader">
 					<h1>EDIT CAKE</h1>
 				</div>
-				<% if (editCakeError_msg.length != 0) { %>
-					<%- include("partials/messages") %>
-				<% } %>
 				<h2><strong id="errorName"></strong></h2>
 				<form action="/editCake" class="editProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
@@ -229,7 +226,8 @@
 							<td class="td2"><input class="input" type="number" name="productPricesChocolate2" placeholder="Enter Price"></td>
 							<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
 							<a>&nbsp;&nbsp;&nbsp;</a><button class="Edit2" id="edit2">Save</button></td>
-						</tr>							
+						</tr>
+						<input type="hidden" class="productID" name="productID">								
 					</table>
 				</form>
 			</div>
@@ -239,11 +237,11 @@
 	// Checks if there are error messages to automatically open the modal.
 	$( document ).ready(function() {
 		var addCakeErrors = '<%= error_msg %>';
-		var editCakeErrors = '<%= editCakeError_msg %>';
+		var editCakeErrors = '<%= editCakeError_msg %>'
 		if(addCakeErrors.length > 0) {
 			$('#cakeModal').css('display', 'block')
-		} else if (editCakeErrors.length > 0){
-			$('#editcakeModal').css('display', 'block')
+		} else if (editCakeErrors.length > 0) {
+			alert('Edit Failed!!!\n' + editCakeErrors)
 		}
 		$(".inputNum").css('background-color', 'gray')
 	});
