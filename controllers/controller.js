@@ -88,7 +88,6 @@ const controller = {
     },
 
     addCake: async function(req, res) {
-
         const errors = validationResult(req)
 
         if (errors.isEmpty()) {
@@ -132,7 +131,74 @@ const controller = {
             req.flash('error_msg', messages[0]);
             res.redirect('admin/Cake');
         }
-        
+    },
+
+    editCake: async function(req, res) {
+        const errors = validationResult(req)
+
+        if (errors.isEmpty()) {
+            var productID = req.body.productID
+            var productName = (req.body.productName).trim()
+            var productVanilla6x5price = req.body.productPricesVanilla1
+            var productVanilla8x5price = req.body.productPricesVanilla2
+            var productChocolate6x5price = req.body.productPricesChocolate1
+            var productChocolate8x5price = req.body.productPricesChocolate2
+            var productNumberCake = req.body.productNumberCake
+            var productNumberCakePrice = req.body.productPricesNumberCake
+            var productDedication = req.body.productDedication
+            // when checkbox isn't checked
+            if (typeof productNumberCake === 'undefined') {
+                productNumberCake = false
+            }
+            // when checkbox isn't checked
+            if (typeof productDedication === 'undefined') {
+                productDedication = false
+            }
+
+            if (req.files.filename != '') {
+                const image = req.files.filename
+                let date = new Date();
+                var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
+                date.getSeconds() + '_'+ image.name;
+                var imagePath = '/images/' + filenameChange;
+                image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
+                    var pastInfo = await Cake.findOne({_id: productID})
+                    var pastImage = './public' + pastInfo.image
+                    fs.unlinkSync(pastImage)
+                    await Cake.updateOne({
+                        _id: productID
+                    }, {
+                        name: productName, 
+                        vanilla6x5Price: productVanilla6x5price,
+                        vanilla8x5Price: productVanilla8x5price,
+                        chocolate6x5Price: productChocolate6x5price,
+                        chocolate8x5Price: productChocolate8x5price,
+                        image: imagePath,
+                        dedication: productDedication,
+                        numberCake: productNumberCake,
+                        numberCakePrice: productNumberCakePrice
+                    })
+                    res.redirect('admin/Cake')
+                })
+            } else {
+                await Cake.updateOne({
+                    _id: productID
+                }, {
+                    name: productName, 
+                    vanilla6x5Price: productVanilla6x5price,
+                    vanilla8x5Price: productVanilla8x5price,
+                    chocolate6x5Price: productChocolate6x5price,
+                    chocolate8x5Price: productChocolate8x5price,
+                    dedication: productDedication,
+                    numberCake: productNumberCake,
+                    numberCakePrice: productNumberCakePrice
+                })
+            }
+        } else {
+            const messages = errors.array().map((item) => item.msg);
+            req.flash('editCakeError_msg', messages[0]);
+            res.redirect('admin/Cake');
+        }
     },
 
     addCupcake: async function(req, res) {
