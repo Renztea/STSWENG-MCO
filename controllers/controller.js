@@ -440,6 +440,7 @@ const controller = {
                 var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
                 date.getSeconds() + '_'+ image.name;
                 var imagePath = '/images/' + filenameChange;
+                
                 image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
                     var pastInfo = await Cookie.findOne({_id: productID})
                     var pastImage = './public' + pastInfo.image
