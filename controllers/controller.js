@@ -61,6 +61,10 @@ const controller = {
         res.render('errorPage')
     },
 
+    getOrderInformationPage: function(req, res) {
+        res.render('orderInformation')
+    },
+
     getProductPage: async function(req, res) {
         var productType = req.params.type
         if (productType == 'Cake') {

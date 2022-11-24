@@ -26,6 +26,9 @@ app.post('/editCake', editCakeValidation, controller.editCake)
 app.post('/editCupcake', editCupcakeValidation, controller.editCupcake)
 app.post('/editCookie', editCookieValidation, controller.editCookie)
 
+// No BackEnd UI
+app.get('/OrderInformation', controller.getOrderInformationPage)
+
 // Page not found
 app.get('*', controller.getErrorPage)
 

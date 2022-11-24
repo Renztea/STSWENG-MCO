@@ -11,7 +11,21 @@
     </head>
 
     <body class="mainBackground">
-        <div class="orderContainer">
+        <div class="header">
+			<div class="logo">
+                <img src="/images/logo.png" placeholder="G-Cakes Logo" alt="G-Cakes Logo" >
+            </div>
+		
+			<div class="menu">
+				<button class="menuBtn" style="font-weight:bold;">CAKES</button>
+				<a href="/admin/Cupcake"><button class="menuBtn">CUPCAKES</button></a>
+				<a href="/admin/Cookie"><button class="menuBtn">DECORATED COOKIES</button></a>
+				<a href="/admin/About"><button class="menuBtn">ABOUT</button></a>
+				<a href="/admin/orders/all"><button class="menuBtn">ORDERS</button></a>
+			</div>
+		</div>
+
+        <div class="orderContainer" style="margin-top: 10px">
             <div class="orderNavigation">
                 <a href="/admin/orders/all"><span class="orderNavigationItem">ALL</span></a>
                 <a href="/admin/orders/unpaid"><span class="orderNavigationItem">UNPAID</span></a>
