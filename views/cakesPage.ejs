@@ -377,7 +377,7 @@
 	$('.Remove').click(function() {
 		if (confirm('Are you sure you want to delete the product?') == true) {
 			var border = $(this).parents('.border')
-			var productName = border.children('.displayProductName').text()
+			var productName = border.children('#displayProductName').text()
 			var productType = window.location.pathname.split("/").pop()
 			var productImage = border.find('img').attr('src')
 			border.empty()

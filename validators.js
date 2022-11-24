@@ -42,19 +42,6 @@ const editCakeValidation = [
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
   body('productPricesChocolate2').not().isEmpty().withMessage('Price is required! If a cake does not have a Chocolate 8"x 5" just put 0!')
     .bail().isInt({min:0}).withMessage("Please provide a valid price!"),
-  body('filename').custom((value, {req}) => {
-    switch(path.extname(req.files.filename.name)){
-      case ".png":
-      case ".jpg":
-      case ".jpeg":
-      case "":
-        return true
-        break;
-      default:
-        return false
-        break;
-    }
-  }).withMessage("Please provide a valid image").bail(),
   body('productPricesNumberCake').not().isEmpty().withMessage('Price is required for a number cake!!!')
     .bail().isInt({min:0}).withMessage("Please provide a valid price!"),
 ]
