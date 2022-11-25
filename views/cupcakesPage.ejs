@@ -229,118 +229,119 @@
 			} else if (editCupcakeErrors.length > 0) {
 				alert('Edit Failed!!!\n' + editCupcakeErrors)
 			}
-		});	
-		// Get the modal
-		var modal = document.getElementsByClassName("modal")[0];
-		var modals = document.getElementsByClassName("modals");
-		// Get the button that opens the modal
-		var btn = document.getElementById("add");
-		var btn2 = document.getElementsByClassName("Edit");
-		// Get the <span> element that closes the modal
-		var cancel = document.getElementsByClassName("Cancel");
-		// When the user clicks the button, open the modal 
-		btn.onclick = function() {
-			modal.style.display = "block";
-		}
+
+			// Get the modal
+			var modal = document.getElementsByClassName("modal")[0];
+			var modals = document.getElementsByClassName("modals");
+			// Get the button that opens the modal
+			var btn = document.getElementById("add");
+			var btn2 = document.getElementsByClassName("Edit");
+			// Get the <span> element that closes the modal
+			var cancel = document.getElementsByClassName("Cancel");
+			// When the user clicks the button, open the modal 
+			btn.onclick = function() {
+				modal.style.display = "block";
+			}
+				
+			for(var i = 0; i < btn2.length; i++){
+				btn2[i].onclick = function() {
+					for (var index in modals) {
+						if (typeof modals[index].style !== 'undefined') 
+							modals[index].style.display = "block";    
+					}
+				}
+			}
+			// When the user clicks on <span> (x), close the modal
+			cancel[0].onclick = function() {
+					modal.style.display = "none";
+				}
 			
-		for(var i = 0; i < btn2.length; i++){
-			btn2[i].onclick = function() {
-				for (var index in modals) {
-					if (typeof modals[index].style !== 'undefined') 
-						modals[index].style.display = "block";    
-				}
-			}
-		}
-		// When the user clicks on <span> (x), close the modal
-		cancel[0].onclick = function() {
-				modal.style.display = "none";
-			}
-		
-		for (var i = 1; i < cancel.length; i++) {
-			cancel[i].onclick = function() {
-				for (var index in modals) {
-					if (typeof modals[index].style !== 'undefined') 
-						modals[index].style.display = "none";    
-				}
-			}
-		}
-		// When the user clicks anywhere outside of the modal, close it
-	
-		window.onclick = function(event) {
-			if (event.target == modal) {
-				modal.style.display = "none";
-			}
-			else{
-				if (event.target.classList.contains('modals')) {
+			for (var i = 1; i < cancel.length; i++) {
+				cancel[i].onclick = function() {
 					for (var index in modals) {
 						if (typeof modals[index].style !== 'undefined') 
 							modals[index].style.display = "none";    
 					}
 				}
 			}
-		}
+			// When the user clicks anywhere outside of the modal, close it
+		
+			window.onclick = function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+				else{
+					if (event.target.classList.contains('modals')) {
+						for (var index in modals) {
+							if (typeof modals[index].style !== 'undefined') 
+								modals[index].style.display = "none";    
+						}
+					}
+				}
+			}
 
-		$('#productName').blur(function () {
-			var productName = $(this).val()
-			var productType = window.location.pathname.split("/").pop()
-			$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
-				if (result) {
-					$('#productName').css('background-color', 'red')
-					$('#errorName').text('Cupcake is already available!')
-					$('#errorName').css('color', 'red')
-					$('#addl').prop('disabled', true)
-				} else {
-					$('#productName').css('background-color', 'white')
-					$('#errorName').text('')
-					$('#addl').prop('disabled', false)
+			$('#productName').blur(function () {
+				var productName = $(this).val()
+				var productType = window.location.pathname.split("/").pop()
+				$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
+					if (result) {
+						$('#productName').css('background-color', 'red')
+						$('#errorName').text('Cupcake is already available!')
+						$('#errorName').css('color', 'red')
+						$('#addl').prop('disabled', true)
+					} else {
+						$('#productName').css('background-color', 'white')
+						$('#errorName').text('')
+						$('#addl').prop('disabled', false)
+					}
+				})
+			})
+
+			// Modal of the add product (Initializes the modal)
+			$('.AddB').click(function() {
+				var addModal = $('#cupcakeModal')
+				addModal.find(".input").val('');
+				addModal.find(".input").attr('placeholder', 'Enter Price');
+				addModal.find(".input").attr('readonly', false);
+				addModal.find(".input").css('background-color', 'white')
+			})
+
+			// Modal of the edit product (Shows the current information of the product)
+			$('.Edit').click(function() {
+				var border = $(this).parents('.border')
+				var editModal = $('#editcupcakeModal')
+				editModal.find(".input").val(0)
+				var productName = border.children('#displayProductName').text()
+				var productType = window.location.pathname.split("/").pop()
+				$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
+					editModal.find("[name='productName']").val(result.name)
+					editModal.find(".productID").val(result._id)
+					editModal.find("[name='productPricesVanilla1']").val(result.vanillaFondantPrice)
+					editModal.find("[name='productPricesVanilla2']").val(result.vanillaIcingPrice)
+					editModal.find("[name='productPricesChocolate1']").val(result.chocolateFondantPrice)
+					editModal.find("[name='productPricesChocolate2']").val(result.chocolateIcingPrice)
+					editModal.find("[name='productPricesRedVelvet1']").val(result.redvelvetFondantPrice)
+					editModal.find("[name='productPricesRedVelvet2']").val(result.redvelvetIcingPrice)
+					editModal.find(".input").attr('placeholder', 'Enter Price');
+					editModal.find(".input").attr('readonly', false);
+					editModal.find(".input").css('background-color', 'white')
+				})
+			})
+				
+			// Remove a product from the view and call the delete function from the controller
+			$('.Remove').click(function() {
+				if (confirm('Are you sure you want to delete the product?') == true) {
+					var border = $(this).parents('.border')
+					var productName = border.children('#displayProductName').text()
+					var productType = window.location.pathname.split("/").pop()
+					var productImage = border.find('img').attr('src')
+					border.empty()
+					border.remove()
+					$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
+						alert(result)
+					})
 				}
 			})
-		})
-
-	// Modal of the add product (Initializes the modal)
-	$('.AddB').click(function() {
-		var addModal = $('#cupcakeModal')
-		addModal.find(".input").val('');
-		addModal.find(".input").attr('placeholder', 'Enter Price');
-		addModal.find(".input").attr('readonly', false);
-		addModal.find(".input").css('background-color', 'white')
-	})
-
-	// Modal of the edit product (Shows the current information of the product)
-	$('.Edit').click(function() {
-		var border = $(this).parents('.border')
-		var editModal = $('#editcupcakeModal')
-		editModal.find(".input").val(0)
-		var productName = border.children('#displayProductName').text()
-		var productType = window.location.pathname.split("/").pop()
-		$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
-			editModal.find("[name='productName']").val(result.name)
-			editModal.find(".productID").val(result._id)
-			editModal.find("[name='productPricesVanilla1']").val(result.vanillaFondantPrice)
-			editModal.find("[name='productPricesVanilla2']").val(result.vanillaIcingPrice)
-			editModal.find("[name='productPricesChocolate1']").val(result.chocolateFondantPrice)
-			editModal.find("[name='productPricesChocolate2']").val(result.chocolateIcingPrice)
-			editModal.find("[name='productPricesRedVelvet1']").val(result.redvelvetFondantPrice)
-			editModal.find("[name='productPricesRedVelvet2']").val(result.redvelvetIcingPrice)
-			editModal.find(".input").attr('placeholder', 'Enter Price');
-			editModal.find(".input").attr('readonly', false);
-			editModal.find(".input").css('background-color', 'white')
-		})
-	})
-		
-	// Remove a product from the view and call the delete function from the controller
-	$('.Remove').click(function() {
-		if (confirm('Are you sure you want to delete the product?') == true) {
-			var border = $(this).parents('.border')
-			var productName = border.children('#displayProductName').text()
-			var productType = window.location.pathname.split("/").pop()
-			var productImage = border.find('img').attr('src')
-			border.empty()
-			border.remove()
-			$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
-				alert(result)
-			})
-		}
-	})
+		});	
 	</script>
 </html>	

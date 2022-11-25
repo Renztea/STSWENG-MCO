@@ -234,30 +234,6 @@
 		</div>
 	</body>
 	<script>
-
-	function getBase64FromImageUrl(url) {
-		var img = new Image();
-
-		img.setAttribute('crossOrigin', 'anonymous');
-
-		img.onload = function () {
-			var canvas = document.createElement("canvas");
-			canvas.width =this.width;
-			canvas.height =this.height;
-
-			var ctx = canvas.getContext("2d");
-			ctx.drawImage(this, 0, 0);
-
-			var dataURL = canvas.toDataURL("image/png");
-
-			alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
-			console.log(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
-
-			return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-		};
-
-		img.src = url;
-	}
 	// Checks if there are error messages to automatically open the modal.
 	$( document ).ready(function() {
 		var addCakeErrors = '<%= error_msg %>';
