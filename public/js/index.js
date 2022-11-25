@@ -182,11 +182,11 @@ $(document).ready(function() {
     function updateCakePrice(result) {
         var currentFlavor = $('#displayProductFlavor').val()
         var currentSize = $('#displayProductSize').val()
-        if (currentFlavor == 'Vanilla' && currentSize == '6x5') {
+        if (currentFlavor == 'vanilla' && currentSize == '6x5') {
             $('#displayProductPrice').text(result.vanilla6x5Price)
-        } else if (currentFlavor == 'Chocolate' && currentSize == '6x5'){
+        } else if (currentFlavor == 'chocolate' && currentSize == '6x5'){
             $('#displayProductPrice').text(result.chocolate6x5Price)
-        } else if (currentFlavor == 'Vanilla' && currentSize == '8x5') {
+        } else if (currentFlavor == 'vanilla' && currentSize == '8x5') {
             $('#displayProductPrice').text(result.vanilla8x5Price)
         } else {
             $('#displayProductPrice').text(result.chocolate8x5Price)
