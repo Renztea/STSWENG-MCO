@@ -333,6 +333,14 @@ const controller = {
 
     editCupcake: async function(req, res) {
         const errors = validationResult(req)
+        var validNewImage = true
+        if (req.files) {
+            var testing = req.files.filenameEdit.mimetype
+            var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+            if (!validImageTypes.includes(testing)) {
+                validNewImage = false
+            }
+        } 
 
         if (errors.isEmpty()) {
             var productID = req.body.productID
@@ -344,16 +352,15 @@ const controller = {
             var productRedVelvet1 = req.body.productPricesRedVelvet1
             var productRedVelvet2 = req.body.productPricesRedVelvet2
             
-            var productImage = req.files?.filename || false;
-
-            if (productImage) {
-                const image = req.files.filename
+            if (req.files && validNewImage == true) {
+                
+                const image = req.files.filenameEdit
                 let date = new Date();
                 var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
                 date.getSeconds() + '_'+ image.name;
                 var imagePath = '/images/' + filenameChange;
                 image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
-                    var pastInfo = await Cake.findOne({_id: productID})
+                    var pastInfo = await Cupcake.findOne({_id: productID})
                     var pastImage = './public' + pastInfo.image
                     fs.unlinkSync(pastImage)
                     try {
@@ -374,7 +381,12 @@ const controller = {
                     }
                     res.redirect('admin/Cupcake')
                 })
-            } else {
+            } else if (req.files && validNewImage == false) {
+
+                req.flash('editCupcakeError_msg', 'Invalid Image Type!!!');
+                res.redirect('admin/Cupcake');
+
+            } else if (!req.files){
                 try {
                     await Cupcake.updateOne({
                         _id: productID
@@ -437,23 +449,29 @@ const controller = {
 
     editCookie: async function(req, res) {
         const errors = validationResult(req)
+        var validNewImage = true
+        if (req.files) {
+            var testing = req.files.filenameEdit.mimetype
+            var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+            if (!validImageTypes.includes(testing)) {
+                validNewImage = false
+            }
+        } 
 
         if (errors.isEmpty()) {
             var productID = req.body.productID
             var productName = (req.body.productName).trim()
             var productPrices = req.body.productPrices
-            console.log(productPrices)
             
-            var productImage = req.files?.filename || false;
+            if (req.files && validNewImage == true) {
 
-            if (productImage) {
-                const image = req.files.filename
+                const image = req.files.filenameEdit
                 let date = new Date();
                 var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
                 date.getSeconds() + '_'+ image.name;
                 var imagePath = '/images/' + filenameChange;
                 image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
-                    var pastInfo = await Cake.findOne({_id: productID})
+                    var pastInfo = await Cookie.findOne({_id: productID})
                     var pastImage = './public' + pastInfo.image
                     fs.unlinkSync(pastImage)
                     try {
@@ -469,7 +487,12 @@ const controller = {
                     }
                     res.redirect('admin/Cookie')
                 })
-            } else {
+            } else if (req.files && validNewImage == false) {
+
+                req.flash('editCookieError_msg', 'Invalid Image Type!!!');
+                res.redirect('admin/Cookie');
+
+            } else if (!req.files){
                 try {   
                     await Cookie.updateOne({
                         _id: productID
