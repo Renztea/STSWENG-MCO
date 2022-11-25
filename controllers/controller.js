@@ -201,6 +201,14 @@ const controller = {
         
     editCake: async function(req, res) {
         const errors = validationResult(req)
+        var validNewImage = true
+        if (req.files) {
+            var testing = req.files.filenameEdit.mimetype
+            var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+            if (!validImageTypes.includes(testing)) {
+                validNewImage = false
+            }
+        } 
 
         if (errors.isEmpty()) {
             var productID = req.body.productID
@@ -221,9 +229,8 @@ const controller = {
                 productDedication = false
             }
 
-            var productImage = req.files?.filenameEdit || false;
+            if (req.files && validNewImage == true) {
 
-            if (productImage) {
                 const image = req.files.filenameEdit
                 let date = new Date();
                 var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
@@ -252,7 +259,12 @@ const controller = {
                     }
                     res.redirect('admin/Cake')
                 })
-            } else {
+            } else if (req.files && validNewImage == false) {
+
+                req.flash('editCakeError_msg', 'Invalid Image Type!!!');
+                res.redirect('admin/Cake');
+
+            } else if (!req.files){
                 try {
                     await Cake.updateOne({
                     _id: productID
@@ -266,11 +278,11 @@ const controller = {
                     numberCake: productNumberCake,
                     numberCakePrice: productNumberCakePrice
                 })
-                } catch (error) {
+                } catch (err) {
                     console.log("Error on updating the Cake product into the database. \n" + err)
                 }
                 res.redirect('admin/Cake');
-            }
+            } 
         } else {
             const messages = errors.array().map((item) => item.msg);
             req.flash('editCakeError_msg', messages[0]);
