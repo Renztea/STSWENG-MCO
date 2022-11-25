@@ -35,15 +35,17 @@
 							<th class="th1">Name</th>
 							<th class="th1">Flavor</th>
 							<th class="th1">Size</th>
+							<th class="th1">Frosting</th>
 							<th class="th1">Price</th>
 						</tr>
 						<% cupcakes.forEach(function(cupcakes) { %>
 						<tr class="border">
 							<td class="td1"><img src="<%= cupcakes.image %>"></td>
 							<td id="displayProductName" class="td1"><%= cupcakes.name %></td>
-							<td class="td1">Vanilla<br>Chocolate<br>Red Velvet</td>
-							<td class="td1">One Dozen<br>One Dozen<br>One Dozen</td>
-							<td class="td1"><%= cupcakes.vanillaPrice %><br><%= cupcakes.chocolatePrice %><br><%= cupcakes.redvelvetPrice %></td>
+							<td class="td1">Vanilla<br><br>Chocolate<br><br>Red Velvet</td>
+							<td class="td1">One Dozen<br><br>One Dozen<br><br>One Dozen</td>
+							<td class="td1">Fondant<br>Icing<br>Fondant<br>Icing<br>Fondant<br>Icing</td>
+							<td class="td1">&#8369;<%= cupcakes.vanillaFondantPrice %><br>&#8369;<%= cupcakes.vanillaIcingPrice %><br>&#8369;<%= cupcakes.chocolateFondantPrice %><br>&#8369;<%= cupcakes.chocolateIcingPrice %><br>&#8369;<%= cupcakes.redvelvetFondantPrice %><br>&#8369;<%= cupcakes.redvelvetIcingPrice %><br></td>
 							<td class="td1"><button type="button" class="Edit" id="edit">edit</button><br><br><button type="button" class="Remove" id="remove">remove</button></td>
 						</tr>
 						<% }) %>
@@ -71,14 +73,14 @@
 					<h1>ADD CUPCAKE</h1>
 				</div>
 				<%- include("partials/messages") %>
-				<h2><strong id="errorName"></strong></h2>
 				<form action="/addCupcake" class="addProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
 						<tr>
 							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cupcake Name:</label></div></td>	
 							<td class="td2" style="width: 3%;"></td>
 							<td class="td2" style="width: 25%;"><input class="input" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
-							<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
+							<td class="td2" style="text-align: center; width: 20%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>		
+							<td class="td2" style="width: 3%;"></td>
 							<td class="td2"><input type="file" id="myFile" name="filename" ></td>
 						</tr>
 					
@@ -86,17 +88,28 @@
 							<td class="td2"><div class="productCss"><label for="productFlavors">Vanilla</label></div></td>
 							<td class="td2"></td>
 							<td class="td2"></td>
-							<td class="td2"></td>								
+							<td class="td2" style="text-align: center;"><div class="productCss"><label for="productFlavors">Red Velvet</label></div></td>	
+							<td class="td2"></td>
 							<td class="td2"></td>
 						</tr>
 					
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>
 							<td class="td2"></td>								
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla" placeholder="Enter Price"></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla1" placeholder="Enter Price per Dozen" ></td>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>
 							<td class="td2"></td>								
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet1" placeholder="Enter Price per Dozen" ></td>
+						</tr>	
+						
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>
+							<td class="td2"></td>								
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla2" placeholder="Enter Price per Dozen" ></td>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>								
 							<td class="td2"></td>
-						</tr>				
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet2" placeholder="Enter Price per Dozen" ></td>
+						</tr>							
 					
 						<tr>
 							<td class="td2"><div class="productCss"><label for="productFlavors">Chocolate</label></div></td>								
@@ -104,68 +117,166 @@
 							<td class="td2"></td>
 							<td class="td2"></td>
 							<td class="td2"></td>
-							
+							<td class="td2"></td>
 						</tr>
 						
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>								
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>								
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate" placeholder="Enter Price"></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate1" placeholder="Enter Price per Dozen" ></td>
 							<td class="td2"></td>								
 							<td class="td2"></td>
+							<td class="td2"></td>
 						</tr>
 						
 						<tr>
-							<td class="td2"><div class="productCss"><label for="productFlavors">Red Velvet</label></div></td>								
+							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>								
 							<td class="td2"></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate2" placeholder="Enter Price per Dozen" ></td>
 							<td class="td2"></td>
-							<td class="td2"></td>
-							<td class="td2" style="text-align: center;"><button type="submit"  class="Add" id="addl">Add</button></td>
-							
+							<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
+							<a>&nbsp;&nbsp;&nbsp;</a><button class="Add" id="addl">Add</button></td>
 						</tr>
-						
-						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">One Dozen</label></div></td>
-							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet" placeholder="Enter Price"></td>
-							<td class="td2"></td>								
-							<td class="td2" style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button></td>
-						</tr>
+
 					</table>
 				</form>
+			</div>
+		</div>
+		<div id="editcupcakeModal" class="modal modals">
+		<!-- Modal content -->
+			<div class="modal-content-cupcake" style="background-color: #EBD8DB;">
+				<span class="close"></span>
+					<div class="editProductHeader">
+						<h1>EDIT CUPCAKE</h1>
+					</div>
+					<h2><strong id="errorName"></strong></h2>
+					<form action="/editCupcake" class="editProductForm" method="Post" enctype="multipart/form-data">
+						<table class="table2">
+							<tr>
+								<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cupcake Name:</label></div></td>	
+								<td class="td2" style="width: 3%;"></td>
+								<td class="td2" style="width: 25%;"><input class="input" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
+								<td class="td2" style="text-align: center; width: 20%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>		
+								<td class="td2" style="width: 3%;"></td>
+								<td class="td2"><input type="file" id="myFile" name="filenameEdit"></td>
+							</tr>
+						
+							<tr>
+								<td class="td2"><div class="productCss"><label for="productFlavors">Vanilla</label></div></td>
+								<td class="td2"></td>
+								<td class="td2"></td>
+								<td class="td2" style="text-align: center;"><div class="productCss"><label for="productFlavors">Red Velvet</label></div></td>	
+								<td class="td2"></td>
+								<td class="td2"></td>
+							</tr>
+						
+							<tr>
+								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>
+								<td class="td2"></td>								
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla1" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>
+								<td class="td2"></td>								
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet1" placeholder="Enter Price per Dozen" ></td>
+							</tr>	
+							
+							<tr>
+								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>
+								<td class="td2"></td>								
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla2" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>								
+								<td class="td2"></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet2" placeholder="Enter Price per Dozen" ></td>
+							</tr>							
+						
+							<tr>
+								<td class="td2"><div class="productCss"><label for="productFlavors">Chocolate</label></div></td>								
+								<td class="td2"></td>
+								<td class="td2"></td>
+								<td class="td2"></td>
+								<td class="td2"></td>
+								<td class="td2"></td>
+							</tr>
+							
+							<tr>
+								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>								
+								<td class="td2"></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate1" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"></td>								
+								<td class="td2"></td>
+								<td class="td2"></td>
+							</tr>
+							
+							<tr>
+								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>								
+								<td class="td2"></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate2" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"></td>
+								<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
+								<a>&nbsp;&nbsp;&nbsp;</a><button class="Edit2" id="edit2">Save</button></td>
+							</tr>
+							<input type="hidden" class="productID" name="productID">
+						</table>
+					</form>
 			</div>
 		</div>
 	</body>
 	<script>
 		$( document ).ready(function() {
-			var errors = '<%= error_msg %>';
-			console.log(errors)
-			if(errors.length > 0) {
+			var addCupcakeErrors = '<%= error_msg %>';
+			var editCupcakeErrors = '<%= editCupcakeError_msg %>';
+			if(addCupcakeErrors.length > 0) {
 				$('#cupcakeModal').css('display', 'block')
-			}	
+			} else if (editCupcakeErrors.length > 0) {
+				alert('Edit Failed!!!\n' + editCupcakeErrors)
+			}
 		});	
 		// Get the modal
-		var modal = document.getElementById("cupcakeModal");
-
+		var modal = document.getElementsByClassName("modal")[0];
+		var modals = document.getElementsByClassName("modals");
 		// Get the button that opens the modal
 		var btn = document.getElementById("add");
-
-		// Get the button that closes the modal
-		var cancelbtn = document.getElementById("cancel");
-
+		var btn2 = document.getElementsByClassName("Edit");
+		// Get the <span> element that closes the modal
+		var cancel = document.getElementsByClassName("Cancel");
 		// When the user clicks the button, open the modal 
 		btn.onclick = function() {
 			modal.style.display = "block";
 		}
-
-		// When the user clicks on cancel button, close the modal
-	cancelbtn.onclick = function() {
-		modal.style.display = "none";
-	}
+			
+		for(var i = 0; i < btn2.length; i++){
+			btn2[i].onclick = function() {
+				for (var index in modals) {
+					if (typeof modals[index].style !== 'undefined') 
+						modals[index].style.display = "block";    
+				}
+			}
+		}
+		// When the user clicks on <span> (x), close the modal
+		cancel[0].onclick = function() {
+				modal.style.display = "none";
+			}
+		
+		for (var i = 1; i < cancel.length; i++) {
+			cancel[i].onclick = function() {
+				for (var index in modals) {
+					if (typeof modals[index].style !== 'undefined') 
+						modals[index].style.display = "none";    
+				}
+			}
+		}
 		// When the user clicks anywhere outside of the modal, close it
+	
 		window.onclick = function(event) {
 			if (event.target == modal) {
 				modal.style.display = "none";
+			}
+			else{
+				if (event.target.classList.contains('modals')) {
+					for (var index in modals) {
+						if (typeof modals[index].style !== 'undefined') 
+							modals[index].style.display = "none";    
+					}
+				}
 			}
 		}
 
@@ -185,20 +296,51 @@
 				}
 			})
 		})
-		
-		// Remove a product from the view and call the delete function from the controller
-		$('.Remove').click(function() {
-			if (confirm('Are you sure you want to delete the product?') == true) {
-				var border = $(this).parents('.border')
-				var productName = border.children('#displayProductName').text()
-				var productType = window.location.pathname.split("/").pop()
-				var productImage = border.find('img').attr('src')
-				border.empty()
-				border.remove()
-				$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
-					alert(result)
-				})
-			}
+
+	// Modal of the add product (Initializes the modal)
+	$('.AddB').click(function() {
+		var addModal = $('#cupcakeModal')
+		addModal.find(".input").val('');
+		addModal.find(".input").attr('placeholder', 'Enter Price');
+		addModal.find(".input").attr('readonly', false);
+		addModal.find(".input").css('background-color', 'white')
+	})
+
+	// Modal of the edit product (Shows the current information of the product)
+	$('.Edit').click(function() {
+		var border = $(this).parents('.border')
+		var editModal = $('#editcupcakeModal')
+		editModal.find(".input").val(0)
+		var productName = border.children('#displayProductName').text()
+		var productType = window.location.pathname.split("/").pop()
+		$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
+			editModal.find("[name='productName']").val(result.name)
+			editModal.find(".productID").val(result._id)
+			editModal.find("[name='productPricesVanilla1']").val(result.vanillaFondantPrice)
+			editModal.find("[name='productPricesVanilla2']").val(result.vanillaIcingPrice)
+			editModal.find("[name='productPricesChocolate1']").val(result.chocolateFondantPrice)
+			editModal.find("[name='productPricesChocolate2']").val(result.chocolateIcingPrice)
+			editModal.find("[name='productPricesRedVelvet1']").val(result.redvelvetFondantPrice)
+			editModal.find("[name='productPricesRedVelvet2']").val(result.redvelvetIcingPrice)
+			editModal.find(".input").attr('placeholder', 'Enter Price');
+			editModal.find(".input").attr('readonly', false);
+			editModal.find(".input").css('background-color', 'white')
 		})
+	})
+		
+	// Remove a product from the view and call the delete function from the controller
+	$('.Remove').click(function() {
+		if (confirm('Are you sure you want to delete the product?') == true) {
+			var border = $(this).parents('.border')
+			var productName = border.children('#displayProductName').text()
+			var productType = window.location.pathname.split("/").pop()
+			var productImage = border.find('img').attr('src')
+			border.empty()
+			border.remove()
+			$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
+				alert(result)
+			})
+		}
+	})
 	</script>
 </html>	

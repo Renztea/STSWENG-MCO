@@ -133,14 +133,13 @@ a {
 .productImage {
   width: 100%;
   height: 250px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .productImage img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 /* end carousel */
 
@@ -402,7 +401,7 @@ a {
   width: 50%;
 }
 
-.orderFlavor, .orderSize {
+.orderFlavor, .orderSize, .orderFrosting {
   margin-top: 30px;
   text-align: center;
   font-size: 20px;
@@ -602,17 +601,17 @@ input::-webkit-inner-spin-button {
 }
 
 .basketItemPrice {
-  height: 70%;
+  height: 50%;
 }
 
-.basketItemRemove {
-  height: 30%;
-  display: flex;
+.basketItemButton {
+  height: 50%;
+  display: grid;
   align-items: center;
   justify-content: center;
 }
 
-.removeItem {
+.updateItem, .removeItem {
   font-size: 20px;
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
@@ -622,6 +621,10 @@ input::-webkit-inner-spin-button {
   border: none;
   padding: 10px;
   cursor: pointer;
+}
+
+.updateItem {
+  background: #95E2A6;
 }
 
 .editFlavor, .editSize {
@@ -680,14 +683,15 @@ input::-webkit-inner-spin-button {
 
 .carouselItemImage {
   height: 100%;
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
+  width: 100%;
 }
 
 .carouselItemImage img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+
 }
 /* End - Main Page(Additional Info) */
 

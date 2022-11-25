@@ -1,4 +1,12 @@
 $(document).ready(function() {
+  /*
+    $("#basketBtn").click(function() {
+      $.get('/Basket', {}, function(result) {
+        return result
+      })
+    })
+    */
+
     $(".productBox").click(function() {
       var productName = $(this).find('img').attr('placeholder');
       var productType = $(this).find('input').val();
@@ -13,12 +21,13 @@ $(document).ready(function() {
           if (productType == 'Cake') {
             $('#displayProductFlavor').find('option').remove()
             $('#displayProductSize').find('option').remove()
+            $('#displayProductFrosting').find('option').remove()
             var hasVanillaFlavor = false;
             var hasSize6x5 = false;
             var hasSize8x5 = false;
 
             if (result.vanilla6x5Price > 0 || result.vanilla8x5Price > 0) {
-              $('#displayProductFlavor').append(new Option("Vanilla", "Vanilla"))
+              $('#displayProductFlavor').append(new Option("Vanilla", "vanilla"))
               hasVanillaFlavor = true;
               if (result.vanilla6x5Price > 0) {                
                 $('#displayProductSize').append(new Option("6\" x 5\"", "6x5"))
@@ -31,7 +40,7 @@ $(document).ready(function() {
             }
 
             if (result.chocolate6x5Price > 0 || result.chocolate8x5Price > 0) {
-              $('#displayProductFlavor').append(new Option("Chocolate", "Chocolate"))
+              $('#displayProductFlavor').append(new Option("Chocolate", "chocolate"))
               if (!hasSize6x5 && !hasVanillaFlavor && result.chocolate6x5Price > 0) {
                 $('#displayProductSize').append(new Option("6\" x 5\"", "6x5"))
               }              
@@ -71,25 +80,32 @@ $(document).ready(function() {
             var defaultPrice = true;
 
             if (result.vanillaPrice > 0) {
-              $('#displayProductFlavor').append(new Option("Vanilla", "Vanilla"))
+              $('#displayProductFlavor').append(new Option("Vanilla", "vanilla"))
               $('#displayProductPrice').text(result.vanillaPrice)
               defaultPrice = false
             }
             if (result.chocolatePrice > 0) {
-              $('#displayProductFlavor').append(new Option("Chocolate", "Chocolate"))
+              $('#displayProductFlavor').append(new Option("Chocolate", "chocolate"))
               if(defaultPrice) {
                 $('#displayProductPrice').text(result.chocolatePrice)
                 defaultPrice = false
               }
             }
             if (result.redvelvetPrice > 0) {
-              $('#displayProductFlavor').append(new Option("Red Velvet", "RedVelvet"))
+              $('#displayProductFlavor').append(new Option("Red Velvet", "redVelvet"))
               if(defaultPrice) {
                 $('#displayProductPrice').text(result.redvelvetPrice)
+                defaultPrice = false
               }
             }
 
+            if (!defaultPrice) {
+              $('#displayProductFrosting').append(new Option("Fondant", "fondant"))
+              $('#displayProductFrosting').append(new Option("Icing", "icing"))
+            }
+
             $('#displayProductFlavor').change(function() {
+              $('#displayProductFrosting').val("fondant");
               updateCupcakePrice(result)
             })
           } else {
@@ -177,6 +193,22 @@ $(document).ready(function() {
             || e.keyCode > 36 || e.keyCode < 41)) {
             return false;
         }
+    })
+
+    $(".addBtn").click(function() {
+      $.post('/postBasketItem', 
+            {name: $('#displayProductName').text(), 
+            price: $('#displayProductPrice').text(), 
+            flavor: $('#displayProductFlavor').find(":selected").val() || "", 
+            size: $('#displayProductSize').find(":selected").val() || "", 
+            frosting: $('#displayProductFrosting').find(":selected").val() || "", 
+            quantity: $("#orderQuantity").val(),
+            type: $(this).val()
+          }, function(result) {
+            alert(result);
+      }).fail(function() {
+
+      })    
     })
   
 });

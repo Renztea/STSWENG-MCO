@@ -7,7 +7,6 @@
         <title>Basket</title>
         <link href="/css/style.css" rel="stylesheet" type="text/css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-        <script type="text/javascript" src="script.js"></script>
     </head>
 
     <body class="mainBackground">
@@ -27,12 +26,13 @@
 
         <div class="basketContainer">
             <div class="basketItemContainer">
+                <%_ basketItemList.forEach(function(basketItem, index) { _%>
                 <div class="basketItem">
-                
                     <div class="basketItemImage">
                         <img src="images/cake1.jpg" placeholder="trial" alt="1">
                     </div>
                     
+                    <!--
                     <div class="basketItemInfo">
                         <div class="basketNameContainer">
                             <h2>Birthday chocolate</h2>
@@ -67,13 +67,76 @@
                             <button class="removeItem">Remove</button>
                         </div>
                     </div>
+                    -->
+
+                    <div class="basketItemInfo">
+                        <div class="basketNameContainer">
+                            <h2><%= productItemList[index].name %></h2>
+                            <input type="hidden" name="productName" value="productName">
+                        </div>
+                        <div class="basketTypeContainer">
+                            <h3>Type of Cake:</h3>
+                            <%_ if (productItemList[index].type != 'Cookie') { _%>
+                            <select class="editFlavor" title="Flavor" id="flavor" name="flavor">
+                                <option>Select Flavor</option>
+                                
+                            </select>
+                            <%_ } _%>
+
+                            <%_ if (productItemList[index].type == 'Cake') { _%>
+                            <select class="editSize" title="Size" id="size" name="size">
+                                <option>Select Size</option>
+                                
+                            </select> 
+                            <%_ } _%>
+
+                            <%_ if (productItemList[index].type == 'Cupcake') { _%>
+                            <select id="displayProductFrosting" class="orderFrosting" title="Frosting" name="frosting">
+                            </select>
+                            <%_ } _%>
+                        </div>
+                    </div>
+                    
+                    <div class="basketItemQuantity">
+                        <div class="basketQuantityContainer">
+                            <span id="decrement" class="incdec basketDecrement">-</span>
+                            <input class="quantity basketQuantity" type="number" value="1">
+                            <span id="increment" class="incdec basketIncrement">+</span>
+                        </div>
+                    </div>
+
+                    <div class="basketGroupPriceNRemove">
+                        <div class="basketItemPrice">
+                            <h2><%= productItemList[index].price %></h2>
+                        </div>
+                        <div class="basketItemButton">
+                            <button class="updateItem">Update</button>
+                            <button class="removeItem" value="<%= productItemList[index].itemNumber %>">Remove</button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="test" data="<%= productItemList[index] %>"/>
                 </div>
+                <%_ }) _%>
             </div>
             <div class="totalPriceContainer">
                 <span class="totalPrice">Total: 1200</span>
                 <button class="basketSubmit">CHECK OUT</button>
             </div>
         </div>
+        <script>
+            $(document).ready(function() {
+
+                $(".removeItem").click(function() {
+                    var itemNumber = $(this).val()
+
+                    $.post('/removeBasketItem', {itemNumber: itemNumber}, function(result) {
+                        alert(result)
+                    })
+                    $(this).parents('.basketItem').remove()
+                })
+            })
+        </script>
     </body>
 
 </html>

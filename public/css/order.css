@@ -122,3 +122,47 @@
 .disable {
   background: #CCCCCC;
 }
+
+.orderModalBackground {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.orderModalContent {
+  width: 50%;
+  padding: 10px;
+  height: 80%;
+  background-color: #FFFFFF;
+  position: relative;
+}
+
+.orderClose {
+  position: absolute;
+  top: 0;
+  right: 14px;
+  font-size: 42px;
+  font-weight: bold;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+.orderModalProductContainer {
+  padding-top: 20px;
+}
+
+.orderModalFieldSet {
+  padding: 20px;
+}
+
+.orderModalTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}

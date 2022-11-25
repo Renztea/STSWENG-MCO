@@ -38,7 +38,7 @@
             <td class="orderTableInfo" data-label="Order I.D."><%= order.orderId %></td>
             <td class="orderTableInfo" data-label="Name"><%= order.name %></td>
             <td class="orderTableInfo" data-label="Cellphone No."><%= order.cellphoneNo %></td>
-            <td class="orderTableInfo" data-label="View Orders"><button class="orderViewBtn">Open</button></td>
+            <td class="orderTableInfo" data-label="View Orders"><button class="orderViewBtn" data="<%= order.orderId %>">Open</button></td>
             <td class="orderTableInfo" data-label="Price"><%= order.price %></td>
             <td class="orderTableInfo" data-label="Status"><%= order.status %></td>
             <%_ if (orderList.category != "cancelled" && orderList.category != "pickedup") { _%>
