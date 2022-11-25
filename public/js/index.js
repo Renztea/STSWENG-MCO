@@ -1,9 +1,11 @@
 $(document).ready(function() {
+  /*
     $("#basketBtn").click(function() {
       $.get('/Basket', {}, function(result) {
-
+        return result
       })
     })
+    */
 
     $(".productBox").click(function() {
       var productName = $(this).find('img').attr('placeholder');

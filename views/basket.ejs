@@ -26,9 +26,8 @@
 
         <div class="basketContainer">
             <div class="basketItemContainer">
-                <%_ productItemList.forEach(function(productItem) { _%>
+                <%_ basketItemList.forEach(function(basketItem, index) { _%>
                 <div class="basketItem">
-                
                     <div class="basketItemImage">
                         <img src="images/cake1.jpg" placeholder="trial" alt="1">
                     </div>
@@ -72,19 +71,29 @@
 
                     <div class="basketItemInfo">
                         <div class="basketNameContainer">
-                            <h2><%= productItem.name %></h2>
+                            <h2><%= productItemList[index].name %></h2>
                             <input type="hidden" name="productName" value="productName">
                         </div>
                         <div class="basketTypeContainer">
                             <h3>Type of Cake:</h3>
+                            <%_ if (productItemList[index].type != 'Cookie') { _%>
                             <select class="editFlavor" title="Flavor" id="flavor" name="flavor">
                                 <option>Select Flavor</option>
                                 
                             </select>
+                            <%_ } _%>
+
+                            <%_ if (productItemList[index].type == 'Cake') { _%>
                             <select class="editSize" title="Size" id="size" name="size">
                                 <option>Select Size</option>
                                 
                             </select> 
+                            <%_ } _%>
+
+                            <%_ if (productItemList[index].type == 'Cupcake') { _%>
+                            <select id="displayProductFrosting" class="orderFrosting" title="Frosting" name="frosting">
+                            </select>
+                            <%_ } _%>
                         </div>
                     </div>
                     
@@ -98,13 +107,15 @@
 
                     <div class="basketGroupPriceNRemove">
                         <div class="basketItemPrice">
-                            <h2><%= productItem.price %></h2>
+                            <h2><%= productItemList[index].price %></h2>
                         </div>
                         <div class="basketItemButton">
                             <button class="updateItem">Update</button>
-                            <button class="removeItem" value="<%= productItem.itemNumber %>">Remove</button>
+                            <button class="removeItem" value="<%= productItemList[index].itemNumber %>">Remove</button>
                         </div>
                     </div>
+
+                    <input type="hidden" name="test" data="<%= productItemList[index] %>"/>
                 </div>
                 <%_ }) _%>
             </div>
@@ -115,6 +126,7 @@
         </div>
         <script>
             $(document).ready(function() {
+
                 $(".removeItem").click(function() {
                     var itemNumber = $(this).val()
 

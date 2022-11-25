@@ -246,7 +246,6 @@ const controller = {
                             numberCake: productNumberCake,
                             numberCakePrice: productNumberCakePrice
                         })
-                        fs.unlinkSync(pastImage)
                     } catch (error) {
                         console.log("Error on updating the Cake product with image into the database. \n" + err)
                     }
@@ -333,17 +332,18 @@ const controller = {
             var productRedVelvet1 = req.body.productPricesRedVelvet1
             var productRedVelvet2 = req.body.productPricesRedVelvet2
             
-            var productImage = req.files?.filenameEdit || false;
+            var productImage = req.files?.filename || false;
 
             if (productImage) {
-                const image = req.files.filenameEdit
+                const image = req.files.filename
                 let date = new Date();
                 var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
                 date.getSeconds() + '_'+ image.name;
                 var imagePath = '/images/' + filenameChange;
                 image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
-                    var pastInfo = await Cupcake.findOne({_id: productID})
+                    var pastInfo = await Cake.findOne({_id: productID})
                     var pastImage = './public' + pastInfo.image
+                    fs.unlinkSync(pastImage)
                     try {
                         await Cupcake.updateOne({
                             _id: productID
@@ -357,7 +357,6 @@ const controller = {
                             redvelvetIcingPrice: productRedVelvet2,
                             image: imagePath,
                         })
-                        fs.unlinkSync(pastImage)
                     } catch (error) {
                         console.log("Error on updating the Cupcake product with image into the database. \n" + err)
                     }
@@ -431,19 +430,20 @@ const controller = {
             var productID = req.body.productID
             var productName = (req.body.productName).trim()
             var productPrices = req.body.productPrices
+            console.log(productPrices)
             
-            var productImage = req.files?.filenameEdit || false;
+            var productImage = req.files?.filename || false;
 
             if (productImage) {
-                const image = req.files.filenameEdit
+                const image = req.files.filename
                 let date = new Date();
                 var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
                 date.getSeconds() + '_'+ image.name;
                 var imagePath = '/images/' + filenameChange;
-                
                 image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
-                    var pastInfo = await Cookie.findOne({_id: productID})
+                    var pastInfo = await Cake.findOne({_id: productID})
                     var pastImage = './public' + pastInfo.image
+                    fs.unlinkSync(pastImage)
                     try {
                         await Cookie.updateOne({
                             _id: productID
@@ -452,7 +452,6 @@ const controller = {
                             price: productPrices,
                             image: imagePath,
                         })
-                        fs.unlinkSync(pastImage)
                     } catch (error) {
                         console.log("Error on updating the Cookie product with image into the database. \n" + err)
                     }
@@ -604,6 +603,7 @@ const controller = {
     getBasketItem: async function(req, res) {
         if(req.session.orders) {
             var basketItemList = []
+            /*
             req.session.orders.forEach(async function(item) {
                 if(item.type == 'Cake') {
                     var basketItem = await Cake.findOne({name: item.name})
@@ -617,6 +617,7 @@ const controller = {
                 }
                 basketItemList.push(basketItem)
             });
+            */
 
 
             for (const item of req.session.orders) {
@@ -630,8 +631,9 @@ const controller = {
                 basketItemList.push(basketItem)    
             }
             
+            
             console.log(basketItemList)
-            res.send("Success")
+            res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders})
         } else {
             res.redirect('/products/Cake');
         }
