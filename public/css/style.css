@@ -627,7 +627,7 @@ input::-webkit-inner-spin-button {
   background: #95E2A6;
 }
 
-.editFlavor, .editSize {
+.editFlavor, .editSize, .editFrosting {
   margin-top: 10px;
   text-align: center;
   font-size: 15px;

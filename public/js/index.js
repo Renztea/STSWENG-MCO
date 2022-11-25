@@ -18,10 +18,10 @@ $(document).ready(function() {
           $('#displayProductImage').attr('src', result.image);
           $('#displayProductName').text(result.name)
           $("#orderQuantity").val(1)
+          $('#displayProductFlavor').find('option').remove()
+          $('#displayProductSize').find('option').remove()
+          $('#displayProductFrosting').find('option').remove()
           if (productType == 'Cake') {
-            $('#displayProductFlavor').find('option').remove()
-            $('#displayProductSize').find('option').remove()
-            $('#displayProductFrosting').find('option').remove()
             var hasVanillaFlavor = false;
             var hasSize6x5 = false;
             var hasSize8x5 = false;
@@ -68,7 +68,7 @@ $(document).ready(function() {
             }
             
             $('#displayProductFlavor').change(function() {
-              updateAvailableSize(result)
+              updateAvailableCakeSize(result)
               updateCakePrice(result)
             })
 
@@ -77,35 +77,76 @@ $(document).ready(function() {
             })
           } else if (productType == 'Cupcake') {
             $('#displayProductFlavor').find('option').remove()
-            var defaultPrice = true;
+            var hasVanillaFlavor = false;
+            var hasChocolateFlavor = false;
+            var hasFondant = false;
+            var hasIcing = false;
 
-            if (result.vanillaPrice > 0) {
+            if (result.vanillaFondantPrice > 0 || result.vanillaIcingPrice > 0) {
               $('#displayProductFlavor').append(new Option("Vanilla", "vanilla"))
-              $('#displayProductPrice').text(result.vanillaPrice)
-              defaultPrice = false
-            }
-            if (result.chocolatePrice > 0) {
-              $('#displayProductFlavor').append(new Option("Chocolate", "chocolate"))
-              if(defaultPrice) {
-                $('#displayProductPrice').text(result.chocolatePrice)
-                defaultPrice = false
+              hasVanillaFlavor = true;
+              if (result.vanillaFondantPrice > 0) {                
+                $('#displayProductFrosting').append(new Option("Fondant", "fondant"))
+                hasFondant = true
               }
-            }
-            if (result.redvelvetPrice > 0) {
-              $('#displayProductFlavor').append(new Option("Red Velvet", "redVelvet"))
-              if(defaultPrice) {
-                $('#displayProductPrice').text(result.redvelvetPrice)
-                defaultPrice = false
+              if (result.vanillaIcingPrice > 0) {
+                $('#displayProductFrosting').append(new Option("Icing", "icing"))
+                hasIcing = true
               }
             }
 
-            if (!defaultPrice) {
-              $('#displayProductFrosting').append(new Option("Fondant", "fondant"))
-              $('#displayProductFrosting').append(new Option("Icing", "icing"))
+            if (result.chocolateFondantPrice > 0 || result.chocolateIcingPrice > 0) {
+              $('#displayProductFlavor').append(new Option("Chocolate", "chocolate"))
+              hasChocolateFlavor = true
+              if(!hasFondant && !hasVanillaFlavor && result.chocolateFondantPrice > 0) {
+                $('#displayProductFrosting').append(new Option("Fondant", "fondant"))
+                hasFondant = true
+              }
+              if(!hasIcing && !hasVanillaFlavor && result.chocolateIcingPrice > 0) {
+                $('#displayProductFrosting').append(new Option("Icing", "icing"))
+                hasIcing = true
+              }
+            }
+
+            if (result.redvelvetFondantPrice > 0 || result.redvelvetIcingPrice > 0) {
+              $('#displayProductFlavor').append(new Option("Red Velvet", "redVelvet"))
+              if(!hasFondant && !hasVanillaFlavor && !hasChocolateFlavor && result.redvelvetFondantPrice > 0) {
+                $('#displayProductFrosting').append(new Option("Fondant", "fondant"))
+              }
+              if(!hasFondant && !hasVanillaFlavor && !hasChocolateFlavor && result.redvelvetIcingPrice > 0) {
+                $('#displayProductFrosting').append(new Option("Icing", "icing"))
+              }
+            }
+
+            var frostingSelected = $('#displayProductFrosting').find(":selected").val();
+            if (hasVanillaFlavor) {
+              if (frostingSelected == "fondant") {
+                $('#displayProductPrice').text(result.vanillaFondantPrice)
+              }
+              if (frostingSelected == "icing") {
+                $('#displayProductPrice').text(result.vanillaIcingPrice) 
+              }             
+            } else if (hasChocolateFlavor) {              
+              if (frostingSelected == "fondant") {
+                $('#displayProductPrice').text(result.chocolateFondantPrice)
+              }
+              if (frostingSelected == "icing") {
+                $('#displayProductPrice').text(result.chocolateIcingPrice)
+              }
+            } else {
+              if (frostingSelected == "fondant") {
+                $('#displayProductPrice').text(result.redvelvetFondantPrice)
+              }
+              if (frostingSelected == "icing") {
+                $('#displayProductPrice').text(result.redvelvetIcingPrice)
+              }
             }
 
             $('#displayProductFlavor').change(function() {
-              $('#displayProductFrosting').val("fondant");
+              updateAvailableCupcakeFrosting(result)
+              updateCupcakePrice(result)
+            })
+            $('#displayProductFrosting').change(function() {
               updateCupcakePrice(result)
             })
           } else {
@@ -118,10 +159,10 @@ $(document).ready(function() {
       })
     });
 
-    function updateAvailableSize(result) {
+    function updateAvailableCakeSize(result) {
       var currentFlavor = $('#displayProductFlavor').val()
       $('#displayProductSize').find('option').remove()
-      if (currentFlavor == "Vanilla") {
+      if (currentFlavor == "vanilla") {
         if (result.vanilla6x5Price > 0) {
           $('#displayProductSize').append(new Option("6\" x 5\"", "6x5"))                  
         }
@@ -151,15 +192,49 @@ $(document).ready(function() {
             $('#displayProductPrice').text(result.chocolate8x5Price)
         }
     }
+
+    function updateAvailableCupcakeFrosting(result) {
+      var currentFlavor = $('#displayProductFlavor').val()
+      $('#displayProductFrosting').find('option').remove()
+      if (currentFlavor == 'vanilla') {
+        if (result.vanillaFondantPrice > 0) {
+          $('#displayProductFrosting').append(new Option("Fondant", "fondant"))             
+        }
+        if (result.vanillaIcingPrice > 0) {
+          $('#displayProductFrosting').append(new Option("Icing", "icing"))
+        }
+      } else if (currentFlavor == 'chocolate') {
+        if (result.chocolateFondantPrice > 0) {
+          $('#displayProductFrosting').append(new Option("Fondant", "fondant"))
+        }
+        if (result.chocolateIcingPrice > 0) {
+          $('#displayProductFrosting').append(new Option("Icing", "icing"))
+        }
+      } else {
+        if (result.redvelvetFondantPrice > 0) {
+          $('#displayProductFrosting').append(new Option("Fondant", "fondant"))
+        }
+        if (result.redvelvetIcingPrice > 0) {
+          $('#displayProductFrosting').append(new Option("Icing", "icing"))
+        }
+      }
+    }
   
     function updateCupcakePrice(result) {
         var currentFlavor = $('#displayProductFlavor').val()
-        if (currentFlavor == 'Vanilla') {
-            $('#displayProductPrice').text(result.vanillaPrice)
-        } else if (currentFlavor == 'Chocolate'){
-            $('#displayProductPrice').text(result.chocolatePrice)
+        var currentFrosting = $('#displayProductFrosting').val()
+        if (currentFlavor == 'vanilla' && currentFrosting == 'fondant') {
+            $('#displayProductPrice').text(result.vanillaFondantPrice)
+        } else if (currentFlavor == 'chocolate' && currentFrosting == 'fondant') {
+            $('#displayProductPrice').text(result.chocolateFondantPrice)
+        } else if (currentFlavor == 'redVelvet' && currentFrosting == 'fondant'){
+            $('#displayProductPrice').text(result.redvelvetFondantPrice)
+        } else if (currentFlavor == 'vanilla' && currentFrosting == 'icing') {
+            $('#displayProductPrice').text(result.vanillaIcingPrice)
+        } else if (currentFlavor == 'chocolate' && currentFrosting == 'icing'){
+            $('#displayProductPrice').text(result.chocolateIcingPrice)
         } else {
-            $('#displayProductPrice').text(result.redvelvetPrice)
+            $('#displayProductPrice').text(result.redvelvetIcingPrice)
         }
     }
   
