@@ -69,19 +69,38 @@ const controller = {
         var productType = req.params.type
         if (productType == 'Cake') {
             try {
-                var productPreview = await Cake.find({})
+                var productPreview = await Cake.find({
+                    $or: [
+                        {vanilla6x5Price : {$gte: 1}},
+                        {vanilla8x5Price : {$gte: 1}},
+                        {chocolate6x5Price : {$gte: 1}},
+                        {chocolate8x5Price : {$gte: 1}},
+                        {numberCakePrice : {$gte: 1}},
+                    ]
+                })
             } catch (err) {
                 console.log("Error on producing cake previews. Error: \n" + err)
             }
         } else if (productType == 'Cupcake') {
             try {
-                var productPreview = await Cupcake.find({})
+                var productPreview = await Cupcake.find({
+                    $or: [
+                        {vanillaFondantPrice : {$gte: 1}},
+                        {vanillaIcingPrice : {$gte: 1}},
+                        {chocolateFondantPrice : {$gte: 1}},
+                        {chocolateIcingPrice : {$gte: 1}},
+                        {redvelvetFondantPrice : {$gte: 1}},
+                        {redvelvetIcingPrice : {$gte: 1}},
+                    ]
+                })
             } catch (err) {
                 console.log("Error on producing cupcake previews. Error: \n" + err)
             }
         } else if (productType == 'Cookie') {
             try {
-                var productPreview = await Cookie.find({})
+                var productPreview = await Cookie.find({
+                    price: {$gte: 1}
+                })
             } catch (err) {
                 console.log("Error on producing cookie previews. Error: \n" + err)
             }
