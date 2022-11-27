@@ -345,16 +345,18 @@
                             productItem.quantity = currentQuantity
                             productItem.price = currentPrice
 
-                            $('.priceValue').text(result)
+                            $('#priceValue').text(result)
                             $('.update' + itemIndex).css("display", "none");
                     })
                 })
 
                 $('.removeItem').click(function() {
                     var itemNumber = $(this).parents('.basketItem').attr('name')
+                    var totalPrice = $('#priceValue').text()
 
-                    $.post('/removeBasketItem', {itemNumber: itemNumber}, function(result) {
-                        alert(result)
+                    $.get('/removeBasketItem', {itemNumber: itemNumber, totalPrice: parseInt(totalPrice)}, function(result) {
+                        alert("Remove Item Successfull")
+                        $('#priceValue').text(result)
                     })
                     $(this).parents('.basketItem').remove()
                 })

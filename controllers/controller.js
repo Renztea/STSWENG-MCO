@@ -762,18 +762,19 @@ const controller = {
         if(req.session.orders) {
             req.session.orders.forEach((val, key) => {
                 console.log("key: " + key)
-                    console.log("bodyNumber: " + req.body.itemNumber)
+                    console.log("bodyNumber: " + req.query.itemNumber)
                     console.log("valNumber: " + val.itemNumber)
-                if(req.body.itemNumber == val.itemNumber) {
+                if(req.query.itemNumber == val.itemNumber) {
                     console.log("key: " + key)
-                    console.log("bodyNumber: " + req.body.itemNumber)
+                    console.log("bodyNumber: " + req.query.itemNumber)
                     console.log("valNumber: " + val.itemNumber)
+                    req.query.totalPrice = req.query.totalPrice - parseInt(val.price)
                     req.session.orders.splice(key, 1)
                 }
             })
         }
         console.log("End: ", req.session.orders)
-        res.send("Removed Item Success")
+        res.send(req.query.totalPrice.toString())
     }
 
 }   
