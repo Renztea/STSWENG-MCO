@@ -400,6 +400,8 @@
 						});
 						let value = params.pageNumber; 
 						window.location.assign( '/Admin/' + productType + '?pageNumber=' + (value - 1))
+					} else {
+						window.location.reload()
 					}
 				})
 			}
