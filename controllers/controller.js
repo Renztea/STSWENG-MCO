@@ -6,6 +6,7 @@ const Cake = require('../models/cake')
 const Cupcake = require('../models/cupcake')
 const Cookie = require('../models/cookie');
 const { equal } = require('assert');
+const { isObjectIdOrHexString } = require('mongoose');
 
 function randomizer (currentProducts) {
     var randomProducts = []
@@ -676,16 +677,16 @@ const controller = {
 
             for (const item of req.session.orders) {
                 if(item.type == 'Cake') {
-                    var basketItem = await Cake.findOne({name: item.name})
+                    var basketItem = await Cake.findOne({name: item.name}, {_id: 0})
                 } else if (item.type == 'Cupcake') {
-                    var basketItem = await Cupcake.findOne({name: item.name})
+                    var basketItem = await Cupcake.findOne({name: item.name}, {_id: 0})
                 } else {
-                    var basketItem = await Cookie.findOne({name: item.name})
-                }
+                    var basketItem = await Cookie.findOne({name: item.name}, {_id: 0})
+                }                
+                
                 basketItemList.push(basketItem)    
             }
-            
-            
+                        
             console.log(basketItemList)
             res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders})
         } else {
