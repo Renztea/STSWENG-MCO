@@ -117,19 +117,19 @@ const controller = {
         if (type == 'Cake') {
             try {
                 var productInfo = await Cake.findOne({name: name})
-            } catch (error) {
+            } catch (err) {
                 console.log("Error on getting the clicked cake's information. Error: \n" + err)
             }
         } else if (type == 'Cupcake') {
             try {
                 var productInfo = await Cupcake.findOne({name: name})
-            } catch (error) {
+            } catch (err) {
                 console.log("Error on getting the clicked cupcake's information. Error: \n" + err)
             }
         } else {
             try {
             var productInfo = await Cookie.findOne({name: name})
-            } catch (error) {
+            } catch (err) {
                 console.log("Error on getting the clicked cookie's information. Error: \n" + err)
             }
         }
@@ -138,25 +138,68 @@ const controller = {
 
     adminProductPage: async function (req, res) {
         var productType = req.params.type
+        var pageNumber = req.query.pageNumber
+
+        // default page value when no url query was initialized.
+        if (typeof pageNumber === 'undefined') {
+            pageNumber = 1
+        } 
+
         if (productType == 'Cake') {
             try {
-                var cakes = await Cake.find({})
-                res.render('cakesPage', {cakes: cakes})
-            } catch {
+                var allCakes = await Cake.find({})
+                // Calculates how many number of pages will all the cake products use.
+                var numberofPages = parseInt(allCakes.length / 6)
+                if (allCakes.length % 6 != 0) {
+                    numberofPages++
+                }
+                // Only need 6 products per page.
+                var previewCakes = allCakes.slice((pageNumber - 1) * 6, (pageNumber - 1) * 6 + 6) 
+                // if a page does not exists then render an error page, otherwise render up to 6 products.
+                if (pageNumber <= numberofPages && pageNumber != 0) {
+                    res.render('cakesPage', {cakes: previewCakes, numberofPages: numberofPages , currentPage: pageNumber})
+                } else {
+                    res.render('errorPage')
+                }      
+            } catch (err) {
                 console.log("Error on producing cake previews for admin page. Error: \n" + err)
             }
         } else if (productType == 'Cupcake') {
             try {
-                var cupcakes = await Cupcake.find({})
-                res.render('cupcakesPage', {cupcakes: cupcakes})
-            } catch {
-                console.log("Error on producing cupcake previews for admin page. Error: \n" + err)
+                var allCupcakes = await Cupcake.find({})
+                // Calculates how many number of pages will all the cupcake products use.
+                var numberofPages = parseInt(allCupcakes.length / 6)
+                if (allCupcakes.length % 6 != 0) {
+                    numberofPages++
+                }
+                // Only need 6 products per page.
+                var previewCupcakes = allCupcakes.slice((pageNumber - 1) * 6, (pageNumber - 1) * 6 + 6) 
+                // if a page does not exists then render an error page, otherwise render up to 6 products.
+                if (pageNumber <= numberofPages && pageNumber != 0) {
+                    res.render('cupcakesPage', {cupcakes: previewCupcakes, numberofPages: numberofPages , currentPage: pageNumber})
+                } else {
+                    res.render('errorPage')
+                }    
+            } catch (err) {
+                console.log("Error on producing cupcake previews for admin page. Error: \n" + error)
             }
         } else if (productType == 'Cookie') {
             try {
-                var cookies = await Cookie.find({})
-                res.render('cookiesPage', {cookies: cookies})
-            } catch {
+                var allCookies = await Cookie.find({})
+                // Calculates how many number of pages will all the cookie products use.
+                var numberofPages = parseInt(allCookies.length / 6)
+                if (allCookies.length % 6 != 0) {
+                    numberofPages++
+                }
+                // Only need 6 products per page.
+                var previewCookies = allCookies.slice((pageNumber - 1) * 6, (pageNumber - 1) * 6 + 6) 
+                // if a page does not exists then render an error page, otherwise render up to 6 products.
+                if (pageNumber <= numberofPages && pageNumber != 0) {
+                    res.render('cookiesPage', {cookies: previewCookies, numberofPages: numberofPages , currentPage: pageNumber})
+                } else {
+                    res.render('errorPage')
+                }  
+            } catch (err) {
                 console.log("Error on producing cookie previews for admin page. Error: \n" + err)
             }
         } else {

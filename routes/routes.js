@@ -13,9 +13,9 @@ app.get('/updateBasketItem', controller.updateBasketItem)
 app.post('/removeBasketItem', controller.removeBasketItem)
 
 // Admin pages
-app.get('/admin', controller.getAdminPage)
-app.get('/admin/:type', controller.adminProductPage)
-app.get('/admin/orders/:category', controller.getOrdersPage)
+app.get('/Admin', controller.getAdminPage)
+app.get('/Admin/:type', controller.adminProductPage)
+app.get('/Admin/orders/:category', controller.getOrdersPage)
 app.get('/deleteProduct', controller.deleteProduct)
 
 // Form controllers
