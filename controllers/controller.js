@@ -701,6 +701,7 @@ const controller = {
     getBasketItem: async function(req, res) {
         if(req.session.orders) {
             var basketItemList = []
+            var totalPrice = 0
             /*
             req.session.orders.forEach(async function(item) {
                 if(item.type == 'Cake') {
@@ -727,18 +728,33 @@ const controller = {
                     var basketItem = await Cookie.findOne({name: item.name}, {_id: 0})
                 }                
                 
+                totalPrice = totalPrice + parseInt(item.price)
                 basketItemList.push(basketItem)    
             }
                         
             console.log(basketItemList)
-            res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders})
+            res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
         } else {
             res.redirect('/products/Cake');
         }
     },
 
     updateBasketItem: function(req, res) {
+        if (req.session.orders) {
+            var totalPrice = 0
+            req.session.orders.forEach(function(order) {
+                if(req.query.itemNumber == order.itemNumber) {
+                    order.flavor = req.query.flavor
+                    order.size = req.query.size
+                    order.frosting = req.query.frosting
+                    order.quantity = req.query.quantity
+                    order.price = req.query.price
+                }
 
+                totalPrice = totalPrice + parseInt(order.price)
+            })
+            res.send(totalPrice.toString())
+        }
     },
 
     removeBasketItem: function(req, res) {

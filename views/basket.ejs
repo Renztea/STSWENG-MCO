@@ -27,7 +27,7 @@
         <div class="basketContainer">
             <div class="basketItemContainer">
                 <%_ basketItemList.forEach(function(basketItem, index) { _%>
-                <div class="basketItem" name="<%= productItemList[index].type %>" data="<%= productItemList[index].itemNumber %>">
+                <div class="basketItem" name="<%= productItemList[index].itemNumber %>" data="<%= productItemList[index].type %>" label="<%= index %>">
                     <div class="basketItemImage">
                         <img src="images/cake1.jpg" placeholder="trial" alt="1">
                     </div>
@@ -76,7 +76,7 @@
                         <div class="basketTypeContainer">
                             <h3>Type of <%= productItemList[index].type %>:</h3>
                             <%_ if (productItemList[index].type != 'Cookie') { _%>
-                            <select class="editFlavor" title="Flavor" id="flavor<%= index+1 %>" name="flavor">  
+                            <select class="editFlavor" title="Flavor" id="flavor<%= index %>" name="flavor">  
                                 <!-- Cake -->                              
                                 <%_ if (basketItem.vanilla6x5Price > 0 || basketItem.vanilla8x5Price > 0) { _%>
                                     <option value="vanilla" <% if (productItemList[index].flavor == "vanilla") { %> selected <% } %>>Vanilla</option>
@@ -98,7 +98,7 @@
                             <%_ } _%>
 
                             <%_ if (productItemList[index].type == 'Cake') { _%>
-                            <select class="editSize" title="Size" id="size<%= index+1 %>" name="size">
+                            <select class="editSize" title="Size" id="size<%= index %>" name="size">
                                 <%_ if (basketItem.vanilla6x5Price > 0 || basketItem.chocolate6x5Price > 0) { _%>
                                     <option value="6x5" <% if (productItemList[index].size == "6x5") { %> selected <% } %>>6" x 5"</option>
                                 <%_ } _%>
@@ -109,12 +109,12 @@
                             <%_ } _%>
 
                             <%_ if (productItemList[index].type == 'Cupcake') { _%>
-                            <select id="frosting<%= index+1 %>" class="editFrosting" title="Frosting" name="frosting">
+                            <select id="frosting<%= index %>" class="editFrosting" title="Frosting" name="frosting">
                                 <%_ if (basketItem.vanillaFondantPrice > 0 || basketItem.chocolateFondantPrice > 0 || basketItem.redvelvetFondantPrice > 0) { _%>
-                                    <option value="fondant" <% if (productItemList[index].flavor == "fondant") { %> selected <% } %>>Fondant</option>
+                                    <option value="fondant" <% if (productItemList[index].frosting == "fondant") { %> selected <% } %>>Fondant</option>
                                 <%_ } _%>
                                 <%_ if (basketItem.vanillaIcingPrice > 0 || basketItem.chocolateIcingPrice > 0 || basketItem.redvelvetIcingPrice > 0) { _%>
-                                    <option value="icing" <% if (productItemList[index].flavor == "icing") { %> selected <% } %>>Icing</option>
+                                    <option value="icing" <% if (productItemList[index].frosting == "icing") { %> selected <% } %>>Icing</option>
                                 <%_ } _%>
                             </select>
                             <%_ } _%>
@@ -124,17 +124,17 @@
                     <div class="basketItemQuantity">
                         <div class="basketQuantityContainer">
                             <span id="decrement" class="incdec basketDecrement">-</span>
-                            <input id="quantity<%= index+1 %>" class="quantity basketQuantity" type="number" value="<%= productItemList[index].quantity %>">
+                            <input id="quantity<%= index %>" class="quantity basketQuantity" type="number" value="<%= productItemList[index].quantity %>">
                             <span id="increment" class="incdec basketIncrement">+</span>
                         </div>
                     </div>
 
                     <div class="basketGroupPriceNRemove">
                         <div class="basketItemPrice">
-                            <h2 id="price<%= index+1 %>"><%= productItemList[index].price %></h2>
+                            <h2 id="price<%= index %>"><%= productItemList[index].price %></h2>
                         </div>
                         <div class="basketItemButton">
-                            <button class="updateItem">Update</button>
+                            <button class="updateItem update<%= index %>">Update</button>
                             <button class="removeItem" value="<%= productItemList[index].itemNumber %>">Remove</button>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                 <%_ }) _%>
             </div>
             <div class="totalPriceContainer">
-                <span class="totalPrice">Total: 1200</span>
+                <span class="totalPrice">Total: &#8369;<span id="priceValue"><%= totalPrice %></span></span>
                 <button class="basketSubmit">CHECK OUT</button>
             </div>
         </div>
@@ -154,166 +154,204 @@
                 let productItemList = <%- JSON.stringify(productItemList) %>
 
                 $('.editFlavor').change(function() {
-                    var itemBoxNumber = $(this).parents('.basketItem').attr('data')
-                    var itemBoxType = $(this).parents('.basketItem').attr('name')
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
 
-                    if (itemBoxType == 'Cake') {
-                        updateAvailableBasketCakeSize(itemBoxNumber)
-                        updateBasketCakePrice(itemBoxNumber)
-                    } else if (itemBoxType == 'Cupcake') {
-                        updateAvailableBasketCupcakeFrosting(itemBoxNumber)
-                        updateBasketCupcakePrice(itemBoxNumber)
+                    if (itemType == 'Cake') {
+                        updateAvailableBasketCakeSize(itemIndex)
+                        updateBasketCakePrice(itemIndex)
+                    } else if (itemType == 'Cupcake') {
+                        updateAvailableBasketCupcakeFrosting(itemIndex)
+                        updateBasketCupcakePrice(itemIndex)
                     }
-                    checkUpdate(itemBoxNumber)
+                    checkUpdate(itemIndex)
                 })
 
                 $('.editFrosting').change(function() {
-                    var itemBoxNumber = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
 
-                    updateBasketCupcakePrice(itemBoxNumber)
-                    checkUpdate(itemBoxNumber)
+                    updateBasketCupcakePrice(itemIndex)
+                    checkUpdate(itemIndex)
                 })
 
                 $('.editSize').change(function() {
-                    var itemBoxNumber = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
 
-                    updateBasketCakePrice(itemBoxNumber)
-                    checkUpdate(itemBoxNumber)
+                    updateBasketCakePrice(itemIndex)
+                    checkUpdate(itemIndex)
                 })
 
-                function updateAvailableBasketCakeSize(itemNumber) {
-                    var currentFlavor = $('#flavor' + itemNumber).val()
-                    var basketItem = basketItemList[itemNumber - 1]
-                    $('#size' + itemNumber).find('option').remove()
+                function updateAvailableBasketCakeSize(itemIndex) {
+                    var currentFlavor = $('#flavor' + itemIndex).val()
+                    var basketItem = basketItemList[itemIndex]
+                    $('#size' + itemIndex).find('option').remove()
                     if (currentFlavor == "vanilla") {
                         if (basketItem.vanilla6x5Price > 0) {
-                            $('#size' + itemNumber).append(new Option("6\" x 5\"", "6x5"))                  
+                            $('#size' + itemIndex).append(new Option("6\" x 5\"", "6x5"))                  
                         }
                         if (basketItem.vanilla8x5Price > 0) {
-                            $('#size' + itemNumber).append(new Option("8\" x 5\"", "8x5"))
+                            $('#size' + itemIndex).append(new Option("8\" x 5\"", "8x5"))
                         }
                     } else {
                         if (basketItem.chocolate6x5Price > 0) {
-                            $('#size' + itemNumber).append(new Option("6\" x 5\"", "6x5"))
+                            $('#size' + itemIndex).append(new Option("6\" x 5\"", "6x5"))
                         }
                         if (basketItem.chocolate8x5Price > 0) {
-                            $('#size' + itemNumber).append(new Option("8\" x 5\"", "8x5"))
+                            $('#size' + itemIndex).append(new Option("8\" x 5\"", "8x5"))
                         }
                     }
                 }
 
-                function updateBasketCakePrice(itemNumber) {
-                    var currentFlavor = $('#flavor' + itemNumber).val()
-                    var currentSize = $('#size' + itemNumber).val()
-                    var basketItem = basketItemList[itemNumber - 1]
+                function updateBasketCakePrice(itemIndex) {
+                    var currentFlavor = $('#flavor' + itemIndex).val()
+                    var currentSize = $('#size' + itemIndex).val()
+                    var basketItem = basketItemList[itemIndex]
                     if (currentFlavor == 'vanilla' && currentSize == '6x5') {
-                        $('#price' + itemNumber).text(basketItem.vanilla6x5Price)
+                        $('#price' + itemIndex).text(basketItem.vanilla6x5Price)
                     } else if (currentFlavor == 'chocolate' && currentSize == '6x5'){
-                        $('#price' + itemNumber).text(basketItem.chocolate6x5Price)
+                        $('#price' + itemIndex).text(basketItem.chocolate6x5Price)
                     } else if (currentFlavor == 'vanilla' && currentSize == '8x5') {
-                        $('#price' + itemNumber).text(basketItem.vanilla8x5Price)
+                        $('#price' + itemIndex).text(basketItem.vanilla8x5Price)
                     } else {
-                        $('#price' + itemNumber).text(basketItem.chocolate8x5Price)
+                        $('#price' + itemIndex).text(basketItem.chocolate8x5Price)
                     }
                 }
 
-                function updateAvailableBasketCupcakeFrosting(itemNumber) {
-                    var currentFlavor = $('#flavor' + itemNumber).val()
-                    var basketItem = basketItemList[itemNumber - 1]
-                    $('#frosting' + itemNumber).find('option').remove()
+                function updateAvailableBasketCupcakeFrosting(itemIndex) {
+                    var currentFlavor = $('#flavor' + itemIndex).val()
+                    var basketItem = basketItemList[itemIndex]
+                    $('#frosting' + itemIndex).find('option').remove()
                     if (currentFlavor == 'vanilla') {
                         if (basketItem.vanillaFondantPrice > 0) {
-                            $('#frosting' + itemNumber).append(new Option("Fondant", "fondant"))             
+                            $('#frosting' + itemIndex).append(new Option("Fondant", "fondant"))             
                         }
                         if (basketItem.vanillaIcingPrice > 0) {
-                            $('#frosting' + itemNumber).append(new Option("Icing", "icing"))
+                            $('#frosting' + itemIndex).append(new Option("Icing", "icing"))
                         }
                     } else if (currentFlavor == 'chocolate') {
                         if (basketItem.chocolateFondantPrice > 0) {
-                            $('#frosting' + itemNumber).append(new Option("Fondant", "fondant"))
+                            $('#frosting' + itemIndex).append(new Option("Fondant", "fondant"))
                         }
                         if (basketItem.chocolateIcingPrice > 0) {
-                            $('#frosting' + itemNumber).append(new Option("Icing", "icing"))
+                            $('#frosting' + itemIndex).append(new Option("Icing", "icing"))
                         }
                     } else {
                         if (basketItem.redvelvetFondantPrice > 0) {
-                            $('#frosting' + itemNumber).append(new Option("Fondant", "fondant"))
+                            $('#frosting' + itemIndex).append(new Option("Fondant", "fondant"))
                         }
                         if (basketItem.redvelvetIcingPrice > 0) {
-                            $('#frosting' + itemNumber).append(new Option("Icing", "icing"))
+                            $('#frosting' + itemIndex).append(new Option("Icing", "icing"))
                         }
                     }
                 }
                 
-                function updateBasketCupcakePrice(itemNumber) {
-                    var currentFlavor = $('#flavor' + itemNumber).val()
-                    var currentFrosting = $('#frosting' + itemNumber).val()
-                    var basketItem = basketItemList[itemNumber - 1]
+                function updateBasketCupcakePrice(itemIndex) {
+                    var currentFlavor = $('#flavor' + itemIndex).val()
+                    var currentFrosting = $('#frosting' + itemIndex).val()
+                    var basketItem = basketItemList[itemIndex]
                     if (currentFlavor == 'vanilla' && currentFrosting == 'fondant') {
-                        $('#price' + itemNumber).text(basketItem.vanillaFondantPrice)
+                        $('#price' + itemIndex).text(basketItem.vanillaFondantPrice)
                     } else if (currentFlavor == 'chocolate' && currentFrosting == 'fondant') {
-                        $('#price' + itemNumber).text(basketItem.chocolateFondantPrice)
+                        $('#price' + itemIndex).text(basketItem.chocolateFondantPrice)
                     } else if (currentFlavor == 'redVelvet' && currentFrosting == 'fondant'){
-                        $('#price' + itemNumber).text(basketItem.redvelvetFondantPrice)
+                        $('#price' + itemIndex).text(basketItem.redvelvetFondantPrice)
                     } else if (currentFlavor == 'vanilla' && currentFrosting == 'icing') {
-                        $('#price' + itemNumber).text(basketItem.vanillaIcingPrice)
+                        $('#price' + itemIndex).text(basketItem.vanillaIcingPrice)
                     } else if (currentFlavor == 'chocolate' && currentFrosting == 'icing'){
-                        $('#price' + itemNumber).text(basketItem.chocolateIcingPrice)
+                        $('#price' + itemIndex).text(basketItem.chocolateIcingPrice)
                     } else {
-                        $('#price' + itemNumber).text(basketItem.redvelvetIcingPrice)
+                        $('#price' + itemIndex).text(basketItem.redvelvetIcingPrice)
                     }
                 }
 
-                function checkUpdate(itemNumber) {
-                    var productRecord = productItemList[itemNumber - 1]
+                function checkUpdate(itemIndex) {
+                    var productRecord = productItemList[itemIndex]
                     if (productRecord.type == 'Cake') {
-                        var currentFlavor = $('#flavor' + itemNumber).val()
-                        var currentSize = $('#size' + itemNumber).val()
-                        var currentQuantity = $('#quantity' + itemNumber).val()
-                        var currentPrice = parseInt($('#price' + itemNumber).text())
+                        var currentFlavor = $('#flavor' + itemIndex).val()
+                        var currentSize = $('#size' + itemIndex).val()
+                        var currentQuantity = $('#quantity' + itemIndex).val()
+                        var currentPrice = parseInt($('#price' + itemIndex).text())
 
-                        console.log(currentFlavor + " "+ productRecord.flavor)
+                        console.log(currentFlavor + " " + productRecord.flavor)
                         console.log(currentSize + " " + productRecord.size)
                         console.log(currentQuantity + " " + productRecord.quantity)
                         console.log(currentPrice + " " + productRecord.price)
-
                         if (currentFlavor != productRecord.flavor || currentSize != productRecord.size 
                             || currentQuantity != productRecord.quantity || currentPrice != productRecord.price) {
-                            $('.updateItem').css("display", "inline")
+                            $('.update' + itemIndex).css("display", "inline")
+                            console.log("trash")
                         } else {
-                            $('.updateItem').css("display", "none");
+                            console.log("same")
+                            $('.update' + itemIndex).css("display", "none");
                         }
                     } else if (productRecord.type == 'Cupcake') {
-                        var currentFlavor = $('#flavor' + itemNumber).val()
-                        var currentFrosting = $('#frosting' + itemNumber).val()
-                        var currentQuantity = $('#quantity' + itemNumber).val()
-                        var currentPrice = parseInt($('#price' + itemNumber).text())
+                        var currentFlavor = $('#flavor' + itemIndex).val()
+                        var currentFrosting = $('#frosting' + itemIndex).val()
+                        var currentQuantity = $('#quantity' + itemIndex).val()
+                        var currentPrice = parseInt($('#price' + itemIndex).text())
 
+                        console.log(currentFlavor + " " + productRecord.flavor)
                         console.log(currentFrosting + " " + productRecord.frosting)
-                        console.log(currentFlavor + " "+ productRecord.flavor)
                         console.log(currentQuantity + " " + productRecord.quantity)
                         console.log(currentPrice + " " + productRecord.price)
-
                         if (currentFlavor != productRecord.flavor || currentFrosting != productRecord.frosting 
                             || currentQuantity != productRecord.quantity || currentPrice != productRecord.price) {
-                            $('.updateItem').css("display", "inline")
+                            $('.update' + itemIndex).css("display", "inline")
+                            console.log("trash")
                         } else {
-                            $('.updateItem').css("display", "none");
+                            $('.update' + itemIndex).css("display", "none");
+                            console.log("same")
                         }
                     } else {
-                        var currentQuantity = $('#quantity' + itemNumber).val()
-                        var currentPrice = parseInt($('#price' + itemNumber).text())
+                        var currentQuantity = $('#quantity' + itemIndex).val()
+                        var currentPrice = parseInt($('#price' + itemIndex).text())
 
                         if (currentQuantity != productRecord.quantity || currentPrice != productRecord.price) {
-                            $('.updateItem').css("display", "inline")
+                            $('.update' + itemIndex).css("display", "inline")
                         } else {
-                            $('.updateItem').css("display", "none");
+                            $('.update' + itemIndex).css("display", "none");
                         }
                     }
                 }
 
-                $(".removeItem").click(function() {
-                    var itemNumber = $(this).val()
+                $('.updateItem').click(function() {
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var currentFlavor = $('#flavor' + itemIndex).val()
+                    var currentSize = $('#size' + itemIndex).val()
+                    var currentFrosting = $('#frosting' + itemIndex).val()
+                    var currentQuantity = $('#quantity' + itemIndex).val()
+                    var currentPrice = $('#price' + itemIndex).text()
+                    var productItem = productItemList[itemIndex]
+
+                    $.get('/updateBasketItem', 
+                        {itemNumber: itemNumber, 
+                        flavor: currentFlavor || "", 
+                        size: currentSize || "", 
+                        frosting: currentFrosting || "", 
+                        quantity: currentQuantity, 
+                        price: currentPrice}, 
+                                                
+                        function(result) {
+                            if (itemType == 'Cake') {
+                                productItem.flavor = currentFlavor
+                                productItem.size = currentSize
+                            } else if (itemType == 'Cupcake') {
+                                productItem.flavor = currentFlavor
+                                productItem.frosting = currentFrosting
+                            }
+
+                            productItem.quantity = currentQuantity
+                            productItem.price = currentPrice
+
+                            $('.priceValue').text(result)
+                            $('.update' + itemIndex).css("display", "none");
+                    })
+                })
+
+                $('.removeItem').click(function() {
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
 
                     $.post('/removeBasketItem', {itemNumber: itemNumber}, function(result) {
                         alert(result)
