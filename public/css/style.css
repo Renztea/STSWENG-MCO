@@ -625,6 +625,7 @@ input::-webkit-inner-spin-button {
 
 .updateItem {
   background: #95E2A6;
+  display: none;
 }
 
 .editFlavor, .editSize, .editFrosting {
