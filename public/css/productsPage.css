@@ -60,6 +60,27 @@ html, body {
 	cursor: pointer;
 }
 
+.searchBtnContainer button{
+	padding: 11px;
+	background: #ddd;
+	font-size: 17px;
+	border: none;
+	cursor: pointer;
+	font-family: Poppins;
+    	font-size: 18px;
+   	 color: #4A3627;
+	border-radius: 20px;
+}
+
+.searchBtn{
+	margin-left: 10px;
+	padding: 8px;
+	font-size: 17px;
+	border: none;
+	border-radius: 20px;
+}
+
+
 .buttonHolder{
 	width: 100%;
 	display: flex;
