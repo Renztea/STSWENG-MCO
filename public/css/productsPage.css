@@ -55,10 +55,9 @@ html, body {
     height: 50px;
 }
 
-
 .logoutBtn {
     background-color: #EBD8DB;
-    margin-left: 280px;
+    margin-left: 10px;
     padding: 0px 30px;
     text-decoration: none;
     border: 2px solid #4A3627;
