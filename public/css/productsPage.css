@@ -342,6 +342,7 @@ html, body {
 .close{
 	display: flex;
 	justify-content: right;
+	padding-right: 10px;
 	float: right;
 	font-size: 28px;
 	font-weight: bold;
