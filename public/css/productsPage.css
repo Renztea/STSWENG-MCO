@@ -55,32 +55,25 @@ html, body {
     height: 50px;
 }
 
-.menuBtn:hover {
+
+.logoutBtn {
+    background-color: #DF7E85;
+    margin-left: 280px;
+    padding: 0px 30px;
+    text-decoration: none;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    font-family: Poppins;
+    font-size: 18px;
+    color: #FFFFFF;
+    height: 50px;
+}
+
+.menuBtn:hover, .logoutBtn:hover {
     background-color:#DF7E85;
     transition: 0.5s;
 	cursor: pointer;
 }
-
-.searchBtnContainer button{
-	padding: 11px;
-	background: #ddd;
-	font-size: 17px;
-	border: none;
-	cursor: pointer;
-	font-family: Poppins;
-    	font-size: 18px;
-   	 color: #4A3627;
-	border-radius: 20px;
-}
-
-.searchBtn{
-	margin-left: 10px;
-	padding: 8px;
-	font-size: 17px;
-	border: none;
-	border-radius: 20px;
-}
-
 
 .buttonHolder{
 	width: 100%;
