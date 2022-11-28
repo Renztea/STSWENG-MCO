@@ -43,7 +43,7 @@
                 <form class="orderForm">
                     <h1 id="displayProductName"></h1>
 
-                    <h2>&#8369;<span id="displayProductPrice">0</span></h2>
+                    <h2>&#8369;<span id="displayProductPrice" data="0">0</span></h2>
 
                     <input type="hidden" name="productName" value="productName">
                     
@@ -79,7 +79,7 @@
 
                     <div class="orderQuantityContainer">
                         <span id="decrement" class="incdec orderDecrement">-</span>
-                        <input id="orderQuantity" name="orderQuantity" class="quantity" type="number" min="1" value="1" >
+                        <input id="displayProductQuantity" name="orderQuantity" class="orderQuantity" type="number" min="1" value="1" >
                         <span id="increment" class="incdec orderIncrement">+</span>
                     </div>
                     <button type="button" class="addBtn" value="<%= type %>">ADD TO BASKET</button>

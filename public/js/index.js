@@ -17,7 +17,7 @@ $(document).ready(function() {
         if (result) {
           $('#displayProductImage').attr('src', result.image);
           $('#displayProductName').text(result.name)
-          $("#orderQuantity").val(1)
+          $("#displayProductQuantity").val(1)
           $('#displayProductFlavor').find('option').remove()
           $('#displayProductSize').find('option').remove()
           $('#displayProductFrosting').find('option').remove()
@@ -50,22 +50,30 @@ $(document).ready(function() {
               }
             } 
             
-            var sizeSelected = $('#displayProductSize').find(":selected").val();            
+            var sizeSelected = $('#displayProductSize').find(":selected").val();
+            var productPrice = 0            
             if (hasVanillaFlavor) {
               if (sizeSelected == "6x5") {
-                $('#displayProductPrice').text(result.vanilla6x5Price)
+                //$('#displayProductPrice').text(result.vanilla6x5Price)
+                productPrice = result.vanilla6x5Price
               }
               if (sizeSelected == "8x5") {
-                $('#displayProductPrice').text(result.vanilla8x5Price) 
+                //$('#displayProductPrice').text(result.vanilla8x5Price)
+                productPrice = result.vanilla8x5Price
               }             
             } else {              
               if (sizeSelected == "6x5") {
-                $('#displayProductPrice').text(result.chocolate6x5Price)
+                //$('#displayProductPrice').text(result.chocolate6x5Price)
+                productPrice = result.chocolate6x5Price
               }
               if (sizeSelected == "8x5") {
-                $('#displayProductPrice').text(result.chocolate8x5Price)
+                //$('#displayProductPrice').text(result.chocolate8x5Price)
+                productPrice = result.chocolate8x5Price
               }
             }
+
+            $('#displayProductPrice').attr('data', productPrice)
+            $('#displayProductPrice').text(productPrice)
             
             $('#displayProductFlavor').change(function() {
               updateAvailableCakeSize(result)
@@ -119,28 +127,38 @@ $(document).ready(function() {
             }
 
             var frostingSelected = $('#displayProductFrosting').find(":selected").val();
+            var productPrice = 0
             if (hasVanillaFlavor) {
               if (frostingSelected == "fondant") {
-                $('#displayProductPrice').text(result.vanillaFondantPrice)
+                //$('#displayProductPrice').text(result.vanillaFondantPrice)
+                productPrice = result.vanillaFondantPrice
               }
               if (frostingSelected == "icing") {
-                $('#displayProductPrice').text(result.vanillaIcingPrice) 
+                //$('#displayProductPrice').text(result.vanillaIcingPrice)
+                productPrice = result.vanillaIcingPrice
               }             
             } else if (hasChocolateFlavor) {              
               if (frostingSelected == "fondant") {
-                $('#displayProductPrice').text(result.chocolateFondantPrice)
+                //$('#displayProductPrice').text(result.chocolateFondantPrice)
+                productPrice = result.chocolateFondantPrice
               }
               if (frostingSelected == "icing") {
-                $('#displayProductPrice').text(result.chocolateIcingPrice)
+                //$('#displayProductPrice').text(result.chocolateIcingPrice)
+                productPrice = result.chocolateIcingPrice
               }
             } else {
               if (frostingSelected == "fondant") {
-                $('#displayProductPrice').text(result.redvelvetFondantPrice)
+                //$('#displayProductPrice').text(result.redvelvetFondantPrice)
+                productPrice = result.redvelvetFondantPrice
               }
               if (frostingSelected == "icing") {
-                $('#displayProductPrice').text(result.redvelvetIcingPrice)
+                //$('#displayProductPrice').text(result.redvelvetIcingPrice)
+                productPrice = result.redvelvetIcingPrice
               }
             }
+
+            $('#displayProductPrice').attr('data', productPrice)
+            $('#displayProductPrice').text(productPrice)
 
             $('#displayProductFlavor').change(function() {
               updateAvailableCupcakeFrosting(result)
@@ -150,6 +168,7 @@ $(document).ready(function() {
               updateCupcakePrice(result)
             })
           } else {
+            $('#displayProductPrice').attr('data', result.price)
             $('#displayProductPrice').text(result.price)
           }
           document.querySelector('.modalBackground').style.display = 'flex';
@@ -182,15 +201,22 @@ $(document).ready(function() {
     function updateCakePrice(result) {
         var currentFlavor = $('#displayProductFlavor').val()
         var currentSize = $('#displayProductSize').val()
+        var productPrice = 0
         if (currentFlavor == 'vanilla' && currentSize == '6x5') {
-            $('#displayProductPrice').text(result.vanilla6x5Price)
+            //$('#displayProductPrice').text(result.vanilla6x5Price)
+            productPrice = result.vanilla6x5Price
         } else if (currentFlavor == 'chocolate' && currentSize == '6x5'){
-            $('#displayProductPrice').text(result.chocolate6x5Price)
+            //$('#displayProductPrice').text(result.chocolate6x5Price)
+            productPrice = result.chocolate6x5Price
         } else if (currentFlavor == 'vanilla' && currentSize == '8x5') {
-            $('#displayProductPrice').text(result.vanilla8x5Price)
+            //$('#displayProductPrice').text(result.vanilla8x5Price)
+            productPrice = result.vanilla8x5Price
         } else {
-            $('#displayProductPrice').text(result.chocolate8x5Price)
+            //$('#displayProductPrice').text(result.chocolate8x5Price)
+            productPrice = result.chocolate8x5Price
         }
+
+        updateDisplayPrice(productPrice)
     }
 
     function updateAvailableCupcakeFrosting(result) {
@@ -223,19 +249,39 @@ $(document).ready(function() {
     function updateCupcakePrice(result) {
         var currentFlavor = $('#displayProductFlavor').val()
         var currentFrosting = $('#displayProductFrosting').val()
+        var productPrice = 0
         if (currentFlavor == 'vanilla' && currentFrosting == 'fondant') {
-            $('#displayProductPrice').text(result.vanillaFondantPrice)
+            //$('#displayProductPrice').text(result.vanillaFondantPrice)
+            productPrice = result.vanillaFondantPrice
         } else if (currentFlavor == 'chocolate' && currentFrosting == 'fondant') {
-            $('#displayProductPrice').text(result.chocolateFondantPrice)
+           //$('#displayProductPrice').text(result.chocolateFondantPrice)
+           productPrice = result.chocolateFondantPrice
         } else if (currentFlavor == 'redVelvet' && currentFrosting == 'fondant'){
-            $('#displayProductPrice').text(result.redvelvetFondantPrice)
+            //$('#displayProductPrice').text(result.redvelvetFondantPrice)
+            productPrice = result.redvelvetFondantPrice
         } else if (currentFlavor == 'vanilla' && currentFrosting == 'icing') {
-            $('#displayProductPrice').text(result.vanillaIcingPrice)
+            //$('#displayProductPrice').text(result.vanillaIcingPrice)
+            productPrice = result.vanillaIcingPrice
         } else if (currentFlavor == 'chocolate' && currentFrosting == 'icing'){
-            $('#displayProductPrice').text(result.chocolateIcingPrice)
+            //$('#displayProductPrice').text(result.chocolateIcingPrice)
+            productPrice = result.chocolateIcingPrice
         } else {
-            $('#displayProductPrice').text(result.redvelvetIcingPrice)
+            //$('#displayProductPrice').text(result.redvelvetIcingPrice)
+            productPrice = result.redvelvetIcingPrice
         }
+
+        updateDisplayPrice(productPrice)
+    }
+
+    function updateDisplayPrice(productPrice) {
+      var currentQuantity = $('#displayProductQuantity').val()
+      var displayPrice = productPrice * currentQuantity
+
+      alert("productPrice: " + productPrice)
+      alert("currentQuantity: " + currentQuantity)
+      alert("displayPrice: " + displayPrice)
+      $('#displayProductPrice').attr('data', productPrice)
+      $('#displayProductPrice').text(displayPrice)
     }
   
     $(".close").click(function() {
@@ -244,12 +290,13 @@ $(document).ready(function() {
     });
   
     $(".incdec").click(function() {
-        var quantity = parseInt($(".quantity").val());
+        var quantity = parseInt($(".orderQuantity").val());
+        var productPrice = parseInt($('#displayProductPrice').attr('data'))
         
         if (isNaN(quantity))
             quantity = 0;
         
-        if ($(this).attr("id") == 'increment') {
+        if ($(this).attr('id') == 'increment') {
             quantity++;
         } else {
             quantity--;
@@ -258,10 +305,12 @@ $(document).ready(function() {
                 quantity = 1;
         }
         
-        $(".quantity").val(quantity);
+        $(".orderQuantity").val(quantity);
+        var displayPrice = productPrice * quantity
+        $('#displayProductPrice').text(displayPrice)
     })
   
-    $(".quantity").keydown(function(e) {
+    $(".orderQuantity").keydown(function(e) {
         if(!((e.keyCode > 95 && e.keyCode < 106)
             || (e.keyCode > 47 && e.keyCode < 58)
             || e.keyCode == 8  || e.keyCode == 46
@@ -277,7 +326,7 @@ $(document).ready(function() {
             flavor: $('#displayProductFlavor').find(":selected").val() || "", 
             size: $('#displayProductSize').find(":selected").val() || "", 
             frosting: $('#displayProductFrosting').find(":selected").val() || "", 
-            quantity: $("#orderQuantity").val(),
+            quantity: $("#displayProductQuantity").val(),
             type: $(this).val()
           }, function(result) {
             alert(result);

@@ -473,7 +473,7 @@ a {
   border-bottom-right-radius: 10px;
 }
 
-#orderQuantity {
+.orderQuantity {
   justify-content: center;
   text-align: center;
   font-size: 20px;
