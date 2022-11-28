@@ -112,7 +112,7 @@
 							<td class="td2" style="width: 3%;"></td>
 							<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
 							<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
-							<td class="td2"><input type="file" id="myFile" name="filename"></td>
+							<td class="td2"><input type="file" class="myFile" name="filename"></td>
 						</tr>
 						
 						<tr>							
@@ -173,7 +173,7 @@
 							<td class="td2"></td>
 							<td class="td2"><input class="input" type="number" name="productPricesChocolate2" placeholder="Enter Price"></td>
 							<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
-							<a>&nbsp;&nbsp;&nbsp;</a><button class="Add" id="addl" disabled>Add</button></td>	
+							<a>&nbsp;&nbsp;&nbsp;</a><button class="Add" id="addl">Add</button></td>	
 						</tr>							
 					</table>
 				</form>
@@ -194,7 +194,7 @@
 							<td class="td2" style="width: 3%;"></td>
 							<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
 							<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
-							<td class="td2"><input type="file" id="myFile" name="filename"></td>
+							<td class="td2"><input type="file" class="myFile" name="filename"></td>
 						</tr>
 						
 						<tr>							
@@ -273,7 +273,6 @@
 		} else if (editCakeErrors.length > 0) {
 			alert('Edit Failed!!!\n' + editCakeErrors)
 		}
-		$(".inputNum").css('background-color', 'gray')
 
 		// Get the modal
 		var modal = document.getElementsByClassName("modal")[0];
@@ -297,6 +296,7 @@
 				}
 			}
 		}
+
 		// When the user clicks on <span> (x), close the modal
 		cancel[0].onclick = function() {
 				modal.style.display = "none";
@@ -339,35 +339,137 @@
 			}
 		}
 
+		/*
 		// Checks if the inputted product name is already available in the database
-		$('#productName').blur(function () {
+		$('.inputName').keyup(function () {
 			var productName = $(this).val()
 			var productType = window.location.pathname.split("/").pop()
-			$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
+			
 				if (result) {
-					$('#productName').css('background-color', 'red')
+					$('.inputName').css('border-color', 'red')
 					$('#errorName').text('Cake is already available!')
 					$('#errorName').css('color', 'red')
 					$('#addl').prop('disabled', true)
 				} else {
-					$('#productName').css('background-color', 'white')
+					$('.inputName').css('border-color', 'green')
 					$('#errorName').text('')
 					$('#addl').prop('disabled', false)
 				}
 			})
 		})
+		*/
+
+		// Loads an image to the preview part of the add and edit modals of the cake page.
+		$('.myFile').change(function() {
+			var file = $(this)[0].files[0]
+			if (file) {
+				var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
+				var isValid = validImageTypes.includes(file.type)
+				if (isValid) {
+					var reader = new FileReader();
+					reader.onload = function (image) {
+						$('.previewPic').attr('src', image.target.result)
+					};
+					reader.readAsDataURL(file);
+					$('.myFile').css('border-style', 'none')
+				} else if (!isValid) {
+					$('.myFile').css('border-style', 'solid')
+					$('.myFile').css('border-color', 'red')
+					$('.myFile').css('border-width', '2px')
+					$('.previewPic').removeAttr('src');
+					$(this).val('')
+				}
+			} else {
+				$('.myFile').css('border-style', 'none')
+				$('.previewPic').removeAttr('src');
+				$(this).val('')
+			}
+		})
+
+		$('.addProductForm').submit(function(e) {
+			
+			var name = $(this).find("[name='productName']").val()
+			var image = $(this).find("[name='filename']").val()
+			var type = window.location.pathname.split("/").pop()
+			var vanillaPrice1 = $(this).find("[name='productPricesVanilla1']").val()
+			var vanillaPrice2 = $(this).find("[name='productPricesVanilla2']").val()
+			var chocolatePrice1 = $(this).find("[name='productPricesChocolate1']").val()
+			var chocolatePrice2 = $(this).find("[name='productPricesChocolate2']").val()
+			var checkedNumberCake = $(this).find("[name='productNumberCake']").prop('checked')
+			var numberCakePrice = $(this).find("[name='productPricesNumberCake']").val()
+			var errorCounter = 0
+			if (name === '' || name == null) {
+				$(this).find("[name='productName']").css('border-color', 'red')
+				errorCounter++
+			} else {
+				$.get('/getProductInfo', {name: name, type: type}, function(result) {
+					if (result) {
+						$(this).find("[name='productName']").css('border-color', 'red')
+						errorCounter++
+					} else {
+						$(this).find("[name='productName']").css('border-color', 'green')
+					}
+				})
+			}
+			if (image === '' || image == null) {
+				$(this).find("[name='filename']").css('border-color', 'red')
+				$(this).find("[name='filename']").css('border-style', 'solid')
+				$(this).find("[name='filename']").css('border-width', '2px')
+				errorCounter++
+			} else {
+				$(this).find("[name='filename']").css('border-color', 'green')
+			}
+			if (!checkedNumberCake) {
+				if (vanillaPrice1 === '' || vanillaPrice1 == null || !Number.isInteger(vanillaPrice1)) {
+					$(this).find("[name='productPricesVanilla1']").css('border-color', 'red')
+					errorCounter++
+				} else {
+					$(this).find("[name='productPricesVanilla1']").css('border-color', 'green')
+				}
+				if (vanillaPrice2 === '' || vanillaPrice2 == null || !Number.isInteger(vanillaPrice2)) {
+					$(this).find("[name='productPricesVanilla2']").css('border-color', 'red')
+					errorCounter++
+				} else {
+					$(this).find("[name='productPricesVanilla2']").css('border-color', 'green')
+				}
+				if (chocolatePrice1 === '' || chocolatePrice1 == null || !Number.isInteger(chocolatePrice1)) {
+					$(this).find("[name='productPricesChocolate1']").css('border-color', 'red')
+					errorCounter++
+				} else {
+					$(this).find("[name='productPricesChocolate1']").css('border-color', 'green')
+				}
+				if (chocolatePrice2 === '' || chocolatePrice2 == null || !Number.isInteger(chocolatePrice2)) {
+					$(this).find("[name='productPricesChocolate2']").css('border-color', 'red')
+					errorCounter++
+				} else {
+					$(this).find("[name='productPricesChocolate2']").css('border-color', 'green')
+				}
+			} else {
+				if (numberCakePrice === '' || numberCakePrice == null || !Number.isInteger(numberCakePrice)) {
+					$(this).find("[name='productPricesNumberCake']").css('border-color', 'red')
+					errorCounter++
+				} else {
+					$(this).find("[name='productPricesNumberCake']").css('border-color', 'green')
+				}
+			}
+			
+
+			if (errorCounter > 0) {
+				e.preventDefault()
+				console.log('There was an error')
+			} 
+		})
 
 		// Modal of the add product (Initializes the modal)
 		$('.AddA').click(function() {
 			var addModal = $('#cakeModal')
+			addModal.find('.inputName').val('')
+			addModal.find('.inputName').css('border-color', '#6F4E37')
 			addModal.find(".input").val('');
+			addModal.find("#errorName").text('');
 			addModal.find(".input").attr('placeholder', 'Enter Price');
-			addModal.find(".input").attr('readonly', false);
-			addModal.find(".input").css('background-color', 'white')
-			addModal.find(".inputNum").css('background-color', 'gray')
-			addModal.find(".inputNum").attr('placeholder', 'Not Applicable');
-			addModal.find(".inputNum").attr('readonly', true);
-			addModal.find("[name='productDedication']").attr('checked', false)
+			addModal.find("[name='productDedication']").prop('checked', false)
+			addModal.find(".inputCheckbox").prop('checked', false)
 		})
 
 		// Modal of the edit product (Shows the current information of the product)
@@ -381,38 +483,23 @@
 			$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
 				editModal.find("[name='productName']").val(result.name)
 				editModal.find(".productID").val(result._id)
+				editModal.find(".myFile").val('')
+				editModal.find(".previewPic").attr('src', result.image)
 				if (result.numberCake == false) {
 					editModal.find("[name='productPricesVanilla1']").val(result.vanilla6x5Price)
 					editModal.find("[name='productPricesVanilla2']").val(result.vanilla8x5Price)
 					editModal.find("[name='productPricesChocolate1']").val(result.chocolate6x5Price)
 					editModal.find("[name='productPricesChocolate2']").val(result.chocolate8x5Price)
-					editModal.find(".productNumberCake").prop('checked', false)
-					editModal.find(".input").attr('placeholder', 'Enter Price');
-					editModal.find(".input").attr('readonly', false);
-					editModal.find(".input").css('background-color', 'white')
-					editModal.find(".inputNum").css('background-color', 'gray')
-					editModal.find(".inputNum").attr('placeholder', 'Not Applicable');
-					editModal.find(".inputNum").attr('readonly', true);
+					editModal.find("[name='productNumberCake']").prop('checked', false)
 					if (result.dedication == true) {
-						editModal.find("[name='productDedication']").attr('checked', true)
+						editModal.find("[name='productDedication']").prop('checked', true)
 					} else {
-						editModal.find("[name='productDedication']").attr('checked', false)
+						editModal.find("[name='productDedication']").prop('checked', false)
 					}
-					editModal.find("[name='productNumberCake']").attr('checked', false)
 				} else {
-					editModal.find(".input").attr('placeholder', 'Not Applicable');
-					editModal.find(".input").attr('readonly', true);
-					editModal.find(".input").css('background-color', 'gray')
-					editModal.find(".inputNum").css('background-color', 'white')
-					editModal.find(".inputNum").attr('placeholder', 'Enter Price');
-					editModal.find(".inputNum").attr('readonly', false);
+					editModal.find("[name='productNumberCake']").prop('checked', true)
+					$('#editcakeModal .inputCheckbox').trigger('change')
 					editModal.find("[name='productPricesNumberCake']").val(result.numberCakePrice)
-					if (result.dedication == true) {
-						editModal.find("[name='productDedication']").attr('checked', true)
-					} else {
-						editModal.find("[name='productDedication']").attr('checked', false)
-					}
-					editModal.find("[name='productNumberCake']").attr('checked', true)
 				}
 			})
 		})
@@ -440,32 +527,48 @@
 					}
 				})
 			}
+			
 		})
 
-		// Disables textboxes that are not needed for a certain type of product
-		$('#productNumberCake').change(function() {
+		// Hide textboxes from add product modal that are not needed for a certain type of product 
+		$('#cakeModal .inputCheckbox').change(function() {
 			if ($(this).is(":checked") == true) {
-				$(".input").val(0);
-				$(".input").attr('placeholder', 'Not Applicable');
-				$(".input").attr('hidden', true);
-				$(".inputCheckboxD").attr('hidden', true);
-				$(".flavorCake").attr('hidden', true);
-				$(".input").css('background-color', 'gray')
-				$(".inputNum").css('background-color', 'white')
+				$(".input").val(0)
+				$(".input").hide()
+				$(".inputCheckboxD").hide()
+				$(".flavorCake").hide()
+				$('.inputNum').val('')
 				$(".inputNum").attr('placeholder', 'Enter Price');
-				$(".inputNum").attr('hidden', false);
-				$(".numberCake").attr('hidden', false);
+				$(".inputNum").show()
+				$(".numberCake").show()
 			} else {
+				$(".input").val('')
 				$(".input").attr('placeholder', 'Enter Price');
-				$(".input").attr('hidden', false);
-				$(".input").css('background-color', 'white')
-				$(".inputCheckboxD").attr('hidden', false);
-				$(".flavorCake").attr('hidden', false);
-				$(".inputNum").val(0);
-				$(".inputNum").css('background-color', 'gray')
-				$(".inputNum").attr('placeholder', 'Not Applicable');
-				$(".inputNum").attr('hidden', true);
-				$(".numberCake").attr('hidden', true);
+				$(".input").show()
+				$(".inputCheckboxD").prop('checked', false)
+				$(".inputCheckboxD").show()
+				$(".flavorCake").show()
+				$(".inputNum").val(0)
+				$(".inputNum").hide()
+				$(".numberCake").hide()
+			}
+		})
+
+		// Hide textboxes from edit product modal that are not needed for a certain type of product 
+		$('#editcakeModal .inputCheckbox').change(function() {
+			if ($(this).is(":checked") == true) {
+				$(".input").hide()
+				$(".inputCheckboxD").hide()
+				$(".flavorCake").hide()
+				$(".inputNum").show()
+				$(".numberCake").show()
+			} else {
+				$(".input").show()
+				$(".inputCheckboxD").prop('checked', false)
+				$(".inputCheckboxD").show()
+				$(".flavorCake").show()
+				$(".inputNum").hide()
+				$(".numberCake").hide()
 			}
 		})
 	});
