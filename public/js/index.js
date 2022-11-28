@@ -280,8 +280,10 @@ $(document).ready(function() {
       alert("productPrice: " + productPrice)
       alert("currentQuantity: " + currentQuantity)
       alert("displayPrice: " + displayPrice)
-      $('#displayProductPrice').attr('data', productPrice)
-      $('#displayProductPrice').text(displayPrice)
+      if(currentQuantity > 0) {
+        $('#displayProductPrice').attr('data', productPrice)
+        $('#displayProductPrice').text(displayPrice)
+      }
     }
   
     $(".close").click(function() {
@@ -319,13 +321,19 @@ $(document).ready(function() {
         }
     })
 
+    $('.orderQuantity').change(function() {
+        var currentPrice = parseInt($('#displayProductPrice').attr('data'))
+
+        updateDisplayPrice(currentPrice)
+    })
+
     $(".addBtn").click(function() {
       $.post('/postBasketItem', 
             {name: $('#displayProductName').text(), 
-            price: $('#displayProductPrice').text(), 
-            flavor: $('#displayProductFlavor').find(":selected").val() || "", 
+            price: $('#displayProductPrice').attr('data'), 
+            flavor: $('#displayProductFlavor').find(':selected').val() || "", 
             size: $('#displayProductSize').find(":selected").val() || "", 
-            frosting: $('#displayProductFrosting').find(":selected").val() || "", 
+            frosting: $('#displayProductFrosting').find(':selected').val() || "", 
             quantity: $("#displayProductQuantity").val(),
             type: $(this).val()
           }, function(result) {

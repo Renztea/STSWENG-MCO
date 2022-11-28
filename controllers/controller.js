@@ -733,6 +733,7 @@ const controller = {
             }
                         
             console.log(basketItemList)
+            console.log(req.session.orders)
             res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
         } else {
             res.redirect('/products/Cake');
@@ -751,7 +752,7 @@ const controller = {
                     order.price = req.query.price
                 }
 
-                totalPrice = totalPrice + parseInt(order.price)
+                totalPrice = totalPrice + (parseInt(order.price) * parseInt(order.quantity))
             })
             res.send(totalPrice.toString())
         }

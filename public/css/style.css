@@ -626,17 +626,17 @@ input::-webkit-inner-spin-button {
 }
 
 .basketItemPrice {
-  height: 50%;
+  height: 70%;
 }
 
 .basketItemButton {
-  height: 50%;
-  display: grid;
+  height: 30%;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.updateItem, .removeItem {
+.removeItem {
   font-size: 20px;
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
@@ -646,11 +646,6 @@ input::-webkit-inner-spin-button {
   border: none;
   padding: 10px;
   cursor: pointer;
-}
-
-.updateItem {
-  background: #95E2A6;
-  display: none;
 }
 
 .editFlavor, .editSize, .editFrosting {
