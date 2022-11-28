@@ -443,7 +443,7 @@
 		})
 
 		// Disables textboxes that are not needed for a certain type of product
-		$('.productNumberCake').change(function() {
+		$('#productNumberCake').change(function() {
 			if ($(this).is(":checked") == true) {
 				$(".input").val(0);
 				$(".input").attr('placeholder', 'Not Applicable');
