@@ -78,7 +78,7 @@
 		<div id="cupcakeModal" class="modal">
 		<!-- Modal content -->
 			<div class="modal-content-cupcake" style="background-color: #EBD8DB;">
-				<span class="close"></span>
+				<span class="close">&times;</span>
 				<div class="addProductHeader">
 					<h1>ADD CUPCAKE</h1>
 				</div>
@@ -89,41 +89,38 @@
 							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cupcake Name:</label></div></td>	
 							<td class="td2" style="width: 3%;"></td>
 							<td class="td2" style="width: 25%;"><input class="input" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
-							<td class="td2" style="text-align: center; width: 20%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>		
+							<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>		
 							<td class="td2" style="width: 3%;"></td>
 							<td class="td2"><input type="file" id="myFile" name="filename" ></td>
 						</tr>
 					
 						<tr>
-							<td class="td2"><div class="productCss"><label for="productFlavors">Vanilla</label></div></td>
+							<td class="td2"><div class="productCss" style="height: 20px; line-height: 20px;"><label for="productFlavors">Vanilla</label></div></td>
+							<td class="td2"></td>
+							<td class="td2"></td>	
 							<td class="td2"></td>
 							<td class="td2"></td>
-							<td class="td2" style="text-align: center;"><div class="productCss"><label for="productFlavors">Red Velvet</label></div></td>	
-							<td class="td2"></td>
-							<td class="td2"></td>
+							<td class="td2" rowspan="8"><img class="previewPic"></td>
 						</tr>
 					
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>
+							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Fondant</label></div></td>
 							<td class="td2"></td>								
 							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla1" placeholder="Enter Price per Dozen" ></td>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>
-							<td class="td2"></td>								
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet1" placeholder="Enter Price per Dozen" ></td>
+							<td class="td2"></td>
+							<td class="td2"></td>
 						</tr>	
 						
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>
+							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Icing</label></div></td>
 							<td class="td2"></td>								
 							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla2" placeholder="Enter Price per Dozen" ></td>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>								
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet2" placeholder="Enter Price per Dozen" ></td>
+							<td class="td2"></td>
 						</tr>							
 					
 						<tr>
-							<td class="td2"><div class="productCss"><label for="productFlavors">Chocolate</label></div></td>								
-							<td class="td2"></td>
+							<td class="td2"><div class="productCss" style="height: 20px; line-height: 20px;"><label for="productFlavors">Chocolate</label></div></td>								
 							<td class="td2"></td>
 							<td class="td2"></td>
 							<td class="td2"></td>
@@ -131,18 +128,44 @@
 						</tr>
 						
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>								
+							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Fondant</label></div></td>								
 							<td class="td2"></td>
 							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate1" placeholder="Enter Price per Dozen" ></td>
 							<td class="td2"></td>								
 							<td class="td2"></td>
-							<td class="td2"></td>
 						</tr>
 						
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>								
+							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Icing</label></div></td>								
 							<td class="td2"></td>
 							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate2" placeholder="Enter Price per Dozen" ></td>
+							<td class="td2"></td>
+							<td class="td2"></td>
+							
+						</tr>
+						
+						<tr>
+							<td class="td2"><div class="productCss" style="height: 20px; line-height: 20px;"><label for="productFlavors">Red Velvet</label></div></td>
+							<td class="td2"></td>
+							<td class="td2"></td>
+							<td class="td2"></td>
+							<td class="td2"></td>
+							
+						</tr>
+						
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Fondant</label></div></td>
+							<td class="td2"></td>								
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet1" placeholder="Enter Price per Dozen" ></td>
+							<td class="td2"></td>
+							<td class="td2"></td>
+							
+						</tr>
+						
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Icing</label></div></td>								
+							<td class="td2"></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet2" placeholder="Enter Price per Dozen" ></td>
 							<td class="td2"></td>
 							<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
 							<a>&nbsp;&nbsp;&nbsp;</a><button class="Add" id="addl">Add</button></td>
@@ -155,7 +178,7 @@
 		<div id="editcupcakeModal" class="modal modals">
 		<!-- Modal content -->
 			<div class="modal-content-cupcake" style="background-color: #EBD8DB;">
-				<span class="close"></span>
+				<span class="close">&times;</span>
 					<div class="editProductHeader">
 						<h1>EDIT CUPCAKE</h1>
 					</div>
@@ -166,41 +189,38 @@
 								<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cupcake Name:</label></div></td>	
 								<td class="td2" style="width: 3%;"></td>
 								<td class="td2" style="width: 25%;"><input class="input" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
-								<td class="td2" style="text-align: center; width: 20%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>		
+								<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>		
 								<td class="td2" style="width: 3%;"></td>
-								<td class="td2"><input type="file" id="myFile" name="filenameEdit"></td>
+								<td class="td2"><input type="file" id="myFile" name="filename" ></td>
 							</tr>
 						
 							<tr>
-								<td class="td2"><div class="productCss"><label for="productFlavors">Vanilla</label></div></td>
+								<td class="td2"><div class="productCss" style="height: 20px; line-height: 20px;"><label for="productFlavors">Vanilla</label></div></td>
+								<td class="td2"></td>
+								<td class="td2"></td>	
 								<td class="td2"></td>
 								<td class="td2"></td>
-								<td class="td2" style="text-align: center;"><div class="productCss"><label for="productFlavors">Red Velvet</label></div></td>	
-								<td class="td2"></td>
-								<td class="td2"></td>
+								<td class="td2" rowspan="8"><img class="previewPic"></td>
 							</tr>
 						
 							<tr>
-								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>
+								<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Fondant</label></div></td>
 								<td class="td2"></td>								
 								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla1" placeholder="Enter Price per Dozen" ></td>
-								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>
-								<td class="td2"></td>								
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet1" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"></td>
+								<td class="td2"></td>
 							</tr>	
 							
 							<tr>
-								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>
+								<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Icing</label></div></td>
 								<td class="td2"></td>								
 								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla2" placeholder="Enter Price per Dozen" ></td>
-								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>								
 								<td class="td2"></td>
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet2" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"></td>
 							</tr>							
 						
 							<tr>
-								<td class="td2"><div class="productCss"><label for="productFlavors">Chocolate</label></div></td>								
-								<td class="td2"></td>
+								<td class="td2"><div class="productCss" style="height: 20px; line-height: 20px;"><label for="productFlavors">Chocolate</label></div></td>								
 								<td class="td2"></td>
 								<td class="td2"></td>
 								<td class="td2"></td>
@@ -208,21 +228,47 @@
 							</tr>
 							
 							<tr>
-								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Fondant</label></div></td>								
+								<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Fondant</label></div></td>								
 								<td class="td2"></td>
 								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate1" placeholder="Enter Price per Dozen" ></td>
 								<td class="td2"></td>								
 								<td class="td2"></td>
-								<td class="td2"></td>
 							</tr>
 							
 							<tr>
-								<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">Icing</label></div></td>								
+								<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Icing</label></div></td>								
 								<td class="td2"></td>
 								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate2" placeholder="Enter Price per Dozen" ></td>
 								<td class="td2"></td>
+								<td class="td2"></td>
+								
+							</tr>
+							
+							<tr>
+								<td class="td2"><div class="productCss" style="height: 20px; line-height: 20px;"><label for="productFlavors">Red Velvet</label></div></td>
+								<td class="td2"></td>
+								<td class="td2"></td>
+								<td class="td2"></td>
+								<td class="td2"></td>
+								
+							</tr>
+							
+							<tr>
+								<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Fondant</label></div></td>
+								<td class="td2"></td>								
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet1" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"></td>
+								<td class="td2"></td>
+								
+							</tr>
+							
+							<tr>
+								<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Icing</label></div></td>								
+								<td class="td2"></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet2" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"></td>
 								<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
-								<a>&nbsp;&nbsp;&nbsp;</a><button class="Edit2" id="edit2">Save</button></td>
+								<a>&nbsp;&nbsp;&nbsp;</a><button class="Add" id="addl">Add</button></td>
 							</tr>
 							<input type="hidden" class="productID" name="productID">
 						</table>
@@ -248,6 +294,7 @@
 			var btn2 = document.getElementsByClassName("Edit");
 			// Get the <span> element that closes the modal
 			var cancel = document.getElementsByClassName("Cancel");
+			var Close = document.getElementsByClassName("close");
 			// When the user clicks the button, open the modal 
 			btn.onclick = function() {
 				modal.style.display = "block";
@@ -274,6 +321,20 @@
 					}
 				}
 			}
+			
+			Close[0].onclick = function() {
+			modal.style.display = "none";
+			}
+		
+			for (var i = 1; i < Close.length; i++) {
+				Close[i].onclick = function() {
+					for (var index in modals){
+						if (typeof modals[index].style !== 'undefined') 
+							modals[index].style.display = "none";   
+					}
+				}
+			}
+			
 			// When the user clicks anywhere outside of the modal, close it
 		
 			window.onclick = function(event) {
