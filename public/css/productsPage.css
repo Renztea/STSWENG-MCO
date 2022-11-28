@@ -43,15 +43,15 @@ html, body {
 }
 
 .menuBtn {
-    background-color:#EBD8DB;
+    background-color:#4A3627;
     margin-left: 10px;
     padding: 0px 30px;
     text-decoration: none;
-	border: none;
-	border-radius: 50px;
+    border: none;
+    border-radius: 50px;
     font-family: Poppins;
     font-size: 18px;
-    color: #4A3627;
+    color: #EBD8DB;
     height: 50px;
 }
 
