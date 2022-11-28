@@ -57,15 +57,15 @@ html, body {
 
 
 .logoutBtn {
-    background-color: #DF7E85;
+    background-color: #EBD8DB;
     margin-left: 280px;
     padding: 0px 30px;
     text-decoration: none;
-    border: 2px solid #FFFFFF;
+    border: 2px solid #4A3627;
     border-radius: 50px;
     font-family: Poppins;
     font-size: 18px;
-    color: #FFFFFF;
+    color: #4A3627;
     height: 50px;
 }
 
