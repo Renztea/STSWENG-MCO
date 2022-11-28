@@ -97,7 +97,7 @@
 		<div id="cakeModal" class="modal">
 			<!-- Modal content -->
 			<div class="modal-content" style="background-color: #EBD8DB;">
-				<span class="close"></span>
+				<span class="close">&times;</span>
 				<div class="addProductHeader">
 					<h1>ADD CAKE</h1>
 				</div>
@@ -114,35 +114,45 @@
 							<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
 							<td class="td2"><input type="file" id="myFile" name="filename"></td>
 						</tr>
-					
-						<tr>
-							<td class="td2"><div class="productCss"><label for="productFlavors">Vanilla</label></div></td>
-							<td class="td2"></td>
-							<td class="td2"></td>
-							<td class="td2"></td>								
-							<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productDedication" name="productDedication" value="true">
-							<span class="checkmark"></span><label for="allowDedication">Allow dedication</label></div></td>
-						</tr>
-					
-						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">6 x 5</label></div></td>
-							<td class="td2"></td>								
-							<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"></td>
-							<td class="td2"></td>								
-							<td class="td2"><div class="productCss"><input class="inputCheckbox productNumberCake" type="checkbox" id="productNumberCake" name="productNumberCake" value="true">
+						
+						<tr>							
+							<td class="td2" colspan="2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productNumberCake" name="productNumberCake" value="true">
 							<label for="numberCake">Number Cake</label><span class="checkmark"></span></div></td>
+							<td class="td2"></td>	
+							<td class="td2"></td>	
+							<td class="td2" rowspan="5"><img class="previewPic"></td>							
 						</tr>
 						
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">8 x 5</label></div></td>								
+							<td class="td2"><div class="productCss" style="height: 40px;"><label class="numberCake" for="productSizes" hidden>Number Cake</label></td>
+							<td class="td2"></td>	
+							<div class="numberCake"><td class="td2"><input class="inputNum" type="number" name="productPricesNumberCake" placeholder="Not Applicable" value="0" hidden></td></div>	
+							<td class="td2"></td>										
+						</tr>
+						
+						<tr>
+							<td class="td2"><div class="productCss" style="height: 20px;"><label class="flavorCake" for="productFlavors">Vanilla</label></div></td>
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" name="productPricesVanilla2" placeholder="Enter Price"></td>
-							<td class="td2" colspan="2" style="text-align: center;"><div class="productCss"><label for="productSizes">Number Cake</label>
-							<a>&nbsp;</a><input class="inputNum" type="number" name="productPricesNumberCake" placeholder="Not Applicable" value="0" readonly></td>								
+							<td class="td2"></td>
+							<td class="td2"></td>									
 						</tr>
 					
 						<tr>
-							<td class="td2"><div class="productCss"><label for="productFlavors">Chocolate</label></div></td>								
+							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 40px;"><label class="flavorCake" for="productSizes">6 x 5</label></div></td>
+							<td class="td2"></td>								
+							<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"></td>
+							<td class="td2"></td>									
+						</tr>
+						
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 40px;"><label class="flavorCake" for="productSizes">8 x 5</label></div></td>							
+							<td class="td2"></td>
+							<td class="td2"><input class="input" type="number" name="productPricesVanilla2" placeholder="Enter Price"></td>
+							<td class="td2"></td>		
+						</tr>
+					
+						<tr>
+							<td class="td2"><div class="productCss" style="height: 20px;"><label class="flavorCake" for="productFlavors">Chocolate</label></div></td>							
 							<td class="td2"></td>
 							<td class="td2"></td>
 							<td class="td2"></td>
@@ -151,19 +161,19 @@
 						</tr>
 						
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">6 x 5</label></div></td>								
+							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 40px;"><label class="flavorCake" for="productSizes">6 x 5</label></div></td>							
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" name="productPricesChocolate1" placeholder="Enter Price"></td>
-							<td class="td2"></td>								
-							<td class="td2"></td>
+							<td class="td2"><input class="input" type="number" name="productPricesChocolate1" placeholder="Enter Price"></td>						
+							<td class="td2" colspan="2" style="text-align: center;"><div class="productCss"><input class="inputCheckboxD" type="checkbox" id="productDedication" name="productDedication" value="true">
+							<span class="checkmark"></span><label class="flavorCake" for="allowDedication">Allow dedication</label></div></td>
 						</tr>
 						
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">8 x 5</label></div></td>
+							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 40px;"><label class="flavorCake" for="productSizes">8 x 5</label></div></td>
 							<td class="td2"></td>
 							<td class="td2"><input class="input" type="number" name="productPricesChocolate2" placeholder="Enter Price"></td>
 							<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
-							<a>&nbsp;&nbsp;&nbsp;</a><button class="Add" id="addl">Add</button></td>
+							<a>&nbsp;&nbsp;&nbsp;</a><button class="Add" id="addl" disabled>Add</button></td>	
 						</tr>							
 					</table>
 				</form>
@@ -172,7 +182,7 @@
 		<div id="editcakeModal" class="modal modals">
 			<!-- Modal content -->
 			<div class="modal-content" style="background-color: #EBD8DB;">
-				<span class="closed"></span>
+				<span class="close">&times;</span>
 				<div class="editProductHeader">
 					<h1>EDIT CAKE</h1>
 				</div>
@@ -184,37 +194,47 @@
 							<td class="td2" style="width: 3%;"></td>
 							<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
 							<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
-							<td class="td2"><input type="file" id="myFile" name="filenameEdit"></td>
+							<td class="td2"><input type="file" id="myFile" name="filename"></td>
 						</tr>
-					
-						<tr>
-							<td class="td2"><div class="productCss"><label for="productFlavors">Vanilla</label></div></td>
-							<td class="td2"></td>
-							<td class="td2"></td>
-							<td class="td2"></td>								
-							<td class="td2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productDedication" name="productDedication" value="true">
-							<span class="checkmark"></span><label for="allowDedication">Allow dedication</label></div></td>
-						</tr>
-					
-						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">6 x 5</label></div></td>
-							<td class="td2"></td>								
-							<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"></td>
-							<td class="td2"></td>								
-							<td class="td2"><div class="productCss"><input class="inputCheckbox productNumberCake" type="checkbox" id="productNumberCake" name="productNumberCake" value="true">
+						
+						<tr>							
+							<td class="td2" colspan="2"><div class="productCss"><input class="inputCheckbox" type="checkbox" id="productNumberCake" name="productNumberCake" value="true">
 							<label for="numberCake">Number Cake</label><span class="checkmark"></span></div></td>
+							<td class="td2"></td>	
+							<td class="td2"></td>	
+							<td class="td2" rowspan="5"><img class="previewPic" src="mermaid_red.png"></td>							
 						</tr>
 						
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">8 x 5</label></div></td>								
+							<td class="td2"><div class="productCss"><label class="numberCake" for="productSizes" hidden>Number Cake</label></td>
+							<td class="td2"></td>	
+							<div class="numberCake"><td class="td2"><input class="inputNum" type="number" name="productPricesNumberCake" placeholder="Not Applicable" value="0" hidden></td></div>	
+							<td class="td2"></td>										
+						</tr>
+						
+						<tr>
+							<td class="td2"><div class="productCss"><label class="flavorCake" for="productFlavors">Vanilla</label></div></td>
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" name="productPricesVanilla2" placeholder="Enter Price"></td>
-							<td class="td2" colspan="2" style="text-align: center;"><div class="productCss"><label for="productSizes">Number Cake</label>
-							<a>&nbsp;</a><input class="inputNum" type="number" name="productPricesNumberCake" placeholder="Not Applicable" value="0" readonly></td>								
+							<td class="td2"></td>
+							<td class="td2"></td>									
 						</tr>
 					
 						<tr>
-							<td class="td2"><div class="productCss"><label for="productFlavors">Chocolate</label></div></td>								
+							<td class="td2" style="text-align: right;"><div class="productCss"><label class="flavorCake" for="productSizes">6 x 5</label></div></td>
+							<td class="td2"></td>								
+							<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"></td>
+							<td class="td2"></td>									
+						</tr>
+						
+						<tr>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label class="flavorCake" for="productSizes">8 x 5</label></div></td>							
+							<td class="td2"></td>
+							<td class="td2"><input class="input" type="number" name="productPricesVanilla2" placeholder="Enter Price"></td>
+							<td class="td2"></td>		
+						</tr>
+					
+						<tr>
+							<td class="td2"><div class="productCss"><label class="flavorCake" for="productFlavors">Chocolate</label></div></td>							
 							<td class="td2"></td>
 							<td class="td2"></td>
 							<td class="td2"></td>
@@ -223,20 +243,20 @@
 						</tr>
 						
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">6 x 5</label></div></td>								
+							<td class="td2" style="text-align: right;"><div class="productCss"><label class="flavorCake" for="productSizes">6 x 5</label></div></td>							
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" name="productPricesChocolate1" placeholder="Enter Price"></td>
-							<td class="td2"></td>								
-							<td class="td2"></td>
+							<td class="td2"><input class="input" type="number" name="productPricesChocolate1" placeholder="Enter Price"></td>						
+							<td class="td2" colspan="2" style="text-align: center;"><div class="productCss"><input class="inputCheckboxD" type="checkbox" id="productDedication" name="productDedication" value="true">
+							<span class="checkmark"></span><label class="flavorCake" for="allowDedication">Allow dedication</label></div></td>
 						</tr>
 						
 						<tr>
-							<td class="td2" style="text-align: right;"><div class="productCss"><label for="productSizes">8 x 5</label></div></td>
+							<td class="td2" style="text-align: right;"><div class="productCss"><label class="flavorCake" for="productSizes">8 x 5</label></div></td>
 							<td class="td2"></td>
 							<td class="td2"><input class="input" type="number" name="productPricesChocolate2" placeholder="Enter Price"></td>
 							<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
 							<a>&nbsp;&nbsp;&nbsp;</a><button class="Edit2" id="edit2">Save</button></td>
-						</tr>
+						</tr>	
 						<input type="hidden" class="productID" name="productID">								
 					</table>
 				</form>
@@ -263,6 +283,7 @@
 		var btn2 = document.getElementsByClassName("Edit");
 		// Get the <span> element that closes the modal
 		var cancel = document.getElementsByClassName("Cancel");
+		var Close = document.getElementsByClassName("close");
 		// When the user clicks the button, open the modal 
 		btn.onclick = function() {
 			modal.style.display = "block";
@@ -286,6 +307,19 @@
 				for (var index in modals) {
 					if (typeof modals[index].style !== 'undefined') 
 						modals[index].style.display = "none";    
+				}
+			}
+		}
+		
+		Close[0].onclick = function() {
+			modal.style.display = "none";
+		}
+		
+		for (var i = 1; i < Close.length; i++) {
+			Close[i].onclick = function() {
+				for (var index in modals){
+					if (typeof modals[index].style !== 'undefined') 
+						modals[index].style.display = "none";   
 				}
 			}
 		}
@@ -413,19 +447,25 @@
 			if ($(this).is(":checked") == true) {
 				$(".input").val(0);
 				$(".input").attr('placeholder', 'Not Applicable');
-				$(".input").attr('readonly', true);
+				$(".input").attr('hidden', true);
+				$(".inputCheckboxD").attr('hidden', true);
+				$(".flavorCake").attr('hidden', true);
 				$(".input").css('background-color', 'gray')
 				$(".inputNum").css('background-color', 'white')
 				$(".inputNum").attr('placeholder', 'Enter Price');
-				$(".inputNum").attr('readonly', false);
+				$(".inputNum").attr('hidden', false);
+				$(".numberCake").attr('hidden', false);
 			} else {
 				$(".input").attr('placeholder', 'Enter Price');
-				$(".input").attr('readonly', false);
+				$(".input").attr('hidden', false);
 				$(".input").css('background-color', 'white')
+				$(".inputCheckboxD").attr('hidden', false);
+				$(".flavorCake").attr('hidden', false);
 				$(".inputNum").val(0);
 				$(".inputNum").css('background-color', 'gray')
 				$(".inputNum").attr('placeholder', 'Not Applicable');
-				$(".inputNum").attr('readonly', true);
+				$(".inputNum").attr('hidden', true);
+				$(".numberCake").attr('hidden', true);
 			}
 		})
 	});
