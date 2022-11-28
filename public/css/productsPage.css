@@ -358,6 +358,10 @@ html, body {
 	object-fit: fill;
 }
 
+.Spacing{
+	height: 200px;
+}
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
