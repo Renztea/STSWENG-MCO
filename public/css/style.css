@@ -135,10 +135,22 @@ a {
   background-color: white;
   border: 1px solid purple;
   margin: 20px;
+  position: relative
 }
 
-.productBox:hover {
-  opacity: 0.8;
+.productBoxName {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+}
+
+.productBox:hover .productImage{
+  opacity: 0.3;
+  transition: all ease 0.3s;
+}
+
+.productBox:hover .productBoxName {
+  opacity: 1;
   transition: all ease 0.3s;
 }
 

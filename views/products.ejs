@@ -23,7 +23,10 @@
                     <div class="productImage">
                         <img src="<%= preview.image %>" placeholder="<%= preview.name %>" alt="<%= preview.name %>">
                         <input type="hidden" value="<%= type %>">
-                    </div> 
+                    </div>
+                    <div class="productBoxName">
+                        <%= preview.name %>
+                    </div>
                 </button>
             <% }) %>
 
