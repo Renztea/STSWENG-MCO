@@ -36,10 +36,10 @@ exports.login = async (req, res) => {
             req.flash('error_msg', 'Username does not exist!');
             res.redirect('/admin');
         } else {
+            checkUser.toObject()
             bcrypt.compare(password, checkUser.password, (err, result) => {
                 if (result) {
-                    // req.session.user = user._id;
-                    // req.session.name = user.username;
+                    req.session.username = checkUser.username;
                     res.redirect('/admin/orders/all');
                 } else {
                     req.flash('error_msg', 'Incorrect password!');
@@ -55,7 +55,7 @@ exports.login = async (req, res) => {
 }
 
 exports.logoutUser = (req, res) => {
-    if (req.session) {
+    if (req.session.username) {
       req.session.destroy(() => {
         res.clearCookie('connect.sid');
         res.redirect('/admin');

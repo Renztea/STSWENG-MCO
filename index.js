@@ -47,8 +47,8 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/', routes);
 app.use('/', authRouter);
+app.use('/', routes);
 
 const PORT = 3000;
 app.listen(PORT, () => console.log('Running Express on port ' + PORT));
