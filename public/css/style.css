@@ -142,6 +142,7 @@ a {
   position: absolute;
   bottom: 10px;
   width: 100%;
+  opacity: 0;
 }
 
 .productBox:hover .productImage{
