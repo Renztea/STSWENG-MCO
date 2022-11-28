@@ -46,7 +46,7 @@ a {
 }
 
 .menu {
-  margin-left: 600px;
+  margin-left: 500px;
   display: flex;
   position: absolute;
   top: 50%;
@@ -68,6 +68,19 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.logoutBtn {
+  background-color: #EBD8DB;
+  margin-left: 10px;
+  padding: 0px 30px;
+  text-decoration: none;
+  border: 2px solid #4A3627;
+  border-radius: 50px;
+  font-family: Poppins;
+  font-size: 18px;
+  color: #4A3627;
+  height: 50px;
 }
 
 .menuBtn img {
