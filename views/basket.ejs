@@ -11,17 +11,8 @@
 
     <body class="mainBackground">
         <div class="header">
-            <div class="logo">
-                <img src="images/Logo.png" placeholder="G-Cakes Logo" alt="1">
-            </div>
-
-            <div class="menu">
-                <button class="menuBtn">CAKES</button>
-                <button class="menuBtn">CUPCAKES</button>
-                <button class="menuBtn">DECORATED COOKIES</button>
-                <button class="menuBtn">ABOUT</button>
-                <button class="menuBtn"><img src="images/basket.png"></button>
-            </div>
+            <%- include("partials/logo") %>
+			<%- include("partials/menubuttons") %>
         </div>
 
         <div class="basketContainer">
@@ -29,7 +20,7 @@
                 <%_ basketItemList.forEach(function(basketItem, index) { _%>
                 <div class="basketItem" name="<%= productItemList[index].itemNumber %>" data="<%= productItemList[index].type %>" label="<%= index %>">
                     <div class="basketItemImage">
-                        <img src="images/cake1.jpg" placeholder="trial" alt="1">
+                        <img src="<%= basketItem.image %>" placeholder="trial" alt="1">
                     </div>
                     
                     <!--
@@ -144,13 +135,29 @@
             </div>
             <div class="totalPriceContainer">
                 <span class="totalPrice">Total: &#8369;<span id="priceValue"><%= totalPrice %></span></span>
-                <button class="basketSubmit">CHECK OUT</button>
+                <form action="/orderInformation">
+                    <button class="basketSubmit">PROCEED</button>
+                </form>
             </div>
         </div>
         <script>
             $(document).ready(function() {            
                 let basketItemList = <%- JSON.stringify(basketItemList) %>;
                 let productItemList = <%- JSON.stringify(productItemList) %>
+
+                basketItemCount()
+
+                function basketItemCount() {
+                    var basketItemList = document.querySelectorAll('.basketItem')
+                    var basketItemLength = basketItemList.length
+
+                    alert("COUNT: " + basketItemLength)
+                    if (basketItemLength == 0) {
+                        $('.basketSubmit').css('display', 'none')
+                    } else {
+                        $('.basketSubmit').css('display', 'inline')
+                    }
+                }
 
                 $('.editFlavor').change(function() {
                     var itemType = $(this).parents('.basketItem').attr('data')
@@ -190,6 +197,7 @@
 
                 function updateAvailableBasketCakeSize(itemIndex) {
                     var currentFlavor = $('#flavor' + itemIndex).val()
+                    var sizeSelected = $('#size' + itemIndex).val()
                     var basketItem = basketItemList[itemIndex]
                     $('#size' + itemIndex).find('option').remove()
                     if (currentFlavor == "vanilla") {
@@ -206,6 +214,11 @@
                         if (basketItem.chocolate8x5Price > 0) {
                             $('#size' + itemIndex).append(new Option("8\" x 5\"", "8x5"))
                         }
+                    }
+
+                    var currentSize = $('#size' + itemIndex).find('option[value=' + sizeSelected + ']').length
+                    if (currentSize > 0) {
+                        $('#size' + itemIndex).val(sizeSelected);
                     }
                 }
 
@@ -233,6 +246,7 @@
 
                 function updateAvailableBasketCupcakeFrosting(itemIndex) {
                     var currentFlavor = $('#flavor' + itemIndex).val()
+                    var frostingSelected = $('#frosting' + itemIndex).val()
                     var basketItem = basketItemList[itemIndex]
                     $('#frosting' + itemIndex).find('option').remove()
                     if (currentFlavor == 'vanilla') {
@@ -256,6 +270,11 @@
                         if (basketItem.redvelvetIcingPrice > 0) {
                             $('#frosting' + itemIndex).append(new Option("Icing", "icing"))
                         }
+                    }
+
+                    var currentFrosting = $('#frosting' + itemIndex).find('option[value=' + frostingSelected + ']').length
+                    if (currentFrosting > 0) {
+                        $('#frosting' + itemIndex).val(frostingSelected);
                     }
                 }
                 
@@ -305,10 +324,10 @@
                     var currentSize = $('#size' + itemIndex).val()
                     var currentFrosting = $('#frosting' + itemIndex).val()
                     var currentQuantity = $('#quantity' + itemIndex).val()
-                    var currentPrice = $('#price' + itemIndex).text()
+                    var currentPrice = $('#price' + itemIndex).attr('data')
                     var productItem = productItemList[itemIndex]
 
-                    $.get('/updateBasketItem', 
+                    $.post('/updateBasketItem', 
                         {itemNumber: itemNumber, 
                         flavor: currentFlavor || "", 
                         size: currentSize || "", 
@@ -421,14 +440,16 @@
                 */
 
                 $('.removeItem').click(function() {
-                    var itemNumber = $(this).parents('.basketItem').attr('name')
+                    var itemContainer = $(this).parents('.basketItem')
+                    var itemNumber = itemContainer.attr('name')
                     var totalPrice = $('#priceValue').text()
 
-                    $.get('/removeBasketItem', {itemNumber: itemNumber, totalPrice: parseInt(totalPrice)}, function(result) {
-                        alert("Remove Item Successfull")
+                    $.post('/removeBasketItem', {itemNumber: itemNumber, totalPrice: parseInt(totalPrice)}, function(result) {
+                        itemContainer.remove()
+                        basketItemCount()
                         $('#priceValue').text(result)
+                        alert("Remove Item Successfull")
                     })
-                    $(this).parents('.basketItem').remove()
                 })
 
                 $(".incdec").click(function() {

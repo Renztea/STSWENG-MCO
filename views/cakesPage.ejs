@@ -105,7 +105,7 @@
 					<%- include("partials/messages") %>
 				<% } %>
 				<h2><strong id="errorName"></strong></h2>
-				<form action="/addCake" class="addProductForm" method="Post" enctype="multipart/form-data">
+				<form action="/addCake" id="addProductForm" class="addProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
 						<tr>
 							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cake Name:</label></div></td>	
@@ -173,7 +173,7 @@
 							<td class="td2"></td>
 							<td class="td2"><input class="input" type="number" name="productPricesChocolate2" placeholder="Enter Price"></td>
 							<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
-							<a>&nbsp;&nbsp;&nbsp;</a><button class="Add" id="addl">Add</button></td>	
+							<a>&nbsp;&nbsp;&nbsp;</a><button type="button" class="Add" id="addl">Add</button></td>	
 						</tr>							
 					</table>
 				</form>
@@ -187,7 +187,7 @@
 					<h1>EDIT CAKE</h1>
 				</div>
 				<h2><strong id="errorName"></strong></h2>
-				<form action="/editCake" class="editProductForm" method="Post" enctype="multipart/form-data">
+				<form action="/editCake" id="editProductForm" class="editProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
 						<tr>
 							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cake Name:</label></div></td>	
@@ -255,7 +255,7 @@
 							<td class="td2"></td>
 							<td class="td2"><input class="input" type="number" name="productPricesChocolate2" placeholder="Enter Price"></td>
 							<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
-							<a>&nbsp;&nbsp;&nbsp;</a><button class="Edit2" id="edit2">Save</button></td>
+							<a>&nbsp;&nbsp;&nbsp;</a><button type="button" class="Edit2" id="edit2">Save</button></td>
 						</tr>	
 						<input type="hidden" class="productID" name="productID">								
 					</table>
@@ -266,13 +266,6 @@
 	<script>
 	// Checks if there are error messages to automatically open the modal.
 	$( document ).ready(function() {
-		var addCakeErrors = '<%= error_msg %>';
-		var editCakeErrors = '<%= editCakeError_msg %>';
-		if(addCakeErrors.length > 0) {
-			$('#cakeModal').css('display', 'block')
-		} else if (editCakeErrors.length > 0) {
-			alert('Edit Failed!!!\n' + editCakeErrors)
-		}
 
 		// Get the modal
 		var modal = document.getElementsByClassName("modal")[0];
@@ -339,137 +332,22 @@
 			}
 		}
 
-		/*
-		// Checks if the inputted product name is already available in the database
-		$('.inputName').keyup(function () {
-			var productName = $(this).val()
-			var productType = window.location.pathname.split("/").pop()
-			
-				if (result) {
-					$('.inputName').css('border-color', 'red')
-					$('#errorName').text('Cake is already available!')
-					$('#errorName').css('color', 'red')
-					$('#addl').prop('disabled', true)
-				} else {
-					$('.inputName').css('border-color', 'green')
-					$('#errorName').text('')
-					$('#addl').prop('disabled', false)
-				}
-			})
-		})
-		*/
-
-		// Loads an image to the preview part of the add and edit modals of the cake page.
-		$('.myFile').change(function() {
-			var file = $(this)[0].files[0]
-			if (file) {
-				var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
-				var isValid = validImageTypes.includes(file.type)
-				if (isValid) {
-					var reader = new FileReader();
-					reader.onload = function (image) {
-						$('.previewPic').attr('src', image.target.result)
-					};
-					reader.readAsDataURL(file);
-					$('.myFile').css('border-style', 'none')
-				} else if (!isValid) {
-					$('.myFile').css('border-style', 'solid')
-					$('.myFile').css('border-color', 'red')
-					$('.myFile').css('border-width', '2px')
-					$('.previewPic').removeAttr('src');
-					$(this).val('')
-				}
-			} else {
-				$('.myFile').css('border-style', 'none')
-				$('.previewPic').removeAttr('src');
-				$(this).val('')
-			}
-		})
-
-		$('.addProductForm').submit(function(e) {
-			
-			var name = $(this).find("[name='productName']").val()
-			var image = $(this).find("[name='filename']").val()
-			var type = window.location.pathname.split("/").pop()
-			var vanillaPrice1 = $(this).find("[name='productPricesVanilla1']").val()
-			var vanillaPrice2 = $(this).find("[name='productPricesVanilla2']").val()
-			var chocolatePrice1 = $(this).find("[name='productPricesChocolate1']").val()
-			var chocolatePrice2 = $(this).find("[name='productPricesChocolate2']").val()
-			var checkedNumberCake = $(this).find("[name='productNumberCake']").prop('checked')
-			var numberCakePrice = $(this).find("[name='productPricesNumberCake']").val()
-			var errorCounter = 0
-			if (name === '' || name == null) {
-				$(this).find("[name='productName']").css('border-color', 'red')
-				errorCounter++
-			} else {
-				$.get('/getProductInfo', {name: name, type: type}, function(result) {
-					if (result) {
-						$(this).find("[name='productName']").css('border-color', 'red')
-						errorCounter++
-					} else {
-						$(this).find("[name='productName']").css('border-color', 'green')
-					}
-				})
-			}
-			if (image === '' || image == null) {
-				$(this).find("[name='filename']").css('border-color', 'red')
-				$(this).find("[name='filename']").css('border-style', 'solid')
-				$(this).find("[name='filename']").css('border-width', '2px')
-				errorCounter++
-			} else {
-				$(this).find("[name='filename']").css('border-color', 'green')
-			}
-			if (!checkedNumberCake) {
-				if (vanillaPrice1 === '' || vanillaPrice1 == null || !Number.isInteger(vanillaPrice1)) {
-					$(this).find("[name='productPricesVanilla1']").css('border-color', 'red')
-					errorCounter++
-				} else {
-					$(this).find("[name='productPricesVanilla1']").css('border-color', 'green')
-				}
-				if (vanillaPrice2 === '' || vanillaPrice2 == null || !Number.isInteger(vanillaPrice2)) {
-					$(this).find("[name='productPricesVanilla2']").css('border-color', 'red')
-					errorCounter++
-				} else {
-					$(this).find("[name='productPricesVanilla2']").css('border-color', 'green')
-				}
-				if (chocolatePrice1 === '' || chocolatePrice1 == null || !Number.isInteger(chocolatePrice1)) {
-					$(this).find("[name='productPricesChocolate1']").css('border-color', 'red')
-					errorCounter++
-				} else {
-					$(this).find("[name='productPricesChocolate1']").css('border-color', 'green')
-				}
-				if (chocolatePrice2 === '' || chocolatePrice2 == null || !Number.isInteger(chocolatePrice2)) {
-					$(this).find("[name='productPricesChocolate2']").css('border-color', 'red')
-					errorCounter++
-				} else {
-					$(this).find("[name='productPricesChocolate2']").css('border-color', 'green')
-				}
-			} else {
-				if (numberCakePrice === '' || numberCakePrice == null || !Number.isInteger(numberCakePrice)) {
-					$(this).find("[name='productPricesNumberCake']").css('border-color', 'red')
-					errorCounter++
-				} else {
-					$(this).find("[name='productPricesNumberCake']").css('border-color', 'green')
-				}
-			}
-			
-
-			if (errorCounter > 0) {
-				e.preventDefault()
-				console.log('There was an error')
-			} 
-		})
-
 		// Modal of the add product (Initializes the modal)
 		$('.AddA').click(function() {
 			var addModal = $('#cakeModal')
 			addModal.find('.inputName').val('')
 			addModal.find('.inputName').css('border-color', '#6F4E37')
 			addModal.find(".input").val('');
-			addModal.find("#errorName").text('');
+			addModal.find('.input').css('border-color', '#6F4E37')
 			addModal.find(".input").attr('placeholder', 'Enter Price');
 			addModal.find("[name='productDedication']").prop('checked', false)
 			addModal.find(".inputCheckbox").prop('checked', false)
+			addModal.find(".inputCheckbox").trigger('change')
+			addModal.find('.myFile').css('border-style', 'none')
+			addModal.find('.myFile').val('')
+			addModal.find('.previewPic').attr('src', '')
+			addModal.find("#errorName").text('');
+			addModal.find('#addl').prop('disabled', false)
 		})
 
 		// Modal of the edit product (Shows the current information of the product)
@@ -477,11 +355,14 @@
 			var border = $(this).parents('.border')
 			var editModal = $('#editcakeModal')
 			editModal.find(".input").val(0)
+			editModal.find(".input").css('border-color', '#6F4E37')
 			editModal.find(".inputNum").val(0)
+			editModal.find(".inputNum").css('border-color', '#6F4E37')
 			var productName = border.children('#displayProductName').text()
 			var productType = window.location.pathname.split("/").pop()
 			$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
 				editModal.find("[name='productName']").val(result.name)
+				editModal.find("[name='productName']").css('border-color', '#6F4E37')
 				editModal.find(".productID").val(result._id)
 				editModal.find(".myFile").val('')
 				editModal.find(".previewPic").attr('src', result.image)
@@ -501,6 +382,115 @@
 					$('#editcakeModal .inputCheckbox').trigger('change')
 					editModal.find("[name='productPricesNumberCake']").val(result.numberCakePrice)
 				}
+			})
+		})
+
+		$('.myFile').change(function(event) {
+			if(event.target.files.length > 0){
+				var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
+				var isValid = validImageTypes.includes(event.target.files[0].type)
+				if (isValid) {
+					var src = URL.createObjectURL(event.target.files[0]);
+					$('.previewPic').attr('src', src)
+				} else {
+					$('.previewPic').attr('src', '')
+					$(this).val('')
+				}
+			} else {
+					$('.previewPic').attr('src', '')
+					$(this).val('')
+			}
+		})
+
+		// Checks if inputs are valid through communicating with the back-end, if valid then save the product.
+		$('#addl').click(function() {
+			var formData = new FormData(document.getElementById('addProductForm'));
+			$.ajax({
+				type: "POST",
+            	enctype: 'multipart/form-data',
+           		url: "/addCake",
+            	data: formData,
+            	processData: false,
+            	contentType: false,
+            	cache: false,
+            	timeout: 600000,
+			}).done(function(result) {
+				console.log(result)
+				var fields = [
+					'productName', 
+					'productPricesVanilla1', 
+					'productPricesVanilla2', 
+					'productPricesChocolate1', 
+					'productPricesChocolate2',
+					'productPricesNumberCake',
+					'filename',
+				]
+				fields.forEach(function(field) {
+					if (field != 'filename') {
+						$('#addProductForm').find(`[name='${field}']`).css('border-color', '#6F4E37')
+					} else {
+						$('#addProductForm').find(`[name='${field}']`).css('border-style', 'none')
+					}
+				})
+				// Lontoc na sa result.messages nakalagay lahat ng error messages
+				if (result.errorFields || result.messages) {
+					result.errorFields.forEach(function(field) {
+						$('#addProductForm').find(`[name='${field}']`).css('border-color', 'red')
+						$('#addProductForm').find(`[name='${field}']`).css('border-width', '2px')
+						$('#addProductForm').find(`[name='${field}']`).css('border-style', 'solid')
+					})
+				} else {
+					$(this).prop('disabled', true)
+					window.location.reload()
+				}
+			}).fail(function(error) {
+				console.log("ERROR : ", error);
+			})
+		})
+
+		// Checks if inputs are valid through communicating with the back-end, if valid then edit the product.
+		$('#edit2').click(function() {
+			var formData = new FormData(document.getElementById('editProductForm'));
+			$.ajax({
+				type: "POST",
+            	enctype: 'multipart/form-data',
+           		url: "/editCake",
+            	data: formData,
+            	processData: false,
+            	contentType: false,
+            	cache: false,
+            	timeout: 600000,
+			}).done(function(result) {
+				console.log(result)
+				var fields = [
+					'productName', 
+					'productPricesVanilla1', 
+					'productPricesVanilla2', 
+					'productPricesChocolate1', 
+					'productPricesChocolate2',
+					'productPricesNumberCake',
+					'filename',
+				]
+				fields.forEach(function(field) {
+					if (field != 'filename') {
+						$('#editProductForm').find(`[name='${field}']`).css('border-color', '#6F4E37')
+					} else {
+						$('#editProductForm').find(`[name='${field}']`).css('border-style', 'none')
+					}
+				})
+				// Lontoc na sa result.messages nakalagay lahat ng error messages
+				if (result.errorFields || result.messages) {
+					result.errorFields.forEach(function(field) {
+						$('#editProductForm').find(`[name='${field}']`).css('border-color', 'red')
+						$('#editProductForm').find(`[name='${field}']`).css('border-width', '2px')
+						$('#editProductForm').find(`[name='${field}']`).css('border-style', 'solid')
+					})
+				} else {
+					$(this).prop('disabled', true)
+					window.location.reload()
+				}
+			}).fail(function(error) {
+				console.log("ERROR : ", error);
 			})
 		})
 		

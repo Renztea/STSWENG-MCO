@@ -10,10 +10,11 @@ app.get('/getProductInfo', controller.getProductInfo)
 // Customer pages
 app.get('/', controller.getIndexPage)
 app.get('/products/:type', controller.getProductPage)
-app.get('/Basket', controller.getBasketItem)
+app.get('/basket', controller.getBasketItem)
 app.post('/postBasketItem', controller.postBasketItem)
-app.get('/updateBasketItem', controller.updateBasketItem)
-app.get('/removeBasketItem', controller.removeBasketItem)
+app.post('/updateBasketItem', controller.updateBasketItem)
+app.post('/removeBasketItem', controller.removeBasketItem)
+app.get('/summary', controller.getOrderSummary)
 
 // Admin pages
 app.get('/Admin', controller.getAdminPage)
@@ -31,7 +32,7 @@ app.post('/editCookie', editCookieValidation, controller.editCookie)
 
 
 // No BackEnd UI
-app.get('/OrderInformation', controller.getOrderInformationPage)
+app.get('/orderInformation', controller.getOrderInformationPage)
 
 // Page not found
 app.get('*', controller.getErrorPage)

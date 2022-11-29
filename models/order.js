@@ -9,12 +9,28 @@ const orderSchema = new mongoose.Schema ({
         type: String,
         required: true
     }, 
+    celebrant: {
+        type: String,
+        required: true
+    },
+    celebrantGender: {
+        type: String,
+        required: true
+    },
+    celebrantAge: {
+        type: Number,
+        required: true
+    },
+    expectedPickUpDate: {
+        type: String,
+        required: true
+    },
     contactNumber: {
         type: Number,
         required: true
     },
     orders: {
-        type: Array,
+        type: String,
         required: true
     },
     totalPrice: {

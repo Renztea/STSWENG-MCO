@@ -7,6 +7,7 @@ const Cupcake = require('../models/cupcake')
 const Cookie = require('../models/cookie');
 const { equal } = require('assert');
 const { isObjectIdOrHexString } = require('mongoose');
+const { findOne } = require('../models/cake');
 
 function randomizer (currentProducts) {
     var randomProducts = []
@@ -150,7 +151,7 @@ const controller = {
                 var allCakes = await Cake.find({})
                 // Calculates how many number of pages will all the cake products use.
                 var numberofPages = parseInt(allCakes.length / 6)
-                if (allCakes.length % 6 != 0) {
+                if (allCakes.length % 6 != 0 || allCakes.length == 0) {
                     numberofPages++
                 }
                 // Only need 6 products per page.
@@ -210,24 +211,28 @@ const controller = {
     addCake: async function(req, res) {
 
         const errors = validationResult(req)
+        const nameExists = await Cake.findOne({name: req.body.productName})
+        
+        if (errors.isEmpty() && !nameExists) {
+            var productInfo = req.body
+            var name = (productInfo.productName).trim()
+            var vanilla6x5Price = productInfo.productPricesVanilla1
+            var vanilla8x5Price = productInfo.productPricesVanilla2
+            var chocolate6x5Price = productInfo.productPricesChocolate1
+            var chocolate8x5Price = productInfo.productPricesChocolate2
+            var dedication = productInfo.productDedication
+            var numberCake = productInfo.productNumberCake
+            var numberCakePrice = productInfo.productPricesNumberCake
+            
+            // when checkbox isn't checked
+            if (typeof numberCake === 'undefined') {
+                numberCake = false
+            }
+            // when checkbox isn't checked
+            if (typeof dedication === 'undefined') {
+                dedication = false
+            }
 
-        if (errors.isEmpty()) {
-            var productName = (req.body.productName).trim()
-            var productVanilla6x5price = req.body.productPricesVanilla1
-            var productVanilla8x5price = req.body.productPricesVanilla2
-            var productChocolate6x5price = req.body.productPricesChocolate1
-            var productChocolate8x5price = req.body.productPricesChocolate2
-            var productNumberCake = req.body.productNumberCake
-            var productNumberCakePrice = req.body.productPricesNumberCake
-            var productDedication = req.body.productDedication
-            // when checkbox isn't checked
-            if (typeof productNumberCake === 'undefined') {
-                productNumberCake = false
-            }
-            // when checkbox isn't checked
-            if (typeof productDedication === 'undefined') {
-                productDedication = false
-            }
             const image = req.files.filename
             let date = new Date();
             var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
@@ -236,45 +241,62 @@ const controller = {
             image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
                 if (error) {
                     console.log("Error on adding the uploaded picture into the database. \n" + err)
+                    res.send('Failed')
                 } else {
                     try {
                         await Cake.create({
-                            name: productName, 
-                            vanilla6x5Price: productVanilla6x5price,
-                            vanilla8x5Price: productVanilla8x5price,
-                            chocolate6x5Price: productChocolate6x5price,
-                            chocolate8x5Price: productChocolate8x5price,
+                            name: name, 
+                            vanilla6x5Price: vanilla6x5Price,
+                            vanilla8x5Price: vanilla8x5Price,
+                            chocolate6x5Price: chocolate6x5Price,
+                            chocolate8x5Price: chocolate8x5Price,
                             image: imagePath,
-                            dedication: productDedication,
-                            numberCake: productNumberCake,
-                            numberCakePrice: productNumberCakePrice
+                            dedication: dedication,
+                            numberCake: numberCake,
+                            numberCakePrice: numberCakePrice
                         })
-                    } catch (error) {
+                        res.send('Success')
+                    } catch (err) {
                         console.log("Error on adding the new Cake product into the database. \n" + err)
+                        res.send('Failed')
                     }
                 }
-                res.redirect('admin/Cake')
             })
         } else {
-            const messages = errors.array().map((item) => item.msg);
-            req.flash('error_msg', messages[0]);
-            res.redirect('admin/Cake');
+            
+            var messages = errors.array().map((item) => item.msg);
+            var errorFields = errors.array().map((item) => item.param);
+            if (nameExists) {
+                messages.push('Product name already exists.')
+                errorFields.push('productName')
+            }
+            res.send({errorFields, messages})
         }
     },
         
     editCake: async function(req, res) {
+
         const errors = validationResult(req)
+
         var validNewImage = true
+
         if (req.files) {
-            var testing = req.files.filenameEdit.mimetype
-            var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+            var testing = req.files.filename.mimetype
+            var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
             if (!validImageTypes.includes(testing)) {
                 validNewImage = false
             }
         } 
 
-        if (errors.isEmpty()) {
-            var productID = req.body.productID
+        var productID = req.body.productID
+        var nameExists = await Cake.findOne({name: (req.body.productName).trim()})
+        var pastInfo = await Cake.findOne({_id: productID})
+        var newNameisValid = true
+        if (nameExists && pastInfo.name != (req.body.productName).trim()) {
+            newNameisValid = false
+        }
+
+        if (errors.isEmpty() && newNameisValid && validNewImage) {
             var productName = (req.body.productName).trim()
             var productVanilla6x5price = req.body.productPricesVanilla1
             var productVanilla8x5price = req.body.productPricesVanilla2
@@ -283,24 +305,30 @@ const controller = {
             var productNumberCake = req.body.productNumberCake
             var productNumberCakePrice = req.body.productPricesNumberCake
             var productDedication = req.body.productDedication
+
             // when checkbox isn't checked
             if (typeof productNumberCake === 'undefined') {
-                productNumberCake = false
+                productNumberCake = false 
+                productNumberCakePrice = 0
+                if(productDedication === 'undefined') {
+                    productDedication = false
+                }
+            } else {
+                productVanilla6x5price = 0
+                productVanilla8x5price = 0
+                productChocolate6x5price = 0
+                productChocolate8x5price = 0
+                productDedication = false 
             }
-            // when checkbox isn't checked
-            if (typeof productDedication === 'undefined') {
-                productDedication = false
-            }
+            
+            if (req.files && validNewImage && newNameisValid) {
 
-            if (req.files && validNewImage == true) {
-
-                const image = req.files.filenameEdit
+                const image = req.files.filename
                 let date = new Date();
                 var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
                 date.getSeconds() + '_'+ image.name;
                 var imagePath = '/images/' + filenameChange;
                 image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
-                    var pastInfo = await Cake.findOne({_id: productID})
                     var pastImage = './public' + pastInfo.image
                     try {
                         await Cake.updateOne({
@@ -316,17 +344,13 @@ const controller = {
                             numberCake: productNumberCake,
                             numberCakePrice: productNumberCakePrice
                         })
+                        fs.unlinkSync(pastImage)
+                        res.send('Success')
                     } catch (error) {
                         console.log("Error on updating the Cake product with image into the database. \n" + err)
                     }
-                    res.redirect('admin/Cake')
                 })
-            } else if (req.files && validNewImage == false) {
-
-                req.flash('editCakeError_msg', 'Invalid Image Type!!!');
-                res.redirect('admin/Cake');
-
-            } else if (!req.files){
+            } else if (!req.files && newNameisValid){
                 try {
                     await Cake.updateOne({
                     _id: productID
@@ -340,15 +364,23 @@ const controller = {
                     numberCake: productNumberCake,
                     numberCakePrice: productNumberCakePrice
                 })
+                    res.send('Success')
                 } catch (err) {
                     console.log("Error on updating the Cake product into the database. \n" + err)
                 }
-                res.redirect('admin/Cake');
             } 
         } else {
-            const messages = errors.array().map((item) => item.msg);
-            req.flash('editCakeError_msg', messages[0]);
-            res.redirect('admin/Cake');
+            var messages = errors.array().map((item) => item.msg);
+            var errorFields = errors.array().map((item) => item.param);
+            if (!validNewImage) {
+                messages.push('Invalid file type.')
+                errorFields.push('filename')
+            }
+            if (!newNameisValid) {
+                messages.push('Product name already exists.')
+                errorFields.push('productName')
+            }
+            res.send({errorFields, messages})
         }
     },
 
@@ -399,7 +431,7 @@ const controller = {
         var validNewImage = true
         if (req.files) {
             var testing = req.files.filenameEdit.mimetype
-            var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+            var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
             if (!validImageTypes.includes(testing)) {
                 validNewImage = false
             }
@@ -515,7 +547,7 @@ const controller = {
         var validNewImage = true
         if (req.files) {
             var testing = req.files.filenameEdit.mimetype
-            var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+            var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
             if (!validImageTypes.includes(testing)) {
                 validNewImage = false
             }

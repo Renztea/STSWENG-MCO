@@ -20,7 +20,7 @@
                     <h1>ORDER INFORMATION</h1>
                 </div>
 
-                <form class="orderInfoForm" method="Post" enctype="multipart/form-data">
+                <form class="orderInfoForm" method="GET" enctype="multipart/form-data">
                     <div class="orderInfoGroup">
                         <label class="orderStyle" for="name">Name:</label>
                         <input class="orderInput" type="text" id="name" name="name" placeholder="Enter Name">
@@ -55,8 +55,8 @@
                     </div>
 
                     <div class="orderBtn">
-                        <button class="orderCancel" type="submit" id="cancel">RETURN</button>
-                        <button class ="orderSubmit" type="submit" id="order">ORDER</button>
+                        <button class="orderCancel" type="submit" id="cancel" formaction="/basket">RETURN</button>
+                        <button class ="orderSubmit" type="submit" id="order" formaction="/summary">ORDER</button>
                     </div>
                 </form>
             </div>

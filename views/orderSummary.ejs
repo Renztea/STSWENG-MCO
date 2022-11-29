@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Basket</title>
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    </head>
+
+    <body class="mainBackground">
+        <div class="header">
+            <%- include("partials/logo") %>
+			<%- include("partials/menubuttons") %>
+        </div>
+
+        <div class="basketContainer">
+            <div class="basketItemContainer">
+                <%_ basketItemList.forEach(function(basketItem, index) { _%>
+                <div class="basketItem" name="<%= productItemList[index].itemNumber %>" data="<%= productItemList[index].type %>" label="<%= index %>">
+                    <div class="basketItemImage">
+                        <img src="<%= basketItem.image %>" placeholder="trial" alt="1">
+                    </div>
+
+                    <div class="basketItemInfo">
+                        <div class="basketNameContainer">
+                            <h2><%= productItemList[index].name %></h2>
+                        </div>
+                        <div class="basketTypeContainer">
+                            <h3>Type of <%= productItemList[index].type %>:</h3>
+                            <%_ if (productItemList[index].type != 'Cookie') { _%>
+                            <p class="editFlavor" title="Flavor" id="flavor<%= index %>" name="flavor"><%= productItemList[index].flavor %></p>
+                            <%_ } _%>
+
+                            <%_ if (productItemList[index].type == 'Cake') { _%>
+                            <p class="editSize" title="Size" id="size<%= index %>" name="size"><%= productItemList[index].size %></p> 
+                            <%_ } _%>
+
+                            <%_ if (productItemList[index].type == 'Cupcake') { _%>
+                            <p id="frosting<%= index %>" class="editFrosting" title="Frosting" name="frosting"><%= productItemList[index].frosting %></p>
+                            <%_ } _%>
+                        </div>
+                    </div>
+                    
+                    <div class="basketItemQuantity">
+                        <div class="basketQuantityContainer">
+                            <p id="quantity<%= index %>" class="quantity basketQuantity" type="number"><%= productItemList[index].quantity %></p>
+                        </div>
+                    </div>
+
+                    <div class="basketGroupPriceNRemove">
+                        <div class="basketItemPrice">
+                            <h2>&#8369;<span id="price<%= index %>" data="<%= productItemList[index].price %>"><%= parseInt(productItemList[index].price) * parseInt(productItemList[index].quantity) %></span></h2>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="test" data="<%= productItemList[index] %>"/>
+                </div>
+                <%_ }) _%>
+            </div>
+            <div class="totalPriceContainer">
+                <span class="totalPrice">Total: &#8369;<span id="priceValue"><%= totalPrice %></span></span>
+                <p>Buyer Name: <%= orderInfo.name %></p>
+                <p>Celebrant Name: <%= orderInfo.celebrant %></p>
+                <p>Celebrant Gender: <%= orderInfo.celebrantGender %></p>
+                <p>Celebrant Age: <%= orderInfo.celebrantAge %></p>
+                <p>PickedUp Date: <%= orderInfo.pickupDate %></p>
+                <p>Contact Number: <%= orderInfo.contactNo %></p>
+                <form action="/orderInformation">
+                    <button class="basketSubmit">PROCEED</button>
+                </form>
+            </div>
+        </div>
+        <script>
+
+        </script>
+    </body>
+
+</html>
