@@ -66,7 +66,7 @@
                         </div>
                         <div class="basketTypeContainer">
                             <h3>Type of <%= productItemList[index].type %>:</h3>
-                            <%_ if (productItemList[index].type != 'Cookie') { _%>
+                            <%_ if (productItemList[index].type != 'Cookie' && !basketItem.numberCake) { _%>
                             <select class="editFlavor" title="Flavor" id="flavor<%= index %>" name="flavor">  
                                 <!-- Cake -->                              
                                 <%_ if (basketItem.vanilla6x5Price > 0 || basketItem.vanilla8x5Price > 0) { _%>
@@ -88,7 +88,7 @@
                             </select>
                             <%_ } _%>
 
-                            <%_ if (productItemList[index].type == 'Cake') { _%>
+                            <%_ if (productItemList[index].type == 'Cake' && !basketItem.numberCake) { _%>
                             <select class="editSize" title="Size" id="size<%= index %>" name="size">
                                 <%_ if (basketItem.vanilla6x5Price > 0 || basketItem.chocolate6x5Price > 0) { _%>
                                     <option value="6x5" <% if (productItemList[index].size == "6x5") { %> selected <% } %>>6" x 5"</option>
@@ -120,9 +120,11 @@
                                 <span id="increment<%= index %>" class="incdec basketIncrement">+</span>
                             </div>
                         </div>
+                        <%_ if (basketItem.dedication) { _%>
                         <div class="basketItemDedication">
                             <textarea id="dedication<%= index %>" class="editDedication" placeholder="Enter Message..."><%= productItemList[index].dedication %></textarea>
                         </div>
+                        <%_ } _%>
                     </div>
 
                     <div class="basketGroupPriceNRemove">

@@ -95,6 +95,7 @@ $(document).ready(function() {
               })
             }
           } else if (productType == 'Cupcake') {
+            $('#displayProductFlavor').show()
             $('#displayProductFlavor').find('option').remove()
             var hasVanillaFlavor = false;
             var hasChocolateFlavor = false;

@@ -752,7 +752,7 @@ const controller = {
         }
                     
         console.log(basketItemList)
-        console.log(req.session.order)
+        console.log(req.session.orders)
         res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
     },
 
