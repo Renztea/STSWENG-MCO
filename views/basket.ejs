@@ -135,13 +135,27 @@
             </div>
             <div class="totalPriceContainer">
                 <span class="totalPrice">Total: &#8369;<span id="priceValue"><%= totalPrice %></span></span>
-                <button class="basketSubmit">CHECK OUT</button>
+                <button class="basketSubmit">PROCEED</button>
             </div>
         </div>
         <script>
             $(document).ready(function() {            
                 let basketItemList = <%- JSON.stringify(basketItemList) %>;
                 let productItemList = <%- JSON.stringify(productItemList) %>
+
+                basketItemCount()
+
+                function basketItemCount() {
+                    var basketItemList = document.querySelectorAll('.basketItem')
+                    var basketItemLength = basketItemList.length
+
+                    alert("COUNT: " + basketItemLength)
+                    if (basketItemLength == 0) {
+                        $('.basketSubmit').css('display', 'none')
+                    } else {
+                        $('.basketSubmit').css('display', 'inline')
+                    }
+                }
 
                 $('.editFlavor').change(function() {
                     var itemType = $(this).parents('.basketItem').attr('data')
@@ -432,6 +446,7 @@
                         $('#priceValue').text(result)
                     })
                     $(this).parents('.basketItem').remove()
+                    basketItemCount()
                 })
 
                 $(".incdec").click(function() {
