@@ -21,6 +21,7 @@ $(document).ready(function() {
           $('#displayProductFlavor').find('option').remove()
           $('#displayProductSize').find('option').remove()
           $('#displayProductFrosting').find('option').remove()
+
           if (productType == 'Cake') {
             var hasVanillaFlavor = false;
             var hasSize6x5 = false;
@@ -180,6 +181,7 @@ $(document).ready(function() {
 
     function updateAvailableCakeSize(result) {
       var currentFlavor = $('#displayProductFlavor').val()
+      var sizeSelected = $('#displayProductSize').val()
       $('#displayProductSize').find('option').remove()
       if (currentFlavor == "vanilla") {
         if (result.vanilla6x5Price > 0) {
@@ -195,6 +197,11 @@ $(document).ready(function() {
         if (result.chocolate8x5Price > 0) {
           $('#displayProductSize').append(new Option("8\" x 5\"", "8x5"))
         }
+      }
+
+      var currentSize = $('#displayProductSize').find('option[value=' + sizeSelected + ']').length
+      if (currentSize > 0) {
+        $('#displayProductSize').val(sizeSelected);
       }
     }
   
@@ -221,6 +228,7 @@ $(document).ready(function() {
 
     function updateAvailableCupcakeFrosting(result) {
       var currentFlavor = $('#displayProductFlavor').val()
+      var frostingSelected = $('#displayProductFrosting').val()
       $('#displayProductFrosting').find('option').remove()
       if (currentFlavor == 'vanilla') {
         if (result.vanillaFondantPrice > 0) {
@@ -243,6 +251,12 @@ $(document).ready(function() {
         if (result.redvelvetIcingPrice > 0) {
           $('#displayProductFrosting').append(new Option("Icing", "icing"))
         }
+      }
+
+      var currentFrosting = $('#displayProductFrosting').find('option[value=' + frostingSelected + ']').length
+      alert(frostingSelected + " " + currentFrosting)
+      if (currentFrosting > 0) {
+        $('#displayProductFrosting').val(frostingSelected);
       }
     }
   
@@ -275,12 +289,13 @@ $(document).ready(function() {
 
     function updateDisplayPrice(productPrice) {
       var currentQuantity = $('#displayProductQuantity').val()
-      var displayPrice = productPrice * currentQuantity
 
-      alert("productPrice: " + productPrice)
-      alert("currentQuantity: " + currentQuantity)
-      alert("displayPrice: " + displayPrice)
       if(currentQuantity > 0) {
+        var displayPrice = productPrice * currentQuantity
+        
+        alert("productPrice: " + productPrice)
+        alert("currentQuantity: " + currentQuantity)
+        alert("displayPrice: " + displayPrice)
         $('#displayProductPrice').attr('data', productPrice)
         $('#displayProductPrice').text(displayPrice)
       }

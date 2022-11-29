@@ -190,6 +190,7 @@
 
                 function updateAvailableBasketCakeSize(itemIndex) {
                     var currentFlavor = $('#flavor' + itemIndex).val()
+                    var sizeSelected = $('#size' + itemIndex).val()
                     var basketItem = basketItemList[itemIndex]
                     $('#size' + itemIndex).find('option').remove()
                     if (currentFlavor == "vanilla") {
@@ -206,6 +207,11 @@
                         if (basketItem.chocolate8x5Price > 0) {
                             $('#size' + itemIndex).append(new Option("8\" x 5\"", "8x5"))
                         }
+                    }
+
+                    var currentSize = $('#size' + itemIndex).find('option[value=' + sizeSelected + ']').length
+                    if (currentSize > 0) {
+                        $('#size' + itemIndex).val(sizeSelected);
                     }
                 }
 
@@ -233,6 +239,7 @@
 
                 function updateAvailableBasketCupcakeFrosting(itemIndex) {
                     var currentFlavor = $('#flavor' + itemIndex).val()
+                    var frostingSelected = $('#frosting' + itemIndex).val()
                     var basketItem = basketItemList[itemIndex]
                     $('#frosting' + itemIndex).find('option').remove()
                     if (currentFlavor == 'vanilla') {
@@ -256,6 +263,11 @@
                         if (basketItem.redvelvetIcingPrice > 0) {
                             $('#frosting' + itemIndex).append(new Option("Icing", "icing"))
                         }
+                    }
+
+                    var currentFrosting = $('#frosting' + itemIndex).find('option[value=' + frostingSelected + ']').length
+                    if (currentFrosting > 0) {
+                        $('#frosting' + itemIndex).val(frostingSelected);
                     }
                 }
                 
