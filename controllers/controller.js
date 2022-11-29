@@ -663,13 +663,14 @@ const controller = {
         var itemLength = 0;
         var lastItemNumber = "1";
 
-        if(!req.session.orders) {
+        if(!req.session.orders || req.session.orders == '') {
             req.session.orders = [];
         } else {
             req.session.orders.forEach(val => {
                 itemLength++;
+                console.log("first: " + itemLength)
             })
-
+            console.log("second :" + itemLength)
             lastItemNumber = req.session.orders[itemLength - 1].itemNumber
             lastItemNumber = (parseInt(lastItemNumber) + 1).toString()
         }
