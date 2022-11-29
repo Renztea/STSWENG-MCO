@@ -727,12 +727,12 @@ const controller = {
         if (req.session.orders) {
             var totalPrice = 0
             req.session.orders.forEach(function(order) {
-                if(req.query.itemNumber == order.itemNumber) {
-                    order.flavor = req.query.flavor
-                    order.size = req.query.size
-                    order.frosting = req.query.frosting
-                    order.quantity = req.query.quantity
-                    order.price = req.query.price
+                if(req.body.itemNumber == order.itemNumber) {
+                    order.flavor = req.body.flavor
+                    order.size = req.body.size
+                    order.frosting = req.body.frosting
+                    order.quantity = req.body.quantity
+                    order.price = req.body.price
                 }
 
                 totalPrice = totalPrice + (parseInt(order.price) * parseInt(order.quantity))
@@ -746,19 +746,19 @@ const controller = {
         if(req.session.orders) {
             req.session.orders.forEach((val, key) => {
                 console.log("key: " + key)
-                    console.log("bodyNumber: " + req.query.itemNumber)
+                    console.log("bodyNumber: " + req.body.itemNumber)
                     console.log("valNumber: " + val.itemNumber)
-                if(req.query.itemNumber == val.itemNumber) {
+                if(req.body.itemNumber == val.itemNumber) {
                     console.log("key: " + key)
-                    console.log("bodyNumber: " + req.query.itemNumber)
+                    console.log("bodyNumber: " + req.body.itemNumber)
                     console.log("valNumber: " + val.itemNumber)
-                    req.query.totalPrice = req.query.totalPrice - (parseInt(val.price) * parseInt(val.quantity))
+                    req.body.totalPrice = req.body.totalPrice - (parseInt(val.price) * parseInt(val.quantity))
                     req.session.orders.splice(key, 1)
                 }
             })
         }
         console.log("End: ", req.session.orders)
-        res.send(req.query.totalPrice.toString())
+        res.send(req.body.totalPrice.toString())
     }
 
 }   

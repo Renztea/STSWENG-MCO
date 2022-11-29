@@ -12,8 +12,8 @@ app.get('/', controller.getIndexPage)
 app.get('/products/:type', controller.getProductPage)
 app.get('/Basket', controller.getBasketItem)
 app.post('/postBasketItem', controller.postBasketItem)
-app.get('/updateBasketItem', controller.updateBasketItem)
-app.get('/removeBasketItem', controller.removeBasketItem)
+app.post('/updateBasketItem', controller.updateBasketItem)
+app.post('/removeBasketItem', controller.removeBasketItem)
 
 // Admin pages
 app.get('/Admin', controller.getAdminPage)

@@ -133,10 +133,16 @@
                 </div>
                 <%_ }) _%>
             </div>
+            <!--
             <div class="totalPriceContainer">
                 <span class="totalPrice">Total: &#8369;<span id="priceValue"><%= totalPrice %></span></span>
                 <button class="basketSubmit">PROCEED</button>
             </div>
+            -->
+            <form class="totalPriceContainer" action="">
+                <span class="totalPrice">Total: &#8369;<span id="priceValue"><%= totalPrice %></span></span>
+                <button type="submit" class="basketSubmit">PROCEED</button>
+            </form>
         </div>
         <script>
             $(document).ready(function() {            
@@ -325,7 +331,7 @@
                     var currentPrice = $('#price' + itemIndex).attr('data')
                     var productItem = productItemList[itemIndex]
 
-                    $.get('/updateBasketItem', 
+                    $.post('/updateBasketItem', 
                         {itemNumber: itemNumber, 
                         flavor: currentFlavor || "", 
                         size: currentSize || "", 
@@ -438,15 +444,16 @@
                 */
 
                 $('.removeItem').click(function() {
-                    var itemNumber = $(this).parents('.basketItem').attr('name')
+                    var itemContainer = $(this).parents('.basketItem')
+                    var itemNumber = itemContainer.attr('name')
                     var totalPrice = $('#priceValue').text()
 
-                    $.get('/removeBasketItem', {itemNumber: itemNumber, totalPrice: parseInt(totalPrice)}, function(result) {
-                        alert("Remove Item Successfull")
+                    $.post('/removeBasketItem', {itemNumber: itemNumber, totalPrice: parseInt(totalPrice)}, function(result) {
+                        itemContainer.remove()
+                        basketItemCount()
                         $('#priceValue').text(result)
+                        alert("Remove Item Successfull")
                     })
-                    $(this).parents('.basketItem').remove()
-                    basketItemCount()
                 })
 
                 $(".incdec").click(function() {
