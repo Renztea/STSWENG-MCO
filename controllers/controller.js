@@ -761,8 +761,29 @@ const controller = {
         res.send(req.body.totalPrice.toString())
     },
 
-    getOrderSummary: function(req, res) {
-        res.render('orderSummary')
+    getOrderSummary: async function(req, res) {
+        var basketItemList = []
+        var totalPrice = 0
+
+        if(req.session.orders) {
+            for (const item of req.session.orders) {
+                if(item.type == 'Cake') {
+                    var basketItem = await Cake.findOne({name: item.name}, {_id: 0})
+                } else if (item.type == 'Cupcake') {
+                    var basketItem = await Cupcake.findOne({name: item.name}, {_id: 0})
+                } else {
+                    var basketItem = await Cookie.findOne({name: item.name}, {_id: 0})
+                }                
+                
+                totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
+                basketItemList.push(basketItem)
+                console.log("dog") 
+            }
+        }
+        console.log(req.query)
+        console.log(totalPrice)
+
+        res.render('orderSummary', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
     }
 
 }   
