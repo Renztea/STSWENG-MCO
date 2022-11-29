@@ -133,16 +133,12 @@
                 </div>
                 <%_ }) _%>
             </div>
-            <!--
             <div class="totalPriceContainer">
                 <span class="totalPrice">Total: &#8369;<span id="priceValue"><%= totalPrice %></span></span>
-                <button class="basketSubmit">PROCEED</button>
+                <form action="/orderInformation">
+                    <button class="basketSubmit">PROCEED</button>
+                </form>
             </div>
-            -->
-            <form class="totalPriceContainer" action="">
-                <span class="totalPrice">Total: &#8369;<span id="priceValue"><%= totalPrice %></span></span>
-                <button type="submit" class="basketSubmit">PROCEED</button>
-            </form>
         </div>
         <script>
             $(document).ready(function() {            
