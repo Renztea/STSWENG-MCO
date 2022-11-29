@@ -46,14 +46,7 @@
                     <h2>&#8369;<span id="displayProductPrice" data="0">0</span></h2>
 
                     <input type="hidden" name="productName" value="productName">
-                    
-                    <%# if (type == 'Cake') { %>
-                        <%#- include("partials/cakeModal") %>
-                    <%# } else if (type == 'Cupcake') { %>
-                        <%#- include("partials/cupcakeModal") %>
-                    <%# } %>
-                   
-                    <%_ if(type != 'Cookie') { _%>
+                    <%_ if (type != 'Cookie') { _%>
                     <select id="displayProductFlavor" class="orderFlavor" title="Flavor" name="flavor">
                         <!--
                         <option value="Vanilla">Vanilla</option>
@@ -82,6 +75,12 @@
                         <input id="displayProductQuantity" name="orderQuantity" class="orderQuantity" type="number" min="1" value="1" >
                         <span id="increment" class="incdec orderIncrement">+</span>
                     </div>
+
+                    <%_ if (type == 'Cake') { _%>
+                    <textarea rows="9" columns="9">pokemon</textarea>
+                    <%_ } _%>
+
+
                     <button type="button" class="addBtn" value="<%= type %>">ADD TO BASKET</button>
                 </form>
             </div>
