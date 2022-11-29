@@ -112,11 +112,16 @@
                         </div>
                     </div>
                     
-                    <div class="basketItemQuantity">
-                        <div class="basketQuantityContainer">
-                            <span id="decrement<%= index %>" class="incdec basketDecrement">-</span>
-                            <input id="quantity<%= index %>" class="quantity basketQuantity" type="number" value="<%= productItemList[index].quantity %>" min="1" >
-                            <span id="increment<%= index %>" class="incdec basketIncrement">+</span>
+                    <div class="basketGroupQuantityNDedication">
+                        <div class="basketItemQuantity">
+                            <div class="basketQuantityContainer">
+                                <span id="decrement<%= index %>" class="incdec basketDecrement">-</span>
+                                <input id="quantity<%= index %>" class="quantity basketQuantity" type="number" value="<%= productItemList[index].quantity %>" min="1" >
+                                <span id="increment<%= index %>" class="incdec basketIncrement">+</span>
+                            </div>
+                        </div>
+                        <div class="basketItemDedication">
+                            <textarea id="dedication<%= index %>" class="editDedication" placeholder="Enter Message..."><%= productItemList[index].dedication %></textarea>
                         </div>
                     </div>
 
@@ -192,6 +197,14 @@
 
                     updateBasketCakePrice(itemIndex)
                     //checkUpdate(itemIndex)
+                    updateBasketInfo(itemIndex, itemNumber, itemType)
+                })
+
+                $('.editDedication').change(function() {
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+
                     updateBasketInfo(itemIndex, itemNumber, itemType)
                 })
 
@@ -325,6 +338,7 @@
                     var currentFrosting = $('#frosting' + itemIndex).val()
                     var currentQuantity = $('#quantity' + itemIndex).val()
                     var currentPrice = $('#price' + itemIndex).attr('data')
+                    var currentDedication = $('#dedication' + itemIndex).val()
                     var productItem = productItemList[itemIndex]
 
                     $.post('/updateBasketItem', 
@@ -332,7 +346,8 @@
                         flavor: currentFlavor || "", 
                         size: currentSize || "", 
                         frosting: currentFrosting || "", 
-                        quantity: currentQuantity, 
+                        quantity: currentQuantity,
+                        dedication: currentDedication || "",  
                         price: currentPrice}, 
                                                 
                         function(result) {
@@ -345,6 +360,7 @@
                             }
 
                             productItem.quantity = currentQuantity
+                            productItem.dedication = currentDedication
                             productItem.price = currentPrice
 
                             $('#priceValue').text(result)

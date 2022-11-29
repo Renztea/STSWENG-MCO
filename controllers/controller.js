@@ -714,6 +714,7 @@ const controller = {
                         "size": req.body.size,
                         "frosting": req.body.frosting,
                         "quantity": req.body.quantity,
+                        "dedication": req.body.dedication,
                         "type": req.body.type};
 
         req.session.orders.push(productInfo);
@@ -764,6 +765,7 @@ const controller = {
                     order.size = req.body.size
                     order.frosting = req.body.frosting
                     order.quantity = req.body.quantity
+                    order.dedication = req.body.dedication
                     order.price = req.body.price
                 }
 

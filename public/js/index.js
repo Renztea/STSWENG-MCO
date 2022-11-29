@@ -1,12 +1,6 @@
 $(document).ready(function() {
-  /*
-    $("#basketBtn").click(function() {
-      $.get('/Basket', {}, function(result) {
-        return result
-      })
-    })
-    */
-
+    // Duplicate alert display when on click
+    // Maybe need to display number Cake flavor
     $(".productBox").click(function() {
       var productName = $(this).find('img').attr('placeholder');
       var productType = $(this).find('input').val();
@@ -21,69 +15,85 @@ $(document).ready(function() {
           $('#displayProductFlavor').find('option').remove()
           $('#displayProductSize').find('option').remove()
           $('#displayProductFrosting').find('option').remove()
+          $('#displayProductDedication').val("")
+          $("#displayProductDedication").hide()
+          $('#displayProductFlavor').hide()
+          $('#displayProductSize').hide()
 
           if (productType == 'Cake') {
             var hasVanillaFlavor = false;
             var hasSize6x5 = false;
             var hasSize8x5 = false;
 
-            if (result.vanilla6x5Price > 0 || result.vanilla8x5Price > 0) {
-              $('#displayProductFlavor').append(new Option("Vanilla", "vanilla"))
-              hasVanillaFlavor = true;
-              if (result.vanilla6x5Price > 0) {                
-                $('#displayProductSize').append(new Option("6\" x 5\"", "6x5"))
-                hasSize6x5 = true
+            if(result.numberCake) {
+              $('#displayProductPrice').attr('data', result.numberCakePrice)
+              $('#displayProductPrice').text(result.numberCakePrice)
+            } else {
+              $('#displayProductFlavor').show()
+              $('#displayProductSize').show()
+              if (result.vanilla6x5Price > 0 || result.vanilla8x5Price > 0) {
+                $('#displayProductFlavor').append(new Option("Vanilla", "vanilla"))
+                hasVanillaFlavor = true;
+                if (result.vanilla6x5Price > 0) {                
+                  $('#displayProductSize').append(new Option("6\" x 5\"", "6x5"))
+                  hasSize6x5 = true
+                }
+                if (result.vanilla8x5Price > 0) {
+                  $('#displayProductSize').append(new Option("8\" x 5\"", "8x5"))
+                  hasSize8x5 = true
+                }
               }
-              if (result.vanilla8x5Price > 0) {
-                $('#displayProductSize').append(new Option("8\" x 5\"", "8x5"))
-                hasSize8x5 = true
+
+              if (result.chocolate6x5Price > 0 || result.chocolate8x5Price > 0) {
+                $('#displayProductFlavor').append(new Option("Chocolate", "chocolate"))
+                if (!hasSize6x5 && !hasVanillaFlavor && result.chocolate6x5Price > 0) {
+                  $('#displayProductSize').append(new Option("6\" x 5\"", "6x5"))
+                }              
+
+                if (!hasSize8x5 && !hasVanillaFlavor && result.chocolate8x5Price > 0) {
+                  $('#displayProductSize').append(new Option("8\" x 5\"", "8x5"))
+                }
+              } 
+              
+              var sizeSelected = $('#displayProductSize').find(":selected").val();
+              var productPrice = 0            
+              if (hasVanillaFlavor) {
+                if (sizeSelected == "6x5") {
+                  //$('#displayProductPrice').text(result.vanilla6x5Price)
+                  productPrice = result.vanilla6x5Price
+                }
+                if (sizeSelected == "8x5") {
+                  //$('#displayProductPrice').text(result.vanilla8x5Price)
+                  productPrice = result.vanilla8x5Price
+                }             
+              } else {              
+                if (sizeSelected == "6x5") {
+                  //$('#displayProductPrice').text(result.chocolate6x5Price)
+                  productPrice = result.chocolate6x5Price
+                }
+                if (sizeSelected == "8x5") {
+                  //$('#displayProductPrice').text(result.chocolate8x5Price)
+                  productPrice = result.chocolate8x5Price
+                }
               }
+
+              if (result.dedication) {
+                alert(result.dedication)
+                $("#displayProductDedication").show()
+              }
+
+              $('#displayProductPrice').attr('data', productPrice)
+              $('#displayProductPrice').text(productPrice)
+              
+              $('#displayProductFlavor').change(function() {
+                updateAvailableCakeSize(result)
+                updateCakePrice(result)
+              })
+
+              $('#displayProductSize').change(function() {
+                updateCakePrice(result)
+              })
             }
-
-            if (result.chocolate6x5Price > 0 || result.chocolate8x5Price > 0) {
-              $('#displayProductFlavor').append(new Option("Chocolate", "chocolate"))
-              if (!hasSize6x5 && !hasVanillaFlavor && result.chocolate6x5Price > 0) {
-                $('#displayProductSize').append(new Option("6\" x 5\"", "6x5"))
-              }              
-
-              if (!hasSize8x5 && !hasVanillaFlavor && result.chocolate8x5Price > 0) {
-                $('#displayProductSize').append(new Option("8\" x 5\"", "8x5"))
-              }
-            } 
-            
-            var sizeSelected = $('#displayProductSize').find(":selected").val();
-            var productPrice = 0            
-            if (hasVanillaFlavor) {
-              if (sizeSelected == "6x5") {
-                //$('#displayProductPrice').text(result.vanilla6x5Price)
-                productPrice = result.vanilla6x5Price
-              }
-              if (sizeSelected == "8x5") {
-                //$('#displayProductPrice').text(result.vanilla8x5Price)
-                productPrice = result.vanilla8x5Price
-              }             
-            } else {              
-              if (sizeSelected == "6x5") {
-                //$('#displayProductPrice').text(result.chocolate6x5Price)
-                productPrice = result.chocolate6x5Price
-              }
-              if (sizeSelected == "8x5") {
-                //$('#displayProductPrice').text(result.chocolate8x5Price)
-                productPrice = result.chocolate8x5Price
-              }
-            }
-
-            $('#displayProductPrice').attr('data', productPrice)
-            $('#displayProductPrice').text(productPrice)
-            
-            $('#displayProductFlavor').change(function() {
-              updateAvailableCakeSize(result)
-              updateCakePrice(result)
-            })
-
-            $('#displayProductSize').change(function() {
-              updateCakePrice(result)
-            })
           } else if (productType == 'Cupcake') {
             $('#displayProductFlavor').find('option').remove()
             var hasVanillaFlavor = false;
@@ -293,6 +303,7 @@ $(document).ready(function() {
       if(currentQuantity > 0) {
         var displayPrice = productPrice * currentQuantity
         
+        console.log("why")
         alert("productPrice: " + productPrice)
         alert("currentQuantity: " + currentQuantity)
         alert("displayPrice: " + displayPrice)
@@ -349,7 +360,8 @@ $(document).ready(function() {
             flavor: $('#displayProductFlavor').find(':selected').val() || "", 
             size: $('#displayProductSize').find(":selected").val() || "", 
             frosting: $('#displayProductFrosting').find(':selected').val() || "", 
-            quantity: $("#displayProductQuantity").val(),
+            quantity: $('#displayProductQuantity').val(),
+            dedication: $('#displayProductDedication').val(),
             type: $(this).val()
           }, function(result) {
             alert(result);

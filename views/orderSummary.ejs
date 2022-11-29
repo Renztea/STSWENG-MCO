@@ -15,6 +15,35 @@
 			<%- include("partials/menubuttons") %>
         </div>
 
+        <div class="orderInfoSummary">
+            <form>
+                <div>
+                    <label class="orderSummaryStyle" for="buyerName">Buyer Name:</label>
+                    <input class="orderSummaryInput" name="name" placeholder="" value="<%= orderInfo.name %>" readonly>
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="celebrantName">Celebrant Name:</label>
+                    <input class="orderSummaryInput" name="celebrantName" placeholder="" value="<%= orderInfo.celebrant %>" readonly>
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="celebrantGender">Celebrant Gender:</label>
+                    <input class="orderSummaryInput" name="celebrantGender" placeholder="" value="<%= orderInfo.celebrantGender %>" readonly>
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="celebrantAge">Celebrant Age:</label>
+                    <input class="orderSummaryInput" name="celebrantAge" placeholder="" value="<%= orderInfo.celebrantAge %>" readonly>
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="pickupDate">Pickup Date:</label>
+                    <input class="orderSummaryInput" name="pickupDate" placeholder="" value="<%= orderInfo.pickupDate %>" readonly>
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="email">Email:</label>
+                    <input class="orderSummaryInput" name="email" placeholder="" value="<%= orderInfo.email %>" readonly>
+                </div>
+            </form>
+        </div>
+        <!--
         <div class="basketContainer">
             <div class="basketItemContainer">
                 <%_ basketItemList.forEach(function(basketItem, index) { _%>
@@ -72,6 +101,7 @@
                 </form>
             </div>
         </div>
+        -->
         <script>
 
         </script>
