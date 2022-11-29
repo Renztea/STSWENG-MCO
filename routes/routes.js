@@ -14,6 +14,7 @@ app.get('/basket', controller.getBasketItem)
 app.post('/postBasketItem', controller.postBasketItem)
 app.post('/updateBasketItem', controller.updateBasketItem)
 app.post('/removeBasketItem', controller.removeBasketItem)
+app.get('/summary', controller.getOrderSummary)
 
 // Admin pages
 app.get('/Admin', controller.getAdminPage)

@@ -759,6 +759,10 @@ const controller = {
         }
         console.log("End: ", req.session.orders)
         res.send(req.body.totalPrice.toString())
+    },
+
+    getOrderSummary: function(req, res) {
+        res.render('orderSummary')
     }
 
 }   
