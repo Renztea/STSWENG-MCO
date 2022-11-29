@@ -695,13 +695,14 @@ const controller = {
         var itemLength = 0;
         var lastItemNumber = "1";
 
-        if(!req.session.orders) {
+        if(!req.session.orders || req.session.orders == '') {
             req.session.orders = [];
         } else {
             req.session.orders.forEach(val => {
                 itemLength++;
+                console.log("first: " + itemLength)
             })
-
+            console.log("second :" + itemLength)
             lastItemNumber = req.session.orders[itemLength - 1].itemNumber
             lastItemNumber = (parseInt(lastItemNumber) + 1).toString()
         }
@@ -731,26 +732,10 @@ const controller = {
     */
     // test
     getBasketItem: async function(req, res) {
+        var basketItemList = []
+        var totalPrice = 0
+
         if(req.session.orders) {
-            var basketItemList = []
-            var totalPrice = 0
-            /*
-            req.session.orders.forEach(async function(item) {
-                if(item.type == 'Cake') {
-                    var basketItem = await Cake.findOne({name: item.name})
-                                     .then(function(result) {
-                                        console.log(result)
-                                     })
-                } else if (item.type == 'Cupcake') {
-                    var basketItem = await Cupcake.findOne({name: item.name})
-                } else {
-                    var basketItem = await Cookie.findOne({name: item.name})
-                }
-                basketItemList.push(basketItem)
-            });
-            */
-
-
             for (const item of req.session.orders) {
                 if(item.type == 'Cake') {
                     var basketItem = await Cake.findOne({name: item.name}, {_id: 0})
@@ -760,28 +745,26 @@ const controller = {
                     var basketItem = await Cookie.findOne({name: item.name}, {_id: 0})
                 }                
                 
-                totalPrice = totalPrice + parseInt(item.price)
+                totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
                 basketItemList.push(basketItem)    
             }
-                        
-            console.log(basketItemList)
-            console.log(req.session.orders)
-            res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
-        } else {
-            res.redirect('/products/Cake');
         }
+                    
+        console.log(basketItemList)
+        console.log(req.session.order)
+        res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
     },
 
     updateBasketItem: function(req, res) {
         if (req.session.orders) {
             var totalPrice = 0
             req.session.orders.forEach(function(order) {
-                if(req.query.itemNumber == order.itemNumber) {
-                    order.flavor = req.query.flavor
-                    order.size = req.query.size
-                    order.frosting = req.query.frosting
-                    order.quantity = req.query.quantity
-                    order.price = req.query.price
+                if(req.body.itemNumber == order.itemNumber) {
+                    order.flavor = req.body.flavor
+                    order.size = req.body.size
+                    order.frosting = req.body.frosting
+                    order.quantity = req.body.quantity
+                    order.price = req.body.price
                 }
 
                 totalPrice = totalPrice + (parseInt(order.price) * parseInt(order.quantity))
@@ -795,19 +778,44 @@ const controller = {
         if(req.session.orders) {
             req.session.orders.forEach((val, key) => {
                 console.log("key: " + key)
-                    console.log("bodyNumber: " + req.query.itemNumber)
+                    console.log("bodyNumber: " + req.body.itemNumber)
                     console.log("valNumber: " + val.itemNumber)
-                if(req.query.itemNumber == val.itemNumber) {
+                if(req.body.itemNumber == val.itemNumber) {
                     console.log("key: " + key)
-                    console.log("bodyNumber: " + req.query.itemNumber)
+                    console.log("bodyNumber: " + req.body.itemNumber)
                     console.log("valNumber: " + val.itemNumber)
-                    req.query.totalPrice = req.query.totalPrice - parseInt(val.price)
+                    req.body.totalPrice = req.body.totalPrice - (parseInt(val.price) * parseInt(val.quantity))
                     req.session.orders.splice(key, 1)
                 }
             })
         }
         console.log("End: ", req.session.orders)
-        res.send(req.query.totalPrice.toString())
+        res.send(req.body.totalPrice.toString())
+    },
+
+    getOrderSummary: async function(req, res) {
+        var basketItemList = []
+        var totalPrice = 0
+
+        if(req.session.orders) {
+            for (const item of req.session.orders) {
+                if(item.type == 'Cake') {
+                    var basketItem = await Cake.findOne({name: item.name}, {_id: 0})
+                } else if (item.type == 'Cupcake') {
+                    var basketItem = await Cupcake.findOne({name: item.name}, {_id: 0})
+                } else {
+                    var basketItem = await Cookie.findOne({name: item.name}, {_id: 0})
+                }                
+                
+                totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
+                basketItemList.push(basketItem)
+                console.log("dog") 
+            }
+        }
+        console.log(req.query)
+        console.log(totalPrice)
+
+        res.render('orderSummary', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
     }
 
 }   
