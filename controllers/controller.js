@@ -728,7 +728,7 @@ const controller = {
                     var basketItem = await Cookie.findOne({name: item.name}, {_id: 0})
                 }                
                 
-                totalPrice = totalPrice + parseInt(item.price)
+                totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
                 basketItemList.push(basketItem)    
             }
                         

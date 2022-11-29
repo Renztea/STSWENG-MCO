@@ -29,7 +29,7 @@
                 <%_ basketItemList.forEach(function(basketItem, index) { _%>
                 <div class="basketItem" name="<%= productItemList[index].itemNumber %>" data="<%= productItemList[index].type %>" label="<%= index %>">
                     <div class="basketItemImage">
-                        <img src="images/cake1.jpg" placeholder="trial" alt="1">
+                        <img src="<%= basketItem.image %>" placeholder="trial" alt="1">
                     </div>
                     
                     <!--
@@ -317,7 +317,7 @@
                     var currentSize = $('#size' + itemIndex).val()
                     var currentFrosting = $('#frosting' + itemIndex).val()
                     var currentQuantity = $('#quantity' + itemIndex).val()
-                    var currentPrice = $('#price' + itemIndex).text()
+                    var currentPrice = $('#price' + itemIndex).attr('data')
                     var productItem = productItemList[itemIndex]
 
                     $.get('/updateBasketItem', 
