@@ -699,26 +699,10 @@ const controller = {
     */
     // test
     getBasketItem: async function(req, res) {
+        var basketItemList = []
+        var totalPrice = 0
+
         if(req.session.orders) {
-            var basketItemList = []
-            var totalPrice = 0
-            /*
-            req.session.orders.forEach(async function(item) {
-                if(item.type == 'Cake') {
-                    var basketItem = await Cake.findOne({name: item.name})
-                                     .then(function(result) {
-                                        console.log(result)
-                                     })
-                } else if (item.type == 'Cupcake') {
-                    var basketItem = await Cupcake.findOne({name: item.name})
-                } else {
-                    var basketItem = await Cookie.findOne({name: item.name})
-                }
-                basketItemList.push(basketItem)
-            });
-            */
-
-
             for (const item of req.session.orders) {
                 if(item.type == 'Cake') {
                     var basketItem = await Cake.findOne({name: item.name}, {_id: 0})
@@ -731,13 +715,11 @@ const controller = {
                 totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
                 basketItemList.push(basketItem)    
             }
-                        
-            console.log(basketItemList)
-            console.log(req.session.orders)
-            res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
-        } else {
-            res.redirect('/products/Cake');
         }
+                    
+        console.log(basketItemList)
+        console.log(req.session.order)
+        res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
     },
 
     updateBasketItem: function(req, res) {
@@ -769,7 +751,7 @@ const controller = {
                     console.log("key: " + key)
                     console.log("bodyNumber: " + req.query.itemNumber)
                     console.log("valNumber: " + val.itemNumber)
-                    req.query.totalPrice = req.query.totalPrice - parseInt(val.price)
+                    req.query.totalPrice = req.query.totalPrice - (parseInt(val.price) * parseInt(val.quantity))
                     req.session.orders.splice(key, 1)
                 }
             })
