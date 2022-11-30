@@ -20,45 +20,8 @@
                 <%_ basketItemList.forEach(function(basketItem, index) { _%>
                 <div class="basketItem" name="<%= productItemList[index].itemNumber %>" data="<%= productItemList[index].type %>" label="<%= index %>">
                     <div class="basketItemImage">
-                        <img src="<%= basketItem.image %>" placeholder="trial" alt="1">
+                        <img id="image<%= index %>" src="<%= productItemList[index].image %>" placeholder="trial" alt="1">
                     </div>
-                    
-                    <!--
-                    <div class="basketItemInfo">
-                        <div class="basketNameContainer">
-                            <h2>Birthday chocolate</h2>
-                            <input type="hidden" name="productName" value="productName">
-                        </div>
-                        <div class="basketTypeContainer">
-                            <h3>Type of Cake:</h3>
-                            <select class="editFlavor" title="Flavor" id="flavor" name="flavor">
-                                <option>Select Flavor</option>
-                                
-                            </select>
-                            <select class="editSize" title="Size" id="size" name="size">
-                                <option>Select Size</option>
-                                
-                            </select> 
-                        </div>
-                    </div>
-                    
-                    <div class="basketItemQuantity">
-                        <div class="basketQuantityContainer">
-                            <span id="decrement" class="incdec basketDecrement">-</span>
-                            <input class="quantity basketQuantity" type="number" value="1">
-                            <span id="increment" class="incdec basketIncrement">+</span>
-                        </div>
-                    </div>
-
-                    <div class="basketGroupPriceNRemove">
-                        <div class="basketItemPrice">
-                            <h2>100000</h2>
-                        </div>
-                        <div class="basketItemRemove">
-                            <button class="removeItem">Remove</button>
-                        </div>
-                    </div>
-                    -->
 
                     <div class="basketItemInfo">
                         <div class="basketNameContainer">
@@ -368,94 +331,6 @@
                             $('#priceValue').text(result)
                     })
                 }
-
-                /*
-                function checkUpdate(itemIndex) {
-                    var productRecord = productItemList[itemIndex]
-                    if (productRecord.type == 'Cake') {
-                        var currentFlavor = $('#flavor' + itemIndex).val()
-                        var currentSize = $('#size' + itemIndex).val()
-                        var currentQuantity = $('#quantity' + itemIndex).val()
-                        var currentPrice = parseInt($('#price' + itemIndex).text())
-
-                        console.log(currentFlavor + " " + productRecord.flavor)
-                        console.log(currentSize + " " + productRecord.size)
-                        console.log(currentQuantity + " " + productRecord.quantity)
-                        console.log(currentPrice + " " + productRecord.price)
-                        if (currentFlavor != productRecord.flavor || currentSize != productRecord.size 
-                            || currentQuantity != productRecord.quantity || currentPrice != productRecord.price) {
-                            $('.update' + itemIndex).css("display", "inline")
-                            console.log("trash")
-                        } else {
-                            console.log("same")
-                            $('.update' + itemIndex).css("display", "none");
-                        }
-                    } else if (productRecord.type == 'Cupcake') {
-                        var currentFlavor = $('#flavor' + itemIndex).val()
-                        var currentFrosting = $('#frosting' + itemIndex).val()
-                        var currentQuantity = $('#quantity' + itemIndex).val()
-                        var currentPrice = parseInt($('#price' + itemIndex).text())
-
-                        console.log(currentFlavor + " " + productRecord.flavor)
-                        console.log(currentFrosting + " " + productRecord.frosting)
-                        console.log(currentQuantity + " " + productRecord.quantity)
-                        console.log(currentPrice + " " + productRecord.price)
-                        if (currentFlavor != productRecord.flavor || currentFrosting != productRecord.frosting 
-                            || currentQuantity != productRecord.quantity || currentPrice != productRecord.price) {
-                            $('.update' + itemIndex).css("display", "inline")
-                            console.log("trash")
-                        } else {
-                            $('.update' + itemIndex).css("display", "none");
-                            console.log("same")
-                        }
-                    } else {
-                        var currentQuantity = $('#quantity' + itemIndex).val()
-                        var currentPrice = parseInt($('#price' + itemIndex).text())
-
-                        if (currentQuantity != productRecord.quantity || currentPrice != productRecord.price) {
-                            $('.update' + itemIndex).css("display", "inline")
-                        } else {
-                            $('.update' + itemIndex).css("display", "none");
-                        }
-                    }
-                }
-
-                $('.updateItem').click(function() {
-                    var itemNumber = $(this).parents('.basketItem').attr('name')
-                    var itemIndex = $(this).parents('.basketItem').attr('label')
-                    var itemType = $(this).parents('.basketItem').attr('data')
-                    var currentFlavor = $('#flavor' + itemIndex).val()
-                    var currentSize = $('#size' + itemIndex).val()
-                    var currentFrosting = $('#frosting' + itemIndex).val()
-                    var currentQuantity = $('#quantity' + itemIndex).val()
-                    var currentPrice = $('#price' + itemIndex).text()
-                    var productItem = productItemList[itemIndex]
-
-                    $.get('/updateBasketItem', 
-                        {itemNumber: itemNumber, 
-                        flavor: currentFlavor || "", 
-                        size: currentSize || "", 
-                        frosting: currentFrosting || "", 
-                        quantity: currentQuantity, 
-                        price: currentPrice}, 
-                                                
-                        function(result) {
-                            if (itemType == 'Cake') {
-                                productItem.flavor = currentFlavor
-                                productItem.size = currentSize
-                            } else if (itemType == 'Cupcake') {
-                                productItem.flavor = currentFlavor
-                                productItem.frosting = currentFrosting
-                            }
-
-                            productItem.quantity = currentQuantity
-                            productItem.price = currentPrice
-
-                            $('#priceValue').text(result)
-                            $('.update' + itemIndex).css("display", "none");
-                    })
-                })
-                */
 
                 $('.removeItem').click(function() {
                     var itemContainer = $(this).parents('.basketItem')

@@ -647,13 +647,14 @@ const controller = {
         var category = req.params.category
         var pageNumber = req.query.pageNumber || 0
         var orders;
-        var orderCount = 7;
+        var orderCount = 0;
         var offSet = 0;
 
         if(pageNumber > 0) {
           offSet = pageNumber - 1;
         }
 
+        /*
         if (offSet == 0) { 
             orders = [{orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022001",
                         name: "Jeff", cellphoneNo: "0123456789", price: "1000", status: "UNPAID"}, 
@@ -671,16 +672,18 @@ const controller = {
                     {orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022002",
                     name: "Josh", cellphoneNo: "0123456789", price: "2000", status: "PAID"}]
             }
-        
-        /*
-        if (category == 'All') {
-            orders = Orders.find({}).limit(5).skip(5 * offSet)
-            orderCount = Orders.find({}).count()
-        } else {
-            orders = Orders.find({"Status": category}).limit(5).skip(5 * offSet)
-            orderCount = Orders.find({"Status": category}).count()
-        }
         */
+        
+        
+        if (category == 'All') {
+            orders = await Order.find({}).limit(5).skip(5 * offSet)
+            orderCount = Order.find({}).count()
+        } else {
+            orders = await Order.find({"Status": category}).limit(5).skip(5 * offSet)
+            orderCount = Order.find({"Status": category}).count()
+        }
+        
+        console.log(orders)
 
        orders["category"] = category;
         if(pageNumber > 0) {
@@ -712,6 +715,7 @@ const controller = {
 
         var productInfo = {"itemNumber": lastItemNumber,
                         "name": req.body.name,
+                        "image": req.body.image,
                         "price": req.body.price,
                         "flavor": req.body.flavor,
                         "size": req.body.size,
@@ -799,30 +803,18 @@ const controller = {
     },
 
     getOrderSummary: async function(req, res) {
-        var basketItemImageList = []
         var totalPrice = 0
 
         if(req.session.orders) {
-            for (const item of req.session.orders) {
-                if(item.type == 'Cake') {
-                    var basketItemImage = await Cake.findOne({name: item.name}, ['image'])
-                } else if (item.type == 'Cupcake') {
-                    var basketItemImage = await Cupcake.findOne({name: item.name}, ['image'])
-                } else {
-                    var basketItemImage = await Cookie.findOne({name: item.name}, ['image'])
-                }                
-                
+            for (const item of req.session.orders) {                   
                 totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
-                basketItemImageList.push(basketItemImage)
-                console.log("dog") 
             }
         }
 
-        console.log(basketItemImageList)
         console.log(req.query)
         console.log(totalPrice)
 
-        res.render('orderSummary', {basketItemImageList: basketItemImageList, productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
+        res.render('orderSummary', {productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
     },
 
     postOrderComplete: function(req, res) {
@@ -888,7 +880,7 @@ const controller = {
             expectedPickUpDate: pickupDate,
             email: email,
             contactNumber: contact,
-            orders: "",
+            orders: req.session.orders,
             totalPrice: price,
             orderStatus: "UNPAID",
             orderPlacedDate: orderDate,

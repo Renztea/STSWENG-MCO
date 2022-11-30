@@ -58,41 +58,41 @@
                             <th class="orderBasketTotalSummaryHeader">Total</th>
                         </tr>
                     </thead>
-                    <%_ basketItemImageList.forEach(function(basketItemImage, index) { _%>
+                    <%_ productItemList.forEach(function(productItem) { _%>
                     <tbody>
                         <tr class="orderBasketProductSummaryRow">
                             <td class="orderBasketProductImageSummary" data-label="Product">
                                 <div class="orderBasketProductImageContainer">
-                                    <img src="<%= basketItemImage.image %>" placeholder="trial" alt="1">
+                                    <img src="<%= productItem.image %>" placeholder="trial" alt="1">
                                 </div>
                             </td>
                             <td class="orderBasketProductInfoSummary" data-label="Product">
                             <table>
                                     <tr>
-                                        <td>Name: <%= productItemList[index].name %></td>
+                                        <td>Name: <%= productItem.name %></td>
                                     </tr>
                                     <tr>
-                                        <td>Flavor: <%= productItemList[index].flavor %></td>
+                                        <td>Flavor: <%= productItem.flavor %></td>
                                     </tr>
                                     <tr>
-                                        <td>Size: <%= productItemList[index].size %></td>
+                                        <td>Size: <%= productItem.size %></td>
                                     </tr>
                                     <tr>
-                                        <td>Frosting: <%= productItemList[index].frosting %></td>
+                                        <td>Frosting: <%= productItem.frosting %></td>
                                     </tr>
                             </table>
                             </td>
                             <td class="orderBasketProductDedicationSummary" data-label="Dedication">
-                                <%= productItemList[index].dedication %>
+                                <%= productItem.dedication %>
                             </td>
                             <td class="orderBasketProductQuantitySummary" data-label="Quantity">
-                                <%= productItemList[index].quantity %>
+                                <%= productItem.quantity %>
                             </td>
                             <td class="orderBasketProductPriceSummary" data-label="Price">
-                                <span>&#8369;<%= productItemList[index].price %></span>
+                                <span>&#8369;<%= productItem.price %></span>
                             </td>
                             <td class="orderBasketProductTotalSummary" data-label="Total">
-                                <span>&#8369;<%= parseInt(productItemList[index].price) * parseInt(productItemList[index].quantity)%></span>
+                                <span>&#8369;<%= parseInt(productItem.price) * parseInt(productItem.quantity)%></span>
                             </td>
                         </tr>
                     </tbody>

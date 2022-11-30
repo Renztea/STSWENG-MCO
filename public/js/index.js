@@ -361,7 +361,8 @@ $(document).ready(function() {
 
     $(".addBtn").click(function() {
       $.post('/postBasketItem', 
-            {name: $('#displayProductName').text(), 
+            {name: $('#displayProductName').text(),
+            image: $('#displayProductImage').attr('src'), 
             price: $('#displayProductPrice').attr('data'), 
             flavor: $('#displayProductFlavor').find(':selected').val() || "", 
             size: $('#displayProductSize').find(":selected").val() || "", 
