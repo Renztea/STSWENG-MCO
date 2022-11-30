@@ -41,23 +41,23 @@ const orderSchema = new mongoose.Schema ({
         type: Number,
         required: true
     },
-    orderStatus: {
+    status: {
         type: String,
         required: true
     },
-    orderPlacedDate: {
+    orderDate: {
         type: String,
         required: true
     },
-    orderPayedDate: {
+    payDate: {
         type: String,
         required: false
     },
-    orderPickedUpDate: {
+    pickUpDate: {
         type: String,
         required: false
     },
-    orderCancelledDate: {
+    cancelDate: {
         type: String,
         required: false
     },

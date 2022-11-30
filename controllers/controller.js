@@ -656,16 +656,16 @@ const controller = {
 
         /*
         if (offSet == 0) { 
-            orders = [{orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022001",
-                        name: "Jeff", cellphoneNo: "0123456789", price: "1000", status: "UNPAID"}, 
-                    {orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022002",
-                    name: "Josh", cellphoneNo: "0123456789", price: "2000", status: "PAID"},
-                    {orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022002",
-                    name: "Josh", cellphoneNo: "0123456789", price: "2000", status: "PAID"},
-                    {orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022002",
-                    name: "Josh", cellphoneNo: "0123456789", price: "2000", status: "PAID"},
-                    {orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022002",
-                    name: "Josh", cellphoneNo: "0123456789", price: "2000", status: "PAID"}]
+            orders = [{orderDate: "11/12/2022", payDate: "", pickUpDate: "", cancelDate: "", orderID: "11122022001",
+                        name: "Jeff", contactNumber: "0123456789", price: "1000", status: "UNPAID"}, 
+                    {orderDate: "11/12/2022", payDate: "", pickUpDate: "", cancelDate: "", orderID: "11122022002",
+                    name: "Josh", contactNumber: "0123456789", price: "2000", status: "PAID"},
+                    {orderDate: "11/12/2022", payDate: "", pickUpDate: "", cancelDate: "", orderID: "11122022002",
+                    name: "Josh", contactNumber: "0123456789", price: "2000", status: "PAID"},
+                    {orderDate: "11/12/2022", payDate: "", pickUpDate: "", cancelDate: "", orderID: "11122022002",
+                    name: "Josh", contactNumber: "0123456789", price: "2000", status: "PAID"},
+                    {orderDate: "11/12/2022", payDate: "", pickUpDate: "", cancelDate: "", orderID: "11122022002",
+                    name: "Josh", contactNumber: "0123456789", price: "2000", status: "PAID"}]
             } else {
                 orders = [{orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022001",
                         name: "Jeff", cellphoneNo: "0123456789", price: "1000", status: "UNPAID"}, 
@@ -682,6 +682,7 @@ const controller = {
             orders = await Order.find({"Status": category}).limit(5).skip(5 * offSet)
             orderCount = Order.find({"Status": category}).count()
         }
+        
         
         console.log(orders)
 
@@ -882,11 +883,11 @@ const controller = {
             contactNumber: contact,
             orders: req.session.orders,
             totalPrice: price,
-            orderStatus: "UNPAID",
-            orderPlacedDate: orderDate,
-            orderPayedDate: "",
-            orderPickedUpDate: "",
-            orderCancelledDate: ""
+            status: "UNPAID",
+            orderDate: orderDate,
+            payDate: "",
+            pickUpDate: "",
+            cancelDate: ""
         })
        res.send("Success")
 

@@ -30,16 +30,16 @@
             <td class="orderTableInfo" data-label="Pay Date"><%= order.payDate %></td>
             <%_ } _%>
             <%_ if (orderList.category == "all" || orderList.category == "pickedup") { _%>
-            <td class="orderTableInfo" data-label="Picked Up Date"><%= order.pickedUpDate %></td>
+            <td class="orderTableInfo" data-label="Picked Up Date"><%= order.pickUpDate %></td>
             <%_ } _%>
             <%_ if (orderList.category == "all" || orderList.category == "cancelled") { _%>
-            <td class="orderTableInfo" data-label="Cancelled Date"><%= order.cancelledDate %></td>
+            <td class="orderTableInfo" data-label="Cancelled Date"><%= order.cancelDate %></td>
             <%_ } _%>
-            <td class="orderTableInfo" data-label="Order I.D."><%= order.orderId %></td>
+            <td class="orderTableInfo" data-label="Order I.D."><%= order.orderID %></td>
             <td class="orderTableInfo" data-label="Name"><%= order.name %></td>
-            <td class="orderTableInfo" data-label="Cellphone No."><%= order.cellphoneNo %></td>
+            <td class="orderTableInfo" data-label="Cellphone No."><%= order.contactNumber %></td>
             <td class="orderTableInfo" data-label="View Orders"><button class="orderViewBtn" data="<%= order.orderId %>">Open</button></td>
-            <td class="orderTableInfo" data-label="Price"><%= order.price %></td>
+            <td class="orderTableInfo" data-label="Price"><%= order.totalPrice %></td>
             <td class="orderTableInfo" data-label="Status"><%= order.status %></td>
             <%_ if (orderList.category != "cancelled" && orderList.category != "pickedup") { _%>
             <td class="orderTableInfo" data-label="Action">
