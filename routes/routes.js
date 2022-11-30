@@ -21,6 +21,7 @@ app.post('/orderComplete', controller.postOrderComplete)
 app.get('/Admin', controller.getAdminPage)
 app.get('/Admin/:type', controller.adminProductPage)
 app.get('/Admin/orders/:category', controller.getOrdersPage)
+app.get('/getOrdersView', controller.getOrdersView)
 app.get('/deleteProduct', controller.deleteProduct)
 
 // Form controllers

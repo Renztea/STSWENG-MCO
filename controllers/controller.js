@@ -928,7 +928,16 @@ const controller = {
             cancelDate: ""
         })
        res.send("Success")
+    },
+    
+    getOrdersView: async function(req, res) {
+        var orderID = req.query.orderID
 
+        console.log(orderID)
+
+        var orders = await Order.findOne({orderID: orderID});
+
+        res.send(orders)
     }
 
 }   

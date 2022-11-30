@@ -49,18 +49,20 @@
                 <div class="orderClose">+</div>
 
                 <div class="orderModalInfo">
-                    <p>Buyer Name:</p>
-                    <p>Celebrant Name:</p>
-                    <p>Celebrant Gender:</p>
-                    <p>Celebrant Age:</p>
-                    <p>Contact Number:</p>
-                    <p>Pick Up Date:</p>
+                    <p>Buyer Name: <span id="orderViewName"></span></p>
+                    <p>Celebrant Name: <span id="orderViewCelebrantName"></span></p>
+                    <p>Celebrant Gender: <span id="orderViewCelebrantGender"></span></p>
+                    <p>Celebrant Age: <span id="orderViewCelebrantAge"></span></p>
+                    <p>Expected Pick Up Date: <span id="orderViewExpectedPickUpDate"></span></p>
+                    <p>Email: <span id="orderViewEmail"></span></p>
+                    <p>Contact Number: <span id="orderViewContactNumber"></span></p>
                 </div>
 
                 <div class="orderModalProductContainer">
                     <fieldset class="orderModalFieldSet">
                         <legend>Ordered Products</legend>
-                        <table class="orderModalTable ">
+                        <table class="orderModalTable">
+                            <!--
                             <thead class="orderTableHeader">
                                 <tr>
                                     <th class="orderTableHeaderItem">Order#</th>  
@@ -71,19 +73,20 @@
                                     <th class="orderTableHeaderItem">Quantity</th>
                                     <th class="orderTableHeaderItem">Price</th>
                                 </tr>
+                            </thead>
 
                             <tbody>
                                 <tr class="orderTableInfoRow">
-                                    <td class="orderTableInfo" data-label="Order#">1</td>
-                                    <td class="orderTableInfo" data-label="Name">Among Us</td>
-                                    <td class="orderTableInfo" data-label="Flavor">Chocolate</td>
-                                    <td class="orderTableInfo" data-label="Size">6"x5"</td>
-                                    <td class="orderTableInfo" data-label="Frosting"></td>
-                                    <td class="orderTableInfo" data-label="Quantity">1</td>
-                                    <td class="orderTableInfo" data-label="Price">200</td>
+                                    <td id="orderViewOrderNumber"class="orderTableInfo" data-label="Order#">1</td>
+                                    <td id="orderViewProductName" class="orderTableInfo" data-label="Name">Among Us</td>
+                                    <td id="orderViewProductFlavor" class="orderTableInfo" data-label="Flavor">Chocolate</td>
+                                    <td id="orderViewProductSize" class="orderTableInfo" data-label="Size">6"x5"</td>
+                                    <td id="orderViewProductFrosting" class="orderTableInfo" data-label="Frosting"></td>
+                                    <td id="orderViewProductQuantity" class="orderTableInfo" data-label="Quantity">1</td>
+                                    <td class="orderTableInfo" data-label="Price">&#8369;<span id="orderViewProductPrice">200</span></td>
                                 </tr>
                             </tbody>
-                            </thead>
+                            -->
                         </table>
                     </fieldset>
                 </div>
@@ -195,6 +198,52 @@
             $(".orderViewBtn").click(function() {
                 document.querySelector('.orderModalBackground').style.display = 'flex';
                 var orderID = $(this).attr("data")
+                $.get('/getOrdersView', {orderID: orderID}, function(result) {
+                    console.log(result)
+                    $('#orderViewName').text(result.name)
+                    $('#orderViewCelebrantName').text(result.celebrant)
+                    $('#orderViewCelebrantGender').text(result.celebrantGender)
+                    $('#orderViewCelebrantAge').text(result.celebrantAge)
+                    $('#orderViewExpectedPickUpDate').text(result.expectedPickUpDate)
+                    $('#orderViewEmail').text(result.email)
+                    $('#orderViewContactNumber').text(result.contactNumber)
+
+                    $('.orderModalTable').html('')
+                    var tr = "<thead class=\"orderTableHeader\"><tr><th class=\"orderTableHeaderItem\">Order#</th>  <th class=\"orderTableHeaderItem\">Name</th><th class=\"orderTableHeaderItem\">Flavor</th><th class=\"orderTableHeaderItem\">Size</th><th class=\"orderTableHeaderItem\">Frosting</th><th class=\"orderTableHeaderItem\">Quantity</th><th class=\"orderTableHeaderItem\">Price</th></tr></thead>"
+                    $('.orderModalTable').append(tr)
+                    var orderNumber = 1
+                    for (const order of result.orders) {
+                        var productPrice = parseInt(order.quantity) * parseInt(order.price)
+                        var flavor = ""
+                        var size = ""
+                        var frosting = ""
+
+                        if (order.flavor == "vanilla") {
+                            flavor = "Vanilla"
+                        } else if (order.flavor == "chocolate") {
+                            flavor = "Chocolate"
+                        } else if (order.flavor == "redVelvet") {
+                            flavor = "Red Velvet"
+                        }
+
+                        if (order.size == "6x5") {
+                            size = "6\" x 5\""
+                        } else if (order.size == "8x5") {
+                            size = "8\" x 5\""
+                        }
+
+                        if (order.frosting == "fondant") {
+                            frosting = "Fondant"
+                        } else if (order.frosting == "icing") {
+                            frosting = "Icing"
+                        }
+
+                        tr = "<tbody><tr class=\"orderTableInfoRow\"><td id=\"orderViewOrderNumber\"class=\"orderTableInfo\" data-label=\"Order#\">" + orderNumber + "</td><td id=\"orderViewProductName\" class=\"orderTableInfo\" data-label=\"Name\">" + result.name + "</td><td id=\"orderViewProductFlavor\" class=\"orderTableInfo\" data-label=\"Flavor\">" + flavor + "</td><td id=\"orderViewProductSize\" class=\"orderTableInfo\" data-label=\"Size\">" + size+ "</td><td id=\"orderViewProductFrosting\" class=\"orderTableInfo\" data-label=\"Frosting\">" + frosting + "</td><td id=\"orderViewProductQuantity\" class=\"orderTableInfo\" data-label=\"Quantity\">" + result.quantity + "</td><td class=\"orderTableInfo\" data-label=\"Price\">&#8369;<span id=\"orderViewProductPrice\">" + productPrice + "</span></td></tr></tbody>"                        
+                        $('.orderModalTable').append(tr)
+                        orderNumber = orderNumber + 1
+                    }
+                    document.querySelector('.orderModalBackground').style.display = 'flex';
+                })
             })
 
             $(".orderClose").click(function() {
