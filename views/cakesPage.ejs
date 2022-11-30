@@ -101,9 +101,7 @@
 				<div class="addProductHeader">
 					<h1>ADD CAKE</h1>
 				</div>
-				<% if (error_msg.length != 0) { %>
-					<%- include("partials/messages") %>
-				<% } %>
+				<%- include("partials/messages") %>
 				<p id="productNameAddError" class="addError"></p>
 				<p id="productPricesVanilla1AddError" class="addError"></p>
 				<p id="productPricesVanilla2AddError" class="addError"></p>
@@ -111,7 +109,7 @@
 				<p id="productPricesChocolate2AddError" class="addError"></p>
 				<p id="filenameAddError" class="addError"></p>
 				<p id="productNumberCakeAddError" class="addError"></p>
-				<form action="/addCake" id="addProductForm" class="addProductForm" method="Post" enctype="multipart/form-data">
+				<form id="addProductForm" class="addProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
 						<tr>
 							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cake Name:</label></div></td>	
@@ -199,7 +197,7 @@
 				<p id="productPricesChocolate2EditError" class="editError"></p>
 				<p id="filenameEditError" class="editError"></p>
 				<p id="productNumberCakeEditError" class="editError"></p>
-				<form action="/editCake" id="editProductForm" class="editProductForm" method="Post" enctype="multipart/form-data">
+				<form id="editProductForm" class="editProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
 						<tr>
 							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cake Name:</label></div></td>	
@@ -386,7 +384,6 @@
 			var productType = window.location.pathname.split("/").pop()
 			$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
 				editModal.find("[name='productName']").val(result.name)
-				editModal.find("[name='productName']").css('border-color', '#6F4E37')
 				editModal.find(".productID").val(result._id)
 				editModal.find(".myFile").val('')
 				editModal.find(".previewPic").attr('src', result.image)
@@ -422,14 +419,13 @@
 					$(this).val('')
 				}
 			} else {
-					$('.previewPic').attr('src', '')
-					$(this).val('')
+				$('.previewPic').attr('src', '')
+				$(this).val('')
 			}
 		})
 
 		// Checks if inputs are valid through communicating with the back-end, if valid then save the product.
 		$('#addl').click(function() {
-
 			var formData = new FormData(document.getElementById('addProductForm')); // All data of the input fields after clicking the add button.
 
 			$.ajax({ // Calls back-end verification to check if the inputted values are valid

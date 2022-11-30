@@ -266,7 +266,6 @@ const controller = {
                 }
             })
         } else {
-            
             var messages = errors.array().map((item) => item.msg);
             var errorFields = errors.array().map((item) => item.param);
             if (nameExists) {
@@ -325,7 +324,6 @@ const controller = {
             }
             
             if (req.files && validNewImage && newNameisValid) {
-
                 const image = req.files.filename
                 let date = new Date();
                 var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
@@ -356,17 +354,17 @@ const controller = {
             } else if (!req.files && newNameisValid){
                 try {
                     await Cake.updateOne({
-                    _id: productID
-                }, {
-                    name: productName, 
-                    vanilla6x5Price: productVanilla6x5price,
-                    vanilla8x5Price: productVanilla8x5price,
-                    chocolate6x5Price: productChocolate6x5price,
-                    chocolate8x5Price: productChocolate8x5price,
-                    dedication: productDedication,
-                    numberCake: productNumberCake,
-                    numberCakePrice: productNumberCakePrice
-                })
+                        _id: productID
+                    }, {
+                        name: productName, 
+                        vanilla6x5Price: productVanilla6x5price,
+                        vanilla8x5Price: productVanilla8x5price,
+                        chocolate6x5Price: productChocolate6x5price,
+                        chocolate8x5Price: productChocolate8x5price,
+                        dedication: productDedication,
+                        numberCake: productNumberCake,
+                        numberCakePrice: productNumberCakePrice
+                    })
                     res.send('Success')
                 } catch (err) {
                     console.log("Error on updating the Cake product into the database. \n" + err)
@@ -390,8 +388,9 @@ const controller = {
     addCupcake: async function(req, res) {
 
         const errors = validationResult(req)
+        const nameExists = await Cupcake.findOne({name: req.body.productName})
 
-        if (errors.isEmpty()) {
+        if (errors.isEmpty() && !nameExists) {
             var productName = (req.body.productName).trim()
             var productVanilla1 = req.body.productPricesVanilla1
             var productVanilla2 = req.body.productPricesVanilla2
@@ -399,49 +398,70 @@ const controller = {
             var productChocolate2 = req.body.productPricesChocolate2
             var productRedVelvet1 = req.body.productPricesRedVelvet1
             var productRedVelvet2 = req.body.productPricesRedVelvet2
+
             const image = req.files.filename
             let date = new Date();
             var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
                 date.getSeconds() + '_'+ image.name;
             var imagePath = '/images/' + filenameChange;
             image.mv(path.resolve(__dirname, '../public/images', filenameChange),async (error) => {
-                try {
-                    await Cupcake.create({
-                        name: productName, 
-                        vanillaFondantPrice: productVanilla1,
-                        vanillaIcingPrice: productVanilla2,
-                        chocolateFondantPrice: productChocolate1,
-                        chocolateIcingPrice: productChocolate2,
-                        redvelvetFondantPrice: productRedVelvet1,
-                        redvelvetIcingPrice: productRedVelvet2,
-                        image: imagePath,
-                    })
-                } catch (error) {
-                    console.log("Error on adding the new Cupcake product into the database. \n" + err)
+                if (error) {
+                    console.log("Error on adding the uploaded picture into the database. \n" + err)
+                    res.send('Failed')
+                } else {
+                    try {
+                        await Cupcake.create({
+                            name: productName, 
+                            vanillaFondantPrice: productVanilla1,
+                            vanillaIcingPrice: productVanilla2,
+                            chocolateFondantPrice: productChocolate1,
+                            chocolateIcingPrice: productChocolate2,
+                            redvelvetFondantPrice: productRedVelvet1,
+                            redvelvetIcingPrice: productRedVelvet2,
+                            image: imagePath,
+                        })
+                        res.send('Success')
+                    } catch (err) {
+                        console.log("Error on adding the new Cupcake product into the database. \n" + err)
+                        res.send('Failed')
+                    }
                 }
             })
-            res.redirect('admin/Cupcake')
         } else {
-            const messages = errors.array().map((item) => item.msg);
-            req.flash('error_msg', messages[0]);
-            res.redirect('admin/Cupcake');
+            var messages = errors.array().map((item) => item.msg);
+            var errorFields = errors.array().map((item) => item.param);
+            if (nameExists) {
+                messages.push('Product name already exists.')
+                errorFields.push('productName')
+            }
+            res.send({errorFields, messages})
         }
         
     },
 
     editCupcake: async function(req, res) {
+
         const errors = validationResult(req)
+
         var validNewImage = true
+
         if (req.files) {
-            var testing = req.files.filenameEdit.mimetype
+            var testing = req.files.filename.mimetype
             var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
             if (!validImageTypes.includes(testing)) {
                 validNewImage = false
             }
         } 
 
-        if (errors.isEmpty()) {
-            var productID = req.body.productID
+        var productID = req.body.productID
+        var nameExists = await Cupcake.findOne({name: (req.body.productName).trim()})
+        var pastInfo = await Cupcake.findOne({_id: productID})
+        var newNameisValid = true
+        if (nameExists && pastInfo.name != (req.body.productName).trim()) {
+            newNameisValid = false
+        }
+
+        if (errors.isEmpty() && newNameisValid && validNewImage) {
             var productName = (req.body.productName).trim()
             var productVanilla1 = req.body.productPricesVanilla1
             var productVanilla2 = req.body.productPricesVanilla2
@@ -450,17 +470,14 @@ const controller = {
             var productRedVelvet1 = req.body.productPricesRedVelvet1
             var productRedVelvet2 = req.body.productPricesRedVelvet2
             
-            if (req.files && validNewImage == true) {
-                
-                const image = req.files.filenameEdit
+            if (req.files && validNewImage && newNameisValid) {
+                const image = req.files.filename
                 let date = new Date();
                 var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
                 date.getSeconds() + '_'+ image.name;
                 var imagePath = '/images/' + filenameChange;
                 image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
-                    var pastInfo = await Cupcake.findOne({_id: productID})
                     var pastImage = './public' + pastInfo.image
-                    fs.unlinkSync(pastImage)
                     try {
                         await Cupcake.updateOne({
                             _id: productID
@@ -474,17 +491,13 @@ const controller = {
                             redvelvetIcingPrice: productRedVelvet2,
                             image: imagePath,
                         })
+                        fs.unlinkSync(pastImage)
+                        res.send('Success')
                     } catch (error) {
                         console.log("Error on updating the Cupcake product with image into the database. \n" + err)
                     }
-                    res.redirect('admin/Cupcake')
                 })
-            } else if (req.files && validNewImage == false) {
-
-                req.flash('editCupcakeError_msg', 'Invalid Image Type!!!');
-                res.redirect('admin/Cupcake');
-
-            } else if (!req.files){
+            } else if (!req.files && newNameisValid){
                 try {
                     await Cupcake.updateOne({
                         _id: productID
@@ -497,81 +510,100 @@ const controller = {
                         redvelvetFondantPrice: productRedVelvet1,
                         redvelvetIcingPrice: productRedVelvet2,
                     })
-                } catch (error) {
+                    res.send('Success')
+                } catch (err) {
                     console.log("Error on updating the Cupcake product into the database. \n" + err)
                 }
-                res.redirect('admin/Cupcake')
-            }
+            } 
         } else {
-            const messages = errors.array().map((item) => item.msg);
-            req.flash('editCupcakeError_msg', messages[0]);
-            res.redirect('admin/Cupcake');
+            var messages = errors.array().map((item) => item.msg);
+            var errorFields = errors.array().map((item) => item.param);
+            if (!validNewImage) {
+                messages.push('Invalid file type.')
+                errorFields.push('filename')
+            }
+            if (!newNameisValid) {
+                messages.push('Product name already exists.')
+                errorFields.push('productName')
+            }
+            res.send({errorFields, messages})
         }
     },
 
     addCookie: async function(req, res) {
-
         const errors = validationResult(req)
+        const nameExists = await Cookie.findOne({name: req.body.productName})
 
-        if (errors.isEmpty()) {
+        if (errors.isEmpty() && !nameExists) {
             var productName = (req.body.productName).trim()
             var productPrices = req.body.productPrices
+
             const image = req.files.filename
             let date = new Date();
-
             var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
                 date.getSeconds() + '_'+ image.name;
-
             var imagePath = '/images/' + filenameChange;
-
             image.mv(path.resolve(__dirname, '../public/images', filenameChange),async (error) => {
-                try {
-                    await Cookie.create({
-                        name: productName, 
-                        price: productPrices,
-                        image: imagePath,
-                    })
-                } catch (error) {
-                    console.log("Error on adding the new Cookie product into the database. \n" + err)
+                if (error) {
+                    console.log("Error on adding the uploaded picture into the database. \n" + err)
+                    res.send('Failed')
+                } else {
+                    try {
+                        await Cookie.create({
+                            name: productName, 
+                            price: productPrices,
+                            image: imagePath,
+                        })
+                    } catch (err) {
+                        console.log("Error on adding the new Cookie product into the database. \n" + err)
+                    }
                 }
             })
-
-            res.redirect('admin/Cookie')
         } else {
-            const messages = errors.array().map((item) => item.msg);
-            req.flash('error_msg', messages[0]);
-            res.redirect('admin/Cookie');
+            var messages = errors.array().map((item) => item.msg);
+            var errorFields = errors.array().map((item) => item.param);
+            if (nameExists) {
+                messages.push('Product name already exists.')
+                errorFields.push('productName')
+            }
+            res.send({errorFields, messages})
         }
         
     },
 
     editCookie: async function(req, res) {
         const errors = validationResult(req)
+
         var validNewImage = true
+
         if (req.files) {
-            var testing = req.files.filenameEdit.mimetype
+            var testing = req.files.filename.mimetype
             var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
             if (!validImageTypes.includes(testing)) {
                 validNewImage = false
             }
         } 
 
-        if (errors.isEmpty()) {
-            var productID = req.body.productID
+        var productID = req.body.productID
+        var nameExists = await Cookie.findOne({name: (req.body.productName).trim()})
+        var pastInfo = await Cookie.findOne({_id: productID})
+        var newNameisValid = true
+        if (nameExists && pastInfo.name != (req.body.productName).trim()) {
+            newNameisValid = false
+        }
+
+        if (errors.isEmpty() && newNameisValid && validNewImage) {
             var productName = (req.body.productName).trim()
             var productPrices = req.body.productPrices
             
-            if (req.files && validNewImage == true) {
-
-                const image = req.files.filenameEdit
+            if (req.files && validNewImage && newNameisValid) {
+                const image = req.files.filename
                 let date = new Date();
                 var filenameChange = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + 
                 date.getSeconds() + '_'+ image.name;
                 var imagePath = '/images/' + filenameChange;
                 image.mv(path.resolve(__dirname, '../public/images', filenameChange), async (error) => {
-                    var pastInfo = await Cookie.findOne({_id: productID})
                     var pastImage = './public' + pastInfo.image
-                    fs.unlinkSync(pastImage)
                     try {
                         await Cookie.updateOne({
                             _id: productID
@@ -580,33 +612,37 @@ const controller = {
                             price: productPrices,
                             image: imagePath,
                         })
+                        fs.unlinkSync(pastImage)
+                        res.send('Success')
                     } catch (error) {
                         console.log("Error on updating the Cookie product with image into the database. \n" + err)
                     }
-                    res.redirect('admin/Cookie')
                 })
-            } else if (req.files && validNewImage == false) {
-
-                req.flash('editCookieError_msg', 'Invalid Image Type!!!');
-                res.redirect('admin/Cookie');
-
-            } else if (!req.files){
-                try {   
+            } else if (!req.files && newNameisValid){
+                try {
                     await Cookie.updateOne({
                         _id: productID
                     }, {
                         name: productName, 
                         price: productPrices,
-                    }) 
-                } catch (error) {
+                    })
+                    res.send('Success')
+                } catch (err) {
                     console.log("Error on updating the Cookie product into the database. \n" + err)
                 }
-                res.redirect('admin/Cookie')
-            }
+            } 
         } else {
-            const messages = errors.array().map((item) => item.msg);
-            req.flash('editCookieError_msg', messages[0]);
-            res.redirect('admin/Cookie');
+            var messages = errors.array().map((item) => item.msg);
+            var errorFields = errors.array().map((item) => item.param);
+            if (!validNewImage) {
+                messages.push('Invalid file type.')
+                errorFields.push('filename')
+            }
+            if (!newNameisValid) {
+                messages.push('Product name already exists.')
+                errorFields.push('productName')
+            }
+            res.send({errorFields, messages})
         }
     },
 

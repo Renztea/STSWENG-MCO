@@ -81,15 +81,17 @@
 					<h1>ADD COOKIE</h1>
 				</div>
 				<%- include("partials/messages") %>
-				<h2><strong id="errorName"></strong></h2>
-				<form action="/addCookie" class="addProductForm" method="Post" enctype="multipart/form-data">
+				<p id="productNameAddError" class="addError"></p>
+				<p id="productPricesAddError" class="addError"></p>
+				<p id="filenameAddError" class="addError"></p>
+				<form id="addProductForm" class="addProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
 						<tr>
 							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cookie Name:</label></div></td>	
 							<td class="td2" style="width: 3%;"></td>
-							<td class="td2" style="width: 25%;"><input class="input" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
+							<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
 							<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
-							<td class="td2"><input type="file" id="myFile" name="filename" ></td>
+							<td class="td2"><input type="file" class="myFile" name="filename" ></td>
 						</tr>
 					
 						<tr>
@@ -120,7 +122,7 @@
 							<td class="td2"></td>
 							<td class="td2"></td>
 							<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
-							<a>&nbsp;&nbsp;&nbsp;</a><button class="Add" id="addl" disabled>Add</button></td>	
+							<a>&nbsp;&nbsp;&nbsp;</a><button type="button" class="Add" id="addl">Add</button></td>	
 						</tr>
 					</table>
 				</form>
@@ -133,15 +135,17 @@
 					<div class="editProductHeader">
 						<h1>EDIT COOKIE</h1>
 					</div>
-					<h2><strong id="errorName"></strong></h2>
-					<form action="/editCookie" class="editProductForm" method="Post" enctype="multipart/form-data">
+					<p id="productNameEditError" class="editError"></p>
+					<p id="productPricesEditError" class="editError"></p>
+					<p id="filenameEditError" class="editError"></p>
+					<form id="editProductForm" class="editProductForm" method="Post" enctype="multipart/form-data">
 						<table class="table2">
 							<tr>
 								<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cookie Name:</label></div></td>	
 								<td class="td2" style="width: 3%;"></td>
-								<td class="td2" style="width: 25%;"><input class="input" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
+								<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
 								<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
-								<td class="td2"><input type="file" id="myFile" name="filename" ></td>
+								<td class="td2"><input type="file" class="myFile" name="filename" ></td>
 							</tr>
 						
 							<tr>
@@ -172,7 +176,7 @@
 								<td class="td2"></td>
 								<td class="td2"></td>
 								<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
-								<a>&nbsp;&nbsp;&nbsp;</a><button class="Edit2" id="edit2">Save</button></td>
+								<a>&nbsp;&nbsp;&nbsp;</a><button type="button" class="Edit2" id="edit2">Save</button></td>
 							</tr>
 							<input type="hidden" class="productID" name="productID">
 						</table>
@@ -181,14 +185,13 @@
 		</div>
 	</body>
 	<script>
+		// Checks if there are error messages to automatically open the modal.
 		$( document ).ready(function() {
-			var addCookieErrors = '<%= error_msg %>';
-			var editCookieErrors = '<%= editCookieError_msg %>';
-			if(addCookieErrors.length > 0) {
-				$('#cookieeModal').css('display', 'block')
-			} else if (editCookieErrors.length > 0) {
-				alert('Edit Failed!!!\n' + editCookieErrors)
-			}
+			var fields = [
+				'productName', 
+				'productPrices', 
+				'filename',
+			]	
 
 			// Get the modal
 			var modal = document.getElementsByClassName("modal")[0];
@@ -227,7 +230,7 @@
 			}
 			
 			Close[0].onclick = function() {
-			modal.style.display = "none";
+				modal.style.display = "none";
 			}
 		
 			for (var i = 1; i < Close.length; i++) {
@@ -240,7 +243,6 @@
 			}
 			
 			// When the user clicks anywhere outside of the modal, close it
-		
 			window.onclick = function(event) {
 				if (event.target == modal) {
 					modal.style.display = "none";
@@ -255,46 +257,142 @@
 				}
 			}
 
-			$('#productName').blur(function () {
-				var productName = $(this).val()
-				var productType = window.location.pathname.split("/").pop()
-				$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
-					if (result) {
-						$('#productName').css('background-color', 'red')
-						$('#errorName').text('Cookie is already available!')
-						$('#errorName').css('color', 'red')
-						$('#addl').prop('disabled', true)
-					} else {
-						$('#productName').css('background-color', 'white')
-						$('#errorName').text('')
-						$('#addl').prop('disabled', false)
-					}
-				})
-			})
-
 			// Modal of the add product (Initializes the modal)
 			$('.AddC').click(function() {
+				$('.addError').text('')
 				var addModal = $('#cookieModal')
+				addModal.find('.inputName').val('')
+				addModal.find('.inputName').css('border-color', '#6F4E37')
 				addModal.find(".input").val('');
+				addModal.find('.input').css('border-color', '#6F4E37')
 				addModal.find(".input").attr('placeholder', 'Enter Price');
-				addModal.find(".input").attr('readonly', false);
-				addModal.find(".input").css('background-color', 'white')
+				addModal.find('.myFile').css('border-style', 'none')
+				addModal.find('.myFile').val('')
+				addModal.find('.previewPic').attr('src', '')
+				addModal.find("#errorName").text('');
+				addModal.find('#addl').prop('disabled', false)
 			})
 
 			// Modal of the edit product (Shows the current information of the product)
 			$('.Edit').click(function() {
+				$('.editError').text('')
 				var border = $(this).parents('.border')
 				var editModal = $('#editcookieModal')
 				editModal.find(".input").val(0)
+				editModal.find(".input").css('border-color', '#6F4E37')
 				var productName = border.children('#displayProductName').text()
 				var productType = window.location.pathname.split("/").pop()
 				$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
 					editModal.find("[name='productName']").val(result.name)
 					editModal.find(".productID").val(result._id)
+					editModal.find(".myFile").val('')
+					editModal.find(".previewPic").attr('src', result.image)
 					editModal.find("[name='productPrices']").val(result.price)
-					editModal.find(".input").attr('placeholder', 'Enter Price');
-					editModal.find(".input").attr('readonly', false);
-					editModal.find(".input").css('background-color', 'white')
+				})
+			})
+
+			// Displays a preview of an uploaded valid image product.
+			$('.myFile').change(function(event) { 
+				if(event.target.files.length > 0){
+					var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
+					var isValid = validImageTypes.includes(event.target.files[0].type)
+					if (isValid) {
+						var src = URL.createObjectURL(event.target.files[0]);
+						$('.previewPic').attr('src', src)
+					} else {
+						$('.previewPic').attr('src', '')
+						$(this).val('')
+					}
+				} else {
+					$('.previewPic').attr('src', '')
+					$(this).val('')
+				}
+			})
+
+			$('#addl').click(function() {
+				var formData = new FormData(document.getElementById('addProductForm')); // All data of the input fields after clicking the add button.
+
+				$.ajax({ // Calls back-end verification to check if the inputted values are valid
+					type: "POST",
+					enctype: 'multipart/form-data',
+					url: "/addCookie",
+					data: formData,
+					processData: false,
+					contentType: false,
+					cache: false,
+					timeout: 600000,
+				}).done(function(result) {
+
+					// Resets all the fields to remove the existing errors before checking again.
+					fields.forEach(function(field) {
+						if (field != 'filename') {
+							$('#addProductForm').find(`[name='${field}']`).css('border-color', '#6F4E37')
+						} else {
+							$('#addProductForm').find(`[name='${field}']`).css('border-style', 'none')
+						}
+					})
+					$('.addError').text('') // Remove all add Cupcake error messages from the display.
+
+					var inputFieldErrors = result.errorFields // name of the input fields that have errors
+					var errorMessages = result.messages // error messages of each field
+
+					
+					if (inputFieldErrors || errorMessages) { // Iterates all the errors and displays all the errors
+						for (let i = 0; i < inputFieldErrors.length ; i++) {
+							$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-color', 'red')
+							$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-width', '2px')
+							$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-style', 'solid')
+							$(`#${inputFieldErrors[i]}AddError`).text(errorMessages[i]) // Ganito ginawa ko para malagay yung errors sa mga <p></p>
+						}
+					} else { // If there are no errors the page will reload to show the new products.
+						$(this).prop('disabled', true)
+						window.location.reload()
+					}
+				}).fail(function(error) {
+					console.log("ERROR : ", error);
+				})
+			})
+
+			// Checks if inputs are valid through communicating with the back-end, if valid then edit the product.
+			$('#edit2').click(function() {
+				var formData = new FormData(document.getElementById('editProductForm'));
+				$.ajax({
+					type: "POST",
+					enctype: 'multipart/form-data',
+					url: "/editCookie",
+					data: formData,
+					processData: false,
+					contentType: false,
+					cache: false,
+					timeout: 600000,
+				}).done(function(result) {
+
+					// Resets all the fields to remove the existing errors before checking again.
+					fields.forEach(function(field) {
+						if (field != 'filename') {
+							$('#editProductForm').find(`[name='${field}']`).css('border-color', '#6F4E37')
+						} else {
+							$('#editProductForm').find(`[name='${field}']`).css('border-style', 'none')
+						}
+					})
+					$('.editError').text('') // Removes all add Cake error messages from the display.
+
+					var inputFieldErrors = result.errorFields // name of the input fields that have errors
+					var errorMessages = result.messages // error messages of each field
+
+					if (inputFieldErrors || errorMessages) { // Iterates all the errors and displays all the errors
+						for (let i = 0; i < inputFieldErrors.length ; i++) {
+							$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-color', 'red')
+							$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-width', '2px')
+							$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-style', 'solid')
+							$(`#${inputFieldErrors[i]}EditError`).text(errorMessages[i])
+						}
+					} else {
+						$(this).prop('disabled', true)
+						window.location.reload()
+					}
+				}).fail(function(error) {
+					console.log("ERROR : ", error);
 				})
 			})
 				
