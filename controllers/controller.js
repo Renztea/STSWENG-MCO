@@ -675,12 +675,12 @@ const controller = {
         */
         
         
-        if (category == 'All') {
+        if (category == 'all') {
             orders = await Order.find({}).limit(5).skip(5 * offSet)
-            orderCount = Order.find({}).count()
+            orderCount = await Order.find({}).count()
         } else {
-            orders = await Order.find({"Status": category}).limit(5).skip(5 * offSet)
-            orderCount = Order.find({"Status": category}).count()
+            orders = await Order.find({"status": category}).limit(5).skip(5 * offSet)
+            orderCount = await Order.find({"status": category}).count()
         }
         
         
