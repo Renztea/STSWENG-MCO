@@ -554,8 +554,10 @@ const controller = {
                             price: productPrices,
                             image: imagePath,
                         })
+                        res.send('Success')
                     } catch (err) {
                         console.log("Error on adding the new Cookie product into the database. \n" + err)
+                        res.send('Failed')
                     }
                 }
             })
