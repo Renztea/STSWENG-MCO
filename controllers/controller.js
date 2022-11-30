@@ -5,9 +5,12 @@ const { validationResult } = require('express-validator');
 const Cake = require('../models/cake')
 const Cupcake = require('../models/cupcake')
 const Cookie = require('../models/cookie');
+const Order = require('../models/order')
 const { equal } = require('assert');
 const { isObjectIdOrHexString } = require('mongoose');
 const { findOne } = require('../models/cake');
+const cake = require('../models/cake');
+const { get } = require('http');
 
 function randomizer (currentProducts) {
     var randomProducts = []
@@ -796,28 +799,105 @@ const controller = {
     },
 
     getOrderSummary: async function(req, res) {
-        var basketItemList = []
+        var basketItemImageList = []
         var totalPrice = 0
 
         if(req.session.orders) {
             for (const item of req.session.orders) {
                 if(item.type == 'Cake') {
-                    var basketItem = await Cake.findOne({name: item.name}, {_id: 0})
+                    var basketItemImage = await Cake.findOne({name: item.name}, ['image'])
                 } else if (item.type == 'Cupcake') {
-                    var basketItem = await Cupcake.findOne({name: item.name}, {_id: 0})
+                    var basketItemImage = await Cupcake.findOne({name: item.name}, ['image'])
                 } else {
-                    var basketItem = await Cookie.findOne({name: item.name}, {_id: 0})
+                    var basketItemImage = await Cookie.findOne({name: item.name}, ['image'])
                 }                
                 
                 totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
-                basketItemList.push(basketItem)
+                basketItemImageList.push(basketItemImage)
                 console.log("dog") 
             }
         }
+
+        console.log(basketItemImageList)
         console.log(req.query)
         console.log(totalPrice)
 
-        res.render('orderSummary', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
+        res.render('orderSummary', {basketItemImageList: basketItemImageList, productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
+    },
+
+    postOrderComplete: function(req, res) {
+        var date = new Date()
+        var name = req.body.name
+        var celebrantName = req.body.celebrantName
+        var gender = req.body.celebrantGender
+        var age = req.body.celebrantAge
+        var pickupDate = req.body.pickupDate
+        var email = req.body.email
+        var contact = req.body.contactNo
+        var price = req.body.totalPrice
+        var orderID = ""
+        var orderDate = ""
+
+        console.log('aaa:', req.body)
+        if (date.getHours() < 10) {
+            orderID = orderID + '0'
+        } 
+        orderID = orderID + date.getHours()
+
+        if (date.getMinutes() < 10) {
+            orderID = orderID + '0'
+        }
+        orderID = orderID + date.getMinutes()
+        
+        if (date.getSeconds() < 10) {
+            orderID = orderID + '0'
+        }
+        orderID = orderID + date.getSeconds()
+        if (date.getMilliseconds() < 100 && date.getMilliseconds() >= 10) {
+            orderID = orderID + '0'
+        } else if (date.getMilliseconds() < 10) {
+            orderID = orderID + '00'
+        }
+        orderID = orderID + date.getMilliseconds()
+        orderID = orderID + name[0] + celebrantName[0] + gender[0]
+
+        if (parseInt(age) < 100 && parseInt(age) >= 10) {
+            orderID = orderID + '0'
+        } else if (parseInt(age) < 10) {
+            orderID = orderID + '00'
+        }
+        orderID = orderID + age
+
+        orderDate = orderDate + date.getFullYear() + '-'
+        if (date.getMonth() + 1 < 10) {
+            orderDate = orderDate + '0'
+        }
+        orderDate = orderDate + (date.getMonth() + 1) + '-'
+
+        if (date.getDate() < 10) {
+            orderDate = orderDate + '0'
+        }
+        orderDate = orderDate + date.getDate()
+
+        Order.create({
+            name: name,
+            orderID: orderID,
+            celebrant: celebrantName,
+            celebrantGender: gender,
+            celebrantAge: age,
+            expectedPickUpDate: pickupDate,
+            email: email,
+            contactNumber: contact,
+            orders: "",
+            totalPrice: price,
+            orderStatus: "UNPAID",
+            orderPlacedDate: orderDate,
+            orderPayedDate: "",
+            orderPickedUpDate: "",
+            orderCancelledDate: ""
+        })
+       res.send("Success")
+
     }
 
 }   

@@ -15,8 +15,8 @@
 			<%- include("partials/menubuttons") %>
         </div>
 
-        <div class="orderInfoSummary">
-            <form>
+        <form action="/orderComplete" method="POST">
+            <div class="orderInfoSummary">
                 <div>
                     <label class="orderSummaryStyle" for="buyerName">Buyer Name:</label>
                     <input class="orderSummaryInput" name="name" placeholder="" value="<%= orderInfo.name %>" readonly>
@@ -41,67 +41,79 @@
                     <label class="orderSummaryStyle" for="email">Email:</label>
                     <input class="orderSummaryInput" name="email" placeholder="" value="<%= orderInfo.email %>" readonly>
                 </div>
-            </form>
-        </div>
-        <!--
-        <div class="basketContainer">
-            <div class="basketItemContainer">
-                <%_ basketItemList.forEach(function(basketItem, index) { _%>
-                <div class="basketItem" name="<%= productItemList[index].itemNumber %>" data="<%= productItemList[index].type %>" label="<%= index %>">
-                    <div class="basketItemImage">
-                        <img src="<%= basketItem.image %>" placeholder="trial" alt="1">
-                    </div>
-
-                    <div class="basketItemInfo">
-                        <div class="basketNameContainer">
-                            <h2><%= productItemList[index].name %></h2>
-                        </div>
-                        <div class="basketTypeContainer">
-                            <h3>Type of <%= productItemList[index].type %>:</h3>
-                            <%_ if (productItemList[index].type != 'Cookie') { _%>
-                            <p class="editFlavor" title="Flavor" id="flavor<%= index %>" name="flavor"><%= productItemList[index].flavor %></p>
-                            <%_ } _%>
-
-                            <%_ if (productItemList[index].type == 'Cake') { _%>
-                            <p class="editSize" title="Size" id="size<%= index %>" name="size"><%= productItemList[index].size %></p> 
-                            <%_ } _%>
-
-                            <%_ if (productItemList[index].type == 'Cupcake') { _%>
-                            <p id="frosting<%= index %>" class="editFrosting" title="Frosting" name="frosting"><%= productItemList[index].frosting %></p>
-                            <%_ } _%>
-                        </div>
-                    </div>
-                    
-                    <div class="basketItemQuantity">
-                        <div class="basketQuantityContainer">
-                            <p id="quantity<%= index %>" class="quantity basketQuantity" type="number"><%= productItemList[index].quantity %></p>
-                        </div>
-                    </div>
-
-                    <div class="basketGroupPriceNRemove">
-                        <div class="basketItemPrice">
-                            <h2>&#8369;<span id="price<%= index %>" data="<%= productItemList[index].price %>"><%= parseInt(productItemList[index].price) * parseInt(productItemList[index].quantity) %></span></h2>
-                        </div>
-                    </div>
-
-                    <input type="hidden" name="test" data="<%= productItemList[index] %>"/>
+                <div>
+                    <label class="orderSummaryStyle" for="contactNo">Contact Number:</label>
+                    <input class="orderSummaryInput" name="contactNo" placeholder="" value="<%= orderInfo.contactNo %>" readonly>
                 </div>
-                <%_ }) _%>
             </div>
-            <div class="totalPriceContainer">
-                <span class="totalPrice">Total: &#8369;<span id="priceValue"><%= totalPrice %></span></span>
-                <p>Buyer Name: <%= orderInfo.name %></p>
-                <p>Celebrant Name: <%= orderInfo.celebrant %></p>
-                <p>Celebrant Gender: <%= orderInfo.celebrantGender %></p>
-                <p>Celebrant Age: <%= orderInfo.celebrantAge %></p>
-                <p>PickedUp Date: <%= orderInfo.pickupDate %></p>
-                <p>Contact Number: <%= orderInfo.contactNo %></p>
-                <form action="/orderInformation">
-                    <button class="basketSubmit">PROCEED</button>
-                </form>
+
+            <div id="orderBasketSummary">
+                <table class="orderBasketTableSummary">
+                    <thead class="orderBasketTableSummaryHeader">
+                        <tr>
+                            <th class="orderBasketProductSummaryHeader" colspan="2">Product</th>
+                            <th class="orderBasketDedicationSummaryHeader">Dedication</th>
+                            <th class="orderBasketQuantitySummaryHeader">Quantity</th>
+                            <th class="orderBasketPriceSumamryHeader">Price</th>
+                            <th class="orderBasketTotalSummaryHeader">Total</th>
+                        </tr>
+                    </thead>
+                    <%_ basketItemImageList.forEach(function(basketItemImage, index) { _%>
+                    <tbody>
+                        <tr class="orderBasketProductSummaryRow">
+                            <td class="orderBasketProductImageSummary" data-label="Product">
+                                <div class="orderBasketProductImageContainer">
+                                    <img src="<%= basketItemImage.image %>" placeholder="trial" alt="1">
+                                </div>
+                            </td>
+                            <td class="orderBasketProductInfoSummary" data-label="Product">
+                            <table>
+                                    <tr>
+                                        <td>Name: <%= productItemList[index].name %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Flavor: <%= productItemList[index].flavor %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Size: <%= productItemList[index].size %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Frosting: <%= productItemList[index].frosting %></td>
+                                    </tr>
+                            </table>
+                            </td>
+                            <td class="orderBasketProductDedicationSummary" data-label="Dedication">
+                                <%= productItemList[index].dedication %>
+                            </td>
+                            <td class="orderBasketProductQuantitySummary" data-label="Quantity">
+                                <%= productItemList[index].quantity %>
+                            </td>
+                            <td class="orderBasketProductPriceSummary" data-label="Price">
+                                <span>&#8369;<%= productItemList[index].price %></span>
+                            </td>
+                            <td class="orderBasketProductTotalSummary" data-label="Total">
+                                <span>&#8369;<%= parseInt(productItemList[index].price) * parseInt(productItemList[index].quantity)%></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="orderBasketTotalAmountSummaryHeader" colspan="5">Total Amount:</th>
+                            <td class="orderBasketTotalAmountSummary" data-label="Total">
+                                <span>&#8369;<%= totalPrice %></span>
+                                <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="orderBasketCheckOut" data-label="Total" colspan="6">
+                                <button class="orderBasketSubmit">CHECK OUT</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                    <%_ }) _%>
+                </table>
             </div>
-        </div>
-        -->
+        </form>
         <script>
 
         </script>

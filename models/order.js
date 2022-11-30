@@ -25,13 +25,17 @@ const orderSchema = new mongoose.Schema ({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+        required: true
+    },
     contactNumber: {
         type: Number,
         required: true
     },
     orders: {
         type: String,
-        required: true
+        required: false
     },
     totalPrice: {
         type: Number,
@@ -47,15 +51,15 @@ const orderSchema = new mongoose.Schema ({
     },
     orderPayedDate: {
         type: String,
-        required: true
+        required: false
     },
     orderPickedUpDate: {
         type: String,
-        required: true
+        required: false
     },
     orderCancelledDate: {
         type: String,
-        required: true
+        required: false
     },
 })
 

@@ -1,14 +1,18 @@
 $(document).ready(function() {
     // Duplicate alert display when on click
     // Maybe need to display number Cake flavor
-    $(".productBox").click(function() {
+    $(".productBox").click(function() {      
       var productName = $(this).find('img').attr('placeholder');
       var productType = $(this).find('input').val();
-
-      document.querySelector('.mainBackground').style.overflow = 'hidden';
+      
+      document.querySelector('.mainBackground').style.overflow = 'hidden';      
 
       $.get('/getProductInfo', {name: productName, type: productType}, function(result) {
         if (result) {
+          $('#displayProductFlavor').unbind('change');
+          $('#displayProductSize').unbind('change');
+          $('#displayProductFrosting').unbind('change');
+
           $('#displayProductImage').attr('src', result.image);
           $('#displayProductName').text(result.name)
           $("#displayProductQuantity").val(1)
@@ -20,7 +24,7 @@ $(document).ready(function() {
           $('#displayProductFlavor').hide()
           $('#displayProductSize').hide()
 
-          if (productType == 'Cake') {
+          if (productType == 'Cake') {            
             var hasVanillaFlavor = false;
             var hasSize6x5 = false;
             var hasSize8x5 = false;
@@ -85,6 +89,7 @@ $(document).ready(function() {
               $('#displayProductPrice').attr('data', productPrice)
               $('#displayProductPrice').text(productPrice)
               
+
               $('#displayProductFlavor').change(function() {
                 updateAvailableCakeSize(result)
                 updateCakePrice(result)
@@ -186,7 +191,7 @@ $(document).ready(function() {
           document.querySelector('.modalBackground').style.display = 'flex';
         }
       }).fail(function() {
-        
+        console.log('fail');
       })
     });
 

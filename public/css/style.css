@@ -736,7 +736,7 @@ input::-webkit-inner-spin-button {
 .orderInfoSummary {
   width: 80%;
   margin: auto;
-  background-color: orange;
+  border: 2px solid #000000;
 }
 
 .orderSummaryStyle {
@@ -757,6 +757,96 @@ input::-webkit-inner-spin-button {
 .orderSummaryInput:hover {
   cursor: default;
 }
+
+.orderBasketTableSummary {
+  width: 80%;
+  margin: auto;
+  margin-top: 20px;
+  border-collapse: collapse;
+  border: 2px solid #000000;
+}
+
+.orderBasketTableSummaryHeader, .orderBasketProductSummaryRow {
+  border-bottom: 2px solid #000000;
+}
+
+.orderBasketProductSummaryRow {
+  height: 150px;
+}
+
+.orderBasketProductImageSummary, 
+.orderBasketProductDedicationSummary, 
+.orderBasketProductQuantitySummary, 
+.orderBasketProductPriceSummary,
+.orderBasketProductTotalSummary,
+.orderBasketTotalAmountSummary,
+.orderBasketCheckOut {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.orderBasketProductImageSummary, 
+.orderBasketProductQuantitySummary, 
+.orderBasketProductPriceSummary, 
+.orderBasketProductTotalSummary  {
+  width: 10%;
+}
+
+.orderBasketProductInfoSummary, .orderBasketProductDedicationSummary{
+  width: 30%;
+}
+
+.orderBasketProductInfoSummary {
+  font-family: 'Poppins', sans-serif;
+}
+
+.orderBasketProductImageContainer {
+  height: 100px;
+  width: 80px;
+  margin: auto;
+}
+
+.orderBasketProductImageContainer img{
+  height: 100%;
+  width: 100%;
+}
+
+.orderBasketTotalAmountSummaryHeader {
+  column-span: 5;
+}
+
+.orderBasketProductSummaryHeader, .orderBasketTotalAmountSummaryHeader {
+  text-align: left;
+}
+
+.orderBasketProductSummaryHeader,
+.orderBasketDedicationSummaryHeader,
+.orderBasketQuantitySummaryHeader,
+.orderBasketPriceSumamryHeader,
+.orderBasketTotalSummaryHeader,
+.orderBasketTotalAmountSummaryHeader,
+.orderBasketCheckOut {
+  padding: 10px;
+}
+
+.orderBasketTotalAmountSummary {
+  font-weight: bold;
+}
+
+.orderBasketSubmit {
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  color: #4A3627;
+  padding: 5px;
+  border-radius: 30px;
+  border: none;
+  background: #95E2A6;
+  cursor: pointer
+}
+
+/* End - Order Summary Page
 
 /* Start - Main Page(Additional Info) */
 .carousel {
