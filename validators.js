@@ -8,13 +8,13 @@ const loginValidation = [
 
 const addCakeValidation = [
   body('productName').not().isEmpty().withMessage("Product name is required!"),
-  body('productPricesVanilla1').not().isEmpty().withMessage('Price is required! If a cake does not have a Vanilla 6"x 5" just put 0!')
+  body('productPricesVanilla1').not().isEmpty().withMessage('Price for Vanilla 6"x 5" is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesVanilla2').not().isEmpty().withMessage('Price is required! If a cake does not have a Vanilla 8"x 5" just put 0!')
+  body('productPricesVanilla2').not().isEmpty().withMessage('Price for Vanilla 8"x 5" is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesChocolate1').not().isEmpty().withMessage('Price is required! If a cake does not have a Chocolate 6"x 5" just put 0!')
+  body('productPricesChocolate1').not().isEmpty().withMessage('Price for Chocolate 6"x 5" is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesChocolate2').not().isEmpty().withMessage('Price is required! If a cake does not have a Chocolate 8"x 5" just put 0!')
+  body('productPricesChocolate2').not().isEmpty().withMessage('Price for Chocolate 8"x 5" is required!')
     .bail().isInt({min:0}).withMessage("Please provide a valid price!"),
   body('filename').custom((value, {req}) => {
     switch(path.extname(req.files.filename.name)){
@@ -27,20 +27,20 @@ const addCakeValidation = [
         return false
         break;
     }
-  }).withMessage("Please provide a valid image").bail(),
+  }).withMessage("Please provide a valid image!").bail(),
   body('productPricesNumberCake').not().isEmpty().withMessage('Price is required for a number cake!!!')
     .bail().isInt({min:0}).withMessage("Please provide a valid price!"),
 ]
 
 const editCakeValidation = [
   body('productName').not().isEmpty().withMessage("Product name is required!"),
-  body('productPricesVanilla1').not().isEmpty().withMessage('Price is required! If a cake does not have a Vanilla 6"x 5" just put 0!')
+  body('productPricesVanilla1').not().isEmpty().withMessage('Price for Vanilla 6"x 5" is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesVanilla2').not().isEmpty().withMessage('Price is required! If a cake does not have a Vanilla 8"x 5" just put 0!')
+  body('productPricesVanilla2').not().isEmpty().withMessage('Price for Vanilla 8"x 5" is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesChocolate1').not().isEmpty().withMessage('Price is required! If a cake does not have a Chocolate 6"x 5" just put 0!')
+  body('productPricesChocolate1').not().isEmpty().withMessage('Price for Chocolate 6"x 5" is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesChocolate2').not().isEmpty().withMessage('Price is required! If a cake does not have a Chocolate 8"x 5" just put 0!')
+  body('productPricesChocolate2').not().isEmpty().withMessage('Price for Chocolate 8"x 5" is required!')
     .bail().isInt({min:0}).withMessage("Please provide a valid price!"),
   body('productPricesNumberCake').not().isEmpty().withMessage('Price is required for a number cake!!!')
     .bail().isInt({min:0}).withMessage("Please provide a valid price!"),
@@ -48,17 +48,17 @@ const editCakeValidation = [
 
 const addCupcakeValidation = [
   body('productName').not().isEmpty().withMessage("Product name is required!"),
-  body('productPricesVanilla1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Vanilla flavor with Fondant just put 0!')
+  body('productPricesVanilla1').not().isEmpty().withMessage('Price for Vanilla flavor with Fondant is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesVanilla2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Vanilla flavor with Icing just put 0!')
+  body('productPricesVanilla2').not().isEmpty().withMessage('Price for Vanilla flavor with Icing is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesChocolate1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Chocolate flavor with Fondant just put 0!')
+  body('productPricesChocolate1').not().isEmpty().withMessage('Price for Chocolate flavor with Fondant is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesChocolate2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Chocolate flavor with Icing just put 0!')
+  body('productPricesChocolate2').not().isEmpty().withMessage('Price for Chocolate flavor with Icing is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesRedVelvet1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Red Velvet flavor with Fondant just put 0!')
+  body('productPricesRedVelvet1').not().isEmpty().withMessage('Price for Red Velvet flavor with Fondant is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesRedVelvet2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Red Velvet flavor with Icing just put 0!')
+  body('productPricesRedVelvet2').not().isEmpty().withMessage('Price for Red Velvet flavor with Icing is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
   body('filename').custom((value, {req}) => {
     switch(path.extname(req.files.filename.name)){
@@ -76,17 +76,17 @@ const addCupcakeValidation = [
 
 const editCupcakeValidation = [
   body('productName').not().isEmpty().withMessage("Product name is required!"),
-  body('productPricesVanilla1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Vanilla flavor with Fondant just put 0!')
+  body('productPricesVanilla1').not().isEmpty().withMessage('Price for Vanilla flavor with Fondant is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesVanilla2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Vanilla flavor with Icing just put 0!')
+  body('productPricesVanilla2').not().isEmpty().withMessage('Price for Vanilla flavor with Icing is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesChocolate1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Chocolate flavor with Fondant just put 0!')
+  body('productPricesChocolate1').not().isEmpty().withMessage('Price for Chocolate flavor with Fondant is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesChocolate2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Chocolate flavor with Icing just put 0!')
+  body('productPricesChocolate2').not().isEmpty().withMessage('Price for Chocolate flavor with Icing is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesRedVelvet1').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Red Velvet flavor with Fondant just put 0!')
+  body('productPricesRedVelvet1').not().isEmpty().withMessage('Price for Red Velvet flavor with Fondant is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
-  body('productPricesRedVelvet2').not().isEmpty().withMessage('Price is required! If a cupcake does not have a Red Velvet flavor with Icing just put 0!')
+  body('productPricesRedVelvet2').not().isEmpty().withMessage('Price for Red Velvet flavor with Icing is required!')
     .bail().isInt({min: 0}).withMessage("Please provide a valid price!"),
 ]
 
