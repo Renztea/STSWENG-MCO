@@ -254,12 +254,12 @@ html, body {
 	width: 200px;
 	max-width: 100%;
 	outline: none;
-    font-size: 12px;
-    border-radius: 15px;
-    border: 2px solid #000000;
-    padding: 0px 5px;
-    height: 30px;
-    margin: 8px 0;
+   	 font-size: 12px;
+    	border-radius: 15px;
+   	 border: 2px solid #000000;
+    	padding: 0px 5px;
+   	 height: 30px;
+   	 margin: 0;
 	border-color: #6F4E37;
 	font-family: Poppins, sans-serif;
 }
@@ -273,7 +273,7 @@ html, body {
     border: 2px solid #000000;
     padding: 0px 5px;
     height: 30px;
-    margin: 8px 0;
+    margin: 0;
 	border-color: #6F4E37;
 	font-family: Poppins, sans-serif;
 }
@@ -362,6 +362,14 @@ html, body {
 	height: 200px;
 }
 
+p{
+	font-size: 13px;
+   	font-weight: bold;
+	color: red;
+	font-family: Poppins, sans-serif;
+	margin-left: 6px;
+}
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -384,10 +392,11 @@ html, body {
   margin: auto;
   margin-top: 200px;
   padding: 0;
-  width: 780px;
+  width: 920px;
   max-width: 100%;
   max-height: 100%;
   border: 2px solid #6F4E37;
+  overflow-y: auto;
 }
 
 .modal-content-cupcake {
