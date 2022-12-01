@@ -101,22 +101,15 @@
 				<div class="addProductHeader">
 					<h1>ADD CAKE</h1>
 				</div>
-				<%- include("partials/messages") %>
-				<p id="productNameAddError" class="addError"></p>
-				<p id="productPricesVanilla1AddError" class="addError"></p>
-				<p id="productPricesVanilla2AddError" class="addError"></p>
-				<p id="productPricesChocolate1AddError" class="addError"></p>
-				<p id="productPricesChocolate2AddError" class="addError"></p>
-				<p id="filenameAddError" class="addError"></p>
-				<p id="productNumberCakeAddError" class="addError"></p>
+				<%- include("partials/messages") %>	
 				<form id="addProductForm" class="addProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
 						<tr>
 							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cake Name:</label></div></td>	
 							<td class="td2" style="width: 3%;"></td>
-							<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
-							<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
-							<td class="td2"><input type="file" class="myFile" name="filename"></td>
+							<td class="td2" style="width: 30%; "><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name" required><p id="productNameAddError" class="addError"></p></td>
+							<td class="td2" style="text-align: center; width: 13%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
+							<td class="td2" ><input type="file" class="myFile" name="filename"><p id="filenameAddError" class="addError"></p></td>
 						</tr>
 						
 						<tr>							
@@ -124,16 +117,17 @@
 							<label for="numberCake">Number Cake</label><span class="checkmark"></span></div></td>
 							<td class="td2"></td>	
 							<td class="td2"></td>	
-							<td class="td2" rowspan="5"><img class="previewPic"></td>							
+							<td class="td2" rowspan="6"><img class="previewPic"></td>							
 						</tr>
 						
+
 						<tr>
 							<td class="td2"><div class="productCss" style="height: 40px; line-height: 40px;"><label class="numberCake" for="productSizes" hidden>Number Cake</label></td>
 							<td class="td2"></td>	
-							<div class="numberCake"><td class="td2"><input class="inputNum" type="number" name="productPricesNumberCake" placeholder="Not Applicable" value="0" hidden></td></div>	
+							<div class="numberCake"><td class="td2"><input class="inputNum" type="number" name="productPricesNumberCake" placeholder="Not Applicable" value="0" hidden><p id="productPricesNumberCakeAddError" class="addError"></p></td></div>	
 							<td class="td2"></td>										
 						</tr>
-						
+
 						<tr>
 							<td class="td2"><div class="productCss" style="height: 20px;"><label class="flavorCake" for="productFlavors">Vanilla</label></div></td>
 							<td class="td2"></td>
@@ -144,41 +138,43 @@
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 40px; line-height: 40px;"><label class="flavorCake" for="productSizes">6 x 5</label></div></td>
 							<td class="td2"></td>								
-							<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"></td>
+							<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"><p id="productPricesVanilla1AddError" class="addError"></p></td>
 							<td class="td2"></td>									
 						</tr>
-						
+
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 40px; line-height: 40px;"><label class="flavorCake" for="productSizes">8 x 5</label></div></td>							
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" name="productPricesVanilla2" placeholder="Enter Price"></td>
+							<td class="td2"><input class="input" type="number" name="productPricesVanilla2" placeholder="Enter Price"><p id="productPricesVanilla2AddError" class="addError"></p></td>
 							<td class="td2"></td>		
 						</tr>
-					
+
+
 						<tr>
 							<td class="td2"><div class="productCss" style="height: 20px;"><label class="flavorCake" for="productFlavors">Chocolate</label></div></td>							
 							<td class="td2"></td>
 							<td class="td2"></td>
 							<td class="td2"></td>
-							<td class="td2"></td>
+							
 							
 						</tr>
 						
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 40px; line-height: 40px;"><label class="flavorCake" for="productSizes">6 x 5</label></div></td>							
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" name="productPricesChocolate1" placeholder="Enter Price"></td>						
+							<td class="td2"><input class="input" type="number" name="productPricesChocolate1" placeholder="Enter Price"><p id="productPricesChocolate1AddError" class="addError"></p></td>						
 							<td class="td2" colspan="2" style="text-align: center;"><div class="productCss"><input class="inputCheckboxD" type="checkbox" id="productDedication" name="productDedication" value="true">
 							<span class="checkmark"></span><label class="flavorCake" for="allowDedication">Allow dedication</label></div></td>
 						</tr>
-						
+
+
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 40px; line-height: 40px;"><label class="flavorCake" for="productSizes">8 x 5</label></div></td>
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" name="productPricesChocolate2" placeholder="Enter Price"></td>
+							<td class="td2"><input class="input" type="number" name="productPricesChocolate2" placeholder="Enter Price"><p id="productPricesChocolate2AddError" class="addError"></p></td>
 							<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
 							<a>&nbsp;&nbsp;&nbsp;</a><button type="button" class="Add" id="addl">Add</button></td>	
-						</tr>							
+						</tr>					
 					</table>
 				</form>
 			</div>
@@ -189,22 +185,15 @@
 				<span class="close">&times;</span>
 				<div class="editProductHeader">
 					<h1>EDIT CAKE</h1>
-				</div>
-				<p id="productNameEditError" class="editError"></p>
-				<p id="productPricesVanilla1EditError" class="editError"></p>
-				<p id="productPricesVanilla2EditError" class="editError"></p>
-				<p id="productPricesChocolate1EditError" class="editError"></p>
-				<p id="productPricesChocolate2EditError" class="editError"></p>
-				<p id="filenameEditError" class="editError"></p>
-				<p id="productNumberCakeEditError" class="editError"></p>
+				</div>				
 				<form id="editProductForm" class="editProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
 						<tr>
 							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cake Name:</label></div></td>	
 							<td class="td2" style="width: 3%;"></td>
-							<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
-							<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
-							<td class="td2"><input type="file" class="myFile" name="filename"></td>
+							<td class="td2" style="width: 30%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"><p id="productNameEditError" class="editError"></p></td>
+							<td class="td2" style="text-align: center; width: 13%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
+							<td class="td2"><input type="file" class="myFile" name="filename"><p id="filenameEditError" class="editError"></p></td>
 						</tr>
 						
 						<tr>							
@@ -218,7 +207,7 @@
 						<tr>
 							<td class="td2"><div class="productCss" style="height: 40px; line-height: 40px;"><label class="numberCake" for="productSizes" hidden>Number Cake</label></td>
 							<td class="td2"></td>	
-							<div class="numberCake"><td class="td2"><input class="inputNum" type="number" name="productPricesNumberCake" placeholder="Not Applicable" value="0" hidden></td></div>	
+							<div class="numberCake"><td class="td2"><input class="inputNum" type="number" name="productPricesNumberCake" placeholder="Not Applicable" value="0" hidden><p id="productPricesNumberCakeEditError" class="editError"></p></td></div>	
 							<td class="td2"></td>										
 						</tr>
 						
@@ -232,14 +221,14 @@
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 40px; line-height: 40px;"><label class="flavorCake" for="productSizes">6 x 5</label></div></td>
 							<td class="td2"></td>								
-							<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"></td>
+							<td class="td2"><input class="input" type="number" name="productPricesVanilla1" placeholder="Enter Price"><p id="productPricesVanilla1EditError" class="editError"></p></td>
 							<td class="td2"></td>									
 						</tr>
 						
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 40px; line-height: 40px;"><label class="flavorCake" for="productSizes">8 x 5</label></div></td>							
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" name="productPricesVanilla2" placeholder="Enter Price"></td>
+							<td class="td2"><input class="input" type="number" name="productPricesVanilla2" placeholder="Enter Price"><p id="productPricesVanilla2EditError" class="editError"></p></td>
 							<td class="td2"></td>		
 						</tr>
 					
@@ -255,7 +244,7 @@
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 40px; line-height: 40px;"><label class="flavorCake" for="productSizes">6 x 5</label></div></td>							
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" name="productPricesChocolate1" placeholder="Enter Price"></td>						
+							<td class="td2"><input class="input" type="number" name="productPricesChocolate1" placeholder="Enter Price"><p id="productPricesChocolate1EditError" class="editError"></p></td>						
 							<td class="td2" colspan="2" style="text-align: center;"><div class="productCss"><input class="inputCheckboxD" type="checkbox" id="productDedication" name="productDedication" value="true">
 							<span class="checkmark"></span><label class="flavorCake" for="allowDedication">Allow dedication</label></div></td>
 						</tr>
@@ -263,7 +252,7 @@
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 40px; line-height: 40px;"><label class="flavorCake" for="productSizes">8 x 5</label></div></td>
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" name="productPricesChocolate2" placeholder="Enter Price"></td>
+							<td class="td2"><input class="input" type="number" name="productPricesChocolate2" placeholder="Enter Price"><p id="productPricesChocolate2EditError" class="editError"></p></td>
 							<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
 							<a>&nbsp;&nbsp;&nbsp;</a><button type="button" class="Edit2" id="edit2">Save</button></td>
 						</tr>	
@@ -276,7 +265,6 @@
 	<script>
 	// Checks if there are error messages to automatically open the modal.
 	$( document ).ready(function() {
-
 		var fields = [
 			'productName', 
 			'productPricesVanilla1', 
@@ -286,7 +274,6 @@
 			'productPricesNumberCake',
 			'filename',
 		]
-
 		// Get the modal
 		var modal = document.getElementsByClassName("modal")[0];
 		var modals = document.getElementsByClassName("modals");
@@ -309,7 +296,6 @@
 				}
 			}
 		}
-
 		// When the user clicks on <span> (x), close the modal
 		cancel[0].onclick = function() {
 				modal.style.display = "none";
@@ -336,7 +322,6 @@
 				}
 			}
 		}
-
 		// When the user clicks anywhere outside of the modal, close it
 		window.onclick = function(event) {
 			if (event.target == modal) {
@@ -351,26 +336,30 @@
 				}
 			}
 		}
-
 		// Modal of the add product (Initializes the modal)
 		$('.AddA').click(function() {
 			$('.addError').text('')
 			var addModal = $('#cakeModal')
 			addModal.find('.inputName').val('')
 			addModal.find('.inputName').css('border-color', '#6F4E37')
+			addModal.find('.inputName').css('margin-top', '0px')
 			addModal.find(".input").val('');
 			addModal.find('.input').css('border-color', '#6F4E37')
 			addModal.find(".input").attr('placeholder', 'Enter Price');
+			addModal.find('.input').css('margin-top', '0px')
 			addModal.find("[name='productDedication']").prop('checked', false)
 			addModal.find(".inputCheckbox").prop('checked', false)
 			addModal.find(".inputCheckbox").trigger('change')
+			addModal.find('.myFile').css('margin-top', '0px')
 			addModal.find('.myFile').css('border-style', 'none')
 			addModal.find('.myFile').val('')
 			addModal.find('.previewPic').attr('src', '')
 			addModal.find("#errorName").text('');
 			addModal.find('#addl').prop('disabled', false)
+			addModal.find('.inputNum').css('border-color', '#6F4E37')
+			addModal.find(".inputNum").attr('placeholder', 'Enter Price');
+			addModal.find('.inputNum').css('margin-top', '0px')
 		})
-
 		// Modal of the edit product (Shows the current information of the product)
 		$('.Edit').click(function() {
 			$('.editError').text('')
@@ -378,13 +367,17 @@
 			var editModal = $('#editcakeModal')
 			editModal.find(".input").val(0)
 			editModal.find(".input").css('border-color', '#6F4E37')
+			editModal.find('.input').css('margin-top', '0px')
 			editModal.find(".inputNum").val(0)
 			editModal.find(".inputNum").css('border-color', '#6F4E37')
+			editModal.find('.inputNum').css('margin-top', '0px')
 			var productName = border.children('#displayProductName').text()
 			var productType = window.location.pathname.split("/").pop()
 			$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
 				editModal.find("[name='productName']").val(result.name)
 				editModal.find(".productID").val(result._id)
+				editModal.find(".inputName").css('border-color', '#6F4E37')
+				editModal.find('.inputName').css('margin-top', '0px')
 				editModal.find(".myFile").val('')
 				editModal.find(".previewPic").attr('src', result.image)
 				if (result.numberCake == false) {
@@ -405,7 +398,6 @@
 				}
 			})
 		})
-
 		// Displays a preview of an uploaded valid image product.
 		$('.myFile').change(function(event) { 
 			if(event.target.files.length > 0){
@@ -423,11 +415,9 @@
 				$(this).val('')
 			}
 		})
-
 		// Checks if inputs are valid through communicating with the back-end, if valid then save the product.
 		$('#addl').click(function() {
 			var formData = new FormData(document.getElementById('addProductForm')); // All data of the input fields after clicking the add button.
-
 			$.ajax({ // Calls back-end verification to check if the inputted values are valid
 				type: "POST",
             	enctype: 'multipart/form-data',
@@ -448,16 +438,15 @@
 					}
 				})
 				$('.addError').text('') // Remove all add Cake error messages from the display.
-
 				var inputFieldErrors = result.errorFields // name of the input fields that have errors
 				var errorMessages = result.messages // error messages of each field
-
 				
 				if (inputFieldErrors || errorMessages) { // Iterates all the errors and displays all the errors
 					for (let i = 0; i < inputFieldErrors.length ; i++) {
 						$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-color', 'red')
 						$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-width', '2px')
 						$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-style', 'solid')
+						$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('margin-top', '20px')
 						$(`#${inputFieldErrors[i]}AddError`).text(errorMessages[i]) // Ganito ginawa ko para malagay yung errors sa mga <p></p>
 					}
 				} else { // If there are no errors the page will reload to show the new products.
@@ -468,7 +457,6 @@
 				console.log("ERROR : ", error);
 			})
 		})
-
 		// Checks if inputs are valid through communicating with the back-end, if valid then edit the product.
 		$('#edit2').click(function() {
 			var formData = new FormData(document.getElementById('editProductForm'));
@@ -482,7 +470,6 @@
             	cache: false,
             	timeout: 600000,
 			}).done(function(result) {
-
 				// Resets all the fields to remove the existing errors before checking again.
 				fields.forEach(function(field) {
 					if (field != 'filename') {
@@ -492,15 +479,14 @@
 					}
 				})
 				$('.editError').text('') // Removes all add Cake error messages from the display.
-
 				var inputFieldErrors = result.errorFields // name of the input fields that have errors
 				var errorMessages = result.messages // error messages of each field
-
 				if (inputFieldErrors || errorMessages) { // Iterates all the errors and displays all the errors
 					for (let i = 0; i < inputFieldErrors.length ; i++) {
 						$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-color', 'red')
 						$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-width', '2px')
 						$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-style', 'solid')
+						$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('margin-top', '20px')
 						$(`#${inputFieldErrors[i]}EditError`).text(errorMessages[i])
 					}
 				} else {
@@ -537,7 +523,6 @@
 			}
 			
 		})
-
 		// Hide textboxes from add product modal that are not needed for a certain type of product 
 		$('#cakeModal .inputCheckbox').change(function() {
 			if ($(this).is(":checked") == true) {
@@ -561,7 +546,6 @@
 				$(".numberCake").hide()
 			}
 		})
-
 		// Hide textboxes from edit product modal that are not needed for a certain type of product 
 		$('#editcakeModal .inputCheckbox').change(function() {
 			if ($(this).is(":checked") == true) {
@@ -581,6 +565,5 @@
 		})
 	});
 	
-
 	</script>
-</html>	
+</html>
