@@ -405,10 +405,11 @@ p{
   margin: auto;
   margin-top: 200px;
   padding: 0;
-  width: 930px;
+  width: 1130px;
   max-width: 100%;
   max-height: 100%;
   border: 2px solid #6F4E37;
+  overflow-y: auto;
 }
 
 .modal-content-cookie {
