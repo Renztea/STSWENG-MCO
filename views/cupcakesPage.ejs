@@ -83,23 +83,16 @@
 					<h1>ADD CUPCAKE</h1>
 				</div>
 				<%- include("partials/messages") %>
-				<p id="productNameAddError" class="addError"></p>
-				<p id="productPricesVanilla1AddError" class="addError"></p>
-				<p id="productPricesVanilla2AddError" class="addError"></p>
-				<p id="productPricesChocolate1AddError" class="addError"></p>
-				<p id="productPricesChocolate2AddError" class="addError"></p>
-				<p id="productPricesRedVelvet1AddError" class="addError"></p>
-				<p id="productPricesRedVelvet2AddError" class="addError"></p>
-				<p id="filenameAddError" class="addError"></p>
+		
 				<form id="addProductForm" class="addProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
 						<tr>
-							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cupcake Name:</label></div></td>	
+							<td class="td2" style="width: 19%;"><div class="productCss"><label for="productName">Cupcake Name:</label></div></td>	
 							<td class="td2" style="width: 3%;"></td>
-							<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
-							<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>		
+							<td class="td2" style="width: 33%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"><p id="productNameAddError" class="addError"></p></td>
+							<td class="td2" style="text-align: center; width: 13%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>		
 							<td class="td2" style="width: 3%;"></td>
-							<td class="td2"><input type="file" class="myFile" name="filename" ></td>
+							<td class="td2"><input type="file" class="myFile" name="filename" ><p id="filenameAddError" class="addError"></p></td>
 						</tr>
 					
 						<tr>
@@ -114,7 +107,7 @@
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Fondant</label></div></td>
 							<td class="td2"></td>								
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla1" placeholder="Enter Price per Dozen" ></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla1" placeholder="Enter Price per Dozen" ><p id="productPricesVanilla1AddError" class="addError"></p></td>
 							<td class="td2"></td>
 							<td class="td2"></td>
 						</tr>	
@@ -122,7 +115,7 @@
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Icing</label></div></td>
 							<td class="td2"></td>								
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla2" placeholder="Enter Price per Dozen" ></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla2" placeholder="Enter Price per Dozen" ><p id="productPricesVanilla2AddError" class="addError"></p></td>
 							<td class="td2"></td>
 							<td class="td2"></td>
 						</tr>							
@@ -138,7 +131,7 @@
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Fondant</label></div></td>								
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate1" placeholder="Enter Price per Dozen" ></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate1" placeholder="Enter Price per Dozen" ><p id="productPricesChocolate1AddError" class="addError"></p></td>
 							<td class="td2"></td>								
 							<td class="td2"></td>
 						</tr>
@@ -146,7 +139,7 @@
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Icing</label></div></td>								
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate2" placeholder="Enter Price per Dozen" ></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate2" placeholder="Enter Price per Dozen" ><p id="productPricesChocolate2AddError" class="addError"></p></td>
 							<td class="td2"></td>
 							<td class="td2"></td>
 							
@@ -164,7 +157,7 @@
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Fondant</label></div></td>
 							<td class="td2"></td>								
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet1" placeholder="Enter Price per Dozen" ></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet1" placeholder="Enter Price per Dozen" ><p id="productPricesRedVelvet1AddError" class="addError"></p></td>
 							<td class="td2"></td>
 							<td class="td2"></td>
 							
@@ -173,7 +166,7 @@
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Icing</label></div></td>								
 							<td class="td2"></td>
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet2" placeholder="Enter Price per Dozen" ></td>
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet2" placeholder="Enter Price per Dozen" ><p id="productPricesRedVelvet2AddError" class="addError"></p></td>
 							<td class="td2"></td>
 							<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
 							<a>&nbsp;&nbsp;&nbsp;</a><button type="button" class="Add" id="addl">Add</button></td>
@@ -190,23 +183,16 @@
 					<div class="editProductHeader">
 						<h1>EDIT CUPCAKE</h1>
 					</div>
-					<p id="productNameEditError" class="editError"></p>
-					<p id="productPricesVanilla1EditError" class="editError"></p>
-					<p id="productPricesVanilla2EditError" class="editError"></p>
-					<p id="productPricesChocolate1EditError" class="editError"></p>
-					<p id="productPricesChocolate2EditError" class="editError"></p>
-					<p id="productPricesRedVelvet1EditError" class="editError"></p>
-					<p id="productPricesRedVelvet2EditError" class="editError"></p>
-					<p id="filenameEditError" class="editError"></p>
+				
 					<form id="editProductForm" class="editProductForm" method="Post" enctype="multipart/form-data">
 						<table class="table2">
 							<tr>
-								<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cupcake Name:</label></div></td>	
+								<td class="td2" style="width: 19%;"><div class="productCss"><label for="productName">Cupcake Name:</label></div></td>	
 								<td class="td2" style="width: 3%;"></td>
-								<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
-								<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>		
+								<td class="td2" style="width: 33%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"><p id="productNameEditError" class="editError"></p></td>
+								<td class="td2" style="text-align: center; width: 13%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>		
 								<td class="td2" style="width: 3%;"></td>
-								<td class="td2"><input type="file" class="myFile" name="filename" ></td>
+								<td class="td2"><input type="file" class="myFile" name="filename" ><p id="filenameEditError" class="editError"></p></td>
 							</tr>
 						
 							<tr>
@@ -221,7 +207,7 @@
 							<tr>
 								<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Fondant</label></div></td>
 								<td class="td2"></td>								
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla1" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla1" placeholder="Enter Price per Dozen" ><p id="productPricesVanilla1EditError" class="editError"></p></td>
 								<td class="td2"></td>
 								<td class="td2"></td>
 							</tr>	
@@ -229,7 +215,7 @@
 							<tr>
 								<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Icing</label></div></td>
 								<td class="td2"></td>								
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla2" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesVanilla2" placeholder="Enter Price per Dozen" ><p id="productPricesVanilla2EditError" class="editError"></p></td>
 								<td class="td2"></td>
 								<td class="td2"></td>
 							</tr>							
@@ -245,7 +231,7 @@
 							<tr>
 								<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Fondant</label></div></td>								
 								<td class="td2"></td>
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate1" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate1" placeholder="Enter Price per Dozen" ><p id="productPricesChocolate1EditError" class="editError"></p></td>
 								<td class="td2"></td>								
 								<td class="td2"></td>
 							</tr>
@@ -253,7 +239,7 @@
 							<tr>
 								<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Icing</label></div></td>								
 								<td class="td2"></td>
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate2" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesChocolate2" placeholder="Enter Price per Dozen" ><p id="productPricesChocolate2EditError" class="editError"></p></td>
 								<td class="td2"></td>
 								<td class="td2"></td>
 								
@@ -271,7 +257,7 @@
 							<tr>
 								<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Fondant</label></div></td>
 								<td class="td2"></td>								
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet1" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet1" placeholder="Enter Price per Dozen" ><p id="productPricesRedVelvet1EditError" class="editError"></p></td>
 								<td class="td2"></td>
 								<td class="td2"></td>
 								
@@ -280,7 +266,7 @@
 							<tr>
 								<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">Icing</label></div></td>								
 								<td class="td2"></td>
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet2" placeholder="Enter Price per Dozen" ></td>
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPricesRedVelvet2" placeholder="Enter Price per Dozen" ><p id="productPricesRedVelvet2EditError" class="editError"></p></td>
 								<td class="td2"></td>
 								<td class="td2" colspan="2"; style="text-align: center; padding-top: 10px;"><button type="button" class="Cancel" id="cancel">Cancel</button>	
 								<a>&nbsp;&nbsp;&nbsp;</a><button type="button" class="Edit2" id="edit2">Save</button></td>
@@ -375,9 +361,12 @@
 				var addModal = $('#cupcakeModal')
 				addModal.find('.inputName').val('')
 				addModal.find('.inputName').css('border-color', '#6F4E37')
+				addModal.find('.inputName').css('margin-top', '0px')
 				addModal.find(".input").val('');
 				addModal.find('.input').css('border-color', '#6F4E37')
 				addModal.find(".input").attr('placeholder', 'Enter Price');
+				addModal.find('.input').css('margin-top', '0px')
+				addModal.find('.myFile').css('margin-top', '0px')
 				addModal.find('.myFile').css('border-style', 'none')
 				addModal.find('.myFile').val('')
 				addModal.find('.previewPic').attr('src', '')
@@ -392,11 +381,13 @@
 				var editModal = $('#editcupcakeModal')
 				editModal.find(".input").val(0)
 				editModal.find(".input").css('border-color', '#6F4E37')
+				editModal.find('.input').css('margin-top', '0px')
 				var productName = border.children('#displayProductName').text()
 				var productType = window.location.pathname.split("/").pop()
 				$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
 					editModal.find("[name='productName']").val(result.name)
 					editModal.find(".productID").val(result._id)
+					editModal.find('.inputName').css('margin-top', '0px')
 					editModal.find(".myFile").val('')
 					editModal.find(".previewPic").attr('src', result.image)
 					editModal.find("[name='productPricesVanilla1']").val(result.vanillaFondantPrice)
@@ -460,6 +451,7 @@
 							$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-width', '2px')
 							$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-style', 'solid')
 							$(`#${inputFieldErrors[i]}AddError`).text(errorMessages[i]) // Ganito ginawa ko para malagay yung errors sa mga <p></p>
+							$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('margin-top', '20px')
 						}
 					} else { // If there are no errors the page will reload to show the new products.
 						$(this).prop('disabled', true)
@@ -502,6 +494,7 @@
 							$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-color', 'red')
 							$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-width', '2px')
 							$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-style', 'solid')
+							$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('margin-top', '20px')
 							$(`#${inputFieldErrors[i]}EditError`).text(errorMessages[i])
 						}
 					} else {
