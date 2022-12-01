@@ -81,17 +81,15 @@
 					<h1>ADD COOKIE</h1>
 				</div>
 				<%- include("partials/messages") %>
-				<p id="productNameAddError" class="addError"></p>
-				<p id="productPricesAddError" class="addError"></p>
-				<p id="filenameAddError" class="addError"></p>
+			
 				<form id="addProductForm" class="addProductForm" method="Post" enctype="multipart/form-data">
 					<table class="table2">
 						<tr>
 							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cookie Name:</label></div></td>	
 							<td class="td2" style="width: 3%;"></td>
-							<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
+							<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"><p id="productNameAddError" class="addError"></p></td>
 							<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
-							<td class="td2"><input type="file" class="myFile" name="filename" ></td>
+							<td class="td2"><input type="file" class="myFile" name="filename" ><p id="filenameAddError" class="addError"></p></td>
 						</tr>
 					
 						<tr>
@@ -105,7 +103,7 @@
 						<tr>
 							<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">One Dozen</label></div></td>
 							<td class="td2"></td>								
-							<td class="td2"><input class="input" type="number" id="productPrices" name="productPrices" placeholder="Enter Price"></td>								
+							<td class="td2"><input class="input" type="number" id="productPrices" name="productPrices" placeholder="Enter Price"><p id="productPricesAddError" class="addError"></p></td>								
 							<td class="td2"></td>																							
 						</tr>
 						
@@ -135,17 +133,17 @@
 					<div class="editProductHeader">
 						<h1>EDIT COOKIE</h1>
 					</div>
-					<p id="productNameEditError" class="editError"></p>
-					<p id="productPricesEditError" class="editError"></p>
-					<p id="filenameEditError" class="editError"></p>
+					
+					
+					
 					<form id="editProductForm" class="editProductForm" method="Post" enctype="multipart/form-data">
 						<table class="table2">
 							<tr>
 								<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cookie Name:</label></div></td>	
 								<td class="td2" style="width: 3%;"></td>
-								<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"></td>
+								<td class="td2" style="width: 25%;"><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"><p id="productNameEditError" class="editError"></p></td>
 								<td class="td2" style="text-align: center; width: 17%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
-								<td class="td2"><input type="file" class="myFile" name="filename" ></td>
+								<td class="td2"><input type="file" class="myFile" name="filename" ><p id="filenameEditError" class="editError"></p></td>
 							</tr>
 						
 							<tr>
@@ -159,7 +157,7 @@
 							<tr>
 								<td class="td2" style="text-align: right;"><div class="productCss" style="height: 30px; line-height: 30px;"><label for="productSizes">One Dozen</label></div></td>
 								<td class="td2"></td>								
-								<td class="td2"><input class="input" type="number" id="productPrices" name="productPrices" placeholder="Enter Price"></td>								
+								<td class="td2"><input class="input" type="number" id="productPrices" name="productPrices" placeholder="Enter Price"><p id="productPricesEditError" class="editError"></p></td>								
 								<td class="td2"></td>																							
 							</tr>
 							
@@ -263,9 +261,12 @@
 				var addModal = $('#cookieModal')
 				addModal.find('.inputName').val('')
 				addModal.find('.inputName').css('border-color', '#6F4E37')
+				addModal.find('.inputName').css('margin-top', '0px')
 				addModal.find(".input").val('');
 				addModal.find('.input').css('border-color', '#6F4E37')
 				addModal.find(".input").attr('placeholder', 'Enter Price');
+				addModal.find('.input').css('margin-top', '0px')
+				addModal.find('.myFile').css('margin-top', '0px')
 				addModal.find('.myFile').css('border-style', 'none')
 				addModal.find('.myFile').val('')
 				addModal.find('.previewPic').attr('src', '')
@@ -280,10 +281,12 @@
 				var editModal = $('#editcookieModal')
 				editModal.find(".input").val(0)
 				editModal.find(".input").css('border-color', '#6F4E37')
+				editModal.find('.input').css('margin-top', '0px')
 				var productName = border.children('#displayProductName').text()
 				var productType = window.location.pathname.split("/").pop()
 				$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
 					editModal.find("[name='productName']").val(result.name)
+					editModal.find('.inputName').css('margin-top', '0px')
 					editModal.find(".productID").val(result._id)
 					editModal.find(".myFile").val('')
 					editModal.find(".previewPic").attr('src', result.image)
@@ -342,6 +345,7 @@
 							$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-color', 'red')
 							$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-width', '2px')
 							$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-style', 'solid')
+							$('#addProductForm').find(`[name='${inputFieldErrors[i]}']`).css('margin-top', '20px')
 							$(`#${inputFieldErrors[i]}AddError`).text(errorMessages[i]) // Ganito ginawa ko para malagay yung errors sa mga <p></p>
 						}
 					} else { // If there are no errors the page will reload to show the new products.
@@ -385,6 +389,7 @@
 							$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-color', 'red')
 							$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-width', '2px')
 							$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('border-style', 'solid')
+							$('#editProductForm').find(`[name='${inputFieldErrors[i]}']`).css('margin-top', '20px')
 							$(`#${inputFieldErrors[i]}EditError`).text(errorMessages[i])
 						}
 					} else {
