@@ -21,7 +21,7 @@
 				<a href="/Admin/Cookie"><button class="menuBtn">DECORATED COOKIES</button></a>
 				<a href="/Admin/About"><button class="menuBtn">ABOUT</button></a>
 				<a href="/Admin/orders/all"><button class="menuBtn">ORDERS</button></a>
-				<a href="#"><button class="logoutBtn">LOGOUT</button></a>
+				<a href="/logout"><button class="logoutBtn">LOGOUT</button></a>
 			</div>
 		</div>
 		<div class="productBox">
@@ -509,7 +509,7 @@
 				border.remove()
 				var numberofProducts = $('.border').length
 				$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
-					alert(result)
+					console.log(result)
 					if (numberofProducts == 0) {
 						const params = new Proxy(new URLSearchParams(window.location.search), {
   							get: (searchParams, prop) => searchParams.get(prop),

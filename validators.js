@@ -71,7 +71,7 @@ const addCupcakeValidation = [
         return false
         break;
     }
-  }).withMessage("Please provide a valid image").bail(),
+  }).withMessage("Please provide a valid image!").bail(),
 ]
 
 const editCupcakeValidation = [
@@ -105,7 +105,7 @@ const addCookieValidation = [
         return false
         break;
     }
-  }).withMessage("Please provide a valid image"),
+  }).withMessage("Please provide a valid image!"),
 ]
 
 const editCookieValidation = [

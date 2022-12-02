@@ -55,11 +55,15 @@ exports.login = async (req, res) => {
 }
 
 exports.logoutUser = (req, res) => {
+    /*
     if (req.session.username) {
       req.session.destroy(() => {
         res.clearCookie('connect.sid');
         res.redirect('/admin');
       });
-    }
+    }*/
+    console.log(req.session.orders)
+    delete req.session.orders;
+    console.log(req.session.orders)
 };
 
