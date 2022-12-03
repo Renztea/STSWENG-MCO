@@ -411,7 +411,7 @@ $(document).ready(function() {
             price: $('#displayProductPrice').attr('data'), 
             flavor: $('#displayProductFlavor').find(':selected').val() || "", 
             size: $('#displayProductSize').find(":selected").val() || "", 
-            frosting: $('#displayProductFrosting').find(':selected').val() || "", 
+            frosting: $('#displayProductFrosting').find(':selected').val() || "",
             quantity: $('#displayProductQuantity').val() || 1,
             dedication: $('#displayProductDedication').val(),
             type: $(this).val()

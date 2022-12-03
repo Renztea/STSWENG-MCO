@@ -102,6 +102,13 @@
                     </div>
                     <%_ } _%>
 
+                    <%_ if (type == 'Cupcake') { _%>
+                        <div class="orderDesignContainer">
+                            <p class="orderDesignLabel">Designs:</p>
+                            <textarea id="displayProductDesign" class="orderDesign" maxlength="100" placeholder="Enter Designs..."></textarea>
+                        </div>
+                    <%_ } _%>
+
                     <div class="orderAddContainer">
                         <button type="button" class="addBtn" value="<%= type %>">ADD TO CART</button>
                     </div>

@@ -450,7 +450,7 @@ a {
 
 .orderFlavorContainer, .orderSizeContainer, .orderFrostingContainer, 
 .orderQuantityContainer, .orderDedicationContainer, .orderAddContainer,
-.orderCakeNumberContainer, .orderDesignNumberContainer {
+.orderCakeNumberContainer, .orderDesignNumberContainer, .orderDesignContainer {
   width: 80%;
   display: flex;
   align-items: center;
@@ -458,7 +458,7 @@ a {
   margin-top: 20px;
 }
 
-.orderDedicationContainer {
+.orderDedicationContainer, .orderDesignContainer {
   display: block;
 }
 
@@ -468,7 +468,7 @@ a {
 
 .orderFlavor, .orderSize, .orderFrosting, 
 .orderQuantityItems, .orderDedication, .orderCakeNumber, 
-.orderDesignNumber {
+.orderDesignNumber, .orderDesign {
   height: 50px;
   width: 70%;
   font-size: 16px;
@@ -480,14 +480,14 @@ a {
   border: 1px solid #3D2115;
 }
 
-.orderDedication {
+.orderDedication, .orderDesign {
   width: 100%;
   resize: none;
 }
 
 .orderFlavorLabel, .orderSizeLabel, .orderFrostingLabel,
  .orderQuantityLabel, .orderDedicationLabel, .orderCakeNumberLabel,
- .orderDesignNumberLabel {
+ .orderDesignNumberLabel, .orderDesignLabel {
   width: 30%;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
@@ -496,7 +496,7 @@ a {
   color: #3D2115;
 }
 
-.orderDedicationLabel {
+.orderDedicationLabel, .orderDesignLabel {
   width: 100%;
   opacity: 1;
   text-align: left;
