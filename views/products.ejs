@@ -57,6 +57,7 @@
                         <label class="orderFlavorLabel">Flavor</label>
                     </div>
                     <%_ } _%>
+
                     <%_ if (type == 'Cake') { _%>
                     <div class="orderSizeContainer">
                         <select id="displayProductSize" class="orderSize" title="Size" name="size">
@@ -66,13 +67,24 @@
                     <%_ } _%>
 
                     <%_ if (type == 'Cupcake') { _%>
-                    <div class="orderFlavorContainer">
+                    <div class="orderFrostingContainer">
                         <select id="displayProductFrosting" class="orderFrosting" title="Frosting" name="frosting">
                         </select>
                         <label class="orderFrostingLabel">Frosting</label>
                     </div>
+
+                    <div class="orderDesignNumberContainer">
+                        <select id="displayProductDesignNumber" class="orderDesignNumber" title="DesignNumber" name="designNumber">
+                        </select>
+                        <label class="orderDesignNumberLabel">No. of Designs</label>
+                    </div>
                     <%_ } _%>
                     
+                    <div class="orderCakeNumberContainer">
+                        <select id="displayProductCakeNumber" class="orderCakeNumber" title="CakeNumber" name="cakeNumber">
+                        </select>
+                        <label class="orderCakeNumberLabel">Cake Number</label>
+                    </div>
 
                     <div class="orderQuantityContainer">
                         <div class="orderQuantityItems">

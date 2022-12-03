@@ -20,10 +20,15 @@ $(document).ready(function() {
           $('#displayProductSize').find('option').remove()
           $('#displayProductFrosting').find('option').remove()
           $('#displayProductDedication').val("")
+          $('#displayProductCakeNumber').find('option').remove()
+          $('#displayProductDesignNumber').find('option').remove()
           $(".orderDedicationContainer").hide()
           $('.orderFlavorContainer').hide()
           $('.orderSizeContainer').hide()
+          $('.orderFrostingContainer').hide()
           $('.orderDedicationNote').hide()
+          $('.orderCakeNumberContainer').hide()
+          $('.orderDesignNumberContainer').hide()
           $('#productNote').text('Price varies depending on quantity.')  
 
           if (productType == 'Cake') {         
@@ -34,6 +39,10 @@ $(document).ready(function() {
             if(result.numberCake) {
               $('#displayProductPrice').attr('data', result.numberCakePrice)
               $('#displayProductPrice').text(result.numberCakePrice)
+              for (var i = 0; i < 10; i++) {
+                $('#displayProductCakeNumber').append(new Option(i + 1, i + 1))
+              }
+              $('.orderCakeNumberContainer').show()
             } else {
               $('#productNote').text('Price varies depending on flavor, size, and quantity.')   
               $('.orderFlavorContainer').show()
@@ -106,6 +115,7 @@ $(document).ready(function() {
           } else if (productType == 'Cupcake') {
             $('#productNote').text('Price varies depending on flavor, frosting, and quantity.')   
             $('.orderFlavorContainer').show()
+            $('.orderFrostingContainer').show()
             $('#displayProductFlavor').find('option').remove()
             var hasVanillaFlavor = false;
             var hasChocolateFlavor = false;
@@ -178,6 +188,12 @@ $(document).ready(function() {
                 productPrice = result.redvelvetIcingPrice
               }
             }
+
+            for (var i = 0; i < 3; i++) {
+              $('#displayProductDesignNumber').append(new Option(i + 1, i + 1))
+            }
+
+            $('.orderDesignNumberContainer').show()
 
             $('#displayProductPrice').attr('data', productPrice)
             $('#displayProductPrice').text(productPrice)
@@ -322,7 +338,6 @@ $(document).ready(function() {
       if(currentQuantity > 0) {
         var displayPrice = productPrice * currentQuantity
         
-        console.log("why")
         alert("productPrice: " + productPrice)
         alert("currentQuantity: " + currentQuantity)
         alert("displayPrice: " + displayPrice)

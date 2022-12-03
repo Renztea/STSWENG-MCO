@@ -449,7 +449,8 @@ a {
 }
 
 .orderFlavorContainer, .orderSizeContainer, .orderFrostingContainer, 
-.orderQuantityContainer, .orderDedicationContainer, .orderAddContainer {
+.orderQuantityContainer, .orderDedicationContainer, .orderAddContainer,
+.orderCakeNumberContainer, .orderDesignNumberContainer {
   width: 80%;
   display: flex;
   align-items: center;
@@ -465,7 +466,9 @@ a {
   justify-content: left;
 }
 
-.orderFlavor, .orderSize, .orderFrosting, .orderQuantityItems, .orderDedication {
+.orderFlavor, .orderSize, .orderFrosting, 
+.orderQuantityItems, .orderDedication, .orderCakeNumber, 
+.orderDesignNumber {
   height: 50px;
   width: 70%;
   font-size: 16px;
@@ -482,7 +485,9 @@ a {
   resize: none;
 }
 
-.orderFlavorLabel, .orderSizeLabel, .orderFrostingLabel, .orderQuantityLabel, .orderDedicationLabel {
+.orderFlavorLabel, .orderSizeLabel, .orderFrostingLabel,
+ .orderQuantityLabel, .orderDedicationLabel, .orderCakeNumberLabel,
+ .orderDesignNumberLabel {
   width: 30%;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
@@ -820,6 +825,7 @@ input::-webkit-inner-spin-button {
   width: 80%;
   margin: auto;
   border: 2px solid #000000;
+  background-color: #CDBDBF;
 }
 
 .orderSummaryStyle {
@@ -847,10 +853,15 @@ input::-webkit-inner-spin-button {
   margin-top: 20px;
   border-collapse: collapse;
   border: 2px solid #000000;
+  background-color: #CDBDBF;
 }
 
 .orderBasketTableSummaryHeader, .orderBasketProductSummaryRow {
   border-bottom: 2px solid #000000;
+}
+
+.orderBasketTableSummaryHeader {
+  background-color: #E29595;
 }
 
 .orderBasketProductSummaryRow {
@@ -863,7 +874,7 @@ input::-webkit-inner-spin-button {
 .orderBasketProductPriceSummary,
 .orderBasketProductTotalSummary,
 .orderBasketTotalAmountSummary,
-.orderBasketCheckOut {
+.orderBasketTotalAmountSummaryLabel {
   text-align: center;
   font-family: 'Poppins', sans-serif;
 }
@@ -894,11 +905,7 @@ input::-webkit-inner-spin-button {
   width: 100%;
 }
 
-.orderBasketTotalAmountSummaryHeader {
-  column-span: 5;
-}
-
-.orderBasketProductSummaryHeader, .orderBasketTotalAmountSummaryHeader {
+.orderBasketProductSummaryHeader {
   text-align: left;
 }
 
@@ -907,12 +914,11 @@ input::-webkit-inner-spin-button {
 .orderBasketQuantitySummaryHeader,
 .orderBasketPriceSumamryHeader,
 .orderBasketTotalSummaryHeader,
-.orderBasketTotalAmountSummaryHeader,
-.orderBasketCheckOut {
+.orderBasketTotalAmountSummaryLabel {
   padding: 10px;
 }
 
-.orderBasketTotalAmountSummary {
+.orderBasketTotalAmountSummary, .orderBasketTotalAmountSummaryLabel {
   font-weight: bold;
 }
 
@@ -927,6 +933,14 @@ input::-webkit-inner-spin-button {
   border: none;
   background: #95E2A6;
   cursor: pointer
+}
+
+.orderBasketCheckOut {
+  width: 80%;
+  margin: auto;
+  text-align: right;
+  font-family: 'Poppins', sans-serif;
+  padding: 10px;
 }
 
 /* End - Order Summary Page

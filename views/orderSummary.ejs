@@ -99,19 +99,18 @@
                     <%_ }) _%>
                     <tfoot>
                         <tr>
-                            <th class="orderBasketTotalAmountSummaryHeader" colspan="5">Total Amount:</th>
+                            <td colspan="3"></td>
+                            <td class="orderBasketTotalAmountSummaryLabel" colspan="2">Total Amount:</td>
                             <td class="orderBasketTotalAmountSummary" data-label="Total">
                                 <span>&#8369;<%= totalPrice %></span>
                                 <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
                             </td>
                         </tr>
-                        <tr>
-                            <td class="orderBasketCheckOut" data-label="Total" colspan="6">
-                                <button class="orderBasketSubmit">CHECK OUT</button>
-                            </td>
-                        </tr>
                     </tfoot>
                 </table>
+                <div class="orderBasketCheckOut">
+                    <button class="orderBasketSubmit">CHECK OUT</button>
+                </div>
             </div>
         </form>
         <script>
