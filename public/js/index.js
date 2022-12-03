@@ -20,11 +20,13 @@ $(document).ready(function() {
           $('#displayProductSize').find('option').remove()
           $('#displayProductFrosting').find('option').remove()
           $('#displayProductDedication').val("")
-          $("#displayProductDedication").hide()
-          $('#displayProductFlavor').hide()
-          $('#displayProductSize').hide()
+          $(".orderDedicationContainer").hide()
+          $('.orderFlavorContainer').hide()
+          $('.orderSizeContainer').hide()
+          $('.orderDedicationNote').hide()
+          $('#productNote').text('Price varies depending on quantity.')  
 
-          if (productType == 'Cake') {            
+          if (productType == 'Cake') {         
             var hasVanillaFlavor = false;
             var hasSize6x5 = false;
             var hasSize8x5 = false;
@@ -33,8 +35,9 @@ $(document).ready(function() {
               $('#displayProductPrice').attr('data', result.numberCakePrice)
               $('#displayProductPrice').text(result.numberCakePrice)
             } else {
-              $('#displayProductFlavor').show()
-              $('#displayProductSize').show()
+              $('#productNote').text('Price varies depending on flavor, size, and quantity.')   
+              $('.orderFlavorContainer').show()
+              $('.orderSizeContainer').show()
               if (result.vanilla6x5Price > 0 || result.vanilla8x5Price > 0) {
                 $('#displayProductFlavor').append(new Option("Vanilla", "vanilla"))
                 hasVanillaFlavor = true;
@@ -83,7 +86,8 @@ $(document).ready(function() {
 
               if (result.dedication) {
                 alert(result.dedication)
-                $("#displayProductDedication").show()
+                $(".orderDedicationContainer").show()
+                $('.orderDedicationNote').show()
               }
 
               $('#displayProductPrice').attr('data', productPrice)
@@ -100,7 +104,8 @@ $(document).ready(function() {
               })
             }
           } else if (productType == 'Cupcake') {
-            $('#displayProductFlavor').show()
+            $('#productNote').text('Price varies depending on flavor, frosting, and quantity.')   
+            $('.orderFlavorContainer').show()
             $('#displayProductFlavor').find('option').remove()
             var hasVanillaFlavor = false;
             var hasChocolateFlavor = false;
@@ -184,7 +189,7 @@ $(document).ready(function() {
             $('#displayProductFrosting').change(function() {
               updateCupcakePrice(result)
             })
-          } else {
+          } else {  
             $('#displayProductPrice').attr('data', result.price)
             $('#displayProductPrice').text(result.price)
           }
@@ -306,6 +311,14 @@ $(document).ready(function() {
     function updateDisplayPrice(productPrice) {
       var currentQuantity = $('#displayProductQuantity').val()
 
+      if(currentQuantity > 100) {
+        currentQuantity = 100
+        $('#displayProductQuantity').val(100)
+      } else if (currentQuantity <= 0) {
+        currentQuantity = 1
+        $('#displayProductQuantity').val(1)
+      }
+
       if(currentQuantity > 0) {
         var displayPrice = productPrice * currentQuantity
         
@@ -332,6 +345,10 @@ $(document).ready(function() {
         
         if ($(this).attr('id') == 'increment') {
             quantity++;
+
+            if(quantity > 100) {
+              quantity = 100;
+            }
         } else {
             quantity--;
             
@@ -380,7 +397,7 @@ $(document).ready(function() {
             flavor: $('#displayProductFlavor').find(':selected').val() || "", 
             size: $('#displayProductSize').find(":selected").val() || "", 
             frosting: $('#displayProductFrosting').find(':selected').val() || "", 
-            quantity: $('#displayProductQuantity').val(),
+            quantity: $('#displayProductQuantity').val() || 1,
             dedication: $('#displayProductDedication').val(),
             type: $(this).val()
           }, function(result) {

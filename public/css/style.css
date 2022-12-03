@@ -180,46 +180,47 @@ a {
 }
 
 .loginContainer {
-  height: 430px;
-  width: 700px;
-  margin: 170px 0px 0px 750px;
+  width: 20%;
+  margin: 20% 0% 0% 15%;
   background-color: #3D2115;
-  border-radius: 50px;
+  border-radius: 20px;
   position: absolute;
-  padding: 50px;
+  padding: 30px 40px;
 }
 
 .loginForm {
   margin: auto;
-  width: 80%;
+  width: 100%;
+  position: relative;
 }
 
 .loginStyle {
-  color: #BBD1CD;
-  font-size: 30px;
+  color: #FFFFFF;
+  font-size: 15px;
   font-family: 'Poppins', sans-serif;
 }
 
 .loginInput {
-  background-color: #DF7E85;
+  background-color: #FFFFFF;
   border-radius: 10px;
-  height: 50px;
+  height: 40px;
   width: 100%;
-  font-size: 40px;
+  font-size: 15px;
   font-family: 'Poppins', sans-serif;
-  margin-bottom: 5%;
+  margin-bottom: 10%;
+  padding: 5px;
 }
 
 .loginSubmit {
-  width: 50%;
   display: block;
   margin: auto;
-  background-color: #FDFFFC;
+  background-color: #FFFFFF;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 15px;
   font-family: 'Poppins', sans-serif;
-  padding: 10px 40px;
-  border-radius: 50px;
+  padding: 5px 20px;
+  border-radius: 20px;
+  cursor: pointer
 }
 /* End Login Page */
 
@@ -392,19 +393,31 @@ a {
 }
 
 .modalContent {
-  width: 1000px;
-  height: 80%;
+  width: 60%;
+  padding: 40px 20px 20px 20px;
   background-color: #EBD8DB;
   display: flex;
   position: relative;
 }
 
-.modalContentImage {
+.modalContentImageContainer {
   height: 100%;
   width: 50%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.modalContentImage, .modalProductNote {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContentImage {
+  height: 80%;
 }
 
 .modalContentImage img {
@@ -425,10 +438,66 @@ a {
 .orderForm {
   justify-content: center;
   text-align: center;
-  margin-top: 5%;
   width: 50%;
 }
 
+.orderName, .orderPrice {
+  color: #3D2115;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+}
+
+.orderFlavorContainer, .orderSizeContainer, .orderFrostingContainer, 
+.orderQuantityContainer, .orderDedicationContainer, .orderAddContainer {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.orderDedicationContainer {
+  display: block;
+}
+
+.orderAddContainer {
+  justify-content: left;
+}
+
+.orderFlavor, .orderSize, .orderFrosting, .orderQuantityItems, .orderDedication {
+  height: 50px;
+  width: 70%;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  padding: 10px;
+  background-color: #FFFFFF;
+  color: #3D2115;
+  border-radius: 5px;
+  border: 1px solid #3D2115;
+}
+
+.orderDedication {
+  width: 100%;
+  resize: none;
+}
+
+.orderFlavorLabel, .orderSizeLabel, .orderFrostingLabel, .orderQuantityLabel, .orderDedicationLabel {
+  width: 30%;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  text-align: right;
+  opacity: 0.4;
+  color: #3D2115;
+}
+
+.orderDedicationLabel {
+  width: 100%;
+  opacity: 1;
+  text-align: left;
+}
+
+/*
 .orderFlavor, .orderSize, .orderFrosting {
   margin-top: 30px;
   text-align: center;
@@ -440,26 +509,25 @@ a {
   border-radius: 10px;
   width: 80%;
 }
+*/
 
-.orderQuantityContainer {
-  height: 60px;
-  width: 80%;
-  margin: 30px auto;
-  background-color: #DF7E85;
-  border-radius: 10px;
+.orderQuantityItems{
+  padding: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  border: none;
 }
 
 .orderDecrement, .orderIncrement {
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Poppins', sans-serif;
-  background-color: #3D2115;
-  color: white;
-  width: 100%;
+  background-color: #FFFFFF;
+  color: #3D2115;
+  width: 20%;
   height: 100%;
-  border: 2px solid #DF7E85;
+  border: 1px solid #3D2115;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -467,40 +535,30 @@ a {
 }
 
 .orderDecrement {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .orderIncrement {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .orderQuantity {
   justify-content: center;
   text-align: center;
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Poppins', sans-serif;
   padding: 10px;
-  background-color: #3D2115;
-  color: white;
+  background-color: #FFFFFF;
+  color: #3D2115;
   height: 100%;
-  width: 300px;
-  border: 2px solid #DF7E85;
+  width: 60%;
+  border: 1px solid #3D2115;
+  border-left: none;
+  border-right: none;
 /* Firefox */
   -moz-appearance: textfield;
-}
-
-.orderDedication {
-  height: 100px;
-  width: 80%;
-  resize: none;
-  font-size: 12px;
-  font-family: 'Poppins', sans-serif;
-  padding: 10px;
-  background-color: #E29595;
-  color: #4A3627;
-  border-radius: 10px;
 }
 
   /* Chrome, Safari, Edge, Opera */
@@ -512,13 +570,23 @@ input::-webkit-inner-spin-button {
 
 .addBtn {
   padding: 10px;
-  border-radius: 30px;
+  border-radius: 15px;
   border: none;
   background-color: #95E2A6;
   color: #4A3627;
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
+}
+
+.modalProductNote, .orderDedicationNote {
+  margin-top: 10px;
+}
+
+.productNote, .orderDedicationNote {
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  text-align: left;
 }
 /* End - Modal Popup CSS */
 
@@ -545,6 +613,7 @@ input::-webkit-inner-spin-button {
   height: 200px;
   align-items: center;
   top: 20%;
+  border-radius: 20px;
 }
 
 .totalPrice {
@@ -650,6 +719,7 @@ input::-webkit-inner-spin-button {
 
 .basketItemPrice {
   height: 70%;
+  text-align: center;
 }
 
 .basketItemButton {
@@ -660,25 +730,25 @@ input::-webkit-inner-spin-button {
 }
 
 .removeItem {
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
-  color: #FFFFFF;
-  background: #E43939;
-  border-radius: 30px;
-  border: none;
+  color: #BA0C16;
+  background: #FFFFFF;
+  border-radius: 20px;
   padding: 10px;
+  border: 1px solid #BA0C16;
   cursor: pointer;
 }
 
 .editFlavor, .editSize, .editFrosting {
   margin-top: 10px;
-  text-align: center;
-  font-size: 15px;
+  font-size: 16px;
   font-family: 'Poppins', sans-serif;
   padding: 10px;
-  background-color: #E29595;
-  color: white;
+  background-color: #FFFFFF;
+  border: 1px solid #DF7E85;
+  color: #3D2115;
   width: 200px;
 }
 
@@ -690,6 +760,7 @@ input::-webkit-inner-spin-button {
   align-items: center;
   justify-content: center;
   width: 100%;
+  border-radius: 10px;
 }
 
 .editDedication {
@@ -707,15 +778,25 @@ input::-webkit-inner-spin-button {
 .basketDecrement, .basketIncrement {
   font-size: 15px;
   font-family: 'Poppins', sans-serif;
-  background-color: #3D2115;
-  color: white;
+  background-color: #FFFFFF;
+  color: #3D2115;
   width: 100%;
   height: 100%;
-  border: 2px solid #DF7E85;
+  border: 1px solid #DF7E85;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.basketDecrement {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.basketIncrement {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .basketQuantity {
@@ -724,11 +805,13 @@ input::-webkit-inner-spin-button {
   font-size: 15px;
   font-family: 'Poppins', sans-serif;
   padding: 10px;
-  background-color: #3D2115;
-  color: white;
+  background-color: #FFFFFF;
+  color: #3D2115;
   height: 100%;
   width: 80px;
-  border: 2px solid #DF7E85;
+  border: 1px solid #DF7E85;
+  border-left: none;
+  border-right: none;
 }
 /* End - Basket Page */
 

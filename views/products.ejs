@@ -36,52 +36,65 @@
             <div class="modalContent">
                 <div class="close">+</div>
 
-                <div class="modalContentImage">
-                    <img id="displayProductImage" src="images/loginbackground.png" alt="placeholder">
+                <div class="modalContentImageContainer">
+                    <div class="modalContentImage">
+                        <img id="displayProductImage" src="images/loginbackground.png" alt="placeholder">
+                    </div>
+                    <div class="modalProductNote">
+                        <span class="productNote">Note: <span id="productNote"></span></span>
+                    </div>
                 </div>
 
                 <form class="orderForm">
-                    <h1 id="displayProductName"></h1>
+                    <p id="displayProductName" class="orderName"></p>
 
-                    <h2>&#8369;<span id="displayProductPrice" data="0">0</span></h2>
+                    <p class="orderPrice">&#8369;<span id="displayProductPrice" data="0">0</span></p>
 
-                    <input type="hidden" name="productName" value="productName">
                     <%_ if (type != 'Cookie') { _%>
-                    <select id="displayProductFlavor" class="orderFlavor" title="Flavor" name="flavor">
-                        <!--
-                        <option value="Vanilla">Vanilla</option>
-                        <option value="Chocolate">Chocolate</option>
-                        <option value="Red Velvet">Red Velvet</option>
-                        -->
-                    </select>
+                    <div class="orderFlavorContainer">
+                        <select id="displayProductFlavor" class="orderFlavor" title="Flavor" name="flavor">
+                        </select>
+                        <label class="orderFlavorLabel">Flavor</label>
+                    </div>
                     <%_ } _%>
                     <%_ if (type == 'Cake') { _%>
-                    <select id="displayProductSize" class="orderSize" title="Size" name="size">
-                        <!--
-                        <option value="6x5">6" x 5"</option>
-                        <option value="8x5">8" x 5"</option>
-                        -->
-                    </select>
+                    <div class="orderSizeContainer">
+                        <select id="displayProductSize" class="orderSize" title="Size" name="size">
+                        </select>
+                        <label class="orderSizeLabel">Size</label>
+                    </div>
                     <%_ } _%>
 
                     <%_ if (type == 'Cupcake') { _%>
-                    <select id="displayProductFrosting" class="orderFrosting" title="Frosting" name="frosting">
-                    </select>
+                    <div class="orderFlavorContainer">
+                        <select id="displayProductFrosting" class="orderFrosting" title="Frosting" name="frosting">
+                        </select>
+                        <label class="orderFrostingLabel">Frosting</label>
+                    </div>
                     <%_ } _%>
                     
 
                     <div class="orderQuantityContainer">
-                        <span id="decrement" class="incdec orderDecrement">-</span>
-                        <input id="displayProductQuantity" name="orderQuantity" class="orderQuantity" type="number" min="1" value="1" >
-                        <span id="increment" class="incdec orderIncrement">+</span>
+                        <div class="orderQuantityItems">
+                            <span id="decrement" class="incdec orderDecrement">-</span>
+                            <input id="displayProductQuantity" name="orderQuantity" class="orderQuantity" type="number" min="1" max="100" value="1" >
+                            <span id="increment" class="incdec orderIncrement">+</span>
+                        </div>
+                        <label class="orderQuantityLabel">Quantity</label>
                     </div>
 
                     <%_ if (type == 'Cake') { _%>
-                    <textarea id="displayProductDedication" class="orderDedication" placeholder="Enter Message..."></textarea>
+                    <div class="orderDedicationContainer">
+                        <p class="orderDedicationLabel">Dedication:</p>
+                        <textarea id="displayProductDedication" class="orderDedication" maxlength="100" placeholder="Enter Message..."></textarea>
+                    </div>
                     <%_ } _%>
 
+                    <div class="orderAddContainer">
+                        <button type="button" class="addBtn" value="<%= type %>">ADD TO CART</button>
+                    </div>
 
-                    <button type="button" class="addBtn" value="<%= type %>">ADD TO BASKET</button>
+                    <p class="orderDedicationNote">Customization: Only the name or dedication for this cake is customizable. For custom colors please email us.</p>
                 </form>
             </div>
         </div>

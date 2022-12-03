@@ -28,8 +28,8 @@
                             <h2><%= productItemList[index].name %></h2>
                         </div>
                         <div class="basketTypeContainer">
-                            <h3>Type of <%= productItemList[index].type %>:</h3>
                             <%_ if (productItemList[index].type != 'Cookie' && !basketItem.numberCake) { _%>
+                            <h3>Type of <%= productItemList[index].type %>:</h3>
                             <select class="editFlavor" title="Flavor" id="flavor<%= index %>" name="flavor">  
                                 <!-- Cake -->                              
                                 <%_ if (basketItem.vanilla6x5Price > 0 || basketItem.vanilla8x5Price > 0) { _%>
@@ -79,13 +79,13 @@
                         <div class="basketItemQuantity">
                             <div class="basketQuantityContainer">
                                 <span id="decrement<%= index %>" class="incdec basketDecrement">-</span>
-                                <input id="quantity<%= index %>" class="quantity basketQuantity" type="number" value="<%= productItemList[index].quantity %>" min="1" >
+                                <input id="quantity<%= index %>" class="quantity basketQuantity" type="number" value="<%= productItemList[index].quantity %>" min="1" max="100">
                                 <span id="increment<%= index %>" class="incdec basketIncrement">+</span>
                             </div>
                         </div>
                         <%_ if (basketItem.dedication) { _%>
                         <div class="basketItemDedication">
-                            <textarea id="dedication<%= index %>" class="editDedication" placeholder="Enter Message..."><%= productItemList[index].dedication %></textarea>
+                            <textarea id="dedication<%= index %>" class="editDedication" maxlength="100" placeholder="Enter Message..."><%= productItemList[index].dedication %></textarea>
                         </div>
                         <%_ } _%>
                     </div>
@@ -291,6 +291,14 @@
                     alert("productPrice: " + productPrice)
                     alert("currentQuantity: " + currentQuantity)
                     alert("displayPrice: " + displayPrice)
+                    if(currentQuantity > 100) {
+                        curerntQuantity = 100
+                        $('#quantity' + itemIndex).val(100)
+                    } else if (currentQuantity <= 0) {
+                        curerntQuantity = 1
+                        $('#quantity' + itemIndex).val(1)
+                    }
+
                     if (currentQuantity > 0) {
                         $('#price' + itemIndex).attr('data', productPrice)
                         $('#price' + itemIndex).text(displayPrice)
@@ -357,6 +365,10 @@
                     
                     if ($(this).attr('id') == 'increment' + itemIndex) {
                         quantity++;
+                        
+                        if (quantity > 100) {
+                            quantity = 100;
+                        }
                     } else if ($(this).attr('id') == 'decrement' + itemIndex){
                         quantity--;
                         
@@ -375,7 +387,7 @@
                     if(!((e.keyCode > 95 && e.keyCode < 106)
                         || (e.keyCode > 47 && e.keyCode < 58)
                         || e.keyCode == 8  || e.keyCode == 46
-                        || e.keyCode > 36 || e.keyCode < 41)) {
+                        || (e.keyCode > 36 || e.keyCode < 41))) {
                         return false;
                     }
                 })
