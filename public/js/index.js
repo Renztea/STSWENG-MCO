@@ -335,7 +335,7 @@ $(document).ready(function() {
         $('#displayProductQuantity').val(1)
       }
 
-      if(currentQuantity > 0) {
+//      if(currentQuantity > 0) {
         var displayPrice = productPrice * currentQuantity
         
         alert("productPrice: " + productPrice)
@@ -343,7 +343,7 @@ $(document).ready(function() {
         alert("displayPrice: " + displayPrice)
         $('#displayProductPrice').attr('data', productPrice)
         $('#displayProductPrice').text(displayPrice)
-      }
+//      }
     }
   
     $(".close").click(function() {
