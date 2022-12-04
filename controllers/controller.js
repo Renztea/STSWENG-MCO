@@ -11,6 +11,32 @@ const { isObjectIdOrHexString } = require('mongoose');
 const { findOne } = require('../models/cake');
 const cake = require('../models/cake');
 const { get } = require('http');
+var nodemailer = require('nodemailer');
+
+/*
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'marcbaura@gmail.com',
+      pass: 'shoveyljzkwlakdk'
+    }
+});
+  
+var mailOptions = {
+    from: 'marcbaura@gmail.com',
+    to: 'jasper_chua@dlsu.edu.ph',
+    subject: 'Jasper is a Dog',
+    text: 'You Dog!'
+};
+  
+transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+});
+*/
 
 function randomizer (currentProducts) {
     var randomProducts = []
@@ -26,15 +52,19 @@ function randomizer (currentProducts) {
     return randomProducts
 }
 
+
+
 const controller = {
 
     // Get a maximum of 3 random products from each schema to be displayed on the preview page.
     getIndexPage: async function(req, res) {
         var products = []
+        var types = []
         try {
             var cakeProducts = randomizer(await Cake.find({}));
                 cakeProducts.forEach(function(product) {
                 products.push(product)
+                types.push('Cake')
             })
         } catch (err) {
             console.log("Error on producing random cake products. Error: \n" + err)
@@ -43,6 +73,7 @@ const controller = {
             var cupcakeProducts = randomizer(await Cupcake.find({}));
                 cupcakeProducts.forEach(function(product) {
                 products.push(product)
+                types.push('Cupcake')
             })
         } catch (err) {
             console.log("Error on producing random cupcake products. Error: \n" + err)
@@ -51,11 +82,13 @@ const controller = {
             var cookieProducts = randomizer(await Cookie.find({}));
                 cookieProducts.forEach(function(product) {
                 products.push(product)
+                types.push('Cookie')
             })
         } catch (err) {
             console.log("Error on producing random cookie products. Error: \n" + err)
         }
-        res.render('main', {display: products})
+
+        res.render('main', {display: products, types: types})
     },
    
     getAdminPage: function(req, res) {
@@ -745,9 +778,9 @@ const controller = {
         } else {
             req.session.orders.forEach(val => {
                 itemLength++;
-                console.log("first: " + itemLength)
+                //console.log("first: " + itemLength)
             })
-            console.log("second :" + itemLength)
+            //console.log("second :" + itemLength)
             lastItemNumber = req.session.orders[itemLength - 1].itemNumber
             lastItemNumber = (parseInt(lastItemNumber) + 1).toString()
         }
@@ -767,7 +800,7 @@ const controller = {
                         "type": req.body.type};
 
         req.session.orders.push(productInfo);
-        console.log(req.session.orders);
+        //console.log(req.session.orders);
         res.send("Success")
     },
 
@@ -800,8 +833,8 @@ const controller = {
             }
         }
                     
-        console.log(basketItemList)
-        console.log(req.session.orders)
+        //console.log(basketItemList)
+        //console.log(req.session.orders)
         res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
     },
 
@@ -825,22 +858,22 @@ const controller = {
     },
 
     removeBasketItem: function(req, res) {
-        console.log("Start: ", req.session.orders)
+        //console.log("Start: ", req.session.orders)
         if(req.session.orders) {
             req.session.orders.forEach((val, key) => {
                 console.log("key: " + key)
-                    console.log("bodyNumber: " + req.body.itemNumber)
-                    console.log("valNumber: " + val.itemNumber)
+                    //console.log("bodyNumber: " + req.body.itemNumber)
+                    //console.log("valNumber: " + val.itemNumber)
                 if(req.body.itemNumber == val.itemNumber) {
-                    console.log("key: " + key)
-                    console.log("bodyNumber: " + req.body.itemNumber)
-                    console.log("valNumber: " + val.itemNumber)
+                    // console.log("key: " + key)
+                    //console.log("bodyNumber: " + req.body.itemNumber)
+                    //console.log("valNumber: " + val.itemNumber)
                     req.body.totalPrice = req.body.totalPrice - (parseInt(val.price) * parseInt(val.quantity))
                     req.session.orders.splice(key, 1)
                 }
             })
         }
-        console.log("End: ", req.session.orders)
+        //console.log("End: ", req.session.orders)
         res.send(req.body.totalPrice.toString())
     },
 
@@ -853,8 +886,8 @@ const controller = {
             }
         }
 
-        console.log(req.query)
-        console.log(totalPrice)
+        //console.log(req.query)
+        //console.log(totalPrice)
 
         res.render('orderSummary', {productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
     },
@@ -936,7 +969,7 @@ const controller = {
     getOrdersView: async function(req, res) {
         var orderID = req.query.orderID
 
-        console.log(orderID)
+        //console.log(orderID)
 
         var orders = await Order.findOne({orderID: orderID});
 

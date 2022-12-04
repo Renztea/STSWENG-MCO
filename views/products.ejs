@@ -19,7 +19,7 @@
         <div class="productContainer">
 
             <% preview.forEach(function(preview) { %>
-                <button class="productBox">      
+                <button type="button" class="productBox" id="Carousel<%= preview._id %>">      
                     <div class="productImage">
                         <img src="<%= preview.image %>" placeholder="<%= preview.name %>" alt="<%= preview.name %>">
                         <input type="hidden" value="<%= type %>">
@@ -118,5 +118,15 @@
             </div>
         </div>
     </body>
-
+    <script>
+        $(document).ready(function() {
+            const params = new Proxy(new URLSearchParams(window.location.search), {
+                get: (searchParams, prop) => searchParams.get(prop),
+            });
+            let value = params.productID; 
+            if (typeof value !== 'undefined' || value != '') {
+                console.log($(`#Carousel${value}`).trigger('click'))
+            }
+        })
+    </script>
 </html>

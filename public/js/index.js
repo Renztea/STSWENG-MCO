@@ -1,7 +1,8 @@
 $(document).ready(function() {
+
     // Duplicate alert display when on click
     // Maybe need to display number Cake flavor
-    $(".productBox").click(function() {      
+    $('.productBox, button[id^="Carousel"]').click(function() {    
       var productName = $(this).find('img').attr('placeholder');
       var productType = $(this).find('input').val();
       
@@ -12,7 +13,6 @@ $(document).ready(function() {
           $('#displayProductFlavor').unbind('change');
           $('#displayProductSize').unbind('change');
           $('#displayProductFrosting').unbind('change');
-
           $('#displayProductImage').attr('src', result.image);
           $('#displayProductName').text(result.name)
           $("#displayProductQuantity").val(1)
@@ -424,5 +424,5 @@ $(document).ready(function() {
 
       })    
     })
-  
+    
 });
