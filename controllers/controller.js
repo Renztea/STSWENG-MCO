@@ -759,8 +759,11 @@ const controller = {
                         "flavor": req.body.flavor,
                         "size": req.body.size,
                         "frosting": req.body.frosting,
+                        "cakeNumber": req.body.cakeNumber,
+                        "designNumber": req.body.designNumber,
                         "quantity": req.body.quantity,
                         "dedication": req.body.dedication,
+                        "designs": req.body.designs,
                         "type": req.body.type};
 
         req.session.orders.push(productInfo);

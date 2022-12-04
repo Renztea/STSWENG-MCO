@@ -825,13 +825,13 @@ input::-webkit-inner-spin-button {
   width: 80%;
   margin: auto;
   border: 2px solid #000000;
-  background-color: #CDBDBF;
+  background-color: #FFFFFF;
 }
 
 .orderSummaryStyle {
   font-size: 15px;
   font-family: 'Poppins', sans-serif;
-  color: #3D2115;
+  color: #4A3627;
 }
 
 .orderSummaryInput {
@@ -840,7 +840,7 @@ input::-webkit-inner-spin-button {
   background-color: transparent;
   font-size: 15px;
   font-family: 'Poppins', sans-serif;
-  color: #3D2115;
+  color: #4A3627;
 }
 
 .orderSummaryInput:hover {
@@ -853,7 +853,7 @@ input::-webkit-inner-spin-button {
   margin-top: 20px;
   border-collapse: collapse;
   border: 2px solid #000000;
-  background-color: #CDBDBF;
+  background-color: #FFFFFF;
 }
 
 .orderBasketTableSummaryHeader, .orderBasketProductSummaryRow {
@@ -868,6 +868,7 @@ input::-webkit-inner-spin-button {
   height: 150px;
 }
 
+.orderBasketTableSummaryHeader,
 .orderBasketProductImageSummary, 
 .orderBasketProductDedicationSummary, 
 .orderBasketProductQuantitySummary, 
@@ -877,6 +878,7 @@ input::-webkit-inner-spin-button {
 .orderBasketTotalAmountSummaryLabel {
   text-align: center;
   font-family: 'Poppins', sans-serif;
+  color: #4A3627;
 }
 
 .orderBasketProductImageSummary, 
@@ -892,6 +894,7 @@ input::-webkit-inner-spin-button {
 
 .orderBasketProductInfoSummary {
   font-family: 'Poppins', sans-serif;
+  color: #4A3627;
 }
 
 .orderBasketProductImageContainer {

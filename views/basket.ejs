@@ -299,10 +299,10 @@
                         $('#quantity' + itemIndex).val(1)
                     }
 
-                    //if (currentQuantity > 0) {
+                    if (currentQuantity > 0) {
                         $('#price' + itemIndex).attr('data', productPrice)
                         $('#price' + itemIndex).text(displayPrice)
-                    //}
+                    }
                 }
 
                 function updateBasketInfo(itemIndex, itemNumber, itemType) {

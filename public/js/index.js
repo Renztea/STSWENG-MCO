@@ -29,6 +29,7 @@ $(document).ready(function() {
           $('.orderDedicationNote').hide()
           $('.orderCakeNumberContainer').hide()
           $('.orderDesignNumberContainer').hide()
+          $('#displayProductDesign').val("")
           $('#productNote').text('Price varies depending on quantity.')  
 
           if (productType == 'Cake') {         
@@ -40,7 +41,7 @@ $(document).ready(function() {
               $('#displayProductPrice').attr('data', result.numberCakePrice)
               $('#displayProductPrice').text(result.numberCakePrice)
               for (var i = 0; i < 10; i++) {
-                $('#displayProductCakeNumber').append(new Option(i + 1, i + 1))
+                $('#displayProductCakeNumber').append(new Option(i, i))
               }
               $('.orderCakeNumberContainer').show()
             } else {
@@ -412,9 +413,11 @@ $(document).ready(function() {
             flavor: $('#displayProductFlavor').find(':selected').val() || "", 
             size: $('#displayProductSize').find(":selected").val() || "", 
             frosting: $('#displayProductFrosting').find(':selected').val() || "",
+            cakeNumber: $('#displayProductCakeNumber').val() || "",
+            designNumber: $('#displayProductDesignNumber').val() || "",
             quantity: $('#displayProductQuantity').val() || 1,
-            dedication: $('#displayProductDedication').val(),
-            type: $(this).val()
+            dedication: $('#displayProductDedication').val() || "",
+            designs: $('#displayProductDesign').val() || ""
           }, function(result) {
             alert(result);
       }).fail(function() {
