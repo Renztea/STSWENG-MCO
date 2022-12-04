@@ -796,7 +796,7 @@ const controller = {
                         "designNumber": req.body.designNumber,
                         "quantity": req.body.quantity,
                         "dedication": req.body.dedication,
-                        "designs": req.body.designs,
+                        "design": req.body.design,
                         "type": req.body.type};
 
         req.session.orders.push(productInfo);
@@ -804,16 +804,6 @@ const controller = {
         res.send("Success")
     },
 
-    /*
-    getBasketItem: function(req, res) {
-        if(req.session.orders) {
-            res.render('basket', {basketItemList: req.session.orders})
-        } else {
-            res.redirect('/');
-        }
-    },
-    */
-    // test
     getBasketItem: async function(req, res) {
         var basketItemList = []
         var totalPrice = 0
@@ -827,7 +817,6 @@ const controller = {
                 } else {
                     var basketItem = await Cookie.findOne({name: item.name}, {_id: 0})
                 }                
-                
                 totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
                 basketItemList.push(basketItem)    
             }
@@ -846,8 +835,11 @@ const controller = {
                     order.flavor = req.body.flavor
                     order.size = req.body.size
                     order.frosting = req.body.frosting
+                    order.cakeNumber = req.body.cakeNumber
+                    order.designNumber = req.body.designNumber
                     order.quantity = req.body.quantity
                     order.dedication = req.body.dedication
+                    order.design = req.body.design
                     order.price = req.body.price
                 }
 

@@ -72,7 +72,9 @@
                         </select>
                         <label class="orderFrostingLabel">Frosting</label>
                     </div>
+                    <%_ } _%>
 
+                    <%_ if (type != 'Cake') { _%>
                     <div class="orderDesignNumberContainer">
                         <select id="displayProductDesignNumber" class="orderDesignNumber" title="DesignNumber" name="designNumber">
                         </select>
@@ -102,7 +104,7 @@
                     </div>
                     <%_ } _%>
 
-                    <%_ if (type == 'Cupcake') { _%>
+                    <%_ if (type != 'Cake') { _%>
                         <div class="orderDesignContainer">
                             <p class="orderDesignLabel">Designs:</p>
                             <textarea id="displayProductDesign" class="orderDesign" maxlength="100" placeholder="Enter Designs..."></textarea>

@@ -1,8 +1,7 @@
 $(document).ready(function() {
-
     // Duplicate alert display when on click
     // Maybe need to display number Cake flavor
-    $('.productBox, button[id^="Carousel"]').click(function() {    
+    $(".productBox").click(function() {      
       var productName = $(this).find('img').attr('placeholder');
       var productType = $(this).find('input').val();
       
@@ -13,6 +12,7 @@ $(document).ready(function() {
           $('#displayProductFlavor').unbind('change');
           $('#displayProductSize').unbind('change');
           $('#displayProductFrosting').unbind('change');
+
           $('#displayProductImage').attr('src', result.image);
           $('#displayProductName').text(result.name)
           $("#displayProductQuantity").val(1)
@@ -207,6 +207,12 @@ $(document).ready(function() {
               updateCupcakePrice(result)
             })
           } else {  
+            for (var i = 0; i < 3; i++) {
+              $('#displayProductDesignNumber').append(new Option(i + 1, i + 1))
+            }
+
+            $('.orderDesignNumberContainer').show()
+            
             $('#displayProductPrice').attr('data', result.price)
             $('#displayProductPrice').text(result.price)
           }
@@ -417,12 +423,13 @@ $(document).ready(function() {
             designNumber: $('#displayProductDesignNumber').val() || "",
             quantity: $('#displayProductQuantity').val() || 1,
             dedication: $('#displayProductDedication').val() || "",
-            designs: $('#displayProductDesign').val() || ""
+            design: $('#displayProductDesign').val() || "",
+            type: $(this).val()
           }, function(result) {
             alert(result);
       }).fail(function() {
 
       })    
     })
-    
+  
 });

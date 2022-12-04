@@ -654,7 +654,7 @@ input::-webkit-inner-spin-button {
 
 .basketItem {
   display: flex;
-  height: 300px;
+  height: 400px;
   width: 100%;
   position: relative;
   background-color: white;
@@ -718,7 +718,7 @@ input::-webkit-inner-spin-button {
   height: 30%;
 }
 
-.basketItemDedication {
+.basketItemDedication, .basketItemDesign {
   height: 70%
 }
 
@@ -746,7 +746,7 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
 }
 
-.editFlavor, .editSize, .editFrosting {
+.editFlavor, .editSize, .editFrosting, .editCakeNumber, .editDesignNumber {
   margin-top: 10px;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
@@ -768,16 +768,17 @@ input::-webkit-inner-spin-button {
   border-radius: 10px;
 }
 
-.editDedication {
+.editDedication, .editDesign {
   height: 100%;
   width: 100%;
   resize: none;
   font-size: 12px;
   font-family: 'Poppins', sans-serif;
   padding: 10px;
-  background-color: #E29595;
+  background-color: #FFFFFF;
   color: #4A3627;
   border-radius: 10px;
+  border: 1px solid #DF7E85;
 }
 
 .basketDecrement, .basketIncrement {

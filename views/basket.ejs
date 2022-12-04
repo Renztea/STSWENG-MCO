@@ -28,8 +28,8 @@
                             <h2><%= productItemList[index].name %></h2>
                         </div>
                         <div class="basketTypeContainer">
-                            <%_ if (productItemList[index].type != 'Cookie' && !basketItem.numberCake) { _%>
                             <h3>Type of <%= productItemList[index].type %>:</h3>
+                            <%_ if (productItemList[index].type != 'Cookie' && !basketItem.numberCake) { _%>
                             <select class="editFlavor" title="Flavor" id="flavor<%= index %>" name="flavor">  
                                 <!-- Cake -->                              
                                 <%_ if (basketItem.vanilla6x5Price > 0 || basketItem.vanilla8x5Price > 0) { _%>
@@ -72,6 +72,23 @@
                                 <%_ } _%>
                             </select>
                             <%_ } _%>
+
+                            <%_ if (productItemList[index].cakeNumber) { _%>
+                                <select class="editCakeNumber" title="CakeNumber" id="cakeNumber<%= index %>" name="cakeNumber">
+                                        <% for (var i = 0; i < 10; i++) { %>
+                                        <option value="<%= i%>" <% if (productItemList[index].cakeNumber == i) { %> selected <% } %>><%= i %></option>
+                                        <% } %>
+                                </select> 
+                            <%_ } _%>
+
+                            <%_ if (productItemList[index].type != 'Cake') { _%>
+                                <select class="editDesignNumber" title="DesignNumber" id="designNumber<%= index %>" name="designNumber">
+                                        <% for (var i = 0; i < 3; i++) { %>
+                                        <option value="<%= i + 1%>" <% if (productItemList[index].designNumber == i + 1) { %> selected <% } %>><%= i + 1 %></option>
+                                        <% } %>
+                                </select> 
+                            <%_ } _%>
+
                         </div>
                     </div>
                     
@@ -87,6 +104,12 @@
                         <div class="basketItemDedication">
                             <textarea id="dedication<%= index %>" class="editDedication" maxlength="100" placeholder="Enter Message..."><%= productItemList[index].dedication %></textarea>
                         </div>
+                        <%_ } _%>
+
+                        <%_ if (productItemList[index].type != 'Cake') { _%>
+                            <div class="basketItemDesign">
+                                <textarea id="design<%= index %>" class="editDesign" maxlength="100" placeholder="Enter Message..."><%= productItemList[index].design %></textarea>
+                            </div>
                         <%_ } _%>
                     </div>
 
@@ -165,6 +188,22 @@
                     updateBasketInfo(itemIndex, itemNumber, itemType)
                 })
 
+                $('.editCakeNumber').change(function() {
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+
+                    updateBasketInfo(itemIndex, itemNumber, itemType)
+                }) 
+
+                $('.editDesignNumber').change(function() {
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+
+                    updateBasketInfo(itemIndex, itemNumber, itemType)
+                }) 
+
                 $('.editDedication').change(function() {
                     var itemType = $(this).parents('.basketItem').attr('data')
                     var itemIndex = $(this).parents('.basketItem').attr('label')
@@ -172,6 +211,14 @@
 
                     updateBasketInfo(itemIndex, itemNumber, itemType)
                 })
+
+                $('.editDesign').change(function() {
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+
+                    updateBasketInfo(itemIndex, itemNumber, itemType)
+                }) 
 
                 function updateAvailableBasketCakeSize(itemIndex) {
                     var currentFlavor = $('#flavor' + itemIndex).val()
@@ -309,31 +356,40 @@
                     var currentFlavor = $('#flavor' + itemIndex).val()
                     var currentSize = $('#size' + itemIndex).val()
                     var currentFrosting = $('#frosting' + itemIndex).val()
+                    var currentCakeNumber = $('#cakeNumber' + itemIndex).val()
+                    var currentDesignNumber = $('#designNumber' + itemIndex).val()
                     var currentQuantity = $('#quantity' + itemIndex).val()
                     var currentPrice = $('#price' + itemIndex).attr('data')
                     var currentDedication = $('#dedication' + itemIndex).val()
+                    var currentDesign = $('#design' + itemIndex).val()
                     var productItem = productItemList[itemIndex]
 
                     $.post('/updateBasketItem', 
                         {itemNumber: itemNumber, 
                         flavor: currentFlavor || "", 
                         size: currentSize || "", 
-                        frosting: currentFrosting || "", 
+                        frosting: currentFrosting || "",
+                        cakeNumber: currentCakeNumber || "",
+                        designNumber: currentDesignNumber || "", 
                         quantity: currentQuantity,
                         dedication: currentDedication || "",  
+                        design: currentDesign || "",
                         price: currentPrice}, 
                                                 
                         function(result) {
                             if (itemType == 'Cake') {
                                 productItem.flavor = currentFlavor
                                 productItem.size = currentSize
+                                productItem.cakeNumber = cakeNumber
+                                productItem.dedication = currentDedication
                             } else if (itemType == 'Cupcake') {
                                 productItem.flavor = currentFlavor
                                 productItem.frosting = currentFrosting
                             }
 
+                            productItem.designNumber = currentDesignNumber
                             productItem.quantity = currentQuantity
-                            productItem.dedication = currentDedication
+                            productItem.design = currentDesign
                             productItem.price = currentPrice
 
                             $('#priceValue').text(result)
