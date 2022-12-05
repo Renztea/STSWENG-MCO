@@ -70,6 +70,8 @@
                                     <th class="orderTableHeaderItem">Name</th>          
                                     <th class="orderTableHeaderItem">Flavor</th>
                                     <th class="orderTableHeaderItem">Size</th>
+                                    <th class="orderTableHeaderItem">Cake Number</th>
+                                    <th class="orderTableHeaderItem">Dedication</th>
                                     <th class="orderTableHeaderItem">Quantity</th>
                                     <th class="orderTableHeaderItem">Price</th>
                                 </tr>
@@ -100,6 +102,8 @@
                                     <th class="orderTableHeaderItem">Name</th>          
                                     <th class="orderTableHeaderItem">Flavor</th>
                                     <th class="orderTableHeaderItem">Frosting</th>
+                                    <th class="orderTableHeaderItem">Design Number</th>
+                                    <th class="orderTableHeaderItem">Design</th>
                                     <th class="orderTableHeaderItem">Quantity</th>
                                     <th class="orderTableHeaderItem">Price</th>
                                 </tr>
@@ -127,7 +131,9 @@
                             <thead class="orderTableHeader">
                                 <tr>
                                     <th class="orderTableHeaderItem">Order#</th>  
-                                    <th class="orderTableHeaderItem">Name</th>          
+                                    <th class="orderTableHeaderItem">Name</th> 
+                                    <th class="orderTableHeaderItem">Design Number</th>
+                                    <th class="orderTableHeaderItem">Design</th>         
                                     <th class="orderTableHeaderItem">Quantity</th>
                                     <th class="orderTableHeaderItem">Price</th>
                                 </tr>
@@ -206,21 +212,21 @@
                             if (cakesOrderNumber ==  1) {
                                 $('#cakesTableInfo').find('tr').remove()
                             }
-                            tr = '<tr class="orderTableInfoRow"><td id="orderViewOrderNumber" class="orderTableInfo" data-label="Order#">' + cakesOrderNumber + '</td><td id="orderViewProductName" class="orderTableInfo" data-label="Name">' + result.name + '</td><td id="orderViewProductFlavor" class="orderTableInfo" data-label="Flavor">' + flavor + '</td><td id="orderViewProductSize" class="orderTableInfo" data-label="Size">' + size + '</td><td id="orderViewProductQuantity" class="orderTableInfo" data-label="Quantity">' + order.quantity + '</td><td class="orderTableInfo" data-label="Price">&#8369;<span id="orderViewProductPrice">' + productPrice + '</span></td></tr>'
+                            tr = '<tr class="orderTableInfoRow"><td id="orderViewOrderNumber" class="orderTableInfo" data-label="Order#">' + cakesOrderNumber + '</td><td id="orderViewProductName" class="orderTableInfo" data-label="Name">' + result.name + '</td><td id="orderViewProductFlavor" class="orderTableInfo" data-label="Flavor">' + flavor + '</td><td id="orderViewProductSize" class="orderTableInfo" data-label="Size">' + size + '</td><td id="orderViewProductcakeNumber" class="orderTableInfo" data-label="Cake Number">' + order.cakeNumber + '</td><td id="orderViewProductDedication" class="orderTableInfo" data-label="Dedication">' + order.dedication + '</td><td id="orderViewProductQuantity" class="orderTableInfo" data-label="Quantity">' + order.quantity + '</td><td class="orderTableInfo" data-label="Price">&#8369;<span id="orderViewProductPrice">' + productPrice + '</span></td></tr>'
                             $('#cakesTableInfo').append(tr)
                             cakesOrderNumber = cakesOrderNumber + 1
                         } else if (order.type == 'Cupcake') {
                             if (cupcakesOrderNumber ==  1) {
                                 $('#cupcakesTableInfo').find('tr').remove()
                             }
-                            tr = '<tr class="orderTableInfoRow"><td id="orderViewOrderNumber" class="orderTableInfo" data-label="Order#">' + cupcakesOrderNumber + '</td><td id="orderViewProductName" class="orderTableInfo" data-label="Name">' + result.name + '</td><td id="orderViewProductFlavor" class="orderTableInfo" data-label="Flavor">' + flavor + '</td><td id="orderViewProductFrosting" class="orderTableInfo" data-label="Frosting">' + frosting + '</td><td id="orderViewProductQuantity" class="orderTableInfo" data-label="Quantity">' + order.quantity + '</td><td class="orderTableInfo" data-label="Price">&#8369;<span id="orderViewProductPrice">' + productPrice + '</span></td></tr>'
+                            tr = '<tr class="orderTableInfoRow"><td id="orderViewOrderNumber" class="orderTableInfo" data-label="Order#">' + cupcakesOrderNumber + '</td><td id="orderViewProductName" class="orderTableInfo" data-label="Name">' + result.name + '</td><td id="orderViewProductFlavor" class="orderTableInfo" data-label="Flavor">' + flavor + '</td><td id="orderViewProductFrosting" class="orderTableInfo" data-label="Frosting">' + frosting + '</td><td id="orderViewProductDesignNumber" class="orderTableInfo" data-label="Design Number">' + order.designNumber + '</td><td id="orderViewProductDesign" class="orderTableInfo" data-label="Design">' + order.design + '</td><td id="orderViewProductQuantity" class="orderTableInfo" data-label="Quantity">' + order.quantity + '</td><td class="orderTableInfo" data-label="Price">&#8369;<span id="orderViewProductPrice">' + productPrice + '</span></td></tr>'
                             $('#cupcakesTableInfo').append(tr)
                             cupcakesOrderNumber = cupcakesOrderNumber + 1
                         } else {
                             if (cookiesOrderNumber ==  1) {
                                 $('#cookiesTableInfo').find('tr').remove()
                             }
-                            tr = '<tr class="orderTableInfoRow"><td id="orderViewOrderNumber" class="orderTableInfo" data-label="Order#">' + cookiesOrderNumber + '</td><td id="orderViewProductName" class="orderTableInfo" data-label="Name">' + result.name + '</td><td id="orderViewProductQuantity" class="orderTableInfo" data-label="Quantity">' + order.quantity + '</td><td class="orderTableInfo" data-label="Price">&#8369;<span id="orderViewProductPrice">' + productPrice + '</span></td></tr>'
+                            tr = '<tr class="orderTableInfoRow"><td id="orderViewOrderNumber" class="orderTableInfo" data-label="Order#">' + cookiesOrderNumber + '</td><td id="orderViewProductName" class="orderTableInfo" data-label="Name">' + result.name + '</td><td id="orderViewProductDesignNumber" class="orderTableInfo" data-label="Design Number">' + order.designNumber + '</td><td id="orderViewProductDesign" class="orderTableInfo" data-label="Design">' + order.design + '</td><td id="orderViewProductQuantity" class="orderTableInfo" data-label="Quantity">' + order.quantity + '</td><td class="orderTableInfo" data-label="Price">&#8369;<span id="orderViewProductPrice">' + productPrice + '</span></td></tr>'
                             $('#cookiesTableInfo').append(tr)
                             cookiesOrderNumber = cookiesOrderNumber + 1
                         }
