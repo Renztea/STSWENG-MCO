@@ -13,7 +13,9 @@
     <body class="mainBackground">
         <div class="header">
             <%- include("partials/logo") %>
-			<%- include("partials/menubuttons") %>
+            <div class="menu">
+			    <%- include("partials/menubuttons") %>
+            </div>
         </div>
 
         <form action="/orderComplete" method="POST">

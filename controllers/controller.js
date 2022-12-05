@@ -173,6 +173,48 @@ const controller = {
         res.send(productInfo)
     },
 
+    searchProduct: async function(req, res) {
+        var search = req.body.searchBarInput
+        var type = req.body.searchProductType
+
+        const errors = validationResult(req)
+
+        if (errors.isEmpty()) {
+            if(type == 'Cake') {
+                try {
+                    var productPreview = await Cake.find({$text: {$search: search}})
+                } catch (err) {
+                    console.log('Error on finding cake products. Error: \n' + err)
+                }
+            } else if (type == 'Cupcake') {
+                try {
+                    var productPreview = await Cupcake.find({$text: {$search: search}})
+                } catch (err) {
+                    console.log('Error on finding cupcake products. Error: \n' + err)
+                }
+            } else if (type == 'Cookie') {
+                try {
+                    var productPreview = await Cookie.find({$text: {$search: search}})
+                } catch (err) {
+                    console.log('Error on finding cookie products. Error: \n' + err)
+                }
+            } else {
+                res.render('errorPage')
+            }
+
+            if (productPreview.length > 0) {
+                res.render('products', {preview: productPreview, type: type})
+            } else {
+                req.flash('search_error', 'Product not found!');
+                res.redirect('/Products/' + type);
+            }
+        } else {
+            const messages = errors.array().map((item) => item.msg);
+            req.flash('search_error', messages[0]);
+            res.redirect('/Products/' + type);
+        }
+    },
+
     adminProductPage: async function (req, res) {
         var productType = req.params.type
         var pageNumber = req.query.pageNumber

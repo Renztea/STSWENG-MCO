@@ -39,4 +39,5 @@ const cakeSchema = new mongoose.Schema ({
     }
 })
 
+cakeSchema.index({name: 'text'})
 module.exports = mongoose.model('cake', cakeSchema)

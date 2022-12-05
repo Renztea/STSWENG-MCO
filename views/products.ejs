@@ -13,11 +13,14 @@
     <body class="mainBackground">
         <div class="header">
             <%- include("partials/logo") %>
-			<%- include("partials/menubuttons") %>
+            <div class="menu">
+                <%- include("partials/menubuttons") %>
+                <%- include("partials/searchBar") %>
+            </div>
         </div>
-
+        
+        <%- include("partials/messages") %>
         <div class="productContainer">
-
             <% preview.forEach(function(preview) { %>
                 <button type="button" class="productBox" id="Carousel<%= preview._id %>">      
                     <div class="productImage">
@@ -122,6 +125,7 @@
     </body>
     <script>
         $(document).ready(function() {
+            // Checks if a query for a certain product is present in the url. If yes then open the modal for that product.
             const params = new Proxy(new URLSearchParams(window.location.search), {
                 get: (searchParams, prop) => searchParams.get(prop),
             });

@@ -95,7 +95,7 @@ $(document).ready(function() {
               }
 
               if (result.dedication) {
-                alert(result.dedication)
+                //alert(result.dedication)
                 $(".orderDedicationContainer").show()
                 $('.orderDedicationNote').show()
               }
@@ -298,7 +298,7 @@ $(document).ready(function() {
       }
 
       var currentFrosting = $('#displayProductFrosting').find('option[value=' + frostingSelected + ']').length
-      alert(frostingSelected + " " + currentFrosting)
+      //alert(frostingSelected + " " + currentFrosting)
       if (currentFrosting > 0) {
         $('#displayProductFrosting').val(frostingSelected);
       }
@@ -345,9 +345,9 @@ $(document).ready(function() {
 //      if(currentQuantity > 0) {
         var displayPrice = productPrice * currentQuantity
         
-        alert("productPrice: " + productPrice)
-        alert("currentQuantity: " + currentQuantity)
-        alert("displayPrice: " + displayPrice)
+        //alert("productPrice: " + productPrice)
+        //alert("currentQuantity: " + currentQuantity)
+        //alert("displayPrice: " + displayPrice)
         $('#displayProductPrice').attr('data', productPrice)
         $('#displayProductPrice').text(displayPrice)
 //      }
@@ -389,20 +389,8 @@ $(document).ready(function() {
             || (e.keyCode > 47 && e.keyCode < 58)
             || e.keyCode == 8  || e.keyCode == 46
             || (e.keyCode > 36 && e.keyCode < 41))) {
-            console.log('That is illegal + ' + e.keyCode)
             return false;
         }
-        /*
-        if(!((e.keyCode > 47 && e.keyCode < 58) 
-            || (e.keyCode > 95 && e.keyCode < 106) 
-            || e.keyCode == 38 || e.keyCode == 40 
-            || e.keyCode == 8 || e.keyCode == 46)) {
-          console.log('That is illegal' + e.keyCode)
-          return false
-        } else {
-          console.log('That is legal' + e.keyCode)
-        }
-        */
     })
 
     $('.orderQuantity').change(function() {

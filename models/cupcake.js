@@ -35,4 +35,5 @@ const cupcakeSchema = new mongoose.Schema ({
     },
 })
 
+cupcakeSchema.index({name: 'text'})
 module.exports = mongoose.model('cupcake', cupcakeSchema)

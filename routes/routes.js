@@ -1,6 +1,6 @@
 const express = require('express');
 const controller = require('../controllers/controller.js');
-const { addCakeValidation, addCupcakeValidation, addCookieValidation, editCakeValidation, editCupcakeValidation, editCookieValidation} = require('../validators.js')
+const { addCakeValidation, addCupcakeValidation, addCookieValidation, editCakeValidation, editCupcakeValidation, editCookieValidation, searchValidation} = require('../validators.js')
 const { isPublic, isPrivate } = require('../middlewares/userAuth');
 const app = express();
 
@@ -8,36 +8,38 @@ const app = express();
 app.get('/getProductInfo', controller.getProductInfo)
 
 // Customer pages
-app.get('/', controller.getIndexPage)
-app.get('/products/:type', controller.getProductPage)
-app.get('/basket', controller.getBasketItem)
-app.post('/postBasketItem', controller.postBasketItem)
-app.post('/updateBasketItem', controller.updateBasketItem)
-app.post('/removeBasketItem', controller.removeBasketItem)
-app.get('/summary', controller.getOrderSummary)
-app.post('/orderComplete', controller.postOrderComplete)
+app.get('/', controller.getIndexPage) // Render HomePage
+app.get('/Products/:type', controller.getProductPage) // Render Product Page
+app.post('/Products/:type', searchValidation, controller.searchProduct) // Render Products depending on a customer's search input
+app.get('/basket', controller.getBasketItem) // Render Basket Page
+app.post('/postBasketItem', controller.postBasketItem) // Add product to basket
+app.post('/updateBasketItem', controller.updateBasketItem) // Update product inside the basket
+app.post('/removeBasketItem', controller.removeBasketItem) // Remove product from the basket
+app.get('/orderInformation', controller.getOrderInformationPage) // Render a page where buyers can input their personal details
+app.get('/summary', controller.getOrderSummary) // Render the summary of information of orders and personal information of customer
+app.post('/orderComplete', controller.postOrderComplete) // Reloads the page after completing the order
+
 
 // Admin pages
-app.get('/Admin', controller.getAdminPage)
-app.get('/Admin/:type', controller.adminProductPage)
-app.get('/Admin/orders/:category', controller.getOrdersPage)
-app.get('/getOrdersView', controller.getOrdersView)
-app.get('/deleteProduct', controller.deleteProduct)
+app.get('/Admin', controller.getAdminPage) // Renders the login page
+app.get('/Admin/:type', controller.adminProductPage) // Renders the product pages depending on the type
+app.get('/Admin/orders/:category', controller.getOrdersPage) // Renders the current pending orders of customers 
+app.get('/getOrdersView', controller.getOrdersView) // Get information about a specific product in the database
+app.get('/deleteProduct', controller.deleteProduct) // Deletes a product from the database
 
 // Form controllers
-app.post('/addCake', addCakeValidation, controller.addCake)
-app.post('/addCupcake', addCupcakeValidation, controller.addCupcake)
-app.post('/addCookie', addCookieValidation, controller.addCookie)
-app.post('/editCake', editCakeValidation, controller.editCake)
-app.post('/editCupcake', editCupcakeValidation, controller.editCupcake)
-app.post('/editCookie', editCookieValidation, controller.editCookie)
+app.post('/addCake', addCakeValidation, controller.addCake) // Adds a cake into the database
+app.post('/addCupcake', addCupcakeValidation, controller.addCupcake) // Adds a cupcake into the database
+app.post('/addCookie', addCookieValidation, controller.addCookie) // Adds a cookie into the database
+app.post('/editCake', editCakeValidation, controller.editCake) // Edits an existing cake in the database
+app.post('/editCupcake', editCupcakeValidation, controller.editCupcake) // Edits an existing cupcake in the database
+app.post('/editCookie', editCookieValidation, controller.editCookie) // Edits an existing cookie in the database
 
 
-// No BackEnd UI
-app.get('/orderInformation', controller.getOrderInformationPage)
+
 
 // Page not found
-app.get('*', controller.getErrorPage)
+app.get('*', controller.getErrorPage) // Renders an error page when a user goes to an unavailable page
 
 /* with Authentication 
 // Product Info
