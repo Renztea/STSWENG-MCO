@@ -16,7 +16,8 @@ app.post('/postBasketItem', controller.postBasketItem) // Add product to basket
 app.post('/updateBasketItem', controller.updateBasketItem) // Update product inside the basket
 app.post('/removeBasketItem', controller.removeBasketItem) // Remove product from the basket
 app.get('/orderInformation', controller.getOrderInformationPage) // Render a page where buyers can input their personal details
-app.get('/summary', orderInformationValidation, controller.getOrderSummary) // Render the summary of information of orders and personal information of customer
+app.get('/getInformationChecker', orderInformationValidation, controller.getInformationChecker)
+app.get('/summary', controller.getOrderSummary) // Render the summary of information of orders and personal information of customer
 app.post('/orderComplete', controller.postOrderComplete) // Reloads the page after completing the order
 
 

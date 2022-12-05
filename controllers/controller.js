@@ -289,7 +289,7 @@ const controller = {
     addCake: async function(req, res) {
 
         const errors = validationResult(req)
-        const nameExists = await Cake.findOne({name: req.body.productName})
+        const nameExists = await Cake.findOne({name: (req.body.productName).trim()})
         
         if (errors.isEmpty() && !nameExists) {
             var productInfo = req.body
@@ -463,7 +463,7 @@ const controller = {
     addCupcake: async function(req, res) {
 
         const errors = validationResult(req)
-        const nameExists = await Cupcake.findOne({name: req.body.productName})
+        const nameExists = await Cupcake.findOne({name: (req.body.productName).trim()})
 
         if (errors.isEmpty() && !nameExists) {
             var productName = (req.body.productName).trim()
@@ -607,7 +607,7 @@ const controller = {
 
     addCookie: async function(req, res) {
         const errors = validationResult(req)
-        const nameExists = await Cookie.findOne({name: req.body.productName})
+        const nameExists = await Cookie.findOne({name: (req.body.productName).trim()})
 
         if (errors.isEmpty() && !nameExists) {
             var productName = (req.body.productName).trim()
@@ -724,7 +724,7 @@ const controller = {
     },
 
     deleteProduct: async function(req, res) {
-        var name = req.query.name
+        var name = (req.query.name).trim()
         var image = ('./public' + req.query.image)
         var type = req.query.type
         var successMessage = "Product deleted successfully"
@@ -911,40 +911,37 @@ const controller = {
         res.send(req.body.totalPrice.toString())
     },
 
-    getOrderSummary: async function(req, res) {
-        
+    getInformationChecker: async function(req, res) {
         const errors = validationResult(req)
-
-        console.log(req.query)
-        console.log(req.query.name)
-
-        // console.log(errors)
-        // console.log("line")
-        // console.log(req.body)
-
-        //console.log(req.session)
-
-        // if((req.session.orders) == null){
-        //     res.redirect("/")
-        // }
+        
         if(errors.isEmpty()){
-            var totalPrice = 0
-            if(req.session.orders) {
-                for (const item of req.session.orders) {                   
-                    totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
-                }
-            }
-    
-            //console.log(req.query)
-            //console.log(totalPrice)
-    
-            //res.render('orderSummary', {productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
+            res.send("Success")
         }
         else {
             var messages = errors.array().map((item) => item.msg);
             var errorFields = errors.array().map((item) => item.param);
             res.send({errorFields, messages})
         }
+    },
+
+    getOrderSummary: async function(req, res) {
+
+        if((req.session.orders) == null){
+            res.redirect("/basket")
+        }
+
+        var totalPrice = 0
+        if(req.session.orders) {
+            for (const item of req.session.orders) {                   
+                totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
+            }
+        }
+
+        // console.log(req.query)
+        // console.log(totalPrice)
+
+        res.render('orderSummary', {productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
+        
     },
 
     postOrderComplete: function(req, res) {

@@ -107,7 +107,7 @@
 						<tr>
 							<td class="td2" style="width: 22%;"><div class="productCss"><label for="productName">Cake Name:</label></div></td>	
 							<td class="td2" style="width: 3%;"></td>
-							<td class="td2" style="width: 30%; "><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name" required><p id="productNameAddError" class="addError"></p></td>
+							<td class="td2" style="width: 30%; "><input class="inputName" type="text" id="productName" name="productName" placeholder="Enter Name"><p id="productNameAddError" class="addError"></p></td>
 							<td class="td2" style="text-align: center; width: 13%;"><div class="productCss"><label for="productPictures">Image:</label></div></td>								
 							<td class="td2" ><input type="file" class="myFile" name="filename"><p id="filenameAddError" class="addError"></p></td>
 						</tr>
@@ -462,13 +462,13 @@
 			var formData = new FormData(document.getElementById('editProductForm'));
 			$.ajax({
 				type: "POST",
-            	enctype: 'multipart/form-data',
-           		url: "/editCake",
-            	data: formData,
-            	processData: false,
-            	contentType: false,
-            	cache: false,
-            	timeout: 600000,
+			enctype: 'multipart/form-data',
+			url: "/editCake",
+			data: formData,
+			processData: false,
+			contentType: false,
+			cache: false,
+			timeout: 600000,
 			}).done(function(result) {
 				// Resets all the fields to remove the existing errors before checking again.
 				fields.forEach(function(field) {
@@ -512,7 +512,7 @@
 					console.log(result)
 					if (numberofProducts == 0) {
 						const params = new Proxy(new URLSearchParams(window.location.search), {
-  							get: (searchParams, prop) => searchParams.get(prop),
+  								get: (searchParams, prop) => searchParams.get(prop),
 						});
 						let value = params.pageNumber; 
 						window.location.assign( '/Admin/' + productType + '?pageNumber=' + (value - 1))

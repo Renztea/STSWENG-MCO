@@ -24,7 +24,7 @@
                     <h1>ORDER INFORMATION</h1>
                 </div>
 
-                <form id="orderInfoForm" class="orderInfoForm" method="GET">
+                <form action="/summary" id="orderInfoForm" class="orderInfoForm" method="GET">
                     <div class="orderInfoGroup">
                         <label class="orderStyle" for="name">Name:</label>
                         <input class="orderInput" type="text" id="name" name="name" placeholder="Enter Name" required>
@@ -72,7 +72,7 @@
 
                     <div class="orderBtn">
                         <!-- <button class="orderCancel" type="submit" id="cancel" formaction="/basket">RETURN</button> -->
-                        <button class ="orderSubmit" type="button" id="order"">ORDER</button>
+                        <button class ="orderSubmit" type="button" id="order">ORDER</button>
                     </div>
                 </form>
             </div>
@@ -96,7 +96,7 @@
                 var data = {};
                 formData.forEach((value, key) => data[key] = value);
 
-                $.get('/summary', data, function(result){
+                $.get('/getInformationChecker', data, function(result){
                     // Resets all the fields to remove the existing errors before checking again.
                     fields.forEach(function(field) {
                         $('#orderInfoForm').find(`[name='${field}']`).css('border-color', '#6F4E37')
@@ -105,10 +105,9 @@
 
                     var inputFieldErrors = result.errorFields // name of the input fields that have errors
 					var errorMessages = result.messages // error messages of each field
-                    console.log(inputFieldErrors)
-                    console.log(errorMessages)
 
                     if (inputFieldErrors || errorMessages) { // Iterates all the errors and displays all the errors
+
 						for (let i = 0; i < inputFieldErrors.length ; i++) {
 							$('#orderInfoForm').find(`[name='${inputFieldErrors[i]}']`).css('border-color', 'red')
 							$('#orderInfoForm').find(`[name='${inputFieldErrors[i]}']`).css('border-width', '2px')
@@ -117,11 +116,9 @@
 							$(`#${inputFieldErrors[i]}Error`).text(errorMessages[i])
 						}
 					} else {
-						$(this).prop('disabled', true)
-						//window.location.reload()
+                        console.log("lol")
+                        $('#orderInfoForm').submit()
 					}
-                }).fail(function(error){
-                    console.log("ERROR : ", error);
                 })
             })
         });
