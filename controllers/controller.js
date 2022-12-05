@@ -90,7 +90,7 @@ const controller = {
 
         res.render('main', {display: products, types: types})
     },
-   
+
     getAdminPage: function(req, res) {
         res.render('login')
     },
@@ -912,18 +912,36 @@ const controller = {
     },
 
     getOrderSummary: async function(req, res) {
-        var totalPrice = 0
+        const errors = validationResult(req)
+        // console.log(errors)
+        // console.log("line")
+        // console.log(req.body)
 
-        if(req.session.orders) {
-            for (const item of req.session.orders) {                   
-                totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
+        //console.log(req.session)
+
+        // if((req.session.orders) == null){
+        //     res.redirect("/")
+        // }
+
+        if(errors.isEmpty()){
+            var totalPrice = 0
+
+            if(req.session.orders) {
+                for (const item of req.session.orders) {                   
+                    totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
+                }
             }
+    
+            //console.log(req.query)
+            //console.log(totalPrice)
+    
+            res.render('orderSummary', {productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
         }
-
-        //console.log(req.query)
-        //console.log(totalPrice)
-
-        res.render('orderSummary', {productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
+        else {
+            var messages = errors.array().map((item) => item.msg);
+            var errorFields = errors.array().map((item) => item.param);
+            res.send({errorFields, messages})
+        }
     },
 
     postOrderComplete: function(req, res) {

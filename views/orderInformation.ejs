@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width">
         <title>Order Information</title>
         <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     </head>
 
     <body class="mainBackground">
@@ -13,6 +14,7 @@
             <%- include("partials/logo") %>
             <div class="menu">
 			    <%- include("partials/menubuttons") %>
+                <%- include("partials/messages") %>
             </div>
         </div>
 
@@ -22,15 +24,17 @@
                     <h1>ORDER INFORMATION</h1>
                 </div>
 
-                <form class="orderInfoForm" method="GET" enctype="multipart/form-data">
+                <form id="orderInfoForm" class="orderInfoForm" method="GET" enctype="multipart/form-data">
                     <div class="orderInfoGroup">
                         <label class="orderStyle" for="name">Name:</label>
                         <input class="orderInput" type="text" id="name" name="name" placeholder="Enter Name" required>
+                        <p id="nameError" class="infoError"></p>
                     </div>
                     
                     <div class="orderInfoGroup">
                         <label class="orderStyle" for="celebrant">Celebrant:</label>
                         <input class="orderInput" type="text" id="celebrant" name="celebrant" placeholder="Enter Celebrant's Name" required>       
+                        <p id="celebrantError" class="infoError"></p>
                     </div>
 
                     <div class="orderInfoGroup">
@@ -39,26 +43,31 @@
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                         </select>
+                        <p id="celebrantGenderError" class="infoError"></p>
                     </div>
 
                     <div class="orderInfoGroup">
                         <label class="orderStyle" for="celebrantAge">Celebrant Age:</label>
                         <input class="orderInput" type="text" id="celebrantAge" name="celebrantAge" placeholder="Enter Celebrant's Age" required>
+                        <p id="celebrantAgeError" class="infoError"></p>
                     </div>
 
                     <div class="orderInfoGroup">
                         <label class="orderStyle" for="pickupDate">Pickup Date:</label>
                         <input class="orderInput" type="date" id="pickupDate" name="pickupDate" required>
+                        <p id="pickupDateError" class="infoError"></p>
                     </div>
 
                     <div class="orderInfoGroup">
                         <label class="orderStyle" for="contactNo">Contact No:</label>
                         <input class="orderInput" type="tel" id="contactNo" name="contactNo" placeholder="Enter Contact Number" required>
+                        <p id="contactNoError" class="infoError"></p>
                     </div>
 
                     <div class="orderInfoGroup">
                         <label class="orderStyle" for="email">Email:</label>
                         <input class="orderInput" type="email" id="email" name="email" placeholder="Enter Email" required>
+                        <p id="emailError" class="infoError"></p>
                     </div>
 
                     <div class="orderBtn">
@@ -69,5 +78,56 @@
             </div>
         </div>
     </body>
+    <!-- <script>
+        $( document ).ready(function() {
+            var fields = [
+				'name', 
+				'celebrant', 
+				'celebrantGender',
+                'celebrantAge',
+                'pickupDate',
+                'contactNo',
+                'email',
+			]	
+
+            // Checks if inputs are valid through communicating with the back-end, if valid then continue
+            $('#order').click(function() {
+                var formData = new FormData(document.getElementById('orderInfoForm'))
+                $.get('/summary',formData, function(result){
+                    // Resets all the fields to remove the existing errors before checking again.
+                    fields.forEach(function(field) {
+                        $('#orderInfoForm').find(`[name='${field}']`).css('border-color', '#6F4E37')
+                    })
+                    $('.infoError').text('')// Removes all error messages from the display.
+
+                    var inputFieldErrors = result.errorFields // name of the input fields that have errors
+					var errorMessages = result.messages // error messages of each field
+                    console.log(inputFieldErrors)
+                    console.log(errorMessages)
+
+                    if (inputFieldErrors || errorMessages) { // Iterates all the errors and displays all the errors
+						for (let i = 0; i < inputFieldErrors.length ; i++) {
+							$('#orderInfoForm').find(`[name='${inputFieldErrors[i]}']`).css('border-color', 'red')
+							$('#orderInfoForm').find(`[name='${inputFieldErrors[i]}']`).css('border-width', '2px')
+							$('#orderInfoForm').find(`[name='${inputFieldErrors[i]}']`).css('border-style', 'solid')
+							$('#orderInfoForm').find(`[name='${inputFieldErrors[i]}']`).css('margin-top', '20px')
+							$(`#${inputFieldErrors[i]}Error`).text(errorMessages[i])
+						}
+					} else {
+						$(this).prop('disabled', true)
+						//window.location.reload()
+					}
+
+
+        
+                }).fail(function(error){
+                    console.log("ERROR : ", error);
+                })
+            })
+
+
+
+        });
+    </script> -->
 
 </html>
