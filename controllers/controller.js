@@ -387,7 +387,7 @@ const controller = {
             if (typeof productNumberCake === 'undefined') {
                 productNumberCake = false 
                 productNumberCakePrice = 0
-                if(productDedication === 'undefined') {
+                if(typeof productDedication === 'undefined') {
                     productDedication = false
                 }
             } else {
