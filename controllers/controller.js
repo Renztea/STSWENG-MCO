@@ -912,7 +912,12 @@ const controller = {
     },
 
     getOrderSummary: async function(req, res) {
+        
         const errors = validationResult(req)
+
+        console.log(req.query)
+        console.log(req.query.name)
+
         // console.log(errors)
         // console.log("line")
         // console.log(req.body)
@@ -922,10 +927,8 @@ const controller = {
         // if((req.session.orders) == null){
         //     res.redirect("/")
         // }
-
         if(errors.isEmpty()){
             var totalPrice = 0
-
             if(req.session.orders) {
                 for (const item of req.session.orders) {                   
                     totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
@@ -935,7 +938,7 @@ const controller = {
             //console.log(req.query)
             //console.log(totalPrice)
     
-            res.render('orderSummary', {productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
+            //res.render('orderSummary', {productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
         }
         else {
             var messages = errors.array().map((item) => item.msg);

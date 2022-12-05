@@ -24,7 +24,7 @@
                     <h1>ORDER INFORMATION</h1>
                 </div>
 
-                <form id="orderInfoForm" class="orderInfoForm" method="GET" enctype="multipart/form-data">
+                <form id="orderInfoForm" class="orderInfoForm" method="GET">
                     <div class="orderInfoGroup">
                         <label class="orderStyle" for="name">Name:</label>
                         <input class="orderInput" type="text" id="name" name="name" placeholder="Enter Name" required>
@@ -71,14 +71,14 @@
                     </div>
 
                     <div class="orderBtn">
-                        <button class="orderCancel" type="submit" id="cancel" formaction="/basket">RETURN</button>
-                        <button class ="orderSubmit" type="submit" id="order" formaction="/summary">ORDER</button>
+                        <!-- <button class="orderCancel" type="submit" id="cancel" formaction="/basket">RETURN</button> -->
+                        <button class ="orderSubmit" type="button" id="order"">ORDER</button>
                     </div>
                 </form>
             </div>
         </div>
     </body>
-    <!-- <script>
+    <script>
         $( document ).ready(function() {
             var fields = [
 				'name', 
@@ -93,7 +93,10 @@
             // Checks if inputs are valid through communicating with the back-end, if valid then continue
             $('#order').click(function() {
                 var formData = new FormData(document.getElementById('orderInfoForm'))
-                $.get('/summary',formData, function(result){
+                var data = {};
+                formData.forEach((value, key) => data[key] = value);
+
+                $.get('/summary', data, function(result){
                     // Resets all the fields to remove the existing errors before checking again.
                     fields.forEach(function(field) {
                         $('#orderInfoForm').find(`[name='${field}']`).css('border-color', '#6F4E37')
@@ -117,17 +120,10 @@
 						$(this).prop('disabled', true)
 						//window.location.reload()
 					}
-
-
-        
                 }).fail(function(error){
                     console.log("ERROR : ", error);
                 })
             })
-
-
-
         });
-    </script> -->
-
+    </script>
 </html>

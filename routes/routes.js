@@ -1,6 +1,6 @@
 const express = require('express');
 const controller = require('../controllers/controller.js');
-const { addCakeValidation, addCupcakeValidation, addCookieValidation, editCakeValidation, editCupcakeValidation, editCookieValidation, orderInformationValidation} = require('../validators.js')
+const { addCakeValidation, addCupcakeValidation, addCookieValidation, editCakeValidation, editCupcakeValidation, editCookieValidation, orderInformationValidation, searchValidation} = require('../validators.js')
 const { isPublic, isPrivate } = require('../middlewares/userAuth');
 const app = express();
 

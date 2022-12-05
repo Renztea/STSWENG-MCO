@@ -143,10 +143,8 @@ const orderInformationValidation = [
         .isEmail().withMessage("Please provide a valid email!"),
 ]
 
-module.exports = { loginValidation , addCakeValidation, addCupcakeValidation, addCookieValidation, editCakeValidation, editCupcakeValidation, editCookieValidation, orderInformationValidation};
-
 const searchValidation = [
     body('searchBarInput').not().isEmpty().withMessage("Search input is required!"),
     body('searchProductType').not().isEmpty().withMessage('Product type unknown!')
 ]
-module.exports = { loginValidation , addCakeValidation, addCupcakeValidation, addCookieValidation, editCakeValidation, editCupcakeValidation, editCookieValidation, searchValidation};
+module.exports = { loginValidation , addCakeValidation, addCupcakeValidation, addCookieValidation, editCakeValidation, editCupcakeValidation, editCookieValidation, searchValidation, orderInformationValidation};
