@@ -18,6 +18,10 @@
             </div>
         </div>
 
+        <div class="progressBarContainer">
+            <%- include("partials/progressBar") %>
+        </div>
+
         <form action="/orderComplete" method="POST">
             <div class="orderInfoSummary">
                 <div>
@@ -117,7 +121,23 @@
             </div>
         </form>
         <script>
+            $(document).ready(function() {   
+                const progressSteps = document.querySelectorAll('.progressStep');
+                const progress = document.querySelector('.progress');
+                progressSteps.forEach(function(progressSteps) {
+                        if (progressSteps.classList.contains('progressStepActive')) {
+                            progressSteps.classList.remove('progressStepActive')
+                        }
+                    })
+                progressSteps[0].classList.add('progressStepActive')
+                progressSteps[1].classList.add('progressStepActive')
+                progressSteps[2].classList.add('progressStepActive')
 
+                const progressActive = document.querySelectorAll('.progressStepActive');
+
+                progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1) * 100 + "%");
+
+                })
         </script>
     </body>
 

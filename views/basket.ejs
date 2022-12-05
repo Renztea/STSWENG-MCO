@@ -17,6 +17,10 @@
             </div>
         </div>
 
+        <div class="progressBarContainer">
+            <%- include("partials/progressBar") %>
+        </div>
+
         <div class="basketContainer">
             <div class="basketItemContainer">
                 <%_ basketItemList.forEach(function(basketItem, index) { _%>
@@ -138,9 +142,23 @@
         <script>
             $(document).ready(function() {            
                 let basketItemList = <%- JSON.stringify(basketItemList) %>;
-                let productItemList = <%- JSON.stringify(productItemList) %>
+                let productItemList = <%- JSON.stringify(productItemList) %>;
+                const progressSteps = document.querySelectorAll('.progressStep');
+                const progress = document.querySelector('.progress');
 
                 basketItemCount()
+
+                progressSteps.forEach(function(progressSteps) {
+                    if (progressSteps.classList.contains('progressStepActive')) {
+                        progressSteps.classList.remove('progressStepActive')
+                    }
+                })
+
+                progressSteps[0].classList.add('progressStepActive')
+
+                const progressActive = document.querySelectorAll('.progressStepActive');
+
+                progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1) * 100 + "%");
 
                 function basketItemCount() {
                     var basketItemList = document.querySelectorAll('.basketItem')
