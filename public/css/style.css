@@ -997,3 +997,72 @@ input::-webkit-inner-spin-button {
   font-size:20px; 
   padding: 10px;
 }
+
+.search-bar {
+    background-color: #EBD8DB;
+    text-decoration: none;
+    border-radius: 50px;
+    font-family: Poppins;
+    font-size: 18px;
+    height: 50px;
+    display: flex;
+    transform: translate(-50%,-50%);
+    border: 1px black solid;
+    transition-duration: 0.2s;
+    margin-top: 25px;
+    margin-left: 140px;
+}
+
+.textbox {
+    width: 0px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 50px;
+    line-height: 40px;
+    font-size: 16px;
+    font-family: Poppins;
+    height: 45px;
+    outline: none;
+    height: 100%;
+    float: left;
+    transition-duration: 0.05s;
+    color: #4A3627;
+    font-family: Poppins, sans-serif;
+    background-color: #EBD8DB;
+}
+
+.search-btn {
+    height: 45px;
+    width: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: right;
+    text-decoration: none;
+    height: 100%;
+    transition-duration: 0.2s;
+}
+
+.search-btn button {
+    background-color: #EBD8DB;
+    border: none;
+}
+
+.search-bar:hover .textbox {
+    padding: 0px 10px 0px 10px;
+    width: 100%;
+    transition-duration: 0.2s;
+}
+
+.search-bar:hover .search-btn {
+    border-left: 1px black solid;
+    transition-duration: 0.2s;
+}
+
+.search-btn:hover {
+    transition-duration: 0.2s;
+    cursor: pointer;
+    background-color: grey;
+    border-radius: 50px;
+}
