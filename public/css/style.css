@@ -669,12 +669,8 @@ input::-webkit-inner-spin-button {
   height: 100%;
 }
 
-.basketItemImage, .basketItemInfo {
-  width: 30%;
-}
-
-.basketGroupQuantityNDedication, .basketGroupPriceNRemove {
-  width: 20%;
+.basketItemImage, .basketItemInfo, .basketGroupQuantityNDedication, .basketGroupPriceNRemove {
+  width: 25%;
 }
 
 .basketItemImage {
@@ -715,11 +711,12 @@ input::-webkit-inner-spin-button {
 }
 
 .basketItemQuantity {
-  height: 30%;
+  height: 40%;
 }
 
 .basketItemDedication, .basketItemDesign {
-  height: 70%
+  padding: 25px 0px;
+  height: 60%
 }
 
 .basketItemPrice {
