@@ -58,12 +58,8 @@ function randomizer (currentProducts) {
 
 const controller = {
 
-    getOrdersPage: async function(req, res) { //Added Here(John)
-        var category = req.params.category
+    getOrdersPage: async function(req, res) {
         var pageNumber = req.query.pageNumber
-        var orders;
-        var orderCount = 0;
-        var offSet = 0;
 
         // default page value when no url query was initialized.
         if (typeof pageNumber === 'undefined') {
