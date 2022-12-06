@@ -35,7 +35,7 @@
                         </div>
                         <div class="basketTypeContainer">
                             <h3>Type of <%= productItemList[index].type %>:</h3>
-                            <%_ if (productItemList[index].type != 'Cookie' && !basketItem.numberCake) { _%>
+                            <%_ if (productItemList[index].type != 'cookie' && !basketItem.numberCake) { _%>
                             <select class="editFlavor" title="Flavor" id="flavor<%= index %>" name="flavor">  
                                 <!-- Cake -->                              
                                 <%_ if (basketItem.vanilla6x5Price > 0 || basketItem.vanilla8x5Price > 0) { _%>
@@ -57,7 +57,7 @@
                             </select>
                             <%_ } _%>
 
-                            <%_ if (productItemList[index].type == 'Cake' && !basketItem.numberCake) { _%>
+                            <%_ if (productItemList[index].type == 'cake' && !basketItem.numberCake) { _%>
                             <select class="editSize" title="Size" id="size<%= index %>" name="size">
                                 <%_ if (basketItem.vanilla6x5Price > 0 || basketItem.chocolate6x5Price > 0) { _%>
                                     <option value="6x5" <% if (productItemList[index].size == "6x5") { %> selected <% } %>>6" x 5"</option>
@@ -68,7 +68,7 @@
                             </select> 
                             <%_ } _%>
 
-                            <%_ if (productItemList[index].type == 'Cupcake') { _%>
+                            <%_ if (productItemList[index].type == 'cupcake') { _%>
                             <select id="frosting<%= index %>" class="editFrosting" title="Frosting" name="frosting">
                                 <%_ if (basketItem.vanillaFondantPrice > 0 || basketItem.chocolateFondantPrice > 0 || basketItem.redvelvetFondantPrice > 0) { _%>
                                     <option value="fondant" <% if (productItemList[index].frosting == "fondant") { %> selected <% } %>>Fondant</option>
@@ -87,7 +87,7 @@
                                 </select> 
                             <%_ } _%>
 
-                            <%_ if (productItemList[index].type != 'Cake') { _%>
+                            <%_ if (productItemList[index].type != 'cake') { _%>
                                 <select class="editDesignNumber" title="DesignNumber" id="designNumber<%= index %>" name="designNumber">
                                         <% for (var i = 0; i < 3; i++) { %>
                                         <option value="<%= i + 1%>" <% if (productItemList[index].designNumber == i + 1) { %> selected <% } %>><%= i + 1 %></option>
@@ -112,7 +112,7 @@
                         </div>
                         <%_ } _%>
 
-                        <%_ if (productItemList[index].type != 'Cake') { _%>
+                        <%_ if (productItemList[index].type != 'cake') { _%>
                             <div class="basketItemDesign">
                                 <textarea id="design<%= index %>" class="editDesign" maxlength="100" placeholder="Enter Design..."><%= productItemList[index].design %></textarea>
                             </div>
@@ -177,10 +177,10 @@
                     var itemIndex = $(this).parents('.basketItem').attr('label')
                     var itemNumber = $(this).parents('.basketItem').attr('name')
 
-                    if (itemType == 'Cake') {
+                    if (itemType == 'cake') {
                         updateAvailableBasketCakeSize(itemIndex)
                         updateBasketCakePrice(itemIndex)
-                    } else if (itemType == 'Cupcake') {
+                    } else if (itemType == 'cupcake') {
                         updateAvailableBasketCupcakeFrosting(itemIndex)
                         updateBasketCupcakePrice(itemIndex)
                     }
@@ -397,12 +397,12 @@
                         price: currentPrice}, 
                                                 
                         function(result) {
-                            if (itemType == 'Cake') {
+                            if (itemType == 'cake') {
                                 productItem.flavor = currentFlavor
                                 productItem.size = currentSize
                                 productItem.cakeNumber = cakeNumber
                                 productItem.dedication = currentDedication
-                            } else if (itemType == 'Cupcake') {
+                            } else if (itemType == 'cupcake') {
                                 productItem.flavor = currentFlavor
                                 productItem.frosting = currentFrosting
                             }

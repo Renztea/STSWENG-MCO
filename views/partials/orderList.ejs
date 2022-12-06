@@ -43,9 +43,9 @@
             <td class="orderTableInfo" data-label="Status"><%= order.status %></td>
             <%_ if (orderList.category != "cancelled" && orderList.category != "pickedup") { _%>
             <td class="orderTableInfo" data-label="Action">
-                <%_ if (order.status == "UNPAID") { _%>
+                <%_ if (order.status == "unpaid") { _%>
                 <button class="orderStatusBtn">PAID</button>
-                <%_ } else if (order.status == "PAID") { _%>
+                <%_ } else if (order.status == "paid") { _%>
                 <button class="orderStatusBtn">PICKED UP</button>
                 <%_ } _%>
             </td>

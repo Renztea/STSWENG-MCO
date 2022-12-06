@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-        <title><%= type %></title>
+        <title>Products</title>
         <link href="/css/style.css" rel="stylesheet" type="text/css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script type="text/javascript" src="/js/index.js"></script>
@@ -55,7 +55,7 @@
 
                     <p class="orderPrice">&#8369;<span id="displayProductPrice" data="0">0</span></p>
 
-                    <%_ if (type != 'Cookie') { _%>
+                    <%_ if (type != 'cookie') { _%>
                     <div class="orderFlavorContainer">
                         <select id="displayProductFlavor" class="orderFlavor" title="Flavor" name="flavor">
                         </select>
@@ -63,7 +63,7 @@
                     </div>
                     <%_ } _%>
 
-                    <%_ if (type == 'Cake') { _%>
+                    <%_ if (type == 'cake') { _%>
                     <div class="orderSizeContainer">
                         <select id="displayProductSize" class="orderSize" title="Size" name="size">
                         </select>
@@ -71,7 +71,7 @@
                     </div>
                     <%_ } _%>
 
-                    <%_ if (type == 'Cupcake') { _%>
+                    <%_ if (type == 'cupcake') { _%>
                     <div class="orderFrostingContainer">
                         <select id="displayProductFrosting" class="orderFrosting" title="Frosting" name="frosting">
                         </select>
@@ -79,7 +79,7 @@
                     </div>
                     <%_ } _%>
 
-                    <%_ if (type != 'Cake') { _%>
+                    <%_ if (type != 'cake') { _%>
                     <div class="orderDesignNumberContainer">
                         <select id="displayProductDesignNumber" class="orderDesignNumber" title="DesignNumber" name="designNumber">
                         </select>
@@ -102,14 +102,14 @@
                         <label class="orderQuantityLabel">Quantity</label>
                     </div>
 
-                    <%_ if (type == 'Cake') { _%>
+                    <%_ if (type == 'cake') { _%>
                     <div class="orderDedicationContainer">
                         <p class="orderDedicationLabel">Dedication:</p>
                         <textarea id="displayProductDedication" class="orderDedication" maxlength="100" placeholder="Enter Message..."></textarea>
                     </div>
                     <%_ } _%>
 
-                    <%_ if (type != 'Cake') { _%>
+                    <%_ if (type != 'cake') { _%>
                         <div class="orderDesignContainer">
                             <p class="orderDesignLabel">Designs:</p>
                             <textarea id="displayProductDesign" class="orderDesign" maxlength="100" placeholder="Enter Designs..."></textarea>

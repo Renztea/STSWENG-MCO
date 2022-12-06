@@ -32,7 +32,7 @@ $(document).ready(function() {
           $('#displayProductDesign').val("")
           $('#productNote').text('Price varies depending on quantity.')  
 
-          if (productType == 'Cake') {         
+          if (productType == 'cake') {         
             var hasVanillaFlavor = false;
             var hasSize6x5 = false;
             var hasSize8x5 = false;
@@ -113,7 +113,7 @@ $(document).ready(function() {
                 updateCakePrice(result)
               })
             }
-          } else if (productType == 'Cupcake') {
+          } else if (productType == 'cupcake') {
             $('#productNote').text('Price varies depending on flavor, frosting, and quantity.')   
             $('.orderFlavorContainer').show()
             $('.orderFrostingContainer').show()

@@ -59,22 +59,32 @@ function randomizer (currentProducts) {
 const controller = {
 
     getOrdersPage: async function(req, res) {
-        var pageNumber = req.query.pageNumber
+        var pagenumber = req.query.pagenumber
+        var category = req.params.category
+        var previewOrders
+        var orderCount
 
         // default page value when no url query was initialized.
-        if (typeof pageNumber === 'undefined') {
-            pageNumber = 1
+        if (typeof pagenumber === 'undefined') {
+            pagenumber = 1
         } 
 
-        var orders = await Order.find({})
+        if (category == 'all') {
+            previewOrders = await Order.find({}).limit(6).skip(6 * (pagenumber - 1))
+            orderCount = await Order.find({}).count()
+        } else {
+            previewOrders = await Order.find({"status": category}).limit(6).skip(6 * (pagenumber - 1))
+            orderCount = await Order.find({"status": category}).count()
+        }
 
-        var numberofPages = parseInt(orders.length / 6)
-        if (orders.length % 6 != 0 || orders.length == 0) {
+        var numberofPages = parseInt(orderCount / 6)
+        if (orderCount % 6 != 0 || orderCount == 0) {
             numberofPages++
         }
-        var previewOrders = orders.slice((pageNumber - 1) * 6, (pageNumber - 1) * 6 + 6) 
-        if (pageNumber <= numberofPages && pageNumber != 0 && pageNumber > 0) {
-            res.render('order', {orderList: previewOrders, numberofPages: numberofPages , currentPage: pageNumber})
+
+        previewOrders["category"] = category
+        if (pagenumber <= numberofPages && pagenumber != 0 && pagenumber > 0) {
+            res.render('order', {orderList: previewOrders, numberofPages: numberofPages , currentPage: pagenumber})
         } else {
             res.render('errorPage')
         } 
@@ -88,7 +98,7 @@ const controller = {
             var cakeProducts = randomizer(await Cake.find({}));
                 cakeProducts.forEach(function(product) {
                 products.push(product)
-                types.push('Cake')
+                types.push('cake')
             })
         } catch (err) {
             console.log("Error on producing random cake products. Error: \n" + err)
@@ -97,7 +107,7 @@ const controller = {
             var cupcakeProducts = randomizer(await Cupcake.find({}));
                 cupcakeProducts.forEach(function(product) {
                 products.push(product)
-                types.push('Cupcake')
+                types.push('cupcake')
             })
         } catch (err) {
             console.log("Error on producing random cupcake products. Error: \n" + err)
@@ -106,7 +116,7 @@ const controller = {
             var cookieProducts = randomizer(await Cookie.find({}));
                 cookieProducts.forEach(function(product) {
                 products.push(product)
-                types.push('Cookie')
+                types.push('cookie')
             })
         } catch (err) {
             console.log("Error on producing random cookie products. Error: \n" + err)
@@ -133,7 +143,7 @@ const controller = {
 
     getProductPage: async function(req, res) {
         var productType = req.params.type
-        if (productType == 'Cake') {
+        if (productType == 'cake') {
             try {
                 var productPreview = await Cake.find({
                     $or: [
@@ -147,7 +157,7 @@ const controller = {
             } catch (err) {
                 console.log("Error on producing cake previews. Error: \n" + err)
             }
-        } else if (productType == 'Cupcake') {
+        } else if (productType == 'cupcake') {
             try {
                 var productPreview = await Cupcake.find({
                     $or: [
@@ -162,7 +172,7 @@ const controller = {
             } catch (err) {
                 console.log("Error on producing cupcake previews. Error: \n" + err)
             }
-        } else if (productType == 'Cookie') {
+        } else if (productType == 'cookie') {
             try {
                 var productPreview = await Cookie.find({
                     price: {$gte: 1}
@@ -179,13 +189,13 @@ const controller = {
     getProductInfo: async function(req, res) {
         var name = req.query.name
         var type = req.query.type
-        if (type == 'Cake') {
+        if (type == 'cake') {
             try {
                 var productInfo = await Cake.findOne({name: name})
             } catch (err) {
                 console.log("Error on getting the clicked cake's information. Error: \n" + err)
             }
-        } else if (type == 'Cupcake') {
+        } else if (type == 'cupcake') {
             try {
                 var productInfo = await Cupcake.findOne({name: name})
             } catch (err) {
@@ -208,19 +218,19 @@ const controller = {
         const errors = validationResult(req)
 
         if (errors.isEmpty()) {
-            if(type == 'Cake') {
+            if(type == 'cake') {
                 try {
                     var productPreview = await Cake.find({$text: {$search: search}})
                 } catch (err) {
                     console.log('Error on finding cake products. Error: \n' + err)
                 }
-            } else if (type == 'Cupcake') {
+            } else if (type == 'cupcake') {
                 try {
                     var productPreview = await Cupcake.find({$text: {$search: search}})
                 } catch (err) {
                     console.log('Error on finding cupcake products. Error: \n' + err)
                 }
-            } else if (type == 'Cookie') {
+            } else if (type == 'cookie') {
                 try {
                     var productPreview = await Cookie.find({$text: {$search: search}})
                 } catch (err) {
@@ -234,25 +244,25 @@ const controller = {
                 res.render('products', {preview: productPreview, type: type})
             } else {
                 req.flash('search_error', 'Product not found!');
-                res.redirect('/Products/' + type);
+                res.redirect('/products/' + type);
             }
         } else {
             const messages = errors.array().map((item) => item.msg);
             req.flash('search_error', messages[0]);
-            res.redirect('/Products/' + type);
+            res.redirect('/products/' + type);
         }
     },
 
     adminProductPage: async function (req, res) {
         var productType = req.params.type
-        var pageNumber = req.query.pageNumber
+        var pagenumber = req.query.pagenumber
 
         // default page value when no url query was initialized.
-        if (typeof pageNumber === 'undefined') {
-            pageNumber = 1
+        if (typeof pagenumber === 'undefined') {
+            pagenumber = 1
         } 
 
-        if (productType == 'Cake') {
+        if (productType == 'cake') {
             try {
                 var allCakes = await Cake.find({})
                 // Calculates how many number of pages will all the cake products use.
@@ -261,17 +271,17 @@ const controller = {
                     numberofPages++
                 }
                 // Only need 6 products per page.
-                var previewCakes = allCakes.slice((pageNumber - 1) * 6, (pageNumber - 1) * 6 + 6) 
+                var previewCakes = allCakes.slice((pagenumber - 1) * 6, (pagenumber - 1) * 6 + 6) 
                 // if a page does not exists then render an error page, otherwise render up to 6 products.
-                if (pageNumber <= numberofPages && pageNumber != 0) {
-                    res.render('cakesPage', {cakes: previewCakes, numberofPages: numberofPages , currentPage: pageNumber})
+                if (pagenumber <= numberofPages && pagenumber != 0) {
+                    res.render('cakesPage', {cakes: previewCakes, numberofPages: numberofPages , currentPage: pagenumber})
                 } else {
                     res.render('errorPage')
                 }      
             } catch (err) {
                 console.log("Error on producing cake previews for admin page. Error: \n" + err)
             }
-        } else if (productType == 'Cupcake') {
+        } else if (productType == 'cupcake') {
             try {
                 var allCupcakes = await Cupcake.find({})
                 // Calculates how many number of pages will all the cupcake products use.
@@ -280,17 +290,17 @@ const controller = {
                     numberofPages++
                 }
                 // Only need 6 products per page.
-                var previewCupcakes = allCupcakes.slice((pageNumber - 1) * 6, (pageNumber - 1) * 6 + 6) 
+                var previewCupcakes = allCupcakes.slice((pagenumber - 1) * 6, (pagenumber - 1) * 6 + 6) 
                 // if a page does not exists then render an error page, otherwise render up to 6 products.
-                if (pageNumber <= numberofPages && pageNumber != 0) {
-                    res.render('cupcakesPage', {cupcakes: previewCupcakes, numberofPages: numberofPages , currentPage: pageNumber})
+                if (pagenumber <= numberofPages && pagenumber != 0) {
+                    res.render('cupcakesPage', {cupcakes: previewCupcakes, numberofPages: numberofPages , currentPage: pagenumber})
                 } else {
                     res.render('errorPage')
                 }    
             } catch (err) {
                 console.log("Error on producing cupcake previews for admin page. Error: \n" + error)
             }
-        } else if (productType == 'Cookie') {
+        } else if (productType == 'cookie') {
             try {
                 var allCookies = await Cookie.find({})
                 // Calculates how many number of pages will all the cookie products use.
@@ -299,10 +309,10 @@ const controller = {
                     numberofPages++
                 }
                 // Only need 6 products per page.
-                var previewCookies = allCookies.slice((pageNumber - 1) * 6, (pageNumber - 1) * 6 + 6) 
+                var previewCookies = allCookies.slice((pagenumber - 1) * 6, (pagenumber - 1) * 6 + 6) 
                 // if a page does not exists then render an error page, otherwise render up to 6 products.
-                if (pageNumber <= numberofPages && pageNumber != 0) {
-                    res.render('cookiesPage', {cookies: previewCookies, numberofPages: numberofPages , currentPage: pageNumber})
+                if (pagenumber <= numberofPages && pagenumber != 0) {
+                    res.render('cookiesPage', {cookies: previewCookies, numberofPages: numberofPages , currentPage: pagenumber})
                 } else {
                     res.render('errorPage')
                 }  
@@ -757,7 +767,7 @@ const controller = {
         var type = req.query.type
         var successMessage = "Product deleted successfully"
         var findErrorMessage = "Error"
-        if (type == 'Cake') {
+        if (type == 'cake') {
             try {
                 await Cake.deleteOne({name: name})
                 fs.unlinkSync(image)
@@ -765,7 +775,7 @@ const controller = {
             } catch (error) {
                 res.send(findErrorMessage); 
             }
-        } else if (type == 'Cupcake') {
+        } else if (type == 'cupcake') {
             try {
                 await Cupcake.deleteOne({name: name})
                 fs.unlinkSync(image)
@@ -827,20 +837,23 @@ const controller = {
 
         if(req.session.orders) {
             for (const item of req.session.orders) {
-                if(item.type == 'Cake') {
+                if(item.type == 'cake') {
                     var basketItem = await Cake.findOne({name: item.name}, {_id: 0})
-                } else if (item.type == 'Cupcake') {
+                } else if (item.type == 'cupcake') {
                     var basketItem = await Cupcake.findOne({name: item.name}, {_id: 0})
                 } else {
                     var basketItem = await Cookie.findOne({name: item.name}, {_id: 0})
-                }                
-                totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
-                basketItemList.push(basketItem)    
+                }          
+                console.log(basketItem)
+                if (basketItem != '' && basketItem != null) {
+                    totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
+                    basketItemList.push(basketItem)   
+                }     
             }
         }
-                    
+        
         //console.log(basketItemList)
-        //console.log(req.session.orders)
+        // console.log(req.session.orders)
         res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
     },
 
@@ -870,7 +883,7 @@ const controller = {
         //console.log("Start: ", req.session.orders)
         if(req.session.orders) {
             req.session.orders.forEach((val, key) => {
-                console.log("key: " + key)
+                    //console.log("key: " + key)
                     //console.log("bodyNumber: " + req.body.itemNumber)
                     //console.log("valNumber: " + val.itemNumber)
                 if(req.body.itemNumber == val.itemNumber) {
@@ -927,7 +940,7 @@ const controller = {
         var orderID = ""
         var orderDate = ""
 
-        console.log('aaa:', req.body)
+        // console.log('aaa:', req.body)
         if (date.getHours() < 10) {
             orderID = orderID + '0'
         } 
@@ -979,7 +992,7 @@ const controller = {
             contactNumber: contact,
             orders: req.session.orders,
             totalPrice: price,
-            status: "UNPAID",
+            status: "unpaid",
             orderDate: orderDate,
             payDate: "",
             pickUpDate: "",

@@ -16,11 +16,11 @@
             </div>
 		
 			<div class="menu">
-				<a href="/Admin/Cake"><button class="menuBtn">CAKES</button></a>
-				<a href="/Admin/Cupcake"><button class="menuBtn">CUPCAKES</button></a>
+				<a href="/admin/cake"><button class="menuBtn">CAKES</button></a>
+				<a href="/admin/cupcake"><button class="menuBtn">CUPCAKES</button></a>
 				<button class="menuBtn" style="font-weight:bold;">DECORATED COOKIES</button>
-				<a href="/Admin/About"><button class="menuBtn">ABOUT</button></a>
-				<a href="/Admin/orders/all"><button class="menuBtn">ORDERS</button></a>
+				<a href="/admin/about"><button class="menuBtn">ABOUT</button></a>
+				<a href="/admin/orders/all"><button class="menuBtn">ORDERS</button></a>
 				<a href="#"><button class="logoutBtn">LOGOUT</button></a>
 			</div>
 		</div>
@@ -53,7 +53,7 @@
 				<div class="paginationHolder">	
 					<div class="pagination">
 						<% if (currentPage > 1) { %>
-							<button type="button" class="pageBtn" id="previousPageBtn"><a href="/Admin/Cookie?pageNumber=<%= parseInt(currentPage) - 1 %>">&laquo;</a></button>
+							<button type="button" class="pageBtn" id="previousPageBtn"><a href="/admin/cookie?pagenumber=<%= parseInt(currentPage) - 1 %>">&laquo;</a></button>
 						<% } else { %>
 							<button type="button" class="pageBtn" id="previousPageBtn"><a>&laquo;</a></button>
 						<% } %>
@@ -61,11 +61,11 @@
 								<% if (i == currentPage) { %>
 									<button type="button" class="pageBtn pageBtnValue"><a><strong><%= i %></strong></a></button>
 								<% } else { %>
-									<button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Cookie?pageNumber=<%= i %>"><%= i %></a></button>
+									<button type="button" class="pageBtn pageBtnValue"><a href="/admin/cookie?pagenumber=<%= i %>"><%= i %></a></button>
 								<% } %>
 							<% } %>
 						<% if (currentPage < numberofPages) { %>
-							<button type="button" class="pageBtn" id="nextPageBtn"><a href="/Admin/Cookie?pageNumber=<%= parseInt(currentPage) + 1 %>">&raquo;</a></button>
+							<button type="button" class="pageBtn" id="nextPageBtn"><a href="/admin/cookie?pagenumber=<%= parseInt(currentPage) + 1 %>">&raquo;</a></button>
 						<% } else { %>
 							<button type="button" class="pageBtn" id="nextPageBtn"><a>&raquo;</a></button>
 						<% } %>
@@ -417,8 +417,11 @@
 							const params = new Proxy(new URLSearchParams(window.location.search), {
 								get: (searchParams, prop) => searchParams.get(prop),
 							});
-							let value = params.pageNumber; 
-							window.location.assign( '/Admin/' + productType + '?pageNumber=' + (value - 1))
+							let value = params.pagenumber; 
+							if (typeof value === 'undefined') {
+								value = 1
+							}
+							window.location.assign( '/admin/' + productType + '?pagenumber=' + (value - 1))
 						} else {
 							window.location.reload()
 						}

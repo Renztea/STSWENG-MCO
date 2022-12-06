@@ -17,10 +17,10 @@
 		
 			<div class="menu">
 				<button class="menuBtn" style="font-weight:bold;">CAKES</button>
-				<a href="/Admin/Cupcake"><button class="menuBtn">CUPCAKES</button></a>
-				<a href="/Admin/Cookie"><button class="menuBtn">DECORATED COOKIES</button></a>
-				<a href="/Admin/About"><button class="menuBtn">ABOUT</button></a>
-				<a href="/Admin/orders/all"><button class="menuBtn">ORDERS</button></a>
+				<a href="/admin/cupcake"><button class="menuBtn">CUPCAKES</button></a>
+				<a href="/admin/cookie"><button class="menuBtn">DECORATED COOKIES</button></a>
+				<a href="/admin/about"><button class="menuBtn">ABOUT</button></a>
+				<a href="/admin/orders/all"><button class="menuBtn">ORDERS</button></a>
 				<a href="/logout"><button class="logoutBtn">LOGOUT</button></a>
 			</div>
 		</div>
@@ -74,7 +74,7 @@
 				<div class="paginationHolder">	
 					<div class="pagination">
 						<% if (currentPage > 1) { %>
-							<button type="button" class="pageBtn" id="previousPageBtn"><a href="/Admin/Cake?pageNumber=<%= parseInt(currentPage) - 1 %>">&laquo;</a></button>
+							<button type="button" class="pageBtn" id="previousPageBtn"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) - 1 %>">&laquo;</a></button>
 						<% } else { %>
 							<button type="button" class="pageBtn" id="previousPageBtn"><a>&laquo;</a></button>
 						<% } %>
@@ -82,11 +82,11 @@
 								<% if (i == currentPage) { %>
 									<button type="button" class="pageBtn pageBtnValue"><a><strong><%= i %></strong></a></button>
 								<% } else { %>
-									<button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Cake?pageNumber=<%= i %>"><%= i %></a></button>
+									<button type="button" class="pageBtn pageBtnValue"><a href="/admin/cake?pagenumber=<%= i %>"><%= i %></a></button>
 								<% } %>
 							<% } %>
 						<% if (currentPage < numberofPages) { %>
-							<button type="button" class="pageBtn" id="nextPageBtn"><a href="/Admin/Cake?pageNumber=<%= parseInt(currentPage) + 1 %>">&raquo;</a></button>
+							<button type="button" class="pageBtn" id="nextPageBtn"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) + 1 %>">&raquo;</a></button>
 						<% } else { %>
 							<button type="button" class="pageBtn" id="nextPageBtn"><a>&raquo;</a></button>
 						<% } %>
@@ -462,13 +462,13 @@
 			var formData = new FormData(document.getElementById('editProductForm'));
 			$.ajax({
 				type: "POST",
-			enctype: 'multipart/form-data',
-			url: "/editCake",
-			data: formData,
-			processData: false,
-			contentType: false,
-			cache: false,
-			timeout: 600000,
+				enctype: 'multipart/form-data',
+				url: "/editCake",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				timeout: 600000,
 			}).done(function(result) {
 				// Resets all the fields to remove the existing errors before checking again.
 				fields.forEach(function(field) {
@@ -514,8 +514,11 @@
 						const params = new Proxy(new URLSearchParams(window.location.search), {
   								get: (searchParams, prop) => searchParams.get(prop),
 						});
-						let value = params.pageNumber; 
-						window.location.assign( '/Admin/' + productType + '?pageNumber=' + (value - 1))
+						let value = params.pagenumber; 
+						if (typeof value === 'undefined') {
+							value = 1
+						}
+						window.location.assign( '/admin/' + productType + '?pagenumber=' + (value - 1))
 					} else {
 						window.location.reload()
 					}
@@ -536,6 +539,7 @@
 				$('.inputNum').css('margin-top', '0px')
 				$(".inputNum").show()
 				$(".numberCake").show()
+				$(".addError").text('')
 			} else {
 				$(".input").val('')
 				$(".input").attr('placeholder', 'Enter Price');
@@ -548,6 +552,7 @@
 				$(".inputNum").val(0)
 				$(".inputNum").hide()
 				$(".numberCake").hide()
+				$(".addError").text('')
 			}
 		})
 		// Hide textboxes from edit product modal that are not needed for a certain type of product 
@@ -560,6 +565,7 @@
 				$('.inputNum').css('margin-top', '0px')
 				$(".inputNum").show()
 				$(".numberCake").show()
+				$(".editError").text('')
 			} else {
 				$('.input').css('border-color', '#6F4E37')
 				$('.input').css('margin-top', '0px')
@@ -569,6 +575,7 @@
 				$(".flavorCake").show()
 				$(".inputNum").hide()
 				$(".numberCake").hide()
+				$(".editError").text('')
 			}
 		})
 	});

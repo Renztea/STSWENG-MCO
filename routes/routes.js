@@ -9,8 +9,8 @@ app.get('/getProductInfo', controller.getProductInfo)
 
 // Customer pages
 app.get('/', controller.getIndexPage) // Render HomePage
-app.get('/Products/:type', controller.getProductPage) // Render Product Page
-app.post('/Products/:type', searchValidation, controller.searchProduct) // Render Products depending on a customer's search input
+app.get('/products/:type', controller.getProductPage) // Render Product Page
+app.post('/products/:type', searchValidation, controller.searchProduct) // Render Products depending on a customer's search input
 app.get('/basket', controller.getBasketItem) // Render Basket Page
 app.post('/postBasketItem', controller.postBasketItem) // Add product to basket
 app.post('/updateBasketItem', controller.updateBasketItem) // Update product inside the basket
@@ -22,9 +22,9 @@ app.post('/orderComplete', controller.postOrderComplete) // Reloads the page aft
 
 
 // Admin pages
-app.get('/Admin', controller.getAdminPage) // Renders the login page
-app.get('/Admin/:type', controller.adminProductPage) // Renders the product pages depending on the type
-app.get('/Admin/orders/:category', controller.getOrdersPage) // Renders the current pending orders of customers 
+app.get('/admin', controller.getAdminPage) // Renders the login page
+app.get('/admin/:type', controller.adminProductPage) // Renders the product pages depending on the type
+app.get('/admin/orders/:category', controller.getOrdersPage) // Renders the current pending orders of customers 
 app.get('/getOrdersView', controller.getOrdersView) // Get information about a specific product in the database
 app.get('/deleteProduct', controller.deleteProduct) // Deletes a product from the database
 
