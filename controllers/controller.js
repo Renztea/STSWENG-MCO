@@ -25,8 +25,8 @@ var transporter = nodemailer.createTransport({
 var mailOptions = {
     from: 'marcbaura@gmail.com',
     to: 'jasper_chua@dlsu.edu.ph',
-    subject: 'Jasper is a Dog',
-    text: 'You Dog!'
+    subject: 'Carry Me',
+    text: 'Good day, <customer name>,\n\nThank you for supporting our business, G-cakes! Below is the breakdown of your orders and their complete details. You have 7 days to settle payment to avoid cancellation. \n\n<Order1> \n<Order2>\n<Order3>\nShould you have any changes or concerns about your orders, please reply to this email. Please note that changes for your order will no longer be entertained after payment has been sent.  \n\nBelow are the payment options:\n\n<Gcash QR>                                <BPI QR>\n<Gcash number>                            <Acct. no>\n\nPlease settle payment and proof of payment within 7 days to avoid cancellation. After proof of payment has been sent, you may ask for updates about your order by replying again to this email thread.\n\nThank you,\nGina from G-cakes'
 };
   
 transporter.sendMail(mailOptions, function(error, info){
@@ -36,7 +36,9 @@ transporter.sendMail(mailOptions, function(error, info){
       console.log('Email sent: ' + info.response);
     }
 });
+
 */
+
 
 function randomizer (currentProducts) {
     var randomProducts = []
@@ -55,6 +57,32 @@ function randomizer (currentProducts) {
 
 
 const controller = {
+
+    getOrdersPage: async function(req, res) { //Added Here(John)
+        var category = req.params.category
+        var pageNumber = req.query.pageNumber
+        var orders;
+        var orderCount = 0;
+        var offSet = 0;
+
+        // default page value when no url query was initialized.
+        if (typeof pageNumber === 'undefined') {
+            pageNumber = 1
+        } 
+
+        var orders = await Order.find({})
+
+        var numberofPages = parseInt(orders.length / 6)
+        if (orders.length % 6 != 0 || orders.length == 0) {
+            numberofPages++
+        }
+        var previewOrders = orders.slice((pageNumber - 1) * 6, (pageNumber - 1) * 6 + 6) 
+        if (pageNumber <= numberofPages && pageNumber != 0 && pageNumber > 0) {
+            res.render('order', {orderList: previewOrders, numberofPages: numberofPages , currentPage: pageNumber})
+        } else {
+            res.render('errorPage')
+        } 
+    },
 
     // Get a maximum of 3 random products from each schema to be displayed on the preview page.
     getIndexPage: async function(req, res) {
@@ -100,7 +128,11 @@ const controller = {
     },
 
     getOrderInformationPage: function(req, res) {
-        res.render('orderInformation')
+        if (req.session.orders == '' || !(req.session.orders)) {
+            res.redirect('basket')
+        } else {
+            res.render('orderInformation')
+        }
     },
 
     getProductPage: async function(req, res) {
@@ -149,7 +181,7 @@ const controller = {
     },
 
     getProductInfo: async function(req, res) {
-        var name = (req.query.name).trim()
+        var name = req.query.name
         var type = req.query.type
         if (type == 'Cake') {
             try {
@@ -756,60 +788,7 @@ const controller = {
         }
     },
 
-    getOrdersPage: async function(req, res) { //Added Here(John)
-        var category = req.params.category
-        var pageNumber = req.query.pageNumber || 0
-        var orders;
-        var orderCount = 0;
-        var offSet = 0;
-
-        if(pageNumber > 0) {
-          offSet = pageNumber - 1;
-        }
-
-        /*
-        if (offSet == 0) { 
-            orders = [{orderDate: "11/12/2022", payDate: "", pickUpDate: "", cancelDate: "", orderID: "11122022001",
-                        name: "Jeff", contactNumber: "0123456789", price: "1000", status: "UNPAID"}, 
-                    {orderDate: "11/12/2022", payDate: "", pickUpDate: "", cancelDate: "", orderID: "11122022002",
-                    name: "Josh", contactNumber: "0123456789", price: "2000", status: "PAID"},
-                    {orderDate: "11/12/2022", payDate: "", pickUpDate: "", cancelDate: "", orderID: "11122022002",
-                    name: "Josh", contactNumber: "0123456789", price: "2000", status: "PAID"},
-                    {orderDate: "11/12/2022", payDate: "", pickUpDate: "", cancelDate: "", orderID: "11122022002",
-                    name: "Josh", contactNumber: "0123456789", price: "2000", status: "PAID"},
-                    {orderDate: "11/12/2022", payDate: "", pickUpDate: "", cancelDate: "", orderID: "11122022002",
-                    name: "Josh", contactNumber: "0123456789", price: "2000", status: "PAID"}]
-            } else {
-                orders = [{orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022001",
-                        name: "Jeff", cellphoneNo: "0123456789", price: "1000", status: "UNPAID"}, 
-                    {orderDate: "11/12/2022", payDate: "", pickedUpDate: "", cancelledDate: "", orderId: "11122022002",
-                    name: "Josh", cellphoneNo: "0123456789", price: "2000", status: "PAID"}]
-            }
-        */
-        
-        
-        if (category == 'all') {
-            orders = await Order.find({}).limit(5).skip(5 * offSet)
-            orderCount = await Order.find({}).count()
-        } else {
-            orders = await Order.find({"status": category}).limit(5).skip(5 * offSet)
-            orderCount = await Order.find({"status": category}).count()
-        }
-        
-        
-        console.log(orders)
-
-       orders["category"] = category;
-        if(pageNumber > 0) {
-            var options = "cache: false";
-            var dir = path.join(__dirname, '../views/partials/');
-            ejs.renderFile(dir + 'orderList.ejs', {orderList: orders}, options, function(err, str) { 
-                res.send(str);
-            });
-        } else {
-            res.render('order', {orderList: orders, count: orderCount})
-        }
-    },
+    
 
     postBasketItem: async function(req, res) {
         var itemLength = 0;
@@ -926,22 +905,17 @@ const controller = {
 
     getOrderSummary: async function(req, res) {
 
-        if((req.session.orders) == null){
-            res.redirect("/basket")
-        }
-
         var totalPrice = 0
-        if(req.session.orders) {
-            for (const item of req.session.orders) {                   
-                totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
+        if (req.session.orders == '' || !(req.session.orders) || !(req.query)) {
+            res.redirect('basket')
+        } else {
+            if(req.session.orders) {
+                for (const item of req.session.orders) {                   
+                    totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
+                }
             }
+            res.render('orderSummary', {productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
         }
-
-        // console.log(req.query)
-        // console.log(totalPrice)
-
-        res.render('orderSummary', {productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
-        
     },
 
     postOrderComplete: function(req, res) {

@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="orderBtn">
-                        <!-- <button class="orderCancel" type="submit" id="cancel" formaction="/basket">RETURN</button> -->
+                        <button class="orderCancel" type="button" id="cancel">RETURN</button>
                         <button class ="orderSubmit" type="button" id="order">ORDER</button>
                     </div>
                 </form>
@@ -108,6 +108,11 @@
                 'contactNo',
                 'email',
 			]	
+            
+            // Redirects back to the basket if customer decides to cancel.
+            $('#cancel').click(function() {
+                window.location.assign('/basket')
+            })
 
             // Checks if inputs are valid through communicating with the back-end, if valid then continue
             $('#order').click(function() {

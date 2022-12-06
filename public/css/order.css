@@ -116,3 +116,28 @@
   text-align: center;
   font-family: 'Poppins', sans-serif;
 }
+
+.paginationHolder{
+	width: 1500px;
+	max-width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 10px;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: #4A3627;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pageBtn{
+	border: none;
+	background-color: white;
+	cursor: pointer;	
+}
