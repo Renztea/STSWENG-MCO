@@ -1045,71 +1045,68 @@ input::-webkit-inner-spin-button {
   padding: 10px;
 }
 
+.searchHolder{
+	margin-top: 170px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
 .search-bar {
-    background-color: #EBD8DB;
-    text-decoration: none;
-    border-radius: 50px;
+	background-color: white;
+	border-radius: 50px;
     font-family: Poppins;
     font-size: 18px;
     height: 50px;
     display: flex;
-    transform: translate(-50%,-50%);
-    border: 1px black solid;
-    transition-duration: 0.2s;
-    margin-top: 25px;
-    margin-left: 140px;
+    border: 2px solid black;
+	margin-left: 25px;
 }
 
 .textbox {
-    width: 0px;
-    padding: 0;
-    margin: 0;
-    border: none;
-    border-radius: 50px;
-    line-height: 40px;
-    font-size: 16px;
-    font-family: Poppins;
-    height: 45px;
-    outline: none;
-    height: 100%;
-    float: left;
-    transition-duration: 0.05s;
-    color: #4A3627;
-    font-family: Poppins, sans-serif;
-    background-color: #EBD8DB;
+	width: 300px;
+	max-width: 100%;
+	padding: 0px 10px 0px 10px;
+	border: none;
+	border-radius: 50px;
+	line-height: 40px;
+	font-size: 16px;
+	font-family: Poppins;
+	height: 45px;
+	outline: none;
+	height: 100%;
+	color: #4A3627;
 }
 
 .search-btn {
-    height: 45px;
-    width: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    float: right;
-    text-decoration: none;
-    height: 100%;
-    transition-duration: 0.2s;
+  height: 45px;
+  width: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  height: 100%;
+  border-left: 1px solid black;
 }
 
-.search-btn button {
-    background-color: #EBD8DB;
-    border: none;
+.search-btn:hover, .search-btn img{
+	cursor: pointer;
 }
 
-.search-bar:hover .textbox {
-    padding: 0px 10px 0px 10px;
-    width: 100%;
-    transition-duration: 0.2s;
+.search-btn:hover, .searchButton:hover{
+	background-color: grey;
+	border-radius: 50px;
 }
 
-.search-bar:hover .search-btn {
-    border-left: 1px black solid;
-    transition-duration: 0.2s;
+.search-btn img{
+  border: none;
 }
 
-.search-btn:hover {
-    transition-duration: 0.2s;
-    cursor: pointer;
-    background-color: grey;
-    border-radius: 50px;
+.searchButton {
+  border: none;
+}
+
+.searchButton:focus {
+  border: none;
+  outline: none;
 }
