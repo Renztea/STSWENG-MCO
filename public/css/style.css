@@ -306,24 +306,25 @@ a {
   max-width: 900px;
   width: 100%;
   margin: 0 15px;
-  background-color: #CDBDBF;
+  background-color: #FFFFFF;
   box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
 
 .orderHeader {
   width: 100%;
-  background-color: #E29595;
+  background-color: #DF7E85;
 }
 
 .orderHeader h1 {
   font-size: 30px;
   text-align: center;
+  color: #FFFFFF;
   font-family: 'Poppins', sans-serif;
 }
 
 .orderInfoForm {
   width: 100%;
-  padding: 30px;
+  padding: 30px 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -338,14 +339,15 @@ a {
 }
 
 .orderStyle {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
+  color: #3D2115;
   font-family: 'Poppins', sans-serif;
 }
 
 .orderInput {
   outline: none;
-  font-size: 25px;
+  font-size: 16px;
   font-family: 'Poppins', sans-serif;
   border-radius: 10px;
   border: 2px solid #000000;
@@ -356,27 +358,27 @@ a {
 
 .orderBtn {
   width: 100%;
-  margin-top: 30px;
+  padding-top: 20px;
   display: flex;
-  justify-content: right;
+  justify-content: space-evenly;
 }
 
 .orderSubmit {
-  margin-left: 20px;
-  background-color: #D9D9D9;
+  background-color: #95E2A6;
+  border: none;
+  color: #3D2115;
 }
 
 .orderCancel {
-  background-color: #E43939;
+  border: 1px solid #BA0C16;
+  color: #BA0C16;
 }
 
 .orderCancel, .orderSubmit {
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Poppins', sans-serif;
-  padding: 20px;
+  padding: 10px 40px;
   border-radius: 20px;
-  font-weight: bold;
-  border: none;
   cursor: pointer
 }
 /* End - Order Information Page */
@@ -618,19 +620,20 @@ input::-webkit-inner-spin-button {
   top: 50%;
   transform: translateY(-50%);
   width: 100%;
-  background-color: green;
+  background-color: #737373;
   z-index: -1;
 }
 
 .progress {
-  background: orange;
+  background: #DF7E85;
   width: 0%;
 }
 
 .progressStep {
   width: 70px;
   height: 70px;
-  background-color: green;
+  border: 5px solid #737373;
+  background-color: #EBD8DB;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -638,7 +641,8 @@ input::-webkit-inner-spin-button {
 }
 
 .progressStepActive {
-  background-color: orange;
+  background-color: #DF7E85;
+  border-color: #DF7E85;
 }
 
 .progressStep img {
@@ -874,13 +878,22 @@ input::-webkit-inner-spin-button {
   width: 80%;
   margin: auto;
   border: 2px solid #000000;
+  border-bottom: none;
   background-color: #FFFFFF;
+  padding: 20px;
+}
+
+.orderInfoSummaryGroup {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .orderSummaryStyle {
   font-size: 15px;
   font-family: 'Poppins', sans-serif;
-  color: #4A3627;
+  font-weight: bold;
+  color: #3D2115;
 }
 
 .orderSummaryInput {
@@ -889,7 +902,7 @@ input::-webkit-inner-spin-button {
   background-color: transparent;
   font-size: 15px;
   font-family: 'Poppins', sans-serif;
-  color: #4A3627;
+  color: #3D2115;
 }
 
 .orderSummaryInput:hover {
@@ -899,7 +912,6 @@ input::-webkit-inner-spin-button {
 .orderBasketTableSummary {
   width: 80%;
   margin: auto;
-  margin-top: 20px;
   border-collapse: collapse;
   border: 2px solid #000000;
   background-color: #FFFFFF;
@@ -919,7 +931,6 @@ input::-webkit-inner-spin-button {
 
 .orderBasketTableSummaryHeader,
 .orderBasketProductImageSummary, 
-.orderBasketProductDedicationSummary, 
 .orderBasketProductQuantitySummary, 
 .orderBasketProductPriceSummary,
 .orderBasketProductTotalSummary,
@@ -931,14 +942,17 @@ input::-webkit-inner-spin-button {
 }
 
 .orderBasketProductImageSummary, 
-.orderBasketProductQuantitySummary, 
+.orderBasketProductQuantitySummary {
+  width: 10%;
+} 
+
 .orderBasketProductPriceSummary, 
 .orderBasketProductTotalSummary  {
-  width: 10%;
+  width: 20%;
 }
 
-.orderBasketProductInfoSummary, .orderBasketProductDedicationSummary{
-  width: 30%;
+.orderBasketProductInfoSummary {
+  width: 40%;
 }
 
 .orderBasketProductInfoSummary {
@@ -967,30 +981,39 @@ input::-webkit-inner-spin-button {
 .orderBasketPriceSumamryHeader,
 .orderBasketTotalSummaryHeader,
 .orderBasketTotalAmountSummaryLabel {
-  padding: 10px;
+  padding: 10px 20px;
 }
 
 .orderBasketTotalAmountSummary, .orderBasketTotalAmountSummaryLabel {
   font-weight: bold;
 }
 
-.orderBasketSubmit {
+.orderBasketReturn, .orderBasketSubmit {
   text-align: center;
   font-size: 20px;
   font-family: 'Poppins', sans-serif;
-  font-weight: bold;
-  color: #4A3627;
-  padding: 5px;
-  border-radius: 30px;
-  border: none;
-  background: #95E2A6;
+  padding: 10px 20px;
+  border-radius: 20px;
   cursor: pointer
 }
 
-.orderBasketCheckOut {
+.orderBasketReturn {
+  border: 1px solid #BA0C16;
+  color: #BA0C16;
+  background-color: #FFFFFF;
+}
+
+.orderBasketSubmit {
+  border: none;
+  color: #3D2115;
+  background: #95E2A6;
+}
+
+.orderBasketBtn {
   width: 80%;
   margin: auto;
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
   font-family: 'Poppins', sans-serif;
   padding: 10px;
 }

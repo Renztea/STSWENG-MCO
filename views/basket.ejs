@@ -144,9 +144,9 @@
                 let basketItemList = <%- JSON.stringify(basketItemList) %>;
                 let productItemList = <%- JSON.stringify(productItemList) %>;
                 const progressSteps = document.querySelectorAll('.progressStep');
+                const progressStepsImage = document.querySelectorAll('.progressStep img');
                 const progress = document.querySelector('.progress');
-
-                basketItemCount()
+                var haveItem = basketItemCount()
 
                 progressSteps.forEach(function(progressSteps) {
                     if (progressSteps.classList.contains('progressStepActive')) {
@@ -154,7 +154,15 @@
                     }
                 })
 
-                progressSteps[0].classList.add('progressStepActive')
+                if (haveItem) {
+                    progressSteps[0].classList.add('progressStepActive')
+                    $('#progressImage1').find('img').attr('src', '/images/BrownCart.png')
+                } else {
+                    $('#progressImage1').find('img').attr('src', '/images/GrayCart.png')
+                }
+
+                $('#progressImage2').find('img').attr('src', '/images/GrayForm.png')
+                $('#progressImage3').find('img').attr('src', '/images/GrayCheck.png')
 
                 const progressActive = document.querySelectorAll('.progressStepActive');
 
@@ -167,8 +175,10 @@
                     alert("COUNT: " + basketItemLength)
                     if (basketItemLength == 0) {
                         $('.basketSubmit').css('display', 'none')
+                        return false;
                     } else {
                         $('.basketSubmit').css('display', 'inline')
+                        return true;
                     }
                 }
 

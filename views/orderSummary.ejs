@@ -24,9 +24,15 @@
 
         <form action="/orderComplete" method="POST">
             <div class="orderInfoSummary">
-                <div>
-                    <label class="orderSummaryStyle" for="buyerName">Buyer Name:</label>
-                    <input class="orderSummaryInput" name="name" placeholder="" value="<%= orderInfo.name %>" readonly>
+                <div class="orderInfoSummaryGroup">
+                    <div>
+                        <label class="orderSummaryStyle" for="buyerName">Buyer Name:</label>
+                        <input class="orderSummaryInput" name="name" placeholder="" value="<%= orderInfo.name %>" readonly>
+                    </div>
+                    <div>
+                        <label class="orderSummaryStyle" for="orderNumber">Order Number:</label>
+                        <input class="orderSummaryInput" name="name" placeholder="" value="<%= orderInfo.name %>" readonly>
+                    </div>
                 </div>
                 <div>
                     <label class="orderSummaryStyle" for="celebrantName">Celebrant Name:</label>
@@ -59,7 +65,6 @@
                     <thead class="orderBasketTableSummaryHeader">
                         <tr>
                             <th class="orderBasketProductSummaryHeader" colspan="2">Product</th>
-                            <th class="orderBasketDedicationSummaryHeader">Dedication</th>
                             <th class="orderBasketQuantitySummaryHeader">Quantity</th>
                             <th class="orderBasketPriceSumamryHeader">Price</th>
                             <th class="orderBasketTotalSummaryHeader">Total</th>
@@ -87,10 +92,10 @@
                                     <tr>
                                         <td>Frosting: <%= productItem.frosting %></td>
                                     </tr>
+                                    <tr>
+                                        <td>Dedication: <%= productItem.dedication %></td>
+                                    </tr>
                             </table>
-                            </td>
-                            <td class="orderBasketProductDedicationSummary" data-label="Dedication">
-                                <%= productItem.dedication %>
                             </td>
                             <td class="orderBasketProductQuantitySummary" data-label="Quantity">
                                 <%= productItem.quantity %>
@@ -107,7 +112,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="3"></td>
-                            <td class="orderBasketTotalAmountSummaryLabel" colspan="2">Total Amount:</td>
+                            <td class="orderBasketTotalAmountSummaryLabel">Total Amount:</td>
                             <td class="orderBasketTotalAmountSummary" data-label="Total">
                                 <span>&#8369;<%= totalPrice %></span>
                                 <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
@@ -115,7 +120,8 @@
                         </tr>
                     </tfoot>
                 </table>
-                <div class="orderBasketCheckOut">
+                <div class="orderBasketBtn">
+                    <button class="orderBasketReturn">RETURN</button>
                     <button class="orderBasketSubmit">CHECK OUT</button>
                 </div>
             </div>
@@ -132,6 +138,9 @@
                 progressSteps[0].classList.add('progressStepActive')
                 progressSteps[1].classList.add('progressStepActive')
                 progressSteps[2].classList.add('progressStepActive')
+                $('#progressImage1').find('img').attr('src', '/images/BrownCart.png')
+                $('#progressImage2').find('img').attr('src', '/images/BrownForm.png')
+                $('#progressImage3').find('img').attr('src', '/images/BrownCheck.png')
 
                 const progressActive = document.querySelectorAll('.progressStepActive');
 
