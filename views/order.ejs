@@ -39,44 +39,73 @@
                 <div id="orderTable">
                     <%- include("partials/orderList") %>
                 </div>
-                <div class="paginationHolder">	
+                <div class="paginationHolder">
                     <div class="pagination">
                         <% if (currentPage > 1) { %>
                             <button type="button" class="pageBtn" id="previousPageBtn"><a href="/Admin/Orders/All?pageNumber=<%= parseInt(currentPage) - 1 %>">&laquo;</a></button>
                         <% } else { %>
                             <button type="button" class="pageBtn" id="previousPageBtn"><a>&laquo;</a></button>
                         <% } %>
-                        <% if (currentPage < 5) { %> 
-                            <% if(numberofPages > 5) {maxPage = 5} %>
-                            <% for (let i = 1; i <= maxPage; i++) { %>
+
+                        <% if (numberofPages <= 7) { %>
+                            <% for (let i = 1; i <= numberofPages; i++) { %>
                                 <% if (currentPage == i) { %>
                                     <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
                                 <% } else { %>
                                     <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=<%= i %>"><%= i %></a></button>
                                 <% } %>
                             <% } %>
-                            <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
-                            <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=<%= numberofPages %>"><%= numberofPages %></a></button>
                         <% } else { %>
-                            <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=1"><%= 1 %></a></button>
-                            <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
-                            <% if (currentPage > 3 && parseInt(currentPage) < numberofPages) { %> 
+                            <% if (currentPage == 1) { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a><strong><%= 1 %></strong></a></button>
+                            <% } else { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=1"><%= 1 %></a></button>
+                            <% } %>
+                            <% if (currentPage <= 2) { %>
+                                <% if(currentPage == 2) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
+                                <% } %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=<%= parseInt(currentPage) + 1  %>"><%= parseInt(currentPage) + 1 %></a></button>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=<%= parseInt(currentPage) + 2 %>"><%= parseInt(currentPage) + 2 %></a></button>
+                                <% if(currentPage == 1) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=<%= parseInt(currentPage) + 2 %>"><%= parseInt(currentPage) + 3 %></a></button>
+                                <% } %>
+                                <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
+                            <% } else if (parseInt(currentPage) + 1 == numberofPages || currentPage == numberofPages) { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
+                                <% if(currentPage == numberofPages) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=<%= parseInt(currentPage) - 3 %>"><%= parseInt(currentPage) - 3 %></a></button>
+                                <% } %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=<%= parseInt(currentPage) - 2  %>"><%= parseInt(currentPage) - 2 %></a></button>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=<%= parseInt(currentPage) - 1 %>"><%= parseInt(currentPage) - 1 %></a></button>
+                                <% if(parseInt(currentPage) + 1 == numberofPages) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
+                                <% } %>
+                            <% } else if (currentPage > 2) { %>
+                                <% if (currentPage > 3) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
+                                <% } %>
                                 <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=<%= parseInt(currentPage) - 1 %>"><%= parseInt(currentPage) - 1 %></a></button>
                                 <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
-                                <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=<%= parseInt(currentPage) + 1 %>"><%= parseInt(currentPage) + 1 %></a></button>
-                            <% } %> 
-                            <% if (parseInt(currentPage) + 2 != numberofPages) { %>
-                                <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=<%= parseInt(currentPage) + 1  %>"><%= parseInt(currentPage) + 1 %></a></button>
+                                <% if (parseInt(currentPage) + 2 != numberofPages) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
+                                <% } %>
                             <% } %>
-                            <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=<%= numberofPages %>"><%= numberofPages %></a></button>
+                            <% if (currentPage == numberofPages) { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
+                            <% } else { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/Admin/Orders/All?pageNumber=<%= numberofPages %>"><%= numberofPages %></a></button>
+                            <% } %>
                         <% } %>
+
                         <% if (currentPage < numberofPages) { %>
                             <button type="button" class="pageBtn" id="nextPageBtn"><a href="/Admin/Orders/All?pageNumber=<%= parseInt(currentPage) + 1 %>">&raquo;</a></button>
                         <% } else { %>
                             <button type="button" class="pageBtn" id="nextPageBtn"><a>&raquo;</a></button>
                         <% } %>
                     </div>
-                </div>	
+                </div>
             </div>
         </div>
 
