@@ -32,8 +32,8 @@
                     </div>
                     <div>
                         <label class="orderSummaryStyle" for="orderNumber">Order ID:</label>
-                        <span class="orderSummaryInput" id="orderID"></span>
-                        <input type="hidden" name="orderID" placeholder="" value="">
+                        <span class="orderSummaryInput" id="orderID"><%= orderInfo.orderID %></span>
+                        <input type="hidden" name="orderID" placeholder="" value="<%= orderInfo.orderID %>">
                     </div>
                 </div>
                 <div class="orderInfoSummaryGroup">
@@ -44,8 +44,8 @@
                     </div>
                     <div>
                         <label class="orderSummaryStyle" for="orderDate">Order Date:</label>
-                        <span class="orderSummaryInput" id="orderDate"></span>
-                        <input type="hidden" name="orderDate" placeholder="" value="">
+                        <span class="orderSummaryInput" id="orderDate"><%= orderInfo.orderDate %></span>
+                        <input type="hidden" name="orderDate" placeholder="" value="<%= orderInfo.orderDate %>">
                     </div>
                 </div>
                 <div class="orderInfoSummaryGroup">
@@ -56,8 +56,8 @@
                     </div>
                     <div>
                         <label class="orderSummaryStyle" for="payBy">Pay By:</label>
-                        <span class="orderSummaryInput" id="orderPayBy"></span>
-                        <input type="hidden" name="payBy" placeholder="" value="">
+                        <span class="orderSummaryInput" id="orderPayBy"><%= orderInfo.payByDate %></span>
+                        <input type="hidden" name="payBy" placeholder="" value="<%= orderInfo.payByDate %>">
                     </div>
                 </div>
                 <div>
@@ -171,11 +171,11 @@
         </form>
         <script>
             $(document).ready(function() {   
-                var date = new Date()
-                var orderID = ""
-                var orderDate = ""
-                var payByTemp = date
-                var payBy = ""
+                //var date = new Date()
+                //var orderID = ""
+                //var orderDate = ""
+                //var payByTemp = date
+                //var payBy = ""
                 const progressSteps = document.querySelectorAll('.progressStep');
                 const progress = document.querySelector('.progress');
                 progressSteps.forEach(function(progressSteps) {
@@ -194,6 +194,7 @@
 
                 progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1) * 100 + "%");
 
+                /*
                 if (date.getHours() < 10) {
                     orderID = orderID + '0'
                 } 
@@ -253,6 +254,7 @@
                     
                     return parseDate
                 }
+                */
             })
         </script>
     </body>

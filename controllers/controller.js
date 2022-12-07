@@ -913,7 +913,11 @@ const controller = {
     },
 
     getOrderSummary: async function(req, res) {
-
+        var date = new Date()
+        var orderID = ""
+        var orderDate = ""
+        var payByTemp = date
+        var payBy = ""
         var totalPrice = 0
         if (req.session.orders == '' || !(req.session.orders) || !(req.query)) {
             res.redirect('basket')
@@ -923,6 +927,75 @@ const controller = {
                     totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
                 }
             }
+
+            if (date.getHours() < 10) {
+                orderID = orderID + '0'
+            } 
+            orderID = orderID + date.getHours()
+    
+            if (date.getMinutes() < 10) {
+                orderID = orderID + '0'
+            }
+            orderID = orderID + date.getMinutes()
+            
+            if (date.getSeconds() < 10) {
+                orderID = orderID + '0'
+            }
+            orderID = orderID + date.getSeconds()
+            if (date.getMilliseconds() < 100 && date.getMilliseconds() >= 10) {
+                orderID = orderID + '0'
+            } else if (date.getMilliseconds() < 10) {
+                orderID = orderID + '00'
+            }
+            orderID = orderID + date.getMilliseconds()
+            orderID = orderID + req.query.name[0].toUpperCase() + req.query.celebrant[0].toUpperCase() + req.query.celebrantGender[0]
+    
+            if (parseInt(req.query.celebrantAge) < 100 && parseInt(req.query.celebrantAge) >= 10) {
+                orderID = orderID + '0'
+            } else if (parseInt(req.query.celebrantAge) < 10) {
+                orderID = orderID + '00'
+            }
+            orderID = orderID + req.query.celebrantAge
+
+            req.query.orderID = orderID
+
+            orderDate = orderDate + date.getFullYear() + '-'
+            if (date.getMonth() + 1 < 10) {
+                orderDate = orderDate + '0'
+            }
+            orderDate = orderDate + (date.getMonth() + 1) + '-'
+    
+            if (date.getDate() < 10) {
+                orderDate = orderDate + '0'
+            }
+            orderDate = orderDate + date.getDate()
+
+
+            orderDate = getDate(date)
+            req.query.orderDate = orderDate
+            payByTemp.setDate(date.getDate() + 7)
+            payBy = getDate(payByTemp)
+            req.query.payByDate = payBy
+
+            function getDate(date) {
+                var parseDate = ""
+
+                if (date.getMonth() + 1 < 10) {
+                    parseDate = parseDate + '0'
+                }
+                parseDate = parseDate + (date.getMonth() + 1) + '-'
+
+                if (date.getDate() < 10) {
+                    parseDate = parseDate + '0'
+                }
+                parseDate = parseDate + date.getDate() + '-'
+
+                parseDate = parseDate + date.getFullYear()
+                
+                return parseDate
+            }
+
+            console.log(req.query)
             res.render('orderSummary', {productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
         }
     },
@@ -936,9 +1009,54 @@ const controller = {
         var email = req.body.email
         var contact = req.body.contactNo
         var price = req.body.totalPrice
+        //var orderID = ""
+        //var orderDate = ""
         var orderID = req.body.orderID
         var orderDate = req.body.orderDate
-        var payByDate = req.body.payBy
+        var payByDate = req.body.payByDate
+
+        /*
+        if (date.getHours() < 10) {
+            orderID = orderID + '0'
+        } 
+        orderID = orderID + date.getHours()
+
+        if (date.getMinutes() < 10) {
+            orderID = orderID + '0'
+        }
+        orderID = orderID + date.getMinutes()
+        
+        if (date.getSeconds() < 10) {
+            orderID = orderID + '0'
+        }
+        orderID = orderID + date.getSeconds()
+        if (date.getMilliseconds() < 100 && date.getMilliseconds() >= 10) {
+            orderID = orderID + '0'
+        } else if (date.getMilliseconds() < 10) {
+            orderID = orderID + '00'
+        }
+        orderID = orderID + date.getMilliseconds()
+        orderID = orderID + name[0] + celebrantName[0] + gender[0]
+
+        if (parseInt(age) < 100 && parseInt(age) >= 10) {
+            orderID = orderID + '0'
+        } else if (parseInt(age) < 10) {
+            orderID = orderID + '00'
+        }
+        orderID = orderID + age
+
+        /*
+        orderDate = orderDate + date.getFullYear() + '-'
+        if (date.getMonth() + 1 < 10) {
+            orderDate = orderDate + '0'
+        }
+        orderDate = orderDate + (date.getMonth() + 1) + '-'
+
+        if (date.getDate() < 10) {
+            orderDate = orderDate + '0'
+        }
+        orderDate = orderDate + date.getDate()
+        */
 
         Order.create({
             name: name,
