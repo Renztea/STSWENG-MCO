@@ -169,6 +169,28 @@
                 </div>
             </div>
         </form>
+        <div class="orderSummaryModalBackground">
+            <div class="orderSummaryModalContent">
+                <div class="orderSummaryClose">+</div>
+                <div class="orderSummaryModalCongratulationsContainer">
+                    <span class="orderSummaryModalCongratulationsContent">
+                        Congratulations!
+                    </span>
+                    <span class="orderSummaryModalCongratulationsImage">
+                        <img>
+                    </span>
+                </div>
+                <div class="orderSummaryModalTextContainer">
+                    <p class="orderSummaryModalTextBody">Your order has been placed. We have sent you an email of 
+                        your orders and our payment options. Should you have 
+                        any issues or concerns, please email us at __@gmail.com
+                    </p>
+                    <p class="orderSummaryModalTextFooter">
+                        Thank you and we hope you order from us again soon!
+                    </p>
+                </div>
+            </div>
+        </div>
         <script>
             $(document).ready(function() {   
                 //var date = new Date()
@@ -194,6 +216,7 @@
 
                 progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1) * 100 + "%");
 
+                document.querySelector('.orderSummaryModalBackground').style.display = 'flex';
                 /*
                 if (date.getHours() < 10) {
                     orderID = orderID + '0'
