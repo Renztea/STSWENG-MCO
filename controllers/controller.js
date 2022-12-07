@@ -928,7 +928,6 @@ const controller = {
     },
 
     postOrderComplete: function(req, res) {
-        var date = new Date()
         var name = req.body.name
         var celebrantName = req.body.celebrantName
         var gender = req.body.celebrantGender
@@ -937,49 +936,9 @@ const controller = {
         var email = req.body.email
         var contact = req.body.contactNo
         var price = req.body.totalPrice
-        var orderID = ""
-        var orderDate = ""
-
-        // console.log('aaa:', req.body)
-        if (date.getHours() < 10) {
-            orderID = orderID + '0'
-        } 
-        orderID = orderID + date.getHours()
-
-        if (date.getMinutes() < 10) {
-            orderID = orderID + '0'
-        }
-        orderID = orderID + date.getMinutes()
-        
-        if (date.getSeconds() < 10) {
-            orderID = orderID + '0'
-        }
-        orderID = orderID + date.getSeconds()
-        if (date.getMilliseconds() < 100 && date.getMilliseconds() >= 10) {
-            orderID = orderID + '0'
-        } else if (date.getMilliseconds() < 10) {
-            orderID = orderID + '00'
-        }
-        orderID = orderID + date.getMilliseconds()
-        orderID = orderID + name[0] + celebrantName[0] + gender[0]
-
-        if (parseInt(age) < 100 && parseInt(age) >= 10) {
-            orderID = orderID + '0'
-        } else if (parseInt(age) < 10) {
-            orderID = orderID + '00'
-        }
-        orderID = orderID + age
-
-        orderDate = orderDate + date.getFullYear() + '-'
-        if (date.getMonth() + 1 < 10) {
-            orderDate = orderDate + '0'
-        }
-        orderDate = orderDate + (date.getMonth() + 1) + '-'
-
-        if (date.getDate() < 10) {
-            orderDate = orderDate + '0'
-        }
-        orderDate = orderDate + date.getDate()
+        var orderID = req.body.orderID
+        var orderDate = req.body.orderDate
+        var payByDate = req.body.payBy
 
         Order.create({
             name: name,
@@ -994,6 +953,7 @@ const controller = {
             totalPrice: price,
             status: "unpaid",
             orderDate: orderDate,
+            payByDate: payByDate,
             payDate: "",
             pickUpDate: "",
             cancelDate: ""

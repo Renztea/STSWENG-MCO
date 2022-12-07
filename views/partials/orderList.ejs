@@ -8,6 +8,7 @@
           <%_ if (orderList.category == "all" || orderList.category == "pickedup") { _%>
           <th class="orderTableHeaderItem">Picked Up Date</th>
           <%_ } _%>
+          <th class="orderTableHeaderItem">Pay By Date</th>
           <%_ if (orderList.category == "all" || orderList.category == "cancelled") { _%>
           <th class="orderTableHeaderItem">Cancelled Date</th>
           <%_ } _%>
@@ -32,6 +33,7 @@
             <%_ if (orderList.category == "all" || orderList.category == "pickedup") { _%>
             <td class="orderTableInfo" data-label="Picked Up Date"><%= order.pickUpDate %></td>
             <%_ } _%>
+            <td class="orderTableInfo" data-label="Pay By Date"><%= order.payByDate %></td>
             <%_ if (orderList.category == "all" || orderList.category == "cancelled") { _%>
             <td class="orderTableInfo" data-label="Cancelled Date"><%= order.cancelDate %></td>
             <%_ } _%>

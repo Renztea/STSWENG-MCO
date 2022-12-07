@@ -897,9 +897,6 @@ input::-webkit-inner-spin-button {
 }
 
 .orderSummaryInput {
-  border-style: none;
-  outline: none;
-  background-color: transparent;
   font-size: 15px;
   font-family: 'Poppins', sans-serif;
   color: #3D2115;
