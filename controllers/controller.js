@@ -1047,10 +1047,20 @@ const controller = {
         var pickupDate = req.body.pickupDate
         var email = req.body.email
         var contact = req.body.contactNo
-        var price = req.body.totalPrice
+
+        var price = 0
+
+        if(req.session.orders) {
+            for (const item of req.session.orders) {                   
+                price = price + (parseInt(item.price) * parseInt(item.quantity))
+            }
+        }
+        
         var orderID = req.body.orderID
         var orderDate = req.body.orderDate
         var payByDate = req.body.payByDate
+
+        console.log(req.session.orders)
 
         try {
             Order.create({
