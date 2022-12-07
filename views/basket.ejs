@@ -141,8 +141,8 @@
         </div>
         <script>
             $(document).ready(function() {            
-                let basketItemList = '<%- JSON.stringify(basketItemList) %>';
-                let productItemList = '<%- JSON.stringify(productItemList) %>';
+                let basketItemList = <%- JSON.stringify(basketItemList) %>;
+                let productItemList = <%- JSON.stringify(productItemList) %>;
         
                 const progressSteps = document.querySelectorAll('.progressStep');
                 const progressStepsImage = document.querySelectorAll('.progressStep img');
