@@ -509,7 +509,6 @@
 				border.remove()
 				var numberofProducts = $('.border').length
 				$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
-					console.log(result)
 					if (numberofProducts == 0) {
 						const params = new Proxy(new URLSearchParams(window.location.search), {
   								get: (searchParams, prop) => searchParams.get(prop),

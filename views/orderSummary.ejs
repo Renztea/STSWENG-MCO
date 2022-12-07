@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-        <title>Basket</title>
+        <title>Order Summary</title>
         <link href="/css/style.css" rel="stylesheet" type="text/css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="/js/index.js"></script>
@@ -27,58 +27,58 @@
                 <div class="orderInfoSummaryGroup">
                     <div>
                         <label class="orderSummaryStyle" for="buyerName">Buyer Name:</label>
-                        <span class="orderSummaryInput"><%= orderInfo.name %></span>
-                        <input type="hidden" name="name" placeholder="" value="<%= orderInfo.name %>">
+                        <span class="orderSummaryInput"><%= buyerInformation.name %></span>
+                        <input type="hidden" name="name" placeholder="" value="<%= buyerInformation.name %>">
                     </div>
                     <div>
                         <label class="orderSummaryStyle" for="orderNumber">Order ID:</label>
-                        <span class="orderSummaryInput" id="orderID"><%= orderInfo.orderID %></span>
-                        <input type="hidden" name="orderID" placeholder="" value="<%= orderInfo.orderID %>">
+                        <span class="orderSummaryInput" id="orderID"><%= buyerInformation.orderID %></span>
+                        <input type="hidden" name="orderID" placeholder="" value="<%= buyerInformation.orderID %>">
                     </div>
                 </div>
                 <div class="orderInfoSummaryGroup">
                     <div>
                         <label class="orderSummaryStyle" for="celebrantName">Celebrant Name:</label>
-                        <span class="orderSummaryInput"><%= orderInfo.celebrant %></span>
-                        <input type="hidden" name="celebrantName" placeholder="" value="<%= orderInfo.celebrant %>">
+                        <span class="orderSummaryInput"><%= buyerInformation.celebrant %></span>
+                        <input type="hidden" name="celebrantName" placeholder="" value="<%= buyerInformation.celebrant %>">
                     </div>
                     <div>
                         <label class="orderSummaryStyle" for="orderDate">Order Date:</label>
-                        <span class="orderSummaryInput" id="orderDate"><%= orderInfo.orderDate %></span>
-                        <input type="hidden" name="orderDate" placeholder="" value="<%= orderInfo.orderDate %>">
+                        <span class="orderSummaryInput" id="orderDate"><%= buyerInformation.orderDate %></span>
+                        <input type="hidden" name="orderDate" placeholder="" value="<%= buyerInformation.orderDate %>">
                     </div>
                 </div>
                 <div class="orderInfoSummaryGroup">
                     <div>
                         <label class="orderSummaryStyle" for="celebrantGender">Celebrant Gender:</label>
-                        <span class="orderSummaryInput"><%= orderInfo.celebrantGender %></span>
-                        <input type="hidden" name="celebrantGender" placeholder="" value="<%= orderInfo.celebrantGender %>">
+                        <span class="orderSummaryInput"><%= buyerInformation.celebrantGender %></span>
+                        <input type="hidden" name="celebrantGender" placeholder="" value="<%= buyerInformation.celebrantGender %>">
                     </div>
                     <div>
                         <label class="orderSummaryStyle" for="payBy">Pay By:</label>
-                        <span class="orderSummaryInput" id="orderPayBy"><%= orderInfo.payByDate %></span>
-                        <input type="hidden" name="payBy" placeholder="" value="<%= orderInfo.payByDate %>">
+                        <span class="orderSummaryInput" id="orderPayBy"><%= buyerInformation.payByDate %></span>
+                        <input type="hidden" name="payBy" placeholder="" value="<%= buyerInformation.payByDate %>">
                     </div>
                 </div>
                 <div>
                     <label class="orderSummaryStyle" for="celebrantAge">Celebrant Age:</label>
-                    <span class="orderSummaryInput"><%= orderInfo.celebrantAge %></span>
-                    <input type="hidden" name="celebrantAge" placeholder="" value="<%= orderInfo.celebrantAge %>">
+                    <span class="orderSummaryInput"><%= buyerInformation.celebrantAge %></span>
+                    <input type="hidden" name="celebrantAge" placeholder="" value="<%= buyerInformation.celebrantAge %>">
                 </div>
                 <div>
                     <label class="orderSummaryStyle" for="pickupDate">Pickup Date:</label>
-                    <span class="orderSummaryInput"><%= orderInfo.pickupDate %></span>
-                    <input type="hidden" name="pickupDate" placeholder="" value="<%= orderInfo.pickupDate %>">
+                    <span class="orderSummaryInput"><%= buyerInformation.pickupDate %></span>
+                    <input type="hidden" name="pickupDate" placeholder="" value="<%= buyerInformation.pickupDate %>">
                 </div>
                 <div>
                     <label class="orderSummaryStyle" for="email">Email:</label>
-                    <span class="orderSummaryInput"><%= orderInfo.email %></span>
-                    <input type="hidden" name="email" placeholder="" value="<%= orderInfo.email %>">
+                    <span class="orderSummaryInput"><%= buyerInformation.email %></span>
+                    <input type="hidden" name="email" placeholder="" value="<%= buyerInformation.email %>">
                 </div>
                 <div>
                     <label class="orderSummaryStyle" for="contactNo">Contact Number:</label>
-                    <span class="orderSummaryInput"><%= orderInfo.contactNo %></span>
-                    <input type="hidden" name="contactNo" placeholder="" value="<%= orderInfo.contactNo %>">
+                    <span class="orderSummaryInput"><%= buyerInformation.contactNo %></span>
+                    <input type="hidden" name="contactNo" placeholder="" value="<%= buyerInformation.contactNo %>">
                 </div>
             </div>
 
@@ -164,7 +164,7 @@
                     </tfoot>
                 </table>
                 <div class="orderBasketBtn">
-                    <button class="orderBasketReturn">RETURN</button>
+                    <a href="/orderInformation"><button type="button" class="orderBasketReturn">RETURN</button></a>
                     <button class="orderBasketSubmit">CHECK OUT</button>
                 </div>
             </div>
@@ -193,11 +193,6 @@
         </div>
         <script>
             $(document).ready(function() {   
-                //var date = new Date()
-                //var orderID = ""
-                //var orderDate = ""
-                //var payByTemp = date
-                //var payBy = ""
                 const progressSteps = document.querySelectorAll('.progressStep');
                 const progress = document.querySelector('.progress');
                 progressSteps.forEach(function(progressSteps) {
@@ -216,68 +211,16 @@
 
                 progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1) * 100 + "%");
 
-                document.querySelector('.orderSummaryModalBackground').style.display = 'flex';
-                /*
-                if (date.getHours() < 10) {
-                    orderID = orderID + '0'
-                } 
-                orderID = orderID + date.getHours()
+                document.querySelector('.orderSummaryModalBackground').style.display = 'none';
 
-                if (date.getMinutes() < 10) {
-                    orderID = orderID + '0'
-                }
-                orderID = orderID + date.getMinutes()
+                $('.orderBasketSubmit').click(function(e) {
+                    e.preventDefault()
+                    document.querySelector('.orderSummaryModalBackground').style.display = 'flex';
+                })
                 
-                if (date.getSeconds() < 10) {
-                    orderID = orderID + '0'
-                }
-                orderID = orderID + date.getSeconds()
-                if (date.getMilliseconds() < 100 && date.getMilliseconds() >= 10) {
-                    orderID = orderID + '0'
-                } else if (date.getMilliseconds() < 10) {
-                    orderID = orderID + '00'
-                }
-                orderID = orderID + date.getMilliseconds()
-                orderID = orderID + $('input[name=name]').val()[0] + $('input[name=celebrantName]').val()[0] + $('input[name=celebrantGender]').val()[0]
-
-                if (parseInt($('input[name=celebrantAge]').val()) < 100 && parseInt($('input[name=celebrantAge]').val()) >= 10) {
-                    orderID = orderID + '0'
-                } else if (parseInt($('input[name=celebrantAge]').val()) < 10) {
-                    orderID = orderID + '00'
-                }
-                orderID = orderID + $('input[name=celebrantAge]').val()
-
-                $('#orderID').text(orderID)
-                $('input[name=orderID]').val(orderID)
-
-                alert($('input[name=name]').val()[0])
-
-                orderDate = getDate(date)
-                $('#orderDate').text(orderDate)
-                $('input[name=orderDate]').val(orderDate)
-                payByTemp.setDate(date.getDate() + 7)
-                payBy = getDate(payByTemp)
-                $('#orderPayBy').text(payBy)
-                $('input[name=payBy]').val(payBy)
-
-                function getDate(date) {
-                    var parseDate = ""
-
-                    if (date.getMonth() + 1 < 10) {
-                        parseDate = parseDate + '0'
-                    }
-                    parseDate = parseDate + (date.getMonth() + 1) + '-'
-
-                    if (date.getDate() < 10) {
-                        parseDate = parseDate + '0'
-                    }
-                    parseDate = parseDate + date.getDate() + '-'
-
-                    parseDate = parseDate + date.getFullYear()
-                    
-                    return parseDate
-                }
-                */
+                $('.orderSummaryClose').click(function() {
+                    window.location.href = '/'
+                })
             })
         </script>
     </body>

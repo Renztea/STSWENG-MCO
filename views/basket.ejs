@@ -172,7 +172,6 @@
                     var basketItemList = document.querySelectorAll('.basketItem')
                     var basketItemLength = basketItemList.length
 
-                    alert("COUNT: " + basketItemLength)
                     if (basketItemLength == 0) {
                         $('.basketSubmit').css('display', 'none')
                         return false;
@@ -365,15 +364,17 @@
                     var currentQuantity = $('#quantity' + itemIndex).val()
                     var displayPrice = productPrice * currentQuantity
 
-                    alert("productPrice: " + productPrice)
-                    alert("currentQuantity: " + currentQuantity)
-                    alert("displayPrice: " + displayPrice)
+                    //alert("productPrice: " + productPrice)
+                    //alert("currentQuantity: " + currentQuantity)
+                    //alert("displayPrice: " + displayPrice)
                     if(currentQuantity > 100) {
                         currentQuantity = 100
                         $('#quantity' + itemIndex).val(100)
+                        displayPrice = productPrice * currentQuantity
                     } else if (currentQuantity <= 0) {
-                        curerntQuantity = 1
+                        currentQuantity = 1
                         $('#quantity' + itemIndex).val(1)
+                        displayPrice = productPrice * currentQuantity
                     }
 
                     if (currentQuantity > 0) {
@@ -410,7 +411,7 @@
                             if (itemType == 'cake') {
                                 productItem.flavor = currentFlavor
                                 productItem.size = currentSize
-                                productItem.cakeNumber = cakeNumber
+                                productItem.cakeNumber = currentCakeNumber
                                 productItem.dedication = currentDedication
                             } else if (itemType == 'cupcake') {
                                 productItem.flavor = currentFlavor

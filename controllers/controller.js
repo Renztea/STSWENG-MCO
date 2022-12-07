@@ -54,7 +54,61 @@ function randomizer (currentProducts) {
     return randomProducts
 }
 
+/*
+function sendEmail (orderDetails, name, price) {
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'marcbaura@gmail.com',
+          pass: 'shoveyljzkwlakdk'
+        }
+    });
 
+    var orders = orderDetails.name.join('\n')
+      
+    var mailOptions = {
+        from: 'marcbaura@gmail.com',
+        to: 'marc_baura@dlsu.edu.ph',
+        subject: 'G-Cakes OrderLists',
+        html: '<h1>Welcome</h1><p>That was easy!</p>'
+        
+        `Good day, ${name},\n\nThank you for supporting our business, G-cakes! Below is the breakdown of your orders and their complete details. You have 7 days to settle payment to avoid cancellation. 
+        \n\n${orders}\nTotal Price: ₱${price}
+        \nShould you have any changes or concerns about your orders, please reply to this email. Please note that changes for your order will no longer be entertained after payment has been sent.  
+        \n\nBelow are the payment options:\n\n<Gcash QR>                                
+        <BPI QR>\n<Gcash number>                            
+        <Acct. no>\n\nPlease settle payment and proof of payment within 7 days to avoid cancellation. 
+        After proof of payment has been sent, you may ask for updates about your order by replying again to this email thread.\n\n
+        Thank you,\nGina from G-cakes`
+    }
+    
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+    });
+}
+*/
+
+function getDate(date) {
+    var parseDate = ""
+
+    if (date.getMonth() + 1 < 10) {
+        parseDate = parseDate + '0'
+    }
+    parseDate = parseDate + (date.getMonth() + 1) + '-'
+
+    if (date.getDate() < 10) {
+        parseDate = parseDate + '0'
+    }
+    parseDate = parseDate + date.getDate() + '-'
+
+    parseDate = parseDate + date.getFullYear()
+    
+    return parseDate
+}
 
 const controller = {
 
@@ -137,6 +191,7 @@ const controller = {
         if (req.session.orders == '' || !(req.session.orders)) {
             res.redirect('basket')
         } else {
+            delete req.session.information // deletes the past inputted informations
             res.render('orderInformation')
         }
     },
@@ -835,6 +890,8 @@ const controller = {
         var basketItemList = []
         var totalPrice = 0
 
+        delete req.session.information // deletes current buyer information when they go back to the basket page
+
         if(req.session.orders) {
             for (const item of req.session.orders) {
                 if(item.type == 'cake') {
@@ -844,7 +901,7 @@ const controller = {
                 } else {
                     var basketItem = await Cookie.findOne({name: item.name}, {_id: 0})
                 }          
-                console.log(basketItem)
+                // console.log(basketItem)
                 if (basketItem != '' && basketItem != null) {
                     totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
                     basketItemList.push(basketItem)   
@@ -903,6 +960,7 @@ const controller = {
         const errors = validationResult(req)
         
         if(errors.isEmpty()){
+            req.session.information = req.query
             res.send("Success")
         }
         else {
@@ -919,7 +977,7 @@ const controller = {
         var payByTemp = date
         var payBy = ""
         var totalPrice = 0
-        if (req.session.orders == '' || !(req.session.orders) || !(req.query)) {
+        if (req.session.orders == '' || !(req.session.orders) || req.session.information == '' || !(req.session.information) || !(req.query.name)) {
             res.redirect('basket')
         } else {
             if(req.session.orders) {
@@ -957,7 +1015,7 @@ const controller = {
             }
             orderID = orderID + req.query.celebrantAge
 
-            req.query.orderID = orderID
+            req.session.information.orderID = orderID
 
             orderDate = orderDate + date.getFullYear() + '-'
             if (date.getMonth() + 1 < 10) {
@@ -971,32 +1029,15 @@ const controller = {
             orderDate = orderDate + date.getDate()
 
 
-            orderDate = getDate(date)
+            req.session.information.orderDate = getDate(date)
             req.query.orderDate = orderDate
             payByTemp.setDate(date.getDate() + 7)
             payBy = getDate(payByTemp)
-            req.query.payByDate = payBy
+            req.session.information.payByDate = payBy
 
-            function getDate(date) {
-                var parseDate = ""
 
-                if (date.getMonth() + 1 < 10) {
-                    parseDate = parseDate + '0'
-                }
-                parseDate = parseDate + (date.getMonth() + 1) + '-'
 
-                if (date.getDate() < 10) {
-                    parseDate = parseDate + '0'
-                }
-                parseDate = parseDate + date.getDate() + '-'
-
-                parseDate = parseDate + date.getFullYear()
-                
-                return parseDate
-            }
-
-            console.log(req.query)
-            res.render('orderSummary', {productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
+            res.render('orderSummary', {productItemList: req.session.orders, buyerInformation: req.session.information, totalPrice: totalPrice})
         }
     },
 
@@ -1009,86 +1050,63 @@ const controller = {
         var email = req.body.email
         var contact = req.body.contactNo
         var price = req.body.totalPrice
-        //var orderID = ""
-        //var orderDate = ""
         var orderID = req.body.orderID
         var orderDate = req.body.orderDate
         var payByDate = req.body.payByDate
 
-        /*
-        if (date.getHours() < 10) {
-            orderID = orderID + '0'
-        } 
-        orderID = orderID + date.getHours()
+        try {
+            Order.create({
+                name: name,
+                orderID: orderID,
+                celebrant: celebrantName,
+                celebrantGender: gender,
+                celebrantAge: age,
+                expectedPickUpDate: pickupDate,
+                email: email,
+                contactNumber: contact,
+                orders: req.session.orders,
+                totalPrice: price,
+                status: "unpaid",
+                orderDate: orderDate,
+                payByDate: payByDate,
+                payDate: "",
+                pickUpDate: "",
+                cancelDate: ""
+            })
 
-        if (date.getMinutes() < 10) {
-            orderID = orderID + '0'
-        }
-        orderID = orderID + date.getMinutes()
-        
-        if (date.getSeconds() < 10) {
-            orderID = orderID + '0'
-        }
-        orderID = orderID + date.getSeconds()
-        if (date.getMilliseconds() < 100 && date.getMilliseconds() >= 10) {
-            orderID = orderID + '0'
-        } else if (date.getMilliseconds() < 10) {
-            orderID = orderID + '00'
-        }
-        orderID = orderID + date.getMilliseconds()
-        orderID = orderID + name[0] + celebrantName[0] + gender[0]
+            // sendEmail(req.session.orders, name, price)
+            
+            req.session.destroy(() => { // deletes the customer's session to allow for new orders
+                res.clearCookie('connect.sid');
+            });
 
-        if (parseInt(age) < 100 && parseInt(age) >= 10) {
-            orderID = orderID + '0'
-        } else if (parseInt(age) < 10) {
-            orderID = orderID + '00'
+            res.render('main');
+        } catch (err) {
+            console.log(err)
+            res.render('errorPage')
         }
-        orderID = orderID + age
-
-        /*
-        orderDate = orderDate + date.getFullYear() + '-'
-        if (date.getMonth() + 1 < 10) {
-            orderDate = orderDate + '0'
-        }
-        orderDate = orderDate + (date.getMonth() + 1) + '-'
-
-        if (date.getDate() < 10) {
-            orderDate = orderDate + '0'
-        }
-        orderDate = orderDate + date.getDate()
-        */
-
-        Order.create({
-            name: name,
-            orderID: orderID,
-            celebrant: celebrantName,
-            celebrantGender: gender,
-            celebrantAge: age,
-            expectedPickUpDate: pickupDate,
-            email: email,
-            contactNumber: contact,
-            orders: req.session.orders,
-            totalPrice: price,
-            status: "unpaid",
-            orderDate: orderDate,
-            payByDate: payByDate,
-            payDate: "",
-            pickUpDate: "",
-            cancelDate: ""
-        })
-       res.send("Success")
     },
     
     getOrdersView: async function(req, res) {
         var orderID = req.query.orderID
-
-        //console.log(orderID)
-
         var orders = await Order.findOne({orderID: orderID});
 
         res.send(orders)
-    }
+    },
 
+    updateOrderStatus: async function(req, res) {
+
+        var orderID = req.query.orderID
+        var newStatus = req.query.status
+        console.log(newStatus)
+        try {
+            await Order.updateOne({orderID: orderID}, {status: newStatus})
+            await Order.findOne({orderID: orderID})
+            res.send('Success')
+        } catch (err) {
+            res.send('Update Status Failed!!!')
+        }
+    },
 }   
 
 module.exports = controller

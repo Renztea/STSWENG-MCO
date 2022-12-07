@@ -27,6 +27,7 @@ app.get('/admin/:type', controller.adminProductPage) // Renders the product page
 app.get('/admin/orders/:category', controller.getOrdersPage) // Renders the current pending orders of customers 
 app.get('/getOrdersView', controller.getOrdersView) // Get information about a specific product in the database
 app.get('/deleteProduct', controller.deleteProduct) // Deletes a product from the database
+app.get('/updateOrderStatus', controller.updateOrderStatus)
 
 // Form controllers
 app.post('/addCake', addCakeValidation, controller.addCake) // Adds a cake into the database
