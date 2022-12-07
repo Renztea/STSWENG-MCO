@@ -908,9 +908,6 @@ const controller = {
                 }     
             }
         }
-        
-        //console.log(basketItemList)
-        // console.log(req.session.orders)
         res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
     },
 
@@ -977,7 +974,8 @@ const controller = {
         var payByTemp = date
         var payBy = ""
         var totalPrice = 0
-        if (req.session.orders == '' || !(req.session.orders) || req.session.information == '' || !(req.session.information) || !(req.query.name)) {
+        // console.log(req.session.information)
+        if (req.session.orders == '' || !(req.session.orders) || req.session.information == '' || !(req.session.information)) {
             res.redirect('basket')
         } else {
             if(req.session.orders) {
@@ -1006,14 +1004,15 @@ const controller = {
                 orderID = orderID + '00'
             }
             orderID = orderID + date.getMilliseconds()
-            orderID = orderID + req.query.name[0].toUpperCase() + req.query.celebrant[0].toUpperCase() + req.query.celebrantGender[0]
-    
-            if (parseInt(req.query.celebrantAge) < 100 && parseInt(req.query.celebrantAge) >= 10) {
+            orderID = orderID + req.session.information.name[0].toUpperCase() + req.session.information.celebrant[0].toUpperCase() + req.session.information.celebrantGender[0]
+            
+            if (parseInt(req.session.information.celebrantAge) < 100 && parseInt(req.session.information.celebrantAge) >= 10) {
                 orderID = orderID + '0'
-            } else if (parseInt(req.query.celebrantAge) < 10) {
+            } else if (parseInt(req.session.information.celebrantAge) < 10) {
                 orderID = orderID + '00'
             }
-            orderID = orderID + req.query.celebrantAge
+
+            orderID = orderID + req.session.information.celebrantAge
 
             req.session.information.orderID = orderID
 
@@ -1030,7 +1029,6 @@ const controller = {
 
 
             req.session.information.orderDate = getDate(date)
-            req.query.orderDate = orderDate
             payByTemp.setDate(date.getDate() + 7)
             payBy = getDate(payByTemp)
             req.session.information.payByDate = payBy
@@ -1074,17 +1072,19 @@ const controller = {
                 cancelDate: ""
             })
 
-            // sendEmail(req.session.orders, name, price)
-            
-            req.session.destroy(() => { // deletes the customer's session to allow for new orders
-                res.clearCookie('connect.sid');
-            });
-
-            res.render('main');
+            // sendEmail(req.session.orders, name, price
+            res.send('Success')
         } catch (err) {
             console.log(err)
-            res.render('errorPage')
+            res.send('Error')
         }
+    },
+
+    deleteCustomerSession: function(req, res) {
+        req.session.destroy(() => { // deletes the customer's session to allow for new orders
+            res.clearCookie('connect.sid');
+            res.redirect('/')
+        });
     },
     
     getOrdersView: async function(req, res) {
@@ -1098,7 +1098,6 @@ const controller = {
 
         var orderID = req.query.orderID
         var newStatus = req.query.status
-        console.log(newStatus)
         try {
             await Order.updateOne({orderID: orderID}, {status: newStatus})
             await Order.findOne({orderID: orderID})

@@ -22,7 +22,7 @@
             <%- include("partials/progressBar") %>
         </div>
 
-        <form action="/orderComplete" method="POST">
+        <form action="/orderComplete" id="summaryForm">
             <div class="orderInfoSummary">
                 <div class="orderInfoSummaryGroup">
                     <div>
@@ -165,13 +165,13 @@
                 </table>
                 <div class="orderBasketBtn">
                     <a href="/orderInformation"><button type="button" class="orderBasketReturn">RETURN</button></a>
-                    <button class="orderBasketSubmit">CHECK OUT</button>
+                    <button type="button" class="orderBasketSubmit">CHECK OUT</button>
                 </div>
             </div>
         </form>
         <div class="orderSummaryModalBackground">
             <div class="orderSummaryModalContent">
-                <div class="orderSummaryClose">+</div>
+                <div class="orderSummaryClose"><a href="/deleteSession">+</a></div>
                 <div class="orderSummaryModalCongratulationsContainer">
                     <span class="orderSummaryModalCongratulationsContent">
                         Congratulations!
@@ -213,13 +213,19 @@
 
                 document.querySelector('.orderSummaryModalBackground').style.display = 'none';
 
-                $('.orderBasketSubmit').click(function(e) {
-                    e.preventDefault()
-                    document.querySelector('.orderSummaryModalBackground').style.display = 'flex';
-                })
-                
-                $('.orderSummaryClose').click(function() {
-                    window.location.href = '/'
+                $('.orderBasketSubmit').click(function() {
+                    var formData = new FormData(document.getElementById('summaryForm'));
+                    var data = {};
+                    formData.forEach((value, key) => data[key] = value);
+
+                    $.post('/orderComplete', data, function(result) {
+                        if(result == 'Success') {
+                            document.querySelector('.orderSummaryModalBackground').style.display = 'flex';
+                        } else {
+                            alert('Error')
+                        }
+                    })
+                    
                 })
             })
         </script>
