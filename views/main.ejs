@@ -17,7 +17,9 @@
     <body class="mainBackground">
         <div class="header">
             <%- include("partials/logo") %>
-			<%- include("partials/menubuttons") %>
+            <div class="menu">
+			    <%- include("partials/menubuttons") %>
+            </div>
         </div>
 
 
@@ -38,43 +40,26 @@
 
         <div class="multiCarousel">
             <div id="multi" class="keen-slider adjust">
-                <% display.forEach(function(display) { %>
-                <button class="keen-slider__slide productBoxCarousel">      
+                <% for (let i = 0; i < display.length; i++) { %>
+                <button type="button" class="keen-slider__slide productBoxCarousel">      
                     <div class="carouselItemImage">
-                        <img src="<%= display.image %>" placeholder="<%= display.name %>" alt="<%= display.name %>">
+                        <img src="<%= display[i].image %>" placeholder="<%= display[i].name %>" alt="<%= display[i].name %>">
+                        <p class="displayProductType" hidden><%= types[i] %></p>
+                        <p class="displayProductID" hidden><%= display[i]._id %></p>
                     </div>
                 </button>
-                <% }) %>
+                <% } %>
             </div>
             <div class="multiCarouselBtn multiCarouselPrev">&#10094;</div>
             <div class="multiCarouselBtn multiCarouselNext">&#10095;</div>
         </div>
-
-        <div class="modalBackground">
-            <div class="modalContent">
-                <div class="close">+</div>
-                <div class="modalContentImage">
-                    <img src="images/loginbackground.png" alt="placeholder">
-                </div>
-                <form class="orderForm">
-                    <h1>ProductName(FIX THIS)</h1>
-                    <h2>Price(FIX THIS)</h2>
-                    <input type="hidden" name="productName" value="productName">
-                    <select class="orderFlavor" title="Flavor" id="flavor" name="flavor">
-                        <option>Select Flavor</option>
-                    </select>
-                    <select class="orderSize" title="Size" id="size" name="size">
-                        <option>Select Size</option>
-                    </select>
-                    <div class="orderQuantityContainer">
-                        <span id="decrement" class="incdec orderDecrement">-</span>
-                        <input id="orderQuantity" name="orderQuantity" class="quantity" type="number" min="1" value="1" >
-                        <span id="increment" class="incdec orderIncrement">+</span>
-                    </div>
-                    <button class="addBtn">Add To Cart</button>
-                </form>
-            </div>
-        </div>
     </body>
 
+    <script>
+        $('.productBoxCarousel').click(function() {
+            var productID = $(this).find('.displayProductID').text()
+            var productType = $(this).find('.displayProductType').text()
+            window.location.assign( '/products/' + productType + '?productID=' + productID)
+        })
+    </script>
 </html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Basket</title>
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="/js/index.js"></script>
+    </head>
+
+    <body class="mainBackground">
+        <div class="header">
+            <%- include("partials/logo") %>
+            <div class="menu">
+			    <%- include("partials/menubuttons") %>
+            </div>
+        </div>
+
+        <div class="progressBarContainer">
+            <%- include("partials/progressBar") %>
+        </div>
+
+        <form action="/orderComplete" method="POST">
+            <div class="orderInfoSummary">
+                <div class="orderInfoSummaryGroup">
+                    <div>
+                        <label class="orderSummaryStyle" for="buyerName">Buyer Name:</label>
+                        <input class="orderSummaryInput" name="name" placeholder="" value="<%= orderInfo.name %>" readonly>
+                    </div>
+                    <div>
+                        <label class="orderSummaryStyle" for="orderNumber">Order Number:</label>
+                        <input class="orderSummaryInput" name="name" placeholder="" value="<%= orderInfo.name %>" readonly>
+                    </div>
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="celebrantName">Celebrant Name:</label>
+                    <input class="orderSummaryInput" name="celebrantName" placeholder="" value="<%= orderInfo.celebrant %>" readonly>
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="celebrantGender">Celebrant Gender:</label>
+                    <input class="orderSummaryInput" name="celebrantGender" placeholder="" value="<%= orderInfo.celebrantGender %>" readonly>
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="celebrantAge">Celebrant Age:</label>
+                    <input class="orderSummaryInput" name="celebrantAge" placeholder="" value="<%= orderInfo.celebrantAge %>" readonly>
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="pickupDate">Pickup Date:</label>
+                    <input class="orderSummaryInput" name="pickupDate" placeholder="" value="<%= orderInfo.pickupDate %>" readonly>
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="email">Email:</label>
+                    <input class="orderSummaryInput" name="email" placeholder="" value="<%= orderInfo.email %>" readonly>
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="contactNo">Contact Number:</label>
+                    <input class="orderSummaryInput" name="contactNo" placeholder="" value="<%= orderInfo.contactNo %>" readonly>
+                </div>
+            </div>
+
+            <div id="orderBasketSummary">
+                <table class="orderBasketTableSummary">
+                    <thead class="orderBasketTableSummaryHeader">
+                        <tr>
+                            <th class="orderBasketProductSummaryHeader" colspan="2">Product</th>
+                            <th class="orderBasketQuantitySummaryHeader">Quantity</th>
+                            <th class="orderBasketPriceSumamryHeader">Price</th>
+                            <th class="orderBasketTotalSummaryHeader">Total</th>
+                        </tr>
+                    </thead>
+                    <%_ productItemList.forEach(function(productItem) { _%>
+                    <tbody>
+                        <tr class="orderBasketProductSummaryRow">
+                            <td class="orderBasketProductImageSummary" data-label="Product">
+                                <div class="orderBasketProductImageContainer">
+                                    <img src="<%= productItem.image %>" placeholder="trial" alt="1">
+                                </div>
+                            </td>
+                            <td class="orderBasketProductInfoSummary" data-label="Product">
+                            <table>
+                                    <tr>
+                                        <td>Name: <%= productItem.name %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Flavor: <%= productItem.flavor %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Size: <%= productItem.size %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Frosting: <%= productItem.frosting %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dedication: <%= productItem.dedication %></td>
+                                    </tr>
+                            </table>
+                            </td>
+                            <td class="orderBasketProductQuantitySummary" data-label="Quantity">
+                                <%= productItem.quantity %>
+                            </td>
+                            <td class="orderBasketProductPriceSummary" data-label="Price">
+                                <span>&#8369;<%= productItem.price %></span>
+                            </td>
+                            <td class="orderBasketProductTotalSummary" data-label="Total">
+                                <span>&#8369;<%= parseInt(productItem.price) * parseInt(productItem.quantity)%></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <%_ }) _%>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td class="orderBasketTotalAmountSummaryLabel">Total Amount:</td>
+                            <td class="orderBasketTotalAmountSummary" data-label="Total">
+                                <span>&#8369;<%= totalPrice %></span>
+                                <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="orderBasketBtn">
+                    <button class="orderBasketReturn">RETURN</button>
+                    <button class="orderBasketSubmit">CHECK OUT</button>
+                </div>
+            </div>
+        </form>
+        <script>
+            $(document).ready(function() {   
+                const progressSteps = document.querySelectorAll('.progressStep');
+                const progress = document.querySelector('.progress');
+                progressSteps.forEach(function(progressSteps) {
+                        if (progressSteps.classList.contains('progressStepActive')) {
+                            progressSteps.classList.remove('progressStepActive')
+                        }
+                    })
+                progressSteps[0].classList.add('progressStepActive')
+                progressSteps[1].classList.add('progressStepActive')
+                progressSteps[2].classList.add('progressStepActive')
+                $('#progressImage1').find('img').attr('src', '/images/BrownCart.png')
+                $('#progressImage2').find('img').attr('src', '/images/BrownForm.png')
+                $('#progressImage3').find('img').attr('src', '/images/BrownCheck.png')
+
+                const progressActive = document.querySelectorAll('.progressStepActive');
+
+                progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1) * 100 + "%");
+
+                })
+        </script>
+    </body>
+
+</html>

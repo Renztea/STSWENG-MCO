@@ -72,57 +72,6 @@
   transition: all ease 0.3s;
 }
 
-.pagination {
-  height: 0px;
-  text-align: center;
-  margin: 30px 30px 60px;
-  user-select: none;
-}
-
-.pagination li {
-  display: inline-block;
-  margin: 5px;
-  box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
-}
-
-.pagination li a {
-  color: #FFFFFF;
-  text-decoration: none;
-  font-size: 1.2em;
-  line-height: 45px;
-}
-
-.previous-page, .next-page {
-  background: #0AB1CE;
-  width: 80px;
-  border-radius: 45px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.previous-page:hover {
-  transform: translateX(-5px);
-}
-
-.next-page:hover {
-  transform: translateX(5px);
-}
-
-.current-page, .dots {
-  background: #CCCCCC;
-  width: 45px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.active {
-  background: #0AB1CE;
-}
-
-.disable {
-  background: #CCCCCC;
-}
-
 .orderModalBackground {
   width: 100%;
   height: 100%;
@@ -135,11 +84,12 @@
 }
 
 .orderModalContent {
-  width: 50%;
-  padding: 10px;
+  width: 70%;
+  padding: 40px 10px 10px 10px;
   height: 80%;
   background-color: #FFFFFF;
   position: relative;
+  overflow: auto;
 }
 
 .orderClose {
@@ -165,4 +115,29 @@
   border-collapse: collapse;
   text-align: center;
   font-family: 'Poppins', sans-serif;
+}
+
+.paginationHolder{
+	width: 1500px;
+	max-width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 10px;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: #4A3627;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pageBtn{
+	border: none;
+	background-color: white;
+	cursor: pointer;	
 }

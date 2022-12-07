@@ -17,11 +17,12 @@
             </div>
 		
 			<div class="menu">
-				<button class="menuBtn" style="font-weight:bold;">CAKES</button>
-				<a href="/admin/Cupcake"><button class="menuBtn">CUPCAKES</button></a>
-				<a href="/admin/Cookie"><button class="menuBtn">DECORATED COOKIES</button></a>
-				<a href="/admin/About"><button class="menuBtn">ABOUT</button></a>
-				<a href="/admin/orders/all"><button class="menuBtn">ORDERS</button></a>
+				<a href="/admin/cake"><button class="menuBtn">CAKES</button></a>
+				<a href="/admin/cupcake"><button class="menuBtn">CUPCAKES</button></a>
+				<a href="/admin/cookie"><button class="menuBtn">DECORATED COOKIES</button></a>
+				<a href="/admin/about"><button class="menuBtn">ABOUT</button></a>
+				<button class="menuBtn" style="background-color:#DF7E85;">ORDERS</button>
+				<a href="#"><button class="logoutBtn">LOGOUT</button></a>
 			</div>
 		</div>
 
@@ -38,7 +39,72 @@
                 <div id="orderTable">
                     <%- include("partials/orderList") %>
                 </div>
-                <div class="pagination">
+                <div class="paginationHolder">
+                    <div class="pagination">
+                        <% if (currentPage > 1) { %>
+                            <button type="button" class="pageBtn" id="previousPageBtn"><a href="/admin/orders/all?pagenumber=<%= parseInt(currentPage) - 1 %>">&laquo;</a></button>
+                        <% } else { %>
+                            <button type="button" class="pageBtn" id="previousPageBtn"><a>&laquo;</a></button>
+                        <% } %>
+
+                        <% if (numberofPages <= 7) { %>
+                            <% for (let i = 1; i <= numberofPages; i++) { %>
+                                <% if (currentPage == i) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
+                                <% } else { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a href="/admin/orders/all?pagenumber=<%= i %>"><%= i %></a></button>
+                                <% } %>
+                            <% } %>
+                        <% } else { %>
+                            <% if (currentPage == 1) { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a><strong><%= 1 %></strong></a></button>
+                            <% } else { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/orders/all?pagenumber=1"><%= 1 %></a></button>
+                            <% } %>
+                            <% if (currentPage <= 2) { %>
+                                <% if(currentPage == 2) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
+                                <% } %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/orders/all?pagenumber=<%= parseInt(currentPage) + 1  %>"><%= parseInt(currentPage) + 1 %></a></button>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/orders/all?pagenumber=<%= parseInt(currentPage) + 2 %>"><%= parseInt(currentPage) + 2 %></a></button>
+                                <% if(currentPage == 1) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a href="/admin/orders/all?pagenumber=<%= parseInt(currentPage) + 2 %>"><%= parseInt(currentPage) + 3 %></a></button>
+                                <% } %>
+                                <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
+                            <% } else if (parseInt(currentPage) + 1 == numberofPages || currentPage == numberofPages) { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
+                                <% if(currentPage == numberofPages) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a href="/admin/orders/all?pagenumber=<%= parseInt(currentPage) - 3 %>"><%= parseInt(currentPage) - 3 %></a></button>
+                                <% } %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/orders/all?pagenumber=<%= parseInt(currentPage) - 2  %>"><%= parseInt(currentPage) - 2 %></a></button>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/orders/all?pagenumber=<%= parseInt(currentPage) - 1 %>"><%= parseInt(currentPage) - 1 %></a></button>
+                                <% if(parseInt(currentPage) + 1 == numberofPages) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
+                                <% } %>
+                            <% } else if (currentPage > 2) { %>
+                                <% if (currentPage > 3) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
+                                <% } %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/orders/all?pagenumber=<%= parseInt(currentPage) - 1 %>"><%= parseInt(currentPage) - 1 %></a></button>
+                                <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/orders/all?pagenumber=<%= parseInt(currentPage) + 1  %>"><%= parseInt(currentPage) + 1 %></a></button>
+                                <% if (parseInt(currentPage) + 2 != numberofPages) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
+                                <% } %>
+                            <% } %>
+                            <% if (currentPage == numberofPages) { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
+                            <% } else { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/orders/all?pagenumber=<%= numberofPages %>"><%= numberofPages %></a></button>
+                            <% } %>
+                        <% } %>
+
+                        <% if (currentPage < numberofPages) { %>
+                            <button type="button" class="pageBtn" id="nextPageBtn"><a href="/admin/orders/all?pagenumber=<%= parseInt(currentPage) + 1 %>">&raquo;</a></button>
+                        <% } else { %>
+                            <button type="button" class="pageBtn" id="nextPageBtn"><a>&raquo;</a></button>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,154 +112,196 @@
         <div class="orderModalBackground">
             <div class="orderModalContent">
                 <div class="orderClose">+</div>
-
                 <div class="orderModalInfo">
-                    <p>Buyer Name:</p>
-                    <p>Celebrant Name:</p>
-                    <p>Celebrant Gender:</p>
-                    <p>Celebrant Age:</p>
-                    <p>Contact Number:</p>
-                    <p>Pick Up Date:</p>
+                    <fieldset>
+                        <legend>Customer Info</legend>
+                        <p>Buyer Name: <span id="orderViewName"></span></p>
+                        <p>Celebrant Name: <span id="orderViewCelebrantName"></span></p>
+                        <p>Celebrant Gender: <span id="orderViewCelebrantGender"></span></p>
+                        <p>Celebrant Age: <span id="orderViewCelebrantAge"></span></p>
+                        <p>Expected Pick Up Date: <span id="orderViewExpectedPickUpDate"></span></p>
+                        <p>Email: <span id="orderViewEmail"></span></p>
+                        <p>Contact Number: <span id="orderViewContactNumber"></span></p>
+                    </fieldset>
                 </div>
 
                 <div class="orderModalProductContainer">
                     <fieldset class="orderModalFieldSet">
-                        <legend>Ordered Products</legend>
-                        <table class="orderModalTable ">
+                        <legend>Cakes</legend>
+                        <table class="orderModalTable">
                             <thead class="orderTableHeader">
                                 <tr>
                                     <th class="orderTableHeaderItem">Order#</th>  
                                     <th class="orderTableHeaderItem">Name</th>          
                                     <th class="orderTableHeaderItem">Flavor</th>
                                     <th class="orderTableHeaderItem">Size</th>
-                                    <th class="orderTableHeaderItem">Frosting</th>
+                                    <th class="orderTableHeaderItem">Cake Number</th>
+                                    <th class="orderTableHeaderItem">Dedication</th>
                                     <th class="orderTableHeaderItem">Quantity</th>
                                     <th class="orderTableHeaderItem">Price</th>
                                 </tr>
-
-                            <tbody>
-                                <tr class="orderTableInfoRow">
-                                    <td class="orderTableInfo" data-label="Order#">1</td>
-                                    <td class="orderTableInfo" data-label="Name">Among Us</td>
-                                    <td class="orderTableInfo" data-label="Flavor">Chocolate</td>
-                                    <td class="orderTableInfo" data-label="Size">6"x5"</td>
-                                    <td class="orderTableInfo" data-label="Frosting"></td>
-                                    <td class="orderTableInfo" data-label="Quantity">1</td>
-                                    <td class="orderTableInfo" data-label="Price">200</td>
-                                </tr>
-                            </tbody>
                             </thead>
+
+                            <tbody id="cakesTableInfo">
+                                <!--
+                                <tr class="orderTableInfoRow">
+                                    <td id="orderViewOrderNumber"class="orderTableInfo" data-label="Order#">1</td>
+                                    <td id="orderViewProductName" class="orderTableInfo" data-label="Name">Among Us</td>
+                                    <td id="orderViewProductFlavor" class="orderTableInfo" data-label="Flavor">Chocolate</td>
+                                    <td id="orderViewProductSize" class="orderTableInfo" data-label="Size">6"x5"</td>
+                                    <td id="orderViewProductFrosting" class="orderTableInfo" data-label="Frosting"></td>
+                                    <td id="orderViewProductQuantity" class="orderTableInfo" data-label="Quantity">1</td>
+                                    <td class="orderTableInfo" data-label="Price">&#8369;<span id="orderViewProductPrice">200</span></td>
+                                </tr>
+                                -->
+                            </tbody>
                         </table>
                     </fieldset>
+
+                    <fieldset class="orderModalFieldSet">
+                        <legend>Cupcakes</legend>
+                        <table class="orderModalTable">
+                            <thead class="orderTableHeader">
+                                <tr>
+                                    <th class="orderTableHeaderItem">Order#</th>  
+                                    <th class="orderTableHeaderItem">Name</th>          
+                                    <th class="orderTableHeaderItem">Flavor</th>
+                                    <th class="orderTableHeaderItem">Frosting</th>
+                                    <th class="orderTableHeaderItem">Design Number</th>
+                                    <th class="orderTableHeaderItem">Design</th>
+                                    <th class="orderTableHeaderItem">Quantity</th>
+                                    <th class="orderTableHeaderItem">Price</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="cupcakesTableInfo">
+                                <!--
+                                <tr class="orderTableInfoRow">
+                                    <td id="orderViewOrderNumber"class="orderTableInfo" data-label="Order#">1</td>
+                                    <td id="orderViewProductName" class="orderTableInfo" data-label="Name">Among Us</td>
+                                    <td id="orderViewProductFlavor" class="orderTableInfo" data-label="Flavor">Chocolate</td>
+                                    <td id="orderViewProductSize" class="orderTableInfo" data-label="Size">6"x5"</td>
+                                    <td id="orderViewProductFrosting" class="orderTableInfo" data-label="Frosting"></td>
+                                    <td id="orderViewProductQuantity" class="orderTableInfo" data-label="Quantity">1</td>
+                                    <td class="orderTableInfo" data-label="Price">&#8369;<span id="orderViewProductPrice">200</span></td>
+                                </tr>
+                                -->
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <fieldset class="orderModalFieldSet">
+                        <legend>Cookies</legend>
+                        <table class="orderModalTable">
+                            <thead class="orderTableHeader">
+                                <tr>
+                                    <th class="orderTableHeaderItem">Order#</th>  
+                                    <th class="orderTableHeaderItem">Name</th> 
+                                    <th class="orderTableHeaderItem">Design Number</th>
+                                    <th class="orderTableHeaderItem">Design</th>         
+                                    <th class="orderTableHeaderItem">Quantity</th>
+                                    <th class="orderTableHeaderItem">Price</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="cookiesTableInfo">
+                                <!--
+                                <tr class="orderTableInfoRow">
+                                    <td id="orderViewOrderNumber"class="orderTableInfo" data-label="Order#">1</td>
+                                    <td id="orderViewProductName" class="orderTableInfo" data-label="Name">Among Us</td>
+                                    <td id="orderViewProductFlavor" class="orderTableInfo" data-label="Flavor">Chocolate</td>
+                                    <td id="orderViewProductSize" class="orderTableInfo" data-label="Size">6"x5"</td>
+                                    <td id="orderViewProductFrosting" class="orderTableInfo" data-label="Frosting"></td>
+                                    <td id="orderViewProductQuantity" class="orderTableInfo" data-label="Quantity">1</td>
+                                    <td class="orderTableInfo" data-label="Price">&#8369;<span id="orderViewProductPrice">200</span></td>
+                                </tr>
+                                -->
+                            </tbody>
+                        </table>
+                    </fieldset>
+	
                 </div>
+                
             </div>
         </div>
     <script>
         $(document).ready(function() {
-            // Start - Pagination
-            function getPageList(totalPages, page, maxLength) {
-                function range(start, end) {
-                    return Array.from(Array(end - start + 1), (_, i) => i + start);
-                }
-
-                var sideWidth = maxLength < 9 ? 1 : 2;
-                var leftWidth = (maxLength - sideWidth * 2 - 3) >> 1;
-                var rightWidth = (maxLength - sideWidth * 2 - 3) >> 1;
-
-                if(totalPages <= maxLength) {
-                    return range(1, totalPages);
-                }
-
-                if(page <= maxLength - sideWidth - 1 - rightWidth) {
-                    return range(1, maxLength - sideWidth - 1).concat(0, range(totalPages - sideWidth + 1, totalPages));
-                }
-
-                if(page >= totalPages - sideWidth - 1 - rightWidth) {
-                    return range(1, sideWidth).concat(0, range(totalPages - sideWidth - 1 - rightWidth - leftWidth, totalPages));
-                }
-
-                return range(1, sideWidth).concat(0, range(page - leftWidth, page + rightWidth), 0, range(totalPages - sideWidth + 1, totalPages));
-            }
-
-            $(function() {
-                var numberOfItems = <%= count %>;
-                var limitPerPage = 5;
-                var totalPages = Math.ceil(numberOfItems / limitPerPage);
-                var paginationSize = 7;
-                var currentPage;
-
-                function showPage(whichPage) {
-                    if(whichPage < 1 || whichPage > totalPages) {
-                        return false;
-                    }
-
-                    currentPage = whichPage;
-
-                    $(".pagination li").slice(1, -1).remove();
-
-                    getPageList(totalPages, currentPage, paginationSize).forEach(item => {
-                        $("<li>").addClass("page-item").addClass(item ? "current-page" : "dots").toggleClass("active", item === currentPage).append($("<a>").addClass("page-link").attr({href: "javascript:void(0)"}).text(item || "...")).insertBefore(".next-page");
-                    });
-
-                    $(".previous-page").toggleClass("disable", currentPage === 1);
-                    $(".next-page").toggleClass("disable", currentPage === totalPages);
-                    return true;
-                }
-
-                $(".pagination").append(
-                $("<li>").addClass("page-item").addClass("previous-page").append($("<a>").addClass("page-link").attr({href: "javascript:void(0)"}).text("Prev")),
-                $("<li>").addClass("page-item").addClass("next-page").append($("<a>").addClass("page-link").attr({href: "javascript:void(0)"}).text("Next"))
-                );
-                
-                showPage(1);
-
-                function getOrders(pageNumber) {                    
-                    $.ajax({
-                        type: 'GET',
-                        url: '/admin/orders/<%= orderList.category %>',
-                        cache: false,
-                        data: {pageNumber: pageNumber},
-                        dataType: 'html' //return type json or html or blank
-                    })
-                    .fail(function(jqXHR, textStatus, errorThrown) {
-                        alert(jqXHR.responseText);
-                    })
-                    .done(function(resp) {                                   
-                        $("#orderTable").html(resp);
-                    });
-                }
-                
-
-                $(document).on("click", ".pagination li.current-page:not(.active)", function() {
-                    getOrders(+$(this).text());
-                    showPage(+$(this).text());
-                });
-
-                $(".next-page").on("click", function() {
-                    /*
-                    getOrders(currentPage + 1);
-                    showPage(currentPage + 1);
-                    */
-                    if(showPage(currentPage + 1)) {
-                        getOrders(currentPage);
-                    }
-                });
-
-                $(".previous-page").on("click", function() {
-                    /*
-                    getOrders(currentPage - 1);
-                    showPage(currentPage - 1);
-                    */
-                    if(showPage(currentPage - 1)) {
-                        getOrders(currentPage);
-                    }
-                });
-            });
-            // End - Pagination
-
             $(".orderViewBtn").click(function() {
-                document.querySelector('.orderModalBackground').style.display = 'flex';
                 var orderID = $(this).attr("data")
+                $.get('/getOrdersView', {orderID: orderID}, function(result) {
+                    console.log(result)
+                    $('#orderViewName').text(result.name)
+                    $('#orderViewCelebrantName').text(result.celebrant)
+                    $('#orderViewCelebrantGender').text(result.celebrantGender)
+                    $('#orderViewCelebrantAge').text(result.celebrantAge)
+                    $('#orderViewExpectedPickUpDate').text(result.expectedPickUpDate)
+                    $('#orderViewEmail').text(result.email)
+                    $('#orderViewContactNumber').text(result.contactNumber)
+
+                    $('#cakesTableInfo').html('')
+                    $('#cupcakesTableInfo').html('')
+                    $('#cookiesTableInfo').html('')
+                    var tr = '<tr class="orderTableInfoRow"><td class="orderTableInfo" colspan="6">No Item Found</td></tr>'
+                    $('#cakesTableInfo').append(tr)
+                    $('#cupcakesTableInfo').append(tr)
+                    tr = '<tr class="orderTableInfoRow"><td class="orderTableInfo" colspan="4">No Item Found</td></tr>'
+                    $('#cookiesTableInfo').append(tr)
+                    var cakesOrderNumber = 1
+                    var cupcakesOrderNumber = 1
+                    var cookiesOrderNumber = 1
+                    for (const order of result.orders) {
+                        var productPrice = parseInt(order.quantity) * parseInt(order.price)
+                        var flavor = ""
+                        var size = ""
+                        var frosting = ""
+
+                        if (order.flavor == "vanilla") {
+                            flavor = "Vanilla"
+                        } else if (order.flavor == "chocolate") {
+                            flavor = "Chocolate"
+                        } else if (order.flavor == "redVelvet") {
+                            flavor = "Red Velvet"
+                        }
+
+                        if (order.size == "6x5") {
+                            size = '6" x 5"'
+                        } else if (order.size == "8x5") {
+                            size = '8" x 5"'
+                        }
+
+                        if (order.frosting == "fondant") {
+                            frosting = "Fondant"
+                        } else if (order.frosting == "icing") {
+                            frosting = "Icing"
+                        }
+
+                        if (order.type == 'cake') {
+                            if (cakesOrderNumber ==  1) {
+                                $('#cakesTableInfo').find('tr').remove()
+                            }
+                            tr = '<tr class="orderTableInfoRow"><td id="orderViewOrderNumber" class="orderTableInfo" data-label="Order#">' + cakesOrderNumber + '</td><td id="orderViewProductName" class="orderTableInfo" data-label="Name">' + result.name + '</td><td id="orderViewProductFlavor" class="orderTableInfo" data-label="Flavor">' + flavor + '</td><td id="orderViewProductSize" class="orderTableInfo" data-label="Size">' + size + '</td><td id="orderViewProductcakeNumber" class="orderTableInfo" data-label="Cake Number">' + order.cakeNumber + '</td><td id="orderViewProductDedication" class="orderTableInfo" data-label="Dedication">' + order.dedication + '</td><td id="orderViewProductQuantity" class="orderTableInfo" data-label="Quantity">' + order.quantity + '</td><td class="orderTableInfo" data-label="Price">&#8369;<span id="orderViewProductPrice">' + productPrice + '</span></td></tr>'
+                            $('#cakesTableInfo').append(tr)
+                            cakesOrderNumber = cakesOrderNumber + 1
+                        } else if (order.type == 'cupcake') {
+                            if (cupcakesOrderNumber ==  1) {
+                                $('#cupcakesTableInfo').find('tr').remove()
+                            }
+                            tr = '<tr class="orderTableInfoRow"><td id="orderViewOrderNumber" class="orderTableInfo" data-label="Order#">' + cupcakesOrderNumber + '</td><td id="orderViewProductName" class="orderTableInfo" data-label="Name">' + result.name + '</td><td id="orderViewProductFlavor" class="orderTableInfo" data-label="Flavor">' + flavor + '</td><td id="orderViewProductFrosting" class="orderTableInfo" data-label="Frosting">' + frosting + '</td><td id="orderViewProductDesignNumber" class="orderTableInfo" data-label="Design Number">' + order.designNumber + '</td><td id="orderViewProductDesign" class="orderTableInfo" data-label="Design">' + order.design + '</td><td id="orderViewProductQuantity" class="orderTableInfo" data-label="Quantity">' + order.quantity + '</td><td class="orderTableInfo" data-label="Price">&#8369;<span id="orderViewProductPrice">' + productPrice + '</span></td></tr>'
+                            $('#cupcakesTableInfo').append(tr)
+                            cupcakesOrderNumber = cupcakesOrderNumber + 1
+                        } else {
+                            if (cookiesOrderNumber ==  1) {
+                                $('#cookiesTableInfo').find('tr').remove()
+                            }
+                            tr = '<tr class="orderTableInfoRow"><td id="orderViewOrderNumber" class="orderTableInfo" data-label="Order#">' + cookiesOrderNumber + '</td><td id="orderViewProductName" class="orderTableInfo" data-label="Name">' + result.name + '</td><td id="orderViewProductDesignNumber" class="orderTableInfo" data-label="Design Number">' + order.designNumber + '</td><td id="orderViewProductDesign" class="orderTableInfo" data-label="Design">' + order.design + '</td><td id="orderViewProductQuantity" class="orderTableInfo" data-label="Quantity">' + order.quantity + '</td><td class="orderTableInfo" data-label="Price">&#8369;<span id="orderViewProductPrice">' + productPrice + '</span></td></tr>'
+                            $('#cookiesTableInfo').append(tr)
+                            cookiesOrderNumber = cookiesOrderNumber + 1
+                        }
+
+                    }
+                    
+                    document.querySelector('.orderModalBackground').style.display = 'flex';
+                })
             })
 
             $(".orderClose").click(function() {

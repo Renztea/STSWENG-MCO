@@ -15,4 +15,5 @@ const cookieSchema = new mongoose.Schema ({
     },
 })
 
+cookieSchema.index({name: 'text'})
 module.exports = mongoose.model('cookie', cookieSchema)

@@ -9,37 +9,57 @@ const orderSchema = new mongoose.Schema ({
         type: String,
         required: true
     }, 
+    celebrant: {
+        type: String,
+        required: true
+    },
+    celebrantGender: {
+        type: String,
+        required: true
+    },
+    celebrantAge: {
+        type: Number,
+        required: true
+    },
+    expectedPickUpDate: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
     contactNumber: {
         type: Number,
         required: true
     },
     orders: {
-        type: Array,
+        type: Object,
         required: true
     },
     totalPrice: {
         type: Number,
         required: true
     },
-    orderStatus: {
+    status: {
         type: String,
         required: true
     },
-    orderPlacedDate: {
+    orderDate: {
         type: String,
         required: true
     },
-    orderPayedDate: {
+    payDate: {
         type: String,
-        required: true
+        required: false
     },
-    orderPickedUpDate: {
+    pickUpDate: {
         type: String,
-        required: true
+        required: false
     },
-    orderCancelledDate: {
+    cancelDate: {
         type: String,
-        required: true
+        required: false
     },
 })
 
