@@ -1047,8 +1047,8 @@ input::-webkit-inner-spin-button {
 }
 
 .orderSummaryModalCongratulationsContainer {
-  display: flex;
-  justify-content: center;
+  width: fit-content;
+  margin: auto;
 }
 
 .orderSummaryModalCongratulationsContent {
@@ -1056,10 +1056,6 @@ input::-webkit-inner-spin-button {
   font-size: 30px;
   font-weight: bold;
   color: #DF7E85;
-}
-
-.orderSummaryModalCongratulationsImage {
-  height: 40px;
 }
 
 .orderSummaryModalCongratulationsImage img {
