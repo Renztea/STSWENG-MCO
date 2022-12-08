@@ -59,22 +59,50 @@
 
                             <%_ if (productItemList[index].type == 'cake' && !basketItem.numberCake) { _%>
                             <select class="editSize" title="Size" id="size<%= index %>" name="size">
-                                <%_ if (basketItem.vanilla6x5Price > 0 || basketItem.chocolate6x5Price > 0) { _%>
-                                    <option value="6x5" <% if (productItemList[index].size == "6x5") { %> selected <% } %>>6" x 5"</option>
+                                <%_ if (productItemList[index].flavor == "vanilla") { _%>
+                                    <%_ if (basketItem.vanilla6x5Price > 0) { _%>
+                                        <option value="6x5" <% if (productItemList[index].size == "6x5") { %> selected <% } %>>6" x 5"</option>
+                                    <%_ } _%>
+                                    <%_ if (basketItem.vanilla8x5Price > 0) { _%>
+                                        <option value="8x5" <% if (productItemList[index].size == "8x5") { %> selected <% } %>>8" x 5"</option>
+                                    <%_ } _%>
                                 <%_ } _%>
-                                <%_ if (basketItem.vanilla8x5Price > 0 || basketItem.chocolate8x5Price > 0) { _%>
-                                    <option value="8x5" <% if (productItemList[index].size == "8x5") { %> selected <% } %>>8" x 5"</option>
+                                <%_ if (productItemList[index].flavor == "chocolate") { _%>
+                                    <%_ if (basketItem.chocolate6x5Price > 0) { _%>
+                                        <option value="6x5" <% if (productItemList[index].size == "6x5") { %> selected <% } %>>6" x 5"</option>
+                                    <%_ } _%>
+                                    <%_ if (basketItem.chocolate8x5Price > 0) { _%>
+                                        <option value="8x5" <% if (productItemList[index].size == "8x5") { %> selected <% } %>>8" x 5"</option>
+                                    <%_ } _%>
                                 <%_ } _%>
                             </select> 
                             <%_ } _%>
 
                             <%_ if (productItemList[index].type == 'cupcake') { _%>
                             <select id="frosting<%= index %>" class="editFrosting" title="Frosting" name="frosting">
-                                <%_ if (basketItem.vanillaFondantPrice > 0 || basketItem.chocolateFondantPrice > 0 || basketItem.redvelvetFondantPrice > 0) { _%>
-                                    <option value="fondant" <% if (productItemList[index].frosting == "fondant") { %> selected <% } %>>Fondant</option>
+                                <%_ if (productItemList[index].flavor == "vanilla") { _%>
+                                    <%_ if (basketItem.vanillaFondantPrice > 0) { _%>
+                                        <option value="fondant" <% if (productItemList[index].frosting == "fondant") { %> selected <% } %>>Fondant</option>
+                                    <%_ } _%>
+                                    <%_ if (basketItem.vanillaIcingPrice > 0) { _%>
+                                        <option value="icing" <% if (productItemList[index].frosting == "icing") { %> selected <% } %>>Icing</option>
+                                    <%_ } _%>
                                 <%_ } _%>
-                                <%_ if (basketItem.vanillaIcingPrice > 0 || basketItem.chocolateIcingPrice > 0 || basketItem.redvelvetIcingPrice > 0) { _%>
-                                    <option value="icing" <% if (productItemList[index].frosting == "icing") { %> selected <% } %>>Icing</option>
+                                <%_ if (productItemList[index].flavor == "chocolate") { _%>
+                                    <%_ if (basketItem.chocolateFondantPrice > 0) { _%>
+                                        <option value="fondant" <% if (productItemList[index].frosting == "fondant") { %> selected <% } %>>Fondant</option>
+                                    <%_ } _%>
+                                    <%_ if (basketItem.chocolateIcingPrice > 0) { _%>
+                                        <option value="icing" <% if (productItemList[index].frosting == "icing") { %> selected <% } %>>Icing</option>
+                                    <%_ } _%>
+                                <%_ } _%>
+                                <%_ if (productItemList[index].flavor == "redVelvet") { _%>
+                                    <%_ if (basketItem.redvelvetFondantPrice > 0) { _%>
+                                        <option value="fondant" <% if (productItemList[index].frosting == "fondant") { %> selected <% } %>>Fondant</option>
+                                    <%_ } _%>
+                                    <%_ if (basketItem.redvelvetIcingPrice > 0) { _%>
+                                        <option value="icing" <% if (productItemList[index].frosting == "icing") { %> selected <% } %>>Icing</option>
+                                    <%_ } _%>
                                 <%_ } _%>
                             </select>
                             <%_ } _%>
