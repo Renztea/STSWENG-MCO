@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
 .orderContainer {
-  width: 80%;
+  width: 98%;
   margin: 5% auto;
   background: #FFFFFF;
   border: 2px solid #3D2115;
@@ -44,7 +44,7 @@
 }
 
 .orderTableHeaderItem {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   color: #FFFFFF;
   padding: 10px;
@@ -55,7 +55,7 @@
 }
 
 .orderTableInfo {
-  font-size: 14px;
+  font-size: 12px;
   color: #3D2115;
   padding: 5px;
 }

@@ -18,9 +18,7 @@
           <th class="orderTableHeaderItem">View Orders</th>
           <th class="orderTableHeaderItem">Price</th>
           <th class="orderTableHeaderItem">Status</th>
-          <%_ if (orderList.category != "cancelled" && orderList.category != "pickedup") { _%>
-          <th class="orderTableHeaderItem">Action</th>
-          <%_ } _%>
+          <th class="orderTableHeaderItem" colspan="2">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -43,6 +41,13 @@
             <td class="orderTableInfo" data-label="View Orders"><button class="orderViewBtn" data="<%= order.orderID %>">Open</button></td>
             <td class="orderTableInfo" data-label="Price"><%= order.totalPrice %></td>
             <td class="orderTableInfo" data-label="Status"><%= order.status %></td>
+            <%_ if (orderList.category != "unpaid") { _%>
+            <td class="orderTableInfo" data-label="Action">
+                <%_ if (order.status != 'unpaid') { _%>
+                    <button class="orderStatusBtn" value="undo">UNDO</button>
+                <%_ } _%>
+            </td>
+            <%_ } _%>
             <%_ if (orderList.category != "cancelled" && orderList.category != "pickedup") { _%>
             <td class="orderTableInfo" data-label="Action">
                 <%_ if (order.status == "unpaid") { _%>
