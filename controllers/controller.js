@@ -312,6 +312,8 @@ const controller = {
         var productType = req.params.type
         var pagenumber = req.query.pagenumber
 
+        console.log(productType)
+
         // default page value when no url query was initialized.
         if (typeof pagenumber === 'undefined') {
             pagenumber = 1
@@ -337,11 +339,12 @@ const controller = {
                 console.log("Error on producing cake previews for admin page. Error: \n" + err)
             }
         } else if (productType == 'cupcake') {
+            console.log('Hello')
             try {
                 var allCupcakes = await Cupcake.find({})
                 // Calculates how many number of pages will all the cupcake products use.
                 var numberofPages = parseInt(allCupcakes.length / 6)
-                if (allCupcakes.length % 6 != 0) {
+                if (allCupcakes.length % 6 != 0  || allCupcakes.length == 0) {
                     numberofPages++
                 }
                 // Only need 6 products per page.
@@ -353,14 +356,14 @@ const controller = {
                     res.render('errorPage')
                 }    
             } catch (err) {
-                console.log("Error on producing cupcake previews for admin page. Error: \n" + error)
+                console.log("Error on producing cupcake previews for admin page. Error: \n" + err)
             }
         } else if (productType == 'cookie') {
             try {
                 var allCookies = await Cookie.find({})
                 // Calculates how many number of pages will all the cookie products use.
                 var numberofPages = parseInt(allCookies.length / 6)
-                if (allCookies.length % 6 != 0) {
+                if (allCookies.length % 6 != 0 || allCookies.length == 0) {
                     numberofPages++
                 }
                 // Only need 6 products per page.
@@ -854,6 +857,7 @@ const controller = {
     postBasketItem: async function(req, res) {
         var itemLength = 0;
         var lastItemNumber = "1";
+        var isAvailable = false;
 
         if(!req.session.orders || req.session.orders == '') {
             req.session.orders = [];
@@ -881,7 +885,31 @@ const controller = {
                         "design": req.body.design,
                         "type": req.body.type};
 
-        req.session.orders.push(productInfo);
+       
+            for (const item of req.session.orders) { // Checks if the new item being added to the basket is already available   
+                if (item.name == productInfo.name &&
+                    item.image == productInfo.image &&
+                    item.price == productInfo.price &&
+                    item.flavor == productInfo.flavor &&
+                    item.size == productInfo.size &&
+                    item.frosting == productInfo.frosting &&
+                    item.cakeNumber == productInfo.cakeNumber &&
+                    item.designNumber == productInfo.designNumber &&
+                    item.dedication == productInfo.dedication &&
+                    item.design == productInfo.design &&
+                    item.type == productInfo.type) {
+                    item.quantity = parseInt(item.quantity) + parseInt(productInfo.quantity)
+                    if (item.quantity > 100) { // If the total quantity is above 100, bring it back to 100
+                        item.quantity = 100
+                    }
+                    isAvailable = true // True since the item is already in the basket
+                }
+            }
+
+            if (isAvailable == false) {
+                req.session.orders.push(productInfo);
+            }
+    
         //console.log(req.session.orders);
         res.send("Success")
     },
