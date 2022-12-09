@@ -54,7 +54,61 @@ function randomizer (currentProducts) {
     return randomProducts
 }
 
+/*
+function sendEmail (orderDetails, name, price) {
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'marcbaura@gmail.com',
+          pass: 'shoveyljzkwlakdk'
+        }
+    });
 
+    var orders = orderDetails.name.join('\n')
+      
+    var mailOptions = {
+        from: 'marcbaura@gmail.com',
+        to: 'marc_baura@dlsu.edu.ph',
+        subject: 'G-Cakes OrderLists',
+        html: '<h1>Welcome</h1><p>That was easy!</p>'
+        
+        `Good day, ${name},\n\nThank you for supporting our business, G-cakes! Below is the breakdown of your orders and their complete details. You have 7 days to settle payment to avoid cancellation. 
+        \n\n${orders}\nTotal Price: ₱${price}
+        \nShould you have any changes or concerns about your orders, please reply to this email. Please note that changes for your order will no longer be entertained after payment has been sent.  
+        \n\nBelow are the payment options:\n\n<Gcash QR>                                
+        <BPI QR>\n<Gcash number>                            
+        <Acct. no>\n\nPlease settle payment and proof of payment within 7 days to avoid cancellation. 
+        After proof of payment has been sent, you may ask for updates about your order by replying again to this email thread.\n\n
+        Thank you,\nGina from G-cakes`
+    }
+    
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+    });
+}
+*/
+
+function getDate(date) {
+    var parseDate = ""
+
+    if (date.getMonth() + 1 < 10) {
+        parseDate = parseDate + '0'
+    }
+    parseDate = parseDate + (date.getMonth() + 1) + '-'
+
+    if (date.getDate() < 10) {
+        parseDate = parseDate + '0'
+    }
+    parseDate = parseDate + date.getDate() + '-'
+
+    parseDate = parseDate + date.getFullYear()
+    
+    return parseDate
+}
 
 const controller = {
 
@@ -137,6 +191,7 @@ const controller = {
         if (req.session.orders == '' || !(req.session.orders)) {
             res.redirect('basket')
         } else {
+            delete req.session.information // deletes the past inputted informations
             res.render('orderInformation')
         }
     },
@@ -257,6 +312,8 @@ const controller = {
         var productType = req.params.type
         var pagenumber = req.query.pagenumber
 
+        console.log(productType)
+
         // default page value when no url query was initialized.
         if (typeof pagenumber === 'undefined') {
             pagenumber = 1
@@ -282,11 +339,12 @@ const controller = {
                 console.log("Error on producing cake previews for admin page. Error: \n" + err)
             }
         } else if (productType == 'cupcake') {
+            console.log('Hello')
             try {
                 var allCupcakes = await Cupcake.find({})
                 // Calculates how many number of pages will all the cupcake products use.
                 var numberofPages = parseInt(allCupcakes.length / 6)
-                if (allCupcakes.length % 6 != 0) {
+                if (allCupcakes.length % 6 != 0  || allCupcakes.length == 0) {
                     numberofPages++
                 }
                 // Only need 6 products per page.
@@ -298,14 +356,14 @@ const controller = {
                     res.render('errorPage')
                 }    
             } catch (err) {
-                console.log("Error on producing cupcake previews for admin page. Error: \n" + error)
+                console.log("Error on producing cupcake previews for admin page. Error: \n" + err)
             }
         } else if (productType == 'cookie') {
             try {
                 var allCookies = await Cookie.find({})
                 // Calculates how many number of pages will all the cookie products use.
                 var numberofPages = parseInt(allCookies.length / 6)
-                if (allCookies.length % 6 != 0) {
+                if (allCookies.length % 6 != 0 || allCookies.length == 0) {
                     numberofPages++
                 }
                 // Only need 6 products per page.
@@ -799,6 +857,7 @@ const controller = {
     postBasketItem: async function(req, res) {
         var itemLength = 0;
         var lastItemNumber = "1";
+        var isAvailable = false;
 
         if(!req.session.orders || req.session.orders == '') {
             req.session.orders = [];
@@ -826,7 +885,31 @@ const controller = {
                         "design": req.body.design,
                         "type": req.body.type};
 
-        req.session.orders.push(productInfo);
+       
+            for (const item of req.session.orders) { // Checks if the new item being added to the basket is already available   
+                if (item.name == productInfo.name &&
+                    item.image == productInfo.image &&
+                    item.price == productInfo.price &&
+                    item.flavor == productInfo.flavor &&
+                    item.size == productInfo.size &&
+                    item.frosting == productInfo.frosting &&
+                    item.cakeNumber == productInfo.cakeNumber &&
+                    item.designNumber == productInfo.designNumber &&
+                    item.dedication == productInfo.dedication &&
+                    item.design == productInfo.design &&
+                    item.type == productInfo.type) {
+                    item.quantity = parseInt(item.quantity) + parseInt(productInfo.quantity)
+                    if (item.quantity > 100) { // If the total quantity is above 100, bring it back to 100
+                        item.quantity = 100
+                    }
+                    isAvailable = true // True since the item is already in the basket
+                }
+            }
+
+            if (isAvailable == false) {
+                req.session.orders.push(productInfo);
+            }
+    
         //console.log(req.session.orders);
         res.send("Success")
     },
@@ -834,6 +917,8 @@ const controller = {
     getBasketItem: async function(req, res) {
         var basketItemList = []
         var totalPrice = 0
+
+        delete req.session.information // deletes current buyer information when they go back to the basket page
 
         if(req.session.orders) {
             for (const item of req.session.orders) {
@@ -844,16 +929,13 @@ const controller = {
                 } else {
                     var basketItem = await Cookie.findOne({name: item.name}, {_id: 0})
                 }          
-                console.log(basketItem)
+                // console.log(basketItem)
                 if (basketItem != '' && basketItem != null) {
                     totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
                     basketItemList.push(basketItem)   
                 }     
             }
         }
-        
-        //console.log(basketItemList)
-        // console.log(req.session.orders)
         res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
     },
 
@@ -903,6 +985,7 @@ const controller = {
         const errors = validationResult(req)
         
         if(errors.isEmpty()){
+            req.session.information = req.query
             res.send("Success")
         }
         else {
@@ -913,9 +996,14 @@ const controller = {
     },
 
     getOrderSummary: async function(req, res) {
-
+        var date = new Date()
+        var orderID = ""
+        var orderDate = ""
+        var payByTemp = date
+        var payBy = ""
         var totalPrice = 0
-        if (req.session.orders == '' || !(req.session.orders) || !(req.query)) {
+        // console.log(req.session.information)
+        if (req.session.orders == '' || !(req.session.orders) || req.session.information == '' || !(req.session.information)) {
             res.redirect('basket')
         } else {
             if(req.session.orders) {
@@ -923,12 +1011,63 @@ const controller = {
                     totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
                 }
             }
-            res.render('orderSummary', {productItemList: req.session.orders, totalPrice: totalPrice, orderInfo: req.query})
+
+            if (date.getHours() < 10) {
+                orderID = orderID + '0'
+            } 
+            orderID = orderID + date.getHours()
+    
+            if (date.getMinutes() < 10) {
+                orderID = orderID + '0'
+            }
+            orderID = orderID + date.getMinutes()
+            
+            if (date.getSeconds() < 10) {
+                orderID = orderID + '0'
+            }
+            orderID = orderID + date.getSeconds()
+            if (date.getMilliseconds() < 100 && date.getMilliseconds() >= 10) {
+                orderID = orderID + '0'
+            } else if (date.getMilliseconds() < 10) {
+                orderID = orderID + '00'
+            }
+            orderID = orderID + date.getMilliseconds()
+            orderID = orderID + req.session.information.name[0].toUpperCase() + req.session.information.celebrant[0].toUpperCase() + req.session.information.celebrantGender[0]
+            
+            if (parseInt(req.session.information.celebrantAge) < 100 && parseInt(req.session.information.celebrantAge) >= 10) {
+                orderID = orderID + '0'
+            } else if (parseInt(req.session.information.celebrantAge) < 10) {
+                orderID = orderID + '00'
+            }
+
+            orderID = orderID + req.session.information.celebrantAge
+
+            req.session.information.orderID = orderID
+
+            orderDate = orderDate + date.getFullYear() + '-'
+            if (date.getMonth() + 1 < 10) {
+                orderDate = orderDate + '0'
+            }
+            orderDate = orderDate + (date.getMonth() + 1) + '-'
+    
+            if (date.getDate() < 10) {
+                orderDate = orderDate + '0'
+            }
+            orderDate = orderDate + date.getDate()
+
+
+            req.session.information.orderDate = getDate(date)
+            payByTemp.setDate(date.getDate() + 7)
+            payBy = getDate(payByTemp)
+            req.session.information.payByDate = payBy
+
+
+
+            res.render('orderSummary', {productItemList: req.session.orders, buyerInformation: req.session.information, totalPrice: totalPrice})
         }
     },
 
     postOrderComplete: function(req, res) {
-        var date = new Date()
         var name = req.body.name
         var celebrantName = req.body.celebrantName
         var gender = req.body.celebrantGender
@@ -936,81 +1075,75 @@ const controller = {
         var pickupDate = req.body.pickupDate
         var email = req.body.email
         var contact = req.body.contactNo
-        var price = req.body.totalPrice
-        var orderID = ""
-        var orderDate = ""
 
-        // console.log('aaa:', req.body)
-        if (date.getHours() < 10) {
-            orderID = orderID + '0'
-        } 
-        orderID = orderID + date.getHours()
+        var price = 0
 
-        if (date.getMinutes() < 10) {
-            orderID = orderID + '0'
+        if(req.session.orders) {
+            for (const item of req.session.orders) {                   
+                price = price + (parseInt(item.price) * parseInt(item.quantity))
+            }
         }
-        orderID = orderID + date.getMinutes()
         
-        if (date.getSeconds() < 10) {
-            orderID = orderID + '0'
-        }
-        orderID = orderID + date.getSeconds()
-        if (date.getMilliseconds() < 100 && date.getMilliseconds() >= 10) {
-            orderID = orderID + '0'
-        } else if (date.getMilliseconds() < 10) {
-            orderID = orderID + '00'
-        }
-        orderID = orderID + date.getMilliseconds()
-        orderID = orderID + name[0] + celebrantName[0] + gender[0]
+        var orderID = req.body.orderID
+        var orderDate = req.body.orderDate
+        var payByDate = req.body.payByDate
 
-        if (parseInt(age) < 100 && parseInt(age) >= 10) {
-            orderID = orderID + '0'
-        } else if (parseInt(age) < 10) {
-            orderID = orderID + '00'
-        }
-        orderID = orderID + age
+        console.log(req.session.orders)
 
-        orderDate = orderDate + date.getFullYear() + '-'
-        if (date.getMonth() + 1 < 10) {
-            orderDate = orderDate + '0'
-        }
-        orderDate = orderDate + (date.getMonth() + 1) + '-'
+        try {
+            Order.create({
+                name: name,
+                orderID: orderID,
+                celebrant: celebrantName,
+                celebrantGender: gender,
+                celebrantAge: age,
+                expectedPickUpDate: pickupDate,
+                email: email,
+                contactNumber: contact,
+                orders: req.session.orders,
+                totalPrice: price,
+                status: "unpaid",
+                orderDate: orderDate,
+                payByDate: payByDate,
+                payDate: "",
+                pickUpDate: "",
+                cancelDate: ""
+            })
 
-        if (date.getDate() < 10) {
-            orderDate = orderDate + '0'
+            // sendEmail(req.session.orders, name, price
+            res.send('Success')
+        } catch (err) {
+            console.log(err)
+            res.send('Error')
         }
-        orderDate = orderDate + date.getDate()
+    },
 
-        Order.create({
-            name: name,
-            orderID: orderID,
-            celebrant: celebrantName,
-            celebrantGender: gender,
-            celebrantAge: age,
-            expectedPickUpDate: pickupDate,
-            email: email,
-            contactNumber: contact,
-            orders: req.session.orders,
-            totalPrice: price,
-            status: "unpaid",
-            orderDate: orderDate,
-            payDate: "",
-            pickUpDate: "",
-            cancelDate: ""
-        })
-       res.send("Success")
+    deleteCustomerSession: function(req, res) {
+        req.session.destroy(() => { // deletes the customer's session to allow for new orders
+            res.clearCookie('connect.sid');
+            res.redirect('/')
+        });
     },
     
     getOrdersView: async function(req, res) {
         var orderID = req.query.orderID
-
-        //console.log(orderID)
-
         var orders = await Order.findOne({orderID: orderID});
 
         res.send(orders)
-    }
+    },
 
+    updateOrderStatus: async function(req, res) {
+
+        var orderID = req.query.orderID
+        var newStatus = req.query.status
+        try {
+            await Order.updateOne({orderID: orderID}, {status: newStatus})
+            await Order.findOne({orderID: orderID})
+            res.send('Success')
+        } catch (err) {
+            res.send('Update Status Failed!!!')
+        }
+    },
 }   
 
 module.exports = controller

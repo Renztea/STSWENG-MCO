@@ -18,7 +18,8 @@ app.post('/removeBasketItem', controller.removeBasketItem) // Remove product fro
 app.get('/orderInformation', controller.getOrderInformationPage) // Render a page where buyers can input their personal details
 app.get('/getInformationChecker', orderInformationValidation, controller.getInformationChecker)
 app.get('/summary', controller.getOrderSummary) // Render the summary of information of orders and personal information of customer
-app.post('/orderComplete', controller.postOrderComplete) // Reloads the page after completing the order
+app.post('/orderComplete', controller.postOrderComplete) // Returns Success if order goes through
+app.get('/deleteSession', controller.deleteCustomerSession) // Deletes the customer's session after every order
 
 
 // Admin pages
@@ -27,6 +28,7 @@ app.get('/admin/:type', controller.adminProductPage) // Renders the product page
 app.get('/admin/orders/:category', controller.getOrdersPage) // Renders the current pending orders of customers 
 app.get('/getOrdersView', controller.getOrdersView) // Get information about a specific product in the database
 app.get('/deleteProduct', controller.deleteProduct) // Deletes a product from the database
+app.get('/updateOrderStatus', controller.updateOrderStatus)
 
 // Form controllers
 app.post('/addCake', addCakeValidation, controller.addCake) // Adds a cake into the database

@@ -12,7 +12,7 @@
 	<body class="mainBackground">
 		<div class="header">
 			<div class="logo">
-                <img src="/images/logo.png" placeholder="G-Cakes Logo" alt="G-Cakes Logo" >
+                <a href="/admin/orders/all"><img src="/images/logo.png" placeholder="G-Cakes Logo" alt="G-Cakes Logo" ></a>
             </div>
 		
 			<div class="menu">
@@ -74,22 +74,68 @@
 				<div class="paginationHolder">	
 					<div class="pagination">
 						<% if (currentPage > 1) { %>
-							<button type="button" class="pageBtn" id="previousPageBtn"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) - 1 %>">&laquo;</a></button>
-						<% } else { %>
-							<button type="button" class="pageBtn" id="previousPageBtn"><a>&laquo;</a></button>
-						<% } %>
-							<% for (let i = 1; i <= numberofPages; i++) { %>
-								<% if (i == currentPage) { %>
-									<button type="button" class="pageBtn pageBtnValue"><a><strong><%= i %></strong></a></button>
-								<% } else { %>
-									<button type="button" class="pageBtn pageBtnValue"><a href="/admin/cake?pagenumber=<%= i %>"><%= i %></a></button>
-								<% } %>
-							<% } %>
-						<% if (currentPage < numberofPages) { %>
-							<button type="button" class="pageBtn" id="nextPageBtn"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) + 1 %>">&raquo;</a></button>
-						<% } else { %>
-							<button type="button" class="pageBtn" id="nextPageBtn"><a>&raquo;</a></button>
-						<% } %>
+                            <button type="button" class="pageBtn" id="previousPageBtn"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) - 1 %>">&laquo;</a></button>
+                        <% } else { %>
+                            <button type="button" class="pageBtn" id="previousPageBtn"><a>&laquo;</a></button>
+                        <% } %>
+
+                        <% if (numberofPages <= 7) { %>
+                            <% for (let i = 1; i <= numberofPages; i++) { %>
+                                <% if (currentPage == i) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
+                                <% } else { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a href="/admin/cake?pagenumber=<%= i %>"><%= i %></a></button>
+                                <% } %>
+                            <% } %>
+                        <% } else { %>
+                            <% if (currentPage == 1) { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a><strong><%= 1 %></strong></a></button>
+                            <% } else { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/cake?pagenumber=1"><%= 1 %></a></button>
+                            <% } %>
+                            <% if (currentPage <= 2) { %>
+                                <% if(currentPage == 2) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
+                                <% } %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) + 1  %>"><%= parseInt(currentPage) + 1 %></a></button>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) + 2 %>"><%= parseInt(currentPage) + 2 %></a></button>
+                                <% if(currentPage == 1) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) + 2 %>"><%= parseInt(currentPage) + 3 %></a></button>
+                                <% } %>
+                                <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
+                            <% } else if (parseInt(currentPage) + 1 == numberofPages || currentPage == numberofPages) { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
+                                <% if(currentPage == numberofPages) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) - 3 %>"><%= parseInt(currentPage) - 3 %></a></button>
+                                <% } %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) - 2  %>"><%= parseInt(currentPage) - 2 %></a></button>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) - 1 %>"><%= parseInt(currentPage) - 1 %></a></button>
+                                <% if(parseInt(currentPage) + 1 == numberofPages) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
+                                <% } %>
+                            <% } else if (currentPage > 2) { %>
+                                <% if (currentPage > 3) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
+                                <% } %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) - 1 %>"><%= parseInt(currentPage) - 1 %></a></button>
+                                <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) + 1  %>"><%= parseInt(currentPage) + 1 %></a></button>
+                                <% if (parseInt(currentPage) + 2 != numberofPages) { %>
+                                    <button type="button" class="pageBtn pageBtnValue"><a>...</a></button>
+                                <% } %>
+                            <% } %>
+                            <% if (currentPage == numberofPages) { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a><strong><%= currentPage %></strong></a></button>
+                            <% } else { %>
+                                <button type="button" class="pageBtn pageBtnValue"><a href="/admin/cake?pagenumber=<%= numberofPages %>"><%= numberofPages %></a></button>
+                            <% } %>
+                        <% } %>
+
+                        <% if (currentPage < numberofPages) { %>
+                            <button type="button" class="pageBtn" id="nextPageBtn"><a href="/admin/cake?pagenumber=<%= parseInt(currentPage) + 1 %>">&raquo;</a></button>
+                        <% } else { %>
+                            <button type="button" class="pageBtn" id="nextPageBtn"><a>&raquo;</a></button>
+                        <% } %>
 					</div>
 				</div>			
 			</form>
@@ -509,13 +555,12 @@
 				border.remove()
 				var numberofProducts = $('.border').length
 				$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
-					console.log(result)
 					if (numberofProducts == 0) {
 						const params = new Proxy(new URLSearchParams(window.location.search), {
   								get: (searchParams, prop) => searchParams.get(prop),
 						});
 						let value = params.pagenumber; 
-						if (typeof value === 'undefined') {
+						if (typeof value === 'undefined' || parseInt(value) < 1) {
 							value = 1
 						}
 						window.location.assign( '/admin/' + productType + '?pagenumber=' + (value - 1))

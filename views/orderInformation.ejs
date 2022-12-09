@@ -28,7 +28,7 @@
                     <h1>ORDER INFORMATION</h1>
                 </div>
 
-                <form action="/summary" id="orderInfoForm" class="orderInfoForm" method="GET">
+                <form id="orderInfoForm" class="orderInfoForm" method="GET">
                     <div class="orderInfoGroup">
                         <label class="orderStyle" for="name">Name:</label>
                         <input class="orderInput" type="text" id="name" name="name" placeholder="Enter Name" required>
@@ -145,8 +145,7 @@
 							$(`#${inputFieldErrors[i]}Error`).text(errorMessages[i])
 						}
 					} else {
-                        console.log("lol")
-                        $('#orderInfoForm').submit()
+                        window.location.assign('/summary')
 					}
                 })
             })

@@ -13,7 +13,7 @@
     <body class="mainBackground">
         <div class="header">
 			<div class="logo">
-                <img src="/images/logo.png" placeholder="G-Cakes Logo" alt="G-Cakes Logo" >
+                <a href="/admin/orders/all"><img src="/images/logo.png" placeholder="G-Cakes Logo" alt="G-Cakes Logo" ></a>
             </div>
 		
 			<div class="menu">
@@ -307,6 +307,23 @@
             $(".orderClose").click(function() {
                 document.querySelector('.orderModalBackground').style.display = 'none';
             })
+
+            $(".orderStatusBtn").click(function() {
+                var status = $(this).val()
+                if (confirm(`Are you sure you want to change this order's status to ${status}?`) == true) {
+                    var tableRow = $(this).parents('.orderTableInfoRow')
+                    var orderID = tableRow.find('.specificOrderID').text()
+                    $.get('/updateOrderStatus', {orderID, status}, function(result) {
+                        if(result == 'Success') {
+                        tableRow.empty()
+                        tableRow.remove()
+                        } else {
+                            alert(result)
+                        }
+                    })
+                }
+            })
+
         });
     </script>
     </body>
