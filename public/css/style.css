@@ -1168,11 +1168,6 @@ input::-webkit-inner-spin-button {
 	cursor: pointer;
 }
 
-.search-btn:hover, .searchButton:hover{
-	background-color: grey;
-	border-radius: 50px;
-}
-
 .search-btn img{
   border: none;
 }
@@ -1184,4 +1179,9 @@ input::-webkit-inner-spin-button {
 .searchButton:focus {
   border: none;
   outline: none;
+}
+
+.searchButton img{
+  height: 20px;
+  width: 20px;
 }
