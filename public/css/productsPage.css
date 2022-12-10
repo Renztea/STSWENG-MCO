@@ -424,3 +424,71 @@ p{
   border: 2px solid #6F4E37;
   overflow-y: auto;
 }
+
+.aboutBox{
+	margin: 50px 100px;
+	width: 90%;
+	height: 100%;
+	color: #4A3627;
+	font-family: Poppins, sans-serif;
+}
+
+.aboutHeader, .Holder1, .iconHolder, .picHolder{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.aboutContainer{
+	margin-top: 30px;
+	margin-bottom: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-size: 18px;
+}
+
+.profilePic{
+	height: 380px;
+	width: 280px;
+	margin: 30px 0px;
+}
+
+.otherPic{
+	height: 370px;
+	width: 450px;
+	margin: 30px;
+}
+
+.Holder1{
+	text-align: center;
+	margin: 30px 0px;
+	font-size: 18px;
+}
+
+.icon{
+	background-color: #EBD8DB;
+	border: none;
+	cursor: pointer;
+}
+
+.ig, .fb{
+	height: 30px;
+	width: 30px;
+	margin: 0px 7px;
+}
+
+.Edit3{
+	background-color: #FFFFFF;
+	color: #0096FF;
+	font-family: Poppins, sans-serif;
+	width: 120px;
+	max-width: 100%;
+	border: 2px solid #0096FF;
+	font-size: 20px;	
+    	padding: 5px;
+    	border-radius: 20px;
+    	font-weight: bold;
+    	cursor: pointer
+}
