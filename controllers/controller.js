@@ -244,6 +244,7 @@ const controller = {
     getProductInfo: async function(req, res) {
         var name = req.query.name
         var type = req.query.type
+
         if (type == 'cake') {
             try {
                 var productInfo = await Cake.findOne({name: name})
@@ -263,6 +264,7 @@ const controller = {
                 console.log("Error on getting the clicked cookie's information. Error: \n" + err)
             }
         }
+        
         res.send(productInfo)
     },
 
@@ -312,7 +314,7 @@ const controller = {
         var productType = req.params.type
         var pagenumber = req.query.pagenumber
 
-        console.log(productType)
+        //console.log(productType)
 
         // default page value when no url query was initialized.
         if (typeof pagenumber === 'undefined') {
@@ -339,7 +341,7 @@ const controller = {
                 console.log("Error on producing cake previews for admin page. Error: \n" + err)
             }
         } else if (productType == 'cupcake') {
-            console.log('Hello')
+            // console.log('Hello')
             try {
                 var allCupcakes = await Cupcake.find({})
                 // Calculates how many number of pages will all the cupcake products use.
@@ -917,25 +919,114 @@ const controller = {
     getBasketItem: async function(req, res) {
         var basketItemList = []
         var totalPrice = 0
+        var count = 0
+        var countArray = []
 
         delete req.session.information // deletes current buyer information when they go back to the basket page
 
         if(req.session.orders) {
             for (const item of req.session.orders) {
+                //console.log(item)
                 if(item.type == 'cake') {
-                    var basketItem = await Cake.findOne({name: item.name}, {_id: 0})
+                    if(item.flavor == 'vanilla'){
+                        if(item.size == '6x5'){
+                            var basketItem = await Cake.findOne({name: item.name, vanilla6x5Price: item.price}, {_id: 0})
+                        }
+                        else if(item.size == '8x5'){
+                            var basketItem = await Cake.findOne({name: item.name, vanilla8x5Price: item.price}, {_id: 0})
+                        }
+                        else{
+                            console.log(item)
+                            console.log("getBasketItem Cake Vanilla Size")
+                        }
+                    }
+                    else if(item.flavor == 'chocolate'){
+                        if(item.size == '6x5'){
+                            var basketItem = await Cake.findOne({name: item.name, chocolate6x5Price: item.price}, {_id: 0})
+                        }
+                        else if(item.size == '8x5'){
+                            var basketItem = await Cake.findOne({name: item.name, chocolate8x5Price: item.price}, {_id: 0})
+                        }
+                        else{
+                            console.log(item)
+                            console.log("getBasketItem Cake Chocolate Size")
+                        }
+                    }
+                    else if(item.flavor == ''){
+                        if(item.cakeNumber >= 0 && item.cakeNumber <= 9){
+                            var basketItem = await Cake.findOne({name: item.name, numberCakePrice: item.price}, {_id: 0})
+                        }
+                        else{
+                            console.log(item)
+                            console.log("getBasketItem Cake NumberCake")
+                        }
+                    }
+                    else{
+                        console.log(item)
+                        console.log("getBasketItem Cake Flavor")
+                    }
                 } else if (item.type == 'cupcake') {
-                    var basketItem = await Cupcake.findOne({name: item.name}, {_id: 0})
-                } else {
-                    var basketItem = await Cookie.findOne({name: item.name}, {_id: 0})
-                }          
-                // console.log(basketItem)
+                    if(item.flavor == 'vanilla'){
+                        if(item.frosting == 'fondant'){
+                            var basketItem = await Cupcake.findOne({name: item.name, vanillaFondantPrice: item.price}, {_id: 0})
+                        }
+                        else if(item.frosting == 'icing'){
+                            var basketItem = await Cupcake.findOne({name: item.name, vanillaIcingPrice: item.price}, {_id: 0})
+                        }
+                        else{
+                            console.log(item)
+                            console.log("getBasketItem Cupcake Vanilla Frosting")
+                        }
+                    }
+                    else if(item.flavor == 'chocolate'){
+                        if(item.frosting == 'fondant'){
+                            var basketItem = await Cupcake.findOne({name: item.name, chocolateFondantPrice: item.price}, {_id: 0})
+                        }
+                        else if(item.frosting == 'icing'){
+                            var basketItem = await Cupcake.findOne({name: item.name, chocolateIcingPrice: item.price}, {_id: 0})
+                        }
+                        else{
+                            console.log(item)
+                            console.log("getBasketItem Cupcake Chocolate Frosting")
+                        }
+                    }
+                    else if(item.flavor == 'chocolate'){
+                        if(item.frosting == 'fondant'){
+                            var basketItem = await Cupcake.findOne({name: item.name, redVelvetFondantPrice: item.price}, {_id: 0})
+                        }
+                        else if(item.frosting == 'icing'){
+                            var basketItem = await Cupcake.findOne({name: item.name, redVelvetIcingPrice: item.price}, {_id: 0})
+                        }
+                        else{
+                            console.log(item)
+                            console.log("getBasketItem Cupcake Red Velvet Frosting")
+                        }
+                    }
+                    else{
+                        console.log(item)
+                        console.log("getBasketItem Cupcake Flavor")
+                    }
+                } else if (item.type == 'cookie') {
+                    var basketItem = await Cookie.findOne({name: item.name, price: item.price}, {_id: 0})
+                }  else {
+                    console.log(item)
+                    console.log("getBasketItem Type")
+                }
+
                 if (basketItem != '' && basketItem != null) {
                     totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
                     basketItemList.push(basketItem)   
-                }     
+                } else {
+                    countArray.push(count)
+                }
+                count++
+            }
+
+            while(countArray.length > 0){
+                req.session.orders.splice(countArray.pop(), 1)
             }
         }
+
         res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
     },
 
