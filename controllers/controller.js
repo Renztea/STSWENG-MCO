@@ -92,7 +92,7 @@ function sendEmail (orderDetails, name, price) {
 }
 */
 
-function getDate(date) {
+function generateDate(date) {
     var parseDate = ""
 
     if (date.getMonth() + 1 < 10) {
@@ -1089,9 +1089,6 @@ const controller = {
     getOrderSummary: async function(req, res) {
         var date = new Date()
         var orderID = ""
-        var orderDate = ""
-        var payByTemp = date
-        var payBy = ""
         var totalPrice = 0
         // console.log(req.session.information)
         if (req.session.orders == '' || !(req.session.orders) || req.session.information == '' || !(req.session.information)) {
@@ -1134,39 +1131,24 @@ const controller = {
             orderID = orderID + req.session.information.celebrantAge
 
             req.session.information.orderID = orderID
-
-            orderDate = orderDate + date.getFullYear() + '-'
-            if (date.getMonth() + 1 < 10) {
-                orderDate = orderDate + '0'
-            }
-            orderDate = orderDate + (date.getMonth() + 1) + '-'
-    
-            if (date.getDate() < 10) {
-                orderDate = orderDate + '0'
-            }
-            orderDate = orderDate + date.getDate()
-
-
-            req.session.information.orderDate = getDate(date)
-            payByTemp.setDate(date.getDate() + 7)
-            payBy = getDate(payByTemp)
-            req.session.information.payByDate = payBy
-
-
+            console.log(req.session.information)
 
             res.render('orderSummary', {productItemList: req.session.orders, buyerInformation: req.session.information, totalPrice: totalPrice})
         }
     },
 
     postOrderComplete: function(req, res) {
-        var name = req.body.name
-        var celebrantName = req.body.celebrantName
-        var gender = req.body.celebrantGender
-        var age = req.body.celebrantAge
-        var pickupDate = req.body.pickupDate
-        var email = req.body.email
-        var contact = req.body.contactNo
-
+        var date = new Date()
+        var name = req.session.information.name
+        var celebrantName = req.session.information.celebrant
+        var gender = req.session.information.celebrantGender
+        var age = req.session.information.celebrantAge
+        var pickupDate = req.session.information.pickupDate
+        var email = req.session.information.email
+        var contact = req.session.information.contactNo
+        var orderDate = ""
+        var payByTemp = date
+        var payByDate = ""
         var price = 0
 
         if(req.session.orders) {
@@ -1175,9 +1157,10 @@ const controller = {
             }
         }
         
-        var orderID = req.body.orderID
-        var orderDate = req.body.orderDate
-        var payByDate = req.body.payByDate
+        var orderID = req.session.information.orderID
+        orderDate = generateDate(date)
+        payByTemp.setDate(date.getDate() + 7)
+        payByDate = generateDate(payByTemp)
 
         console.log(req.session.orders)
 
