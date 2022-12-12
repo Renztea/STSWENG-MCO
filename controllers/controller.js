@@ -13,33 +13,7 @@ const cake = require('../models/cake');
 const { get } = require('http');
 var nodemailer = require('nodemailer');
 
-/*
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'marcbaura@gmail.com',
-      pass: 'shoveyljzkwlakdk'
-    }
-});
-  
-var mailOptions = {
-    from: 'marcbaura@gmail.com',
-    to: 'jasper_chua@dlsu.edu.ph',
-    subject: 'Carry Me',
-    text: 'Good day, <customer name>,\n\nThank you for supporting our business, G-cakes! Below is the breakdown of your orders and their complete details. You have 7 days to settle payment to avoid cancellation. \n\n<Order1> \n<Order2>\n<Order3>\nShould you have any changes or concerns about your orders, please reply to this email. Please note that changes for your order will no longer be entertained after payment has been sent.  \n\nBelow are the payment options:\n\n<Gcash QR>                                <BPI QR>\n<Gcash number>                            <Acct. no>\n\nPlease settle payment and proof of payment within 7 days to avoid cancellation. After proof of payment has been sent, you may ask for updates about your order by replying again to this email thread.\n\nThank you,\nGina from G-cakes'
-};
-  
-transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-});
-
-*/
-
-
+// Returns random products from a certain product type 
 function randomizer (currentProducts) {
     var randomProducts = []
     var index = 0, num = 0
@@ -54,8 +28,8 @@ function randomizer (currentProducts) {
     return randomProducts
 }
 
-/*
-function sendEmail (orderDetails, name, price) {
+// Sends the email to the customer after they check out
+function sendEmail (orderDetails, customerName, totalPrice) {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -64,35 +38,38 @@ function sendEmail (orderDetails, name, price) {
         }
     });
 
-    var orders = orderDetails.name.join('\n')
-      
-    var mailOptions = {
-        from: 'marcbaura@gmail.com',
-        to: 'marc_baura@dlsu.edu.ph',
-        subject: 'G-Cakes OrderLists',
-        html: '<h1>Welcome</h1><p>That was easy!</p>'
-        
-        `Good day, ${name},\n\nThank you for supporting our business, G-cakes! Below is the breakdown of your orders and their complete details. You have 7 days to settle payment to avoid cancellation. 
-        \n\n${orders}\nTotal Price: ₱${price}
-        \nShould you have any changes or concerns about your orders, please reply to this email. Please note that changes for your order will no longer be entertained after payment has been sent.  
-        \n\nBelow are the payment options:\n\n<Gcash QR>                                
-        <BPI QR>\n<Gcash number>                            
-        <Acct. no>\n\nPlease settle payment and proof of payment within 7 days to avoid cancellation. 
-        After proof of payment has been sent, you may ask for updates about your order by replying again to this email thread.\n\n
-        Thank you,\nGina from G-cakes`
-    }
-    
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
+    ejs.renderFile("./views/messageTemplate.ejs", { customerName: customerName, orderDetails: orderDetails, totalPrice, totalPrice}, function (err, data) {
+        if (err) {
+            console.log(err);
         } else {
-          console.log('Email sent: ' + info.response);
+            var mainOptions = {
+                from: 'marcbaura@gmail.com',
+                to: 'marc_baura@dlsu.edu.ph',
+                subject: 'Cart Email Testing',
+                html: data,
+                attachments: [{
+                    filename: 'BPI.png',
+                    path: 'public/images/BPI.png',
+                    cid: 'BPI' 
+                }, {
+                    filename: 'GCASH.png',
+                    path: 'public/images/GCASH.png',
+                    cid: 'GCASH' 
+                },]
+            };
+
+            transporter.sendMail(mainOptions, function (err, info) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
         }
     });
 }
-*/
 
-function getDate(date) {
+function generateDate(date) {
     var parseDate = ""
 
     if (date.getMonth() + 1 < 10) {
@@ -179,6 +156,10 @@ const controller = {
         res.render('main', {display: products, types: types})
     },
 
+    getAboutPage: function(req, res) {
+        res.render('aboutPage')
+    },
+
     getAdminPage: function(req, res) {
         res.render('login')
     },
@@ -244,6 +225,7 @@ const controller = {
     getProductInfo: async function(req, res) {
         var name = req.query.name
         var type = req.query.type
+
         if (type == 'cake') {
             try {
                 var productInfo = await Cake.findOne({name: name})
@@ -263,6 +245,7 @@ const controller = {
                 console.log("Error on getting the clicked cookie's information. Error: \n" + err)
             }
         }
+        
         res.send(productInfo)
     },
 
@@ -312,7 +295,7 @@ const controller = {
         var productType = req.params.type
         var pagenumber = req.query.pagenumber
 
-        console.log(productType)
+        //console.log(productType)
 
         // default page value when no url query was initialized.
         if (typeof pagenumber === 'undefined') {
@@ -339,7 +322,7 @@ const controller = {
                 console.log("Error on producing cake previews for admin page. Error: \n" + err)
             }
         } else if (productType == 'cupcake') {
-            console.log('Hello')
+            // console.log('Hello')
             try {
                 var allCupcakes = await Cupcake.find({})
                 // Calculates how many number of pages will all the cupcake products use.
@@ -917,25 +900,114 @@ const controller = {
     getBasketItem: async function(req, res) {
         var basketItemList = []
         var totalPrice = 0
+        var count = 0
+        var countArray = []
 
         delete req.session.information // deletes current buyer information when they go back to the basket page
 
         if(req.session.orders) {
             for (const item of req.session.orders) {
+                //console.log(item)
                 if(item.type == 'cake') {
-                    var basketItem = await Cake.findOne({name: item.name}, {_id: 0})
+                    if(item.flavor == 'vanilla'){
+                        if(item.size == '6x5'){
+                            var basketItem = await Cake.findOne({name: item.name, vanilla6x5Price: item.price}, {_id: 0})
+                        }
+                        else if(item.size == '8x5'){
+                            var basketItem = await Cake.findOne({name: item.name, vanilla8x5Price: item.price}, {_id: 0})
+                        }
+                        else{
+                            console.log(item)
+                            console.log("getBasketItem Cake Vanilla Size")
+                        }
+                    }
+                    else if(item.flavor == 'chocolate'){
+                        if(item.size == '6x5'){
+                            var basketItem = await Cake.findOne({name: item.name, chocolate6x5Price: item.price}, {_id: 0})
+                        }
+                        else if(item.size == '8x5'){
+                            var basketItem = await Cake.findOne({name: item.name, chocolate8x5Price: item.price}, {_id: 0})
+                        }
+                        else{
+                            console.log(item)
+                            console.log("getBasketItem Cake Chocolate Size")
+                        }
+                    }
+                    else if(item.flavor == ''){
+                        if(item.cakeNumber >= 0 && item.cakeNumber <= 9){
+                            var basketItem = await Cake.findOne({name: item.name, numberCakePrice: item.price}, {_id: 0})
+                        }
+                        else{
+                            console.log(item)
+                            console.log("getBasketItem Cake NumberCake")
+                        }
+                    }
+                    else{
+                        console.log(item)
+                        console.log("getBasketItem Cake Flavor")
+                    }
                 } else if (item.type == 'cupcake') {
-                    var basketItem = await Cupcake.findOne({name: item.name}, {_id: 0})
-                } else {
-                    var basketItem = await Cookie.findOne({name: item.name}, {_id: 0})
-                }          
-                // console.log(basketItem)
+                    if(item.flavor == 'vanilla'){
+                        if(item.frosting == 'fondant'){
+                            var basketItem = await Cupcake.findOne({name: item.name, vanillaFondantPrice: item.price}, {_id: 0})
+                        }
+                        else if(item.frosting == 'icing'){
+                            var basketItem = await Cupcake.findOne({name: item.name, vanillaIcingPrice: item.price}, {_id: 0})
+                        }
+                        else{
+                            console.log(item)
+                            console.log("getBasketItem Cupcake Vanilla Frosting")
+                        }
+                    }
+                    else if(item.flavor == 'chocolate'){
+                        if(item.frosting == 'fondant'){
+                            var basketItem = await Cupcake.findOne({name: item.name, chocolateFondantPrice: item.price}, {_id: 0})
+                        }
+                        else if(item.frosting == 'icing'){
+                            var basketItem = await Cupcake.findOne({name: item.name, chocolateIcingPrice: item.price}, {_id: 0})
+                        }
+                        else{
+                            console.log(item)
+                            console.log("getBasketItem Cupcake Chocolate Frosting")
+                        }
+                    }
+                    else if(item.flavor == 'chocolate'){
+                        if(item.frosting == 'fondant'){
+                            var basketItem = await Cupcake.findOne({name: item.name, redVelvetFondantPrice: item.price}, {_id: 0})
+                        }
+                        else if(item.frosting == 'icing'){
+                            var basketItem = await Cupcake.findOne({name: item.name, redVelvetIcingPrice: item.price}, {_id: 0})
+                        }
+                        else{
+                            console.log(item)
+                            console.log("getBasketItem Cupcake Red Velvet Frosting")
+                        }
+                    }
+                    else{
+                        console.log(item)
+                        console.log("getBasketItem Cupcake Flavor")
+                    }
+                } else if (item.type == 'cookie') {
+                    var basketItem = await Cookie.findOne({name: item.name, price: item.price}, {_id: 0})
+                }  else {
+                    console.log(item)
+                    console.log("getBasketItem Type")
+                }
+
                 if (basketItem != '' && basketItem != null) {
                     totalPrice = totalPrice + (parseInt(item.price) * parseInt(item.quantity))
                     basketItemList.push(basketItem)   
-                }     
+                } else {
+                    countArray.push(count)
+                }
+                count++
+            }
+
+            while(countArray.length > 0){
+                req.session.orders.splice(countArray.pop(), 1)
             }
         }
+
         res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
     },
 
@@ -998,9 +1070,6 @@ const controller = {
     getOrderSummary: async function(req, res) {
         var date = new Date()
         var orderID = ""
-        var orderDate = ""
-        var payByTemp = date
-        var payBy = ""
         var totalPrice = 0
         // console.log(req.session.information)
         if (req.session.orders == '' || !(req.session.orders) || req.session.information == '' || !(req.session.information)) {
@@ -1043,39 +1112,24 @@ const controller = {
             orderID = orderID + req.session.information.celebrantAge
 
             req.session.information.orderID = orderID
-
-            orderDate = orderDate + date.getFullYear() + '-'
-            if (date.getMonth() + 1 < 10) {
-                orderDate = orderDate + '0'
-            }
-            orderDate = orderDate + (date.getMonth() + 1) + '-'
-    
-            if (date.getDate() < 10) {
-                orderDate = orderDate + '0'
-            }
-            orderDate = orderDate + date.getDate()
-
-
-            req.session.information.orderDate = getDate(date)
-            payByTemp.setDate(date.getDate() + 7)
-            payBy = getDate(payByTemp)
-            req.session.information.payByDate = payBy
-
-
+            console.log(req.session.information)
 
             res.render('orderSummary', {productItemList: req.session.orders, buyerInformation: req.session.information, totalPrice: totalPrice})
         }
     },
 
     postOrderComplete: function(req, res) {
-        var name = req.body.name
-        var celebrantName = req.body.celebrantName
-        var gender = req.body.celebrantGender
-        var age = req.body.celebrantAge
-        var pickupDate = req.body.pickupDate
-        var email = req.body.email
-        var contact = req.body.contactNo
-
+        var date = new Date()
+        var name = req.session.information.name
+        var celebrantName = req.session.information.celebrant
+        var gender = req.session.information.celebrantGender
+        var age = req.session.information.celebrantAge
+        var pickupDate = req.session.information.pickupDate
+        var email = req.session.information.email
+        var contact = req.session.information.contactNo
+        var orderDate = ""
+        var payByTemp = date
+        var payByDate = ""
         var price = 0
 
         if(req.session.orders) {
@@ -1084,9 +1138,10 @@ const controller = {
             }
         }
         
-        var orderID = req.body.orderID
-        var orderDate = req.body.orderDate
-        var payByDate = req.body.payByDate
+        var orderID = req.session.information.orderID
+        orderDate = generateDate(date)
+        payByTemp.setDate(date.getDate() + 7)
+        payByDate = generateDate(payByTemp)
 
         console.log(req.session.orders)
 
@@ -1110,7 +1165,7 @@ const controller = {
                 cancelDate: ""
             })
 
-            // sendEmail(req.session.orders, name, price
+            sendEmail(req.session.orders, name, price)
             res.send('Success')
         } catch (err) {
             console.log(err)
