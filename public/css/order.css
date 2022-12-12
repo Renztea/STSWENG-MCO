@@ -62,18 +62,18 @@
   padding: 5px;
 }
 
-.orderViewBtn, .orderUndoBtn, .orderStatusBtn, .cancelButton {
+.orderViewBtn, .orderUndoBtn, .orderStatusBtn {
   width: 80%;
   padding: 10px;
   cursor: pointer;
   border-radius: 5px;
 }
 
-.orderUndoBtn, .orderStatusBtn, .cancelButton {
+.orderUndoBtn, .orderStatusBtn {
   width: fit-content;
 }
 
-.orderViewBtn:hover, .orderUndoBtn:hover, .orderViewBtn:hover, .cancelButton {
+.orderViewBtn:hover, .orderUndoBtn:hover, .orderViewBtn:hover {
   opacity: 1.5;
   transition: all ease 0.3s;
 }
@@ -83,7 +83,7 @@
   border: 2px solid #3D2115;
 }
 
-.orderUndoBtn, .cancelButton {
+.orderUndoBtn {
   background-color: #DF7E85;
   border: 2px solid #FE0000;
 }

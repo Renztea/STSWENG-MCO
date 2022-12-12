@@ -45,14 +45,8 @@
             <td class="orderTableInfo" data-label="Action">
                 <%_ if (order.status != 'unpaid') { _%>
                     <button class="orderUndoBtn" value="undo">UNDO</button>
-                <%_ } else if (order.status == 'unpaid') { _%>
-                    <button class="cancelButton" value="cancelled">CANCEL</button>
-                <%_ } %>
+                <%_ } _%>
             </td>
-            <%_ } else if (orderList.category == 'unpaid') { _%>
-                <td class="orderTableInfo" data-label="Action">  
-                    <button class="cancelButton" value="cancelled">CANCEL</button>
-                </td>
             <%_ } _%>
             <%_ if (orderList.category != "cancelled" && orderList.category != "pickedup") { _%>
             <td class="orderTableInfo" data-label="Action">

@@ -87,6 +87,28 @@ function generateDate(date) {
     return parseDate
 }
 
+async function afterSevenDays () {
+
+    var currentDate = new Date()
+    var unCancelledOrders = await Order.find({'status': 'unpaid'})
+
+    if (unCancelledOrders) {
+        unCancelledOrders.forEach(async function(order) {
+            var monthDayYear = order.payByDate.split('-')
+            var deadlineDate = new Date()
+            deadlineDate.setMonth(monthDayYear[0] - 1)
+            deadlineDate.setDate(monthDayYear[1])
+            deadlineDate.setYear(monthDayYear[2])
+            if (currentDate > deadlineDate) {
+                await Order.updateOne({orderID: order.orderID}, {status: 'cancelled'})
+                console.log('I cancelled someone')
+            }
+            console.log('Dog')
+        })
+    }
+    console.log('Hi')
+}
+
 const controller = {
 
     getOrdersPage: async function(req, res) {
@@ -94,12 +116,13 @@ const controller = {
         var category = req.params.category
         var previewOrders
         var orderCount
+        
+        await afterSevenDays()
 
         // default page value when no url query was initialized.
         if (typeof pagenumber === 'undefined') {
             pagenumber = 1
         } 
-
         if (category == 'all') {
             previewOrders = await Order.find({}).limit(6).skip(6 * (pagenumber - 1))
             orderCount = await Order.find({}).count()
@@ -1198,8 +1221,6 @@ const controller = {
                 await Order.updateOne({orderID: orderID}, {status: newStatus, payDate: currentDate})
             } else if (newStatus == 'pickedup') {
                 await Order.updateOne({orderID: orderID}, {status: newStatus, pickUpDate: currentDate})
-            } else if (newStatus == 'cancelled') {
-                await Order.updateOne({orderID: orderID}, {status: newStatus, cancelDate: currentDate})
             } 
             res.send('Success')
         } catch (err) {
@@ -1216,7 +1237,7 @@ const controller = {
                 await Order.updateOne({orderID: orderID}, {status: "unpaid", payDate: ""})
             } else if (currentStatus.status == 'pickedup') {
                 await Order.updateOne({orderID: orderID}, {status: "paid", pickUpDate: ""})
-            } else if (currentStatus.status == "cancelled") {
+            } else if (currentStatus.status == 'cancelled') {
                 await Order.updateOne({orderID: orderID}, {status: "unpaid", cancelDate: ""})
             }
             res.send('Success')
