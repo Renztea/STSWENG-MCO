@@ -71,6 +71,12 @@ a {
   cursor: pointer;
 }
 
+.activeMenuBtn {
+  background-color: #DF7E85;
+  font-weight: bold;
+  color: #3D2115;
+}
+
 .logoutBtn {
   background-color: #EBD8DB;
   margin-left: 10px;

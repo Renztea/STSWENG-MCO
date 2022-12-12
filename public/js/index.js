@@ -1,4 +1,26 @@
 $(document).ready(function() {
+    function activePage() {
+      var pageType = $('input[type=hidden]').val()
+      var menuBtnList = document.querySelectorAll('.menuBtn')
+
+      menuBtnList.forEach(function(menuBtn) {
+        if (menuBtn.classList.contains('activeMenuBtn')) {
+            menuBtn.classList.remove('activeMenuBtn')
+        }
+      })
+
+        if (pageType == 'cake') {
+          menuBtnList[0].classList.add('activeMenuBtn')
+        } else if (pageType == 'cupcake') {
+          menuBtnList[1].classList.add('activeMenuBtn')
+        } else if (pageType == 'cookie') {
+          menuBtnList[2].classList.add('activeMenuBtn')
+        }
+
+        $('#basketBtn').find('img').attr('src, /images/CartBefore.png')
+    }
+
+    activePage()
     // Duplicate alert display when on click
     // Maybe need to display number Cake flavor
     $(".productBox").click(function() {      

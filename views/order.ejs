@@ -28,11 +28,11 @@
 
         <div class="orderContainer" style="margin-top: 10px">
             <div class="orderNavigation">
-                <a href="/admin/orders/all"><span class="orderNavigationItem">ALL</span></a>
-                <a href="/admin/orders/unpaid"><span class="orderNavigationItem">UNPAID</span></a>
-                <a href="/admin/orders/paid"><span class="orderNavigationItem">PAID</span></a>
-                <a href="/admin/orders/pickedup"><span class="orderNavigationItem">PICKEDUP</span></a>
-                <a href="/admin/orders/cancelled"><span class="orderNavigationItem">CANCELLED</span></a>
+                <a href="/admin/orders/all"><span class="orderNavigationItem <% if (orderList.category == 'all') { %> activeOrderNavigationItem <% } %>">ALL</span></a>
+                <a href="/admin/orders/unpaid"><span class="orderNavigationItem <% if (orderList.category == 'unpaid') { %> activeOrderNavigationItem <% } %>">UNPAID</span></a>
+                <a href="/admin/orders/paid"><span class="orderNavigationItem <% if (orderList.category == 'paid') { %> activeOrderNavigationItem <% } %>">PAID</span></a>
+                <a href="/admin/orders/pickedup"><span class="orderNavigationItem <% if (orderList.category == 'pickedup') { %> activeOrderNavigationItem <% } %>">PICKEDUP</span></a>
+                <a href="/admin/orders/cancelled"><span class="orderNavigationItem <% if (orderList.category == 'cancelled') { %> activeOrderNavigationItem <% } %>">CANCELLED</span></a>
             </div>
 
             <div class="orderDataContainer">
@@ -226,6 +226,25 @@
         </div>
     <script>
         $(document).ready(function() {
+            function activePage() {
+            var pageType = $('input[type=hidden]').val()
+            var orderNavigationList = document.querySelectorAll('.orderNavigationItem')
+
+            menuBtnList.forEach(function(menuBtn) {
+                if (menuBtn.classList.contains('activeMenuBtn')) {
+                    menuBtn.classList.remove('activeMenuBtn')
+                }
+            })
+
+                if (pageType == 'cake') {
+                menuBtnList[0].classList.add('activeMenuBtn')
+                } else if (pageType == 'cupcake') {
+                menuBtnList[1].classList.add('activeMenuBtn')
+                } else if (pageType == 'cookie') {
+                menuBtnList[2].classList.add('activeMenuBtn')
+                }
+            }
+
             $(".orderViewBtn").click(function() {
                 var orderID = $(this).attr("data")
                 $.get('/getOrdersView', {orderID: orderID}, function(result) {
@@ -241,10 +260,10 @@
                     $('#cakesTableInfo').html('')
                     $('#cupcakesTableInfo').html('')
                     $('#cookiesTableInfo').html('')
-                    var tr = '<tr class="orderTableInfoRow"><td class="orderTableInfo" colspan="6">No Item Found</td></tr>'
+                    var tr = '<tr class="orderTableInfoRow"><td class="orderTableInfo" colspan="8">No Item Found</td></tr>'
                     $('#cakesTableInfo').append(tr)
                     $('#cupcakesTableInfo').append(tr)
-                    tr = '<tr class="orderTableInfoRow"><td class="orderTableInfo" colspan="4">No Item Found</td></tr>'
+                    tr = '<tr class="orderTableInfoRow"><td class="orderTableInfo" colspan="6">No Item Found</td></tr>'
                     $('#cookiesTableInfo').append(tr)
                     var cakesOrderNumber = 1
                     var cupcakesOrderNumber = 1
