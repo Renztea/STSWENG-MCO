@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Home</title>
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
+        <style>
+            table { width:50%; }
+            .summary { size:18px; }
+            .price { text-align:right; }
+            .info { padding-left:50px; }
+        </style>
+    </head>
+
+    <body style="font-family: 'Poppins'; background:#EBD8DB; padding:20px; border-radius: 20px; font-size: 15px;">
+        <p>Good day, <%= customerName %>,</p>
+        <p>Thank you for supporting our business, G-cakes! Below is the breakdown of your orders and their complete details.</p>
+        <p>You have 7 days to settle payment to avoid cancellation. </p>
+        <p class="summary"><u>ORDERS SUMMARY:</u></p>
+        
+        <table>
+        <tr>
+        <% orderDetails.forEach(function(orders) { %>
+            <tr>
+                <td><strong><%= orders.name %></strong></td>
+                <td class="price">&#8369;<%= orders.price %> x <%= orders.quantity%></td>
+            </tr>
+            <% if (orders.type == 'cake') { %>
+                <% if (orders.cakeNumber== '') { %>
+                    <tr><td class="info"><%= (orders.flavor).replace(/^./, (orders.flavor)[0].toUpperCase()); %> <%= orders.size %></td></tr>
+                    <tr><td class="info"><%= orders.dedication %></td></tr>
+                <% } else { %>
+                    <tr><td class="info">Shape: <%= orders.cakeNumber %></td></tr>
+                <% } %>
+            <% } else if (orders.type == 'cupcake') { %>
+                <tr><td class="info"><%= (orders.flavor).replace(/^./, (orders.flavor)[0].toUpperCase()); %></td></tr>
+                <tr><td class="info"><%= (orders.design).replace(/^./, (orders.design)[0].toUpperCase()); %></td></tr>
+                <tr><td class="info"><%= (orders.frosting).replace(/^./, (orders.frosting)[0].toUpperCase()); %></td></tr>
+            <% } else if (orders.type == 'cookie') { %>
+                <tr><td class="info"><%= (orders.design).replace(/^./, (orders.design)[0].toUpperCase()); %></td></tr>
+            <% } %>
+        <% }) %>
+        <tr>
+            <td colspan="2" class="price"><strong>Total: &#8369;<%= totalPrice %></strong></strong></td>
+        </tr>
+        
+        </tr>
+        </table>
+
+        <p>Should you have any changes or concerns about your orders, please <strong>reply to this email</strong>.</p>  
+        <p>Please note that changes for your order will no longer be entertained after payment has been sent.</p>  
+        <p>Below are the payment options:</p>
+        <img style="height: 200px; width: 200px; margin-left: 20px;" src="cid:BPI"><img style="height: 200px; width: 200px; display: inline-block; margin-left: 20px;" src="cid:GCASH">
+        <p>Please settle payment and proof of payment within <strong>7 days</strong> to avoid cancellation.</p>
+        <p>After proof of payment has been sent, you may ask for updates about your order by replying again to this email thread.</p>
+        <p>Thank you, <br>Gina from G-Cakes</p>
+    </body>
+
+</html>
