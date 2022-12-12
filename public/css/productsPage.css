@@ -33,26 +33,33 @@ html, body {
 }
 
 .menu {
-    margin-left: 500px;
-    display: flex;
-    position: absolute;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-	width: 100%;
+	margin-left: 500px;
+	display: flex;
+	position: absolute;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
 }
 
 .menuBtn {
-    background-color:#4A3627;
-    margin-left: 10px;
-    padding: 0px 30px;
-    text-decoration: none;
+	background-color:#4A3627;
+	margin-left: 10px;
+	padding: 0px 30px;
+	text-decoration: none;
 	border: none;
 	border-radius: 50px;
-    font-family: Poppins;
-    font-size: 18px;
-    color: #EBD8DB;
-    height: 50px;
+	font-family: 'Poppins', sans-serif;
+	font-size: 18px;
+	color: #EBD8DB;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.menuBtn img {
+	height: 50px;
 }
 
 .logoutBtn {
