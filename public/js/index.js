@@ -15,7 +15,7 @@ $(document).ready(function() {
           menuBtnList[1].classList.add('activeMenuBtn')
         } else if (pageType == 'cookie') {
           menuBtnList[2].classList.add('activeMenuBtn')
-        }
+        } 
 
         $('#basketBtn').find('img').attr('src, /images/CartBefore.png')
     }
