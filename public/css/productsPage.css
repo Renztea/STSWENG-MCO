@@ -21,6 +21,10 @@ html, body {
     transform: translateY(-50%);
 }
 
+a {
+	text-decoration: none
+}
+
 .mainBackground {
     background-color: #EBD8DB;      
 }
