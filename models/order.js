@@ -49,6 +49,10 @@ const orderSchema = new mongoose.Schema ({
         type: String,
         required: true
     },
+    payByDate: {
+        type: String,
+        required: false
+    },
     payDate: {
         type: String,
         required: false

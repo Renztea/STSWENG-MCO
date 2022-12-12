@@ -2,13 +2,13 @@
     <thead class="orderTableHeader">
         <tr>
           <th class="orderTableHeaderItem">Order Date</th>          
+          <th class="orderTableHeaderItem">Pay By Date</th>
           <%_ if (orderList.category == "all" || orderList.category == "paid" || orderList.category == "pickedup") { _%>
           <th class="orderTableHeaderItem">Pay Date</th>
           <%_ } _%>
           <%_ if (orderList.category == "all" || orderList.category == "pickedup") { _%>
           <th class="orderTableHeaderItem">Picked Up Date</th>
           <%_ } _%>
-          <th class="orderTableHeaderItem">Pay By Date</th>
           <%_ if (orderList.category == "all" || orderList.category == "cancelled") { _%>
           <th class="orderTableHeaderItem">Cancelled Date</th>
           <%_ } _%>
@@ -25,13 +25,13 @@
         <%_ orderList.forEach(function(order) { _%>
         <tr class="orderTableInfoRow">
             <td class="orderTableInfo" data-label="Order Date"><%= order.orderDate %></td>
+            <td class="orderTableInfo" data-label="Pay By Date"><%= order.payByDate %></td>
             <%_ if (orderList.category == "all" || orderList.category == "paid" || orderList.category == "pickedup") { _%>
             <td class="orderTableInfo" data-label="Pay Date"><%= order.payDate %></td>
             <%_ } _%>
             <%_ if (orderList.category == "all" || orderList.category == "pickedup") { _%>
             <td class="orderTableInfo" data-label="Picked Up Date"><%= order.pickUpDate %></td>
             <%_ } _%>
-            <td class="orderTableInfo" data-label="Pay By Date"><%= order.payByDate %></td>
             <%_ if (orderList.category == "all" || orderList.category == "cancelled") { _%>
             <td class="orderTableInfo" data-label="Cancelled Date"><%= order.cancelDate %></td>
             <%_ } _%>

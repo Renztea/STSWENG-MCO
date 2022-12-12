@@ -11,15 +11,17 @@
 .orderNavigation {
   margin-top: 10px;
   width: 100%;
-  background: #FFEEAA;
   display: flex;
   justify-content: space-evenly;
 }
 
 .orderNavigationItem {
   font-size: 20px;
-  font-weight: bold;
   font-family: 'Poppins', sans-serif;
+}
+
+.activeOrderNavigationItem {
+  font-weight: bold;
 }
 
 .orderDataContainer {
@@ -62,9 +64,13 @@
 
 .orderViewBtn, .orderUndoBtn, .orderStatusBtn {
   width: 80%;
-  background: #BBD1CD;
   padding: 10px;
   cursor: pointer;
+  border-radius: 5px;
+}
+
+.orderUndoBtn, .orderStatusBtn {
+  width: fit-content;
 }
 
 .orderViewBtn:hover, .orderUndoBtn:hover, .orderViewBtn:hover {
@@ -74,14 +80,17 @@
 
 .orderViewBtn {
   background-color: #C4A484;
+  border: 2px solid #3D2115;
 }
 
 .orderUndoBtn {
-  background-color: #BA0C16;
+  background-color: #DF7E85;
+  border: 2px solid #FE0000;
 }
 
 .orderStatusBtn {
   background-color: #95E2A6;
+  border: 2px solid #3F9752;
 }
 
 .orderModalBackground {

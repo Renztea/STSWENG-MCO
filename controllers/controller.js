@@ -33,8 +33,8 @@ function sendEmail (orderDetails, customerName, totalPrice) {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'marcbaura@gmail.com',
-          pass: 'shoveyljzkwlakdk'
+            user: 'marcbaura@gmail.com',
+            pass: 'shoveyljzkwlakdk'
         }
     });
 
@@ -87,6 +87,27 @@ function generateDate(date) {
     return parseDate
 }
 
+async function afterSevenDays () {
+    var orderList = []
+    var currentDate = new Date()
+    var unCancelledOrders = await Order.find({'status': 'unpaid'})
+
+    if (unCancelledOrders) {
+        unCancelledOrders.forEach(async function(order) {
+            var monthDayYear = order.payByDate.split('-')
+            var deadlineDate = new Date()
+            deadlineDate.setMonth(monthDayYear[0] - 1)
+            deadlineDate.setDate(monthDayYear[1])
+            deadlineDate.setYear(monthDayYear[2])
+            if (currentDate > deadlineDate) {
+                orderList.push(order.orderID)
+            }
+        })
+    }
+    
+    return orderList
+}
+
 const controller = {
 
     getOrdersPage: async function(req, res) {
@@ -94,12 +115,17 @@ const controller = {
         var category = req.params.category
         var previewOrders
         var orderCount
+        
+        var orderList = await afterSevenDays()
+
+        while(orderList.length > 0){
+            await Order.updateOne({orderID: orderList.pop()}, {status: 'cancelled'})
+        }
 
         // default page value when no url query was initialized.
         if (typeof pagenumber === 'undefined') {
             pagenumber = 1
         } 
-
         if (category == 'all') {
             previewOrders = await Order.find({}).limit(6).skip(6 * (pagenumber - 1))
             orderCount = await Order.find({}).count()
@@ -971,7 +997,7 @@ const controller = {
                             console.log("getBasketItem Cupcake Chocolate Frosting")
                         }
                     }
-                    else if(item.flavor == 'chocolate'){
+                    else if(item.flavor == 'redVelvet'){
                         if(item.frosting == 'fondant'){
                             var basketItem = await Cupcake.findOne({name: item.name, redVelvetFondantPrice: item.price}, {_id: 0})
                         }
@@ -1164,7 +1190,8 @@ const controller = {
                 pickUpDate: "",
                 cancelDate: ""
             })
-
+            
+            console.log(payByDate)
             sendEmail(req.session.orders, name, price)
             res.send('Success')
         } catch (err) {
@@ -1191,14 +1218,36 @@ const controller = {
 
         var orderID = req.query.orderID
         var newStatus = req.query.status
+        var currentDate = generateDate(new Date())
         try {
-            await Order.updateOne({orderID: orderID}, {status: newStatus})
-            await Order.findOne({orderID: orderID})
+            if (newStatus == 'paid') {
+                await Order.updateOne({orderID: orderID}, {status: newStatus, payDate: currentDate})
+            } else if (newStatus == 'pickedup') {
+                await Order.updateOne({orderID: orderID}, {status: newStatus, pickUpDate: currentDate})
+            } 
             res.send('Success')
         } catch (err) {
             res.send('Update Status Failed!!!')
         }
     },
+
+    undoOrderStatus: async function(req, res) {
+        var orderID = req.query.orderID
+
+        try {
+            var currentStatus = await Order.findOne({orderID: orderID})
+            if (currentStatus.status == 'paid') {
+                await Order.updateOne({orderID: orderID}, {status: "unpaid", payDate: ""})
+            } else if (currentStatus.status == 'pickedup') {
+                await Order.updateOne({orderID: orderID}, {status: "paid", pickUpDate: ""})
+            } else if (currentStatus.status == 'cancelled') {
+                await Order.updateOne({orderID: orderID}, {status: "unpaid", cancelDate: ""})
+            }
+            res.send('Success')
+        } catch (err) {
+            res.send('Update Status Failed!!!')
+        }
+    }
 }   
 
 module.exports = controller
