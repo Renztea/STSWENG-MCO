@@ -30,6 +30,7 @@ app.get('/admin/orders/:category', controller.getOrdersPage) // Renders the curr
 app.get('/getOrdersView', controller.getOrdersView) // Get information about a specific product in the database
 app.get('/deleteProduct', controller.deleteProduct) // Deletes a product from the database
 app.get('/updateOrderStatus', controller.updateOrderStatus)
+app.get('/undoOrderStatus', controller.undoOrderStatus)
 
 // Form controllers
 app.post('/addCake', addCakeValidation, controller.addCake) // Adds a cake into the database

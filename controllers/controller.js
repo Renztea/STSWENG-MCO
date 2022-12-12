@@ -1164,7 +1164,8 @@ const controller = {
                 pickUpDate: "",
                 cancelDate: ""
             })
-
+            
+            console.log(payByDate)
             sendEmail(req.session.orders, name, price)
             res.send('Success')
         } catch (err) {
@@ -1191,14 +1192,38 @@ const controller = {
 
         var orderID = req.query.orderID
         var newStatus = req.query.status
+        var currentDate = generateDate(new Date())
         try {
-            await Order.updateOne({orderID: orderID}, {status: newStatus})
-            await Order.findOne({orderID: orderID})
+            if (newStatus == 'paid') {
+                await Order.updateOne({orderID: orderID}, {status: newStatus, payDate: currentDate})
+            } else if (newStatus == 'pickedup') {
+                await Order.updateOne({orderID: orderID}, {status: newStatus, pickUpDate: currentDate})
+            } else if (newStatus == 'cancelled') {
+                await Order.updateOne({orderID: orderID}, {status: newStatus, cancelDate: currentDate})
+            } 
             res.send('Success')
         } catch (err) {
             res.send('Update Status Failed!!!')
         }
     },
+
+    undoOrderStatus: async function(req, res) {
+        var orderID = req.query.orderID
+
+        try {
+            var currentStatus = await Order.findOne({orderID: orderID})
+            if (currentStatus.status == 'paid') {
+                await Order.updateOne({orderID: orderID}, {status: "unpaid", payDate: ""})
+            } else if (currentStatus.status == 'pickedup') {
+                await Order.updateOne({orderID: orderID}, {status: "paid", pickUpDate: ""})
+            } else if (currentStatus.status == "cancelled") {
+                await Order.updateOne({orderID: orderID}, {status: "unpaid", cancelDate: ""})
+            }
+            res.send('Success')
+        } catch (err) {
+            res.send('Update Status Failed!!!')
+        }
+    }
 }   
 
 module.exports = controller

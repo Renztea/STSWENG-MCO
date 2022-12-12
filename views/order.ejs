@@ -327,15 +327,30 @@
                 document.querySelector('.orderModalBackground').style.display = 'none';
             })
 
-            $(".orderStatusBtn").click(function() {
+            $(".orderStatusBtn, .cancelButton").click(function() {
                 var status = $(this).val()
                 if (confirm(`Are you sure you want to change this order's status to ${status}?`) == true) {
                     var tableRow = $(this).parents('.orderTableInfoRow')
                     var orderID = tableRow.find('.specificOrderID').text()
                     $.get('/updateOrderStatus', {orderID, status}, function(result) {
                         if(result == 'Success') {
-                        tableRow.empty()
-                        tableRow.remove()
+                            tableRow.empty()
+                            tableRow.remove()
+                        } else {
+                            alert(result)
+                        }
+                    })
+                }
+            })
+
+            $('.orderUndoBtn').click(function() {
+                if (confirm('Are you sure you want to undo?') == true) {
+                    var tableRow = $(this).parents('.orderTableInfoRow')
+                    var orderID = tableRow.find('.specificOrderID').text()
+                    $.get('/undoOrderStatus', {orderID}, function(result) {
+                        if (result == 'Success') {
+                            tableRow.empty()
+                            tableRow.remove()
                         } else {
                             alert(result)
                         }
