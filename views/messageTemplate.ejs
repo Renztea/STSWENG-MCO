@@ -29,18 +29,24 @@
                 <td class="price">&#8369;<%= orders.price %> x <%= orders.quantity%></td>
             </tr>
             <% if (orders.type == 'cake') { %>
-                <% if (orders.cakeNumber== '') { %>
+                <% if (orders.cakeNumber == '') { %>
                     <tr><td class="info"><%= (orders.flavor).replace(/^./, (orders.flavor)[0].toUpperCase()); %> <%= orders.size %></td></tr>
-                    <tr><td class="info"><%= orders.dedication %></td></tr>
+                    <% if (orders.dedication != '') { %>
+                        <tr><td class="info"><%= orders.dedication %></td></tr>
+                    <% } %>
                 <% } else { %>
                     <tr><td class="info">Shape: <%= orders.cakeNumber %></td></tr>
                 <% } %>
             <% } else if (orders.type == 'cupcake') { %>
                 <tr><td class="info"><%= (orders.flavor).replace(/^./, (orders.flavor)[0].toUpperCase()); %></td></tr>
-                <tr><td class="info"><%= (orders.design).replace(/^./, (orders.design)[0].toUpperCase()); %></td></tr>
                 <tr><td class="info"><%= (orders.frosting).replace(/^./, (orders.frosting)[0].toUpperCase()); %></td></tr>
+                <% if (orders.design != '') { %>
+                    <tr><td class="info"><%= (orders.design).replace(/^./, (orders.design)[0].toUpperCase()); %></td></tr>
+                <% } %>
             <% } else if (orders.type == 'cookie') { %>
+                <% if (orders.design != '') { %>
                 <tr><td class="info"><%= (orders.design).replace(/^./, (orders.design)[0].toUpperCase()); %></td></tr>
+                <% } %>
             <% } %>
         <% }) %>
         <tr>
