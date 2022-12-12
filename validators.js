@@ -124,19 +124,20 @@ const orderInformationValidation = [
         .custom((value, {req}) => {
             var date = new Date()
             var date1Day = new Date(Date.UTC(date.getFullYear(),date.getMonth(), date.getDate()))
+
+            //date1Day.addDays(7)
+            console.log("Value")
+            console.log(Date.parse(value))
+            console.log("Date 1 Day")
+            console.log(Date.parse(date1Day) + 604800000)
             
-            // console.log("Value")
-            // console.log(Date.parse(value))
-            // console.log("Date 1 Day")
-            // console.log(Date.parse(date1Day))
-            
-            if(Date.parse(value) > Date.parse(date1Day)){
+            if(Date.parse(value) >= Date.parse(date1Day) + 604800000 && Date.parse(value) <= Date.parse(date1Day) + 5184000000){
                 return true
             }
             else{
                 return false
             }
-        }).withMessage("Please provide a valid date"),
+        }).withMessage("Please provide a date between 7 days and 60 days"),
     query('contactNo').not().isEmpty().withMessage("Contact No is required!").bail()
         .isMobilePhone(['en-PH']).withMessage("Please provide a valid Mobile Number!"),
     query('email').not().isEmpty().withMessage("Email is required!").bail()
