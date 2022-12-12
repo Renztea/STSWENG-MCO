@@ -60,16 +60,28 @@
   padding: 5px;
 }
 
-.orderViewBtn, .orderStatusBtn {
+.orderViewBtn, .orderUndoBtn, .orderStatusBtn {
   width: 80%;
   background: #BBD1CD;
   padding: 10px;
   cursor: pointer;
 }
 
-.orderViewBtn:hover, .orderViewBtn:hover {
+.orderViewBtn:hover, .orderUndoBtn:hover, .orderViewBtn:hover {
   opacity: 1.5;
   transition: all ease 0.3s;
+}
+
+.orderViewBtn {
+  background-color: #C4A484;
+}
+
+.orderUndoBtn {
+  background-color: #BA0C16;
+}
+
+.orderStatusBtn {
+  background-color: #95E2A6;
 }
 
 .orderModalBackground {
@@ -100,6 +112,10 @@
   font-weight: bold;
   transform: rotate(45deg);
   cursor: pointer;
+}
+
+.orderViewModalBuyerInfo {
+  padding: 20px;
 }
 
 .orderModalProductContainer {
