@@ -126,10 +126,10 @@ const orderInformationValidation = [
             var date1Day = new Date(Date.UTC(date.getFullYear(),date.getMonth(), date.getDate()))
 
             //date1Day.addDays(7)
-            console.log("Value")
-            console.log(Date.parse(value))
-            console.log("Date 1 Day")
-            console.log(Date.parse(date1Day) + 604800000)
+            // console.log("Value")
+            // console.log(Date.parse(value))
+            // console.log("Date 1 Day")
+            // console.log(Date.parse(date1Day) + 604800000)
             
             if(Date.parse(value) >= Date.parse(date1Day) + 604800000 && Date.parse(value) <= Date.parse(date1Day) + 5184000000){
                 return true
