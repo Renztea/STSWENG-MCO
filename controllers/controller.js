@@ -13,33 +13,7 @@ const cake = require('../models/cake');
 const { get } = require('http');
 var nodemailer = require('nodemailer');
 
-/*
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'marcbaura@gmail.com',
-      pass: 'shoveyljzkwlakdk'
-    }
-});
-  
-var mailOptions = {
-    from: 'marcbaura@gmail.com',
-    to: 'jasper_chua@dlsu.edu.ph',
-    subject: 'Carry Me',
-    text: 'Good day, <customer name>,\n\nThank you for supporting our business, G-cakes! Below is the breakdown of your orders and their complete details. You have 7 days to settle payment to avoid cancellation. \n\n<Order1> \n<Order2>\n<Order3>\nShould you have any changes or concerns about your orders, please reply to this email. Please note that changes for your order will no longer be entertained after payment has been sent.  \n\nBelow are the payment options:\n\n<Gcash QR>                                <BPI QR>\n<Gcash number>                            <Acct. no>\n\nPlease settle payment and proof of payment within 7 days to avoid cancellation. After proof of payment has been sent, you may ask for updates about your order by replying again to this email thread.\n\nThank you,\nGina from G-cakes'
-};
-  
-transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-});
-
-*/
-
-
+// Returns random products from a certain product type 
 function randomizer (currentProducts) {
     var randomProducts = []
     var index = 0, num = 0
@@ -54,8 +28,8 @@ function randomizer (currentProducts) {
     return randomProducts
 }
 
-/*
-function sendEmail (orderDetails, name, price) {
+// Sends the email to the customer after they check out
+function sendEmail (orderDetails, customerName, totalPrice) {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -64,33 +38,36 @@ function sendEmail (orderDetails, name, price) {
         }
     });
 
-    var orders = orderDetails.name.join('\n')
-      
-    var mailOptions = {
-        from: 'marcbaura@gmail.com',
-        to: 'marc_baura@dlsu.edu.ph',
-        subject: 'G-Cakes OrderLists',
-        html: '<h1>Welcome</h1><p>That was easy!</p>'
-        
-        `Good day, ${name},\n\nThank you for supporting our business, G-cakes! Below is the breakdown of your orders and their complete details. You have 7 days to settle payment to avoid cancellation. 
-        \n\n${orders}\nTotal Price: ₱${price}
-        \nShould you have any changes or concerns about your orders, please reply to this email. Please note that changes for your order will no longer be entertained after payment has been sent.  
-        \n\nBelow are the payment options:\n\n<Gcash QR>                                
-        <BPI QR>\n<Gcash number>                            
-        <Acct. no>\n\nPlease settle payment and proof of payment within 7 days to avoid cancellation. 
-        After proof of payment has been sent, you may ask for updates about your order by replying again to this email thread.\n\n
-        Thank you,\nGina from G-cakes`
-    }
-    
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
+    ejs.renderFile("./views/messageTemplate.ejs", { customerName: customerName, orderDetails: orderDetails, totalPrice, totalPrice}, function (err, data) {
+        if (err) {
+            console.log(err);
         } else {
-          console.log('Email sent: ' + info.response);
+            var mainOptions = {
+                from: 'marcbaura@gmail.com',
+                to: 'marc_baura@dlsu.edu.ph',
+                subject: 'Cart Email Testing',
+                html: data,
+                attachments: [{
+                    filename: 'BPI.png',
+                    path: 'public/images/BPI.png',
+                    cid: 'BPI' 
+                }, {
+                    filename: 'GCASH.png',
+                    path: 'public/images/GCASH.png',
+                    cid: 'GCASH' 
+                },]
+            };
+
+            transporter.sendMail(mainOptions, function (err, info) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
         }
     });
 }
-*/
 
 function generateDate(date) {
     var parseDate = ""
@@ -177,6 +154,10 @@ const controller = {
         }
 
         res.render('main', {display: products, types: types})
+    },
+
+    getAboutPage: function(req, res) {
+        res.render('aboutPage')
     },
 
     getAdminPage: function(req, res) {
@@ -1184,7 +1165,7 @@ const controller = {
                 cancelDate: ""
             })
 
-            // sendEmail(req.session.orders, name, price
+            sendEmail(req.session.orders, name, price)
             res.send('Success')
         } catch (err) {
             console.log(err)

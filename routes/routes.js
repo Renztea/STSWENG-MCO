@@ -12,6 +12,7 @@ app.get('/', controller.getIndexPage) // Render HomePage
 app.get('/products/:type', controller.getProductPage) // Render Product Page
 app.post('/products/:type', searchValidation, controller.searchProduct) // Render Products depending on a customer's search input
 app.get('/basket', controller.getBasketItem) // Render Basket Page
+app.get('/about', controller.getAboutPage)
 app.post('/postBasketItem', controller.postBasketItem) // Add product to basket
 app.post('/updateBasketItem', controller.updateBasketItem) // Update product inside the basket
 app.post('/removeBasketItem', controller.removeBasketItem) // Remove product from the basket
