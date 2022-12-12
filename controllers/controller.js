@@ -33,8 +33,8 @@ function sendEmail (orderDetails, customerName, totalPrice) {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'marcbaura@gmail.com',
-          pass: 'shoveyljzkwlakdk'
+            user: 'marcbaura@gmail.com',
+            pass: 'shoveyljzkwlakdk'
         }
     });
 
@@ -88,7 +88,7 @@ function generateDate(date) {
 }
 
 async function afterSevenDays () {
-
+    var orderList = []
     var currentDate = new Date()
     var unCancelledOrders = await Order.find({'status': 'unpaid'})
 
@@ -100,13 +100,12 @@ async function afterSevenDays () {
             deadlineDate.setDate(monthDayYear[1])
             deadlineDate.setYear(monthDayYear[2])
             if (currentDate > deadlineDate) {
-                await Order.updateOne({orderID: order.orderID}, {status: 'cancelled'})
-                console.log('I cancelled someone')
+                orderList.push(order.orderID)
             }
-            console.log('Dog')
         })
     }
-    console.log('Hi')
+    
+    return orderList
 }
 
 const controller = {
@@ -117,7 +116,11 @@ const controller = {
         var previewOrders
         var orderCount
         
-        await afterSevenDays()
+        var orderList = await afterSevenDays()
+
+        while(orderList.length > 0){
+            await Order.updateOne({orderID: orderList.pop()}, {status: 'cancelled'})
+        }
 
         // default page value when no url query was initialized.
         if (typeof pagenumber === 'undefined') {
@@ -994,7 +997,7 @@ const controller = {
                             console.log("getBasketItem Cupcake Chocolate Frosting")
                         }
                     }
-                    else if(item.flavor == 'chocolate'){
+                    else if(item.flavor == 'redVelvet'){
                         if(item.frosting == 'fondant'){
                             var basketItem = await Cupcake.findOne({name: item.name, redVelvetFondantPrice: item.price}, {_id: 0})
                         }
