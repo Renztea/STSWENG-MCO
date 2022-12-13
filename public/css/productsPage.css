@@ -5,8 +5,8 @@
     padding: 0;
     box-sizing: border-box;
 }
-  
-  
+
+
 html, body {
     height: 100%;
     width: 100%;
@@ -173,7 +173,7 @@ a {
 .AddC{
 	width: 110px;
 }
-  
+
 .Remove {
     background-color: #FFFFFF;
 	color: #BA0C16;
@@ -191,7 +191,7 @@ a {
 	max-width: 100%;
 	border: 2px solid #0096FF;
 }
-  
+
 .AddA, .AddB, .AddC, .Remove, .Edit {
     font-size: 15px;	
     padding: 5px;
@@ -209,14 +209,14 @@ a {
 }
 
 .pagination {
-  display: inline-block;
+	display: inline-block;
 }
 
 .pagination a {
-  color: #4A3627;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
+	color: #4A3627;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
 }
 
 .pageBtn{
@@ -271,12 +271,12 @@ a {
 	width: 200px;
 	max-width: 100%;
 	outline: none;
-   	 font-size: 12px;
-    	border-radius: 15px;
-   	 border: 2px solid #000000;
-    	padding: 0px 5px;
-   	 height: 30px;
-   	 margin: 0;
+	font-size: 12px;
+	border-radius: 15px;
+	border: 2px solid #000000;
+    padding: 0px 5px;
+	height: 30px;
+	margin: 0;
 	border-color: #6F4E37;
 	font-family: Poppins, sans-serif;
 }
@@ -296,12 +296,12 @@ a {
 }
 
 .input::-webkit-input-placeholder, .inputNum::-webkit-input-placeholder, .inputName::-webkit-input-placeholder {
-  text-align: left;
-  font-size: 14px;
+	text-align: left;
+	font-size: 14px;
 }
 
 .input:focus::-webkit-input-placeholder, .inputNum:focus::-webkit-input-placeholder, .inputName:focus::-webkit-input-placeholder {
-  color: transparent;
+	color: transparent;
 }
 
 .inputCheckbox:hover{
@@ -332,7 +332,7 @@ a {
 	max-width: 100%;
 	border: 2px solid #0096FF;
 }
-  
+
 .Cancel {
     background-color: #FFFFFF;
 	color: #BA0C16;
@@ -341,7 +341,7 @@ a {
 	max-width: 100%;
 	border: 2px solid #BA0C16;
 }
-  
+
 .Add, .Cancel, .Edit2 {
     font-size: 20px;	
     padding: 5px;
@@ -351,9 +351,9 @@ a {
 }
 
 .Add:disabled, .Add[disabled]{
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
+	border: 1px solid #999999;
+	background-color: #cccccc;
+	color: #666666;
 }
 
 .close{
@@ -381,7 +381,7 @@ a {
 
 p{
 	font-size: 13px;
-   	font-weight: bold;
+	font-weight: bold;
 	color: red;
 	font-family: Poppins, sans-serif;
 	margin-left: 6px;
@@ -389,57 +389,57 @@ p{
 
 /* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 /* Modal Content */
 .modal-content {
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  margin-top: 200px;
-  padding: 0;
-  width: 920px;
-  max-width: 100%;
-  max-height: 100%;
-  border: 2px solid #6F4E37;
-  overflow-y: auto;
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	margin-top: 200px;
+	padding: 0;
+	width: 920px;
+	max-width: 100%;
+	max-height: 100%;
+	border: 2px solid #6F4E37;
+	overflow-y: auto;
 }
 
 .modal-content-cupcake {
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  margin-top: 200px;
-  padding: 0;
-  width: 1130px;
-  max-width: 100%;
-  max-height: 100%;
-  border: 2px solid #6F4E37;
-  overflow-y: auto;
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	margin-top: 200px;
+	padding: 0;
+	width: 1130px;
+	max-width: 100%;
+	max-height: 100%;
+	border: 2px solid #6F4E37;
+	overflow-y: auto;
 }
 
 .modal-content-cookie {
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  margin-top: 200px;
-  padding: 0;
-  width: 800px;
-  max-width: 100%;
-  max-height: 100%;
-  border: 2px solid #6F4E37;
-  overflow-y: auto;
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	margin-top: 200px;
+	padding: 0;
+	width: 800px;
+	max-width: 100%;
+	max-height: 100%;
+	border: 2px solid #6F4E37;
+	overflow-y: auto;
 }
 
 .aboutBox{
@@ -504,8 +504,8 @@ p{
 	max-width: 100%;
 	border: 2px solid #0096FF;
 	font-size: 20px;	
-    	padding: 5px;
-    	border-radius: 20px;
-    	font-weight: bold;
-    	cursor: pointer
+	padding: 5px;
+	border-radius: 20px;
+	font-weight: bold;
+	cursor: pointer
 }

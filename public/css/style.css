@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
 }
 
 a {
-  text-decoration: none
+    text-decoration: none
 }
 
 /* Start - Home Page Background */
@@ -23,913 +23,829 @@ a {
     background-size: 100% 100%;
     position: relative;
     overflow: hidden;
-  /*
-  reference:https://www.w3schools.com/howto/howto_css_full_page.asp
-  */
 }
 /* End - Home Page Background*/
 
 /* Start - Website header */
 .header {
-  height: 150px;
-  width: 100%;
-  display: flex;
-  position: relative;
+    height: 150px;
+    width: 100%;
+    display: flex;
+    position: relative;
 }
 
 .logo {
-  margin-left: 100px;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+    margin-left: 100px;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 .menu {
-  margin-left: 500px;
-  display: flex;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+    margin-left: 500px;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 .menuBtn {
-  background-color:#4A3627;
-  margin-left: 10px;
-  padding: 0px 30px;
-  text-decoration: none;
-  border: none;
-  border-radius: 50px;
-  font-family: 'Poppins', sans-serif;
-  font-size: 18px;
-  color: #EBD8DB;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+    background-color:#4A3627;
+    margin-left: 10px;
+    padding: 0px 30px;
+    text-decoration: none;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    color: #EBD8DB;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .activeMenuBtn {
-  background-color: #DF7E85;
-  font-weight: bold;
-  color: #3D2115;
+    background-color: #DF7E85;
+    font-weight: bold;
+    color: #3D2115;
 }
 
 .logoutBtn {
-  background-color: #EBD8DB;
-  margin-left: 10px;
-  padding: 0px 30px;
-  text-decoration: none;
-  border: 2px solid #4A3627;
-  border-radius: 50px;
-  font-family: Poppins;
-  font-size: 18px;
-  color: #4A3627;
-  height: 50px;
+    background-color: #EBD8DB;
+    margin-left: 10px;
+    padding: 0px 30px;
+    text-decoration: none;
+    border: 2px solid #4A3627;
+    border-radius: 50px;
+    font-family: Poppins;
+    font-size: 18px;
+    color: #4A3627;
+    height: 50px;
 }
 
 .menuBtn img {
-  height: 50px;
+    height: 50px;
 }
 
 .menuBtn:hover {
-  background-color: #DF7E85;
-  transition: 0.5s;
+    background-color: #DF7E85;
+    transition: 0.5s;
 }
 /* End - Website header */
 
 /* Start - Home Page Inquire */
 .inquire {
-  margin-top: 300px;
-  margin-left: 350px;
-  width: 400px;
-  position: absolute;
+    margin-top: 300px;
+    margin-left: 350px;
+    width: 400px;
+    position: absolute;
 }
 
 .inquire button {
-  background-color:#3D2115;
-  color: #FFFFFF;
-  padding: 10px 30px 10px 30px;
-  text-decoration: none;
-  border-radius: 50px;
-  border: none;
-  font-weight: bold;
-  font-family: 'Poppins', sans-serif;
-  font-size: 18px;
+    background-color:#3D2115;
+    color: #FFFFFF;
+    padding: 10px 30px 10px 30px;
+    text-decoration: none;
+    border-radius: 50px;
+    border: none;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
 }
 /* End - Home Page Inquire */
 
 /* Start - All Page Background */
 .mainBackground {
-  background-color: #EBD8DB;  
-  overflow: auto; /* JM */    
+    background-color: #EBD8DB;  
+    overflow: auto; /* JM */    
 }
 /* End - All Page Background */
 
 /* first carousel */
 .productContainer {
-  display: flex;
-  justify-content: center;
-  align-items: top;
-  margin: 100px auto;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    margin: 100px auto;
+    flex-wrap: wrap;
 }
 
 .productBox {
-  width: 300px;
-  background-color: white;
-  border: 1px solid purple;
-  margin: 20px;
-  position: relative
+    width: 300px;
+    background-color: white;
+    border: 1px solid purple;
+    margin: 20px;
+    position: relative
 }
 
 .productBoxName {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: 'Poppins', sans-serif;
-  width: 100%;
-  opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    opacity: 0;
 }
 
 .productBox:hover .productImage{
-  opacity: 0.3;
-  transition: all ease 0.3s;
+    opacity: 0.3;
+    transition: all ease 0.3s;
 }
 
 .productBox:hover .productBoxName {
-  opacity: 1;
-  transition: all ease 0.3s;
+    opacity: 1;
+    transition: all ease 0.3s;
 }
 
 .productImage {
-  width: 100%;
-  height: 250px;
+    width: 100%;
+    height: 250px;
 }
 
 .productImage img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 /* end carousel */
 
 /* Start - Login Page */
 .loginPage {
-  background: url(/images/loginbackground.png) fixed;    
-  background-repeat: no-repeat;    
-  background-size: 100% 100%;
-  position: relative;
+    background: url(/images/loginbackground.png) fixed;    
+    background-repeat: no-repeat;    
+    background-size: 100% 100%;
+    position: relative;
 }
 
 .loginContainer {
-  width: 20%;
-  margin: 20% 0% 0% 15%;
-  background-color: #3D2115;
-  border-radius: 20px;
-  position: absolute;
-  padding: 30px 40px;
+    width: 20%;
+    margin: 20% 0% 0% 15%;
+    background-color: #3D2115;
+    border-radius: 20px;
+    position: absolute;
+    padding: 30px 40px;
 }
 
 .loginForm {
-  margin: auto;
-  width: 100%;
-  position: relative;
+    margin: auto;
+    width: 100%;
+    position: relative;
 }
 
 .loginStyle {
-  color: #FFFFFF;
-  font-size: 15px;
-  font-family: 'Poppins', sans-serif;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .loginInput {
-  background-color: #FFFFFF;
-  border-radius: 10px;
-  height: 40px;
-  width: 100%;
-  font-size: 15px;
-  font-family: 'Poppins', sans-serif;
-  margin-bottom: 10%;
-  padding: 5px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    height: 40px;
+    width: 100%;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 10%;
+    padding: 5px;
 }
 
 .loginSubmit {
-  display: block;
-  margin: auto;
-  background-color: #FFFFFF;
-  font-weight: bold;
-  font-size: 15px;
-  font-family: 'Poppins', sans-serif;
-  padding: 5px 20px;
-  border-radius: 20px;
-  cursor: pointer
+    display: block;
+    margin: auto;
+    background-color: #FFFFFF;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    padding: 5px 20px;
+    border-radius: 20px;
+    cursor: pointer
 }
 /* End Login Page */
 
-/* Start - Jasper */
-.order {
-  text-align: center;
-  font-size: 50px;
-  font-weight: bold;
-}
-
-.orderBox {
-  background: white;
-  margin: 0px 7% 10px 7%;
-  padding: 0px 0px 5px 0px;
-}
-
- .orderTab{
-   width: 32%;
-   height: 60px;
-   font-size: 30px;
-   background: #EFEFEF;
-   border: none;
-   border-radius: 10px;
- }
-
-.orderTabContent{
-  background: white;
-  margin: 0% 7%;
-  padding: 0px 0px 0px 0px;
-  height: 300px;
-  width: parent;
-}
-
-.orderTabContent img{
-  height: 90%;
-  width: 25%;
-  margin: 0px 40px 0px 10px;
-  padding: 20px 0px 0px 0px;
-  float: left;
-  display: block;
-}
-
-#pendingCakeName {
-  font-size: 30px;
-  text-align: left;
-  display: block;
-}
-
-#pendingCakeType {
-  font-size: 30px;
-  text-align: left;
-  display: block;
-}
-
-#pendingCakePrice {
-  font-size: 40px;
-  text-align: left;
-  display: block;
-}
-
-.pendingBtnPaid{
-  margin: 60px 80px 0px 0px;
-  float: right;  
-  height: 60%;
-  width: 300px;
-  font-weight: bold;
-  font-size: 70px;
-  border-radius: 50px;
-}
-/* End - Jasper */
-
 /* Start - Order Information Page */
 .orderContentContainer {
-  height: 700px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .orderInfoContainer {
-  position: relative;
-  max-width: 900px;
-  width: 100%;
-  margin: 0 15px;
-  background-color: #FFFFFF;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    position: relative;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 15px;
+    background-color: #FFFFFF;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
 
 .orderHeader {
-  width: 100%;
-  background-color: #DF7E85;
+    width: 100%;
+    background-color: #DF7E85;
 }
 
 .orderHeader h1 {
-  font-size: 30px;
-  text-align: center;
-  color: #FFFFFF;
-  font-family: 'Poppins', sans-serif;
+    font-size: 30px;
+    text-align: center;
+    color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
 }
 
 .orderInfoForm {
-  width: 100%;
-  padding: 30px 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+    width: 100%;
+    padding: 30px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .orderInfoGroup {
-  display: flex;
-  width: calc(100% / 2 - 30px);
-  flex-direction: column;
-  margin: 4px 0;
+    display: flex;
+    width: calc(100% / 2 - 30px);
+    flex-direction: column;
+    margin: 4px 0;
 }
 
 .orderStyle {
-  font-size: 16px;
-  font-weight: bold;
-  color: #3D2115;
-  font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #3D2115;
+    font-family: 'Poppins', sans-serif;
 }
 
 .orderInput {
-  outline: none;
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  border-radius: 10px;
-  border: 2px solid #000000;
-  padding: 0 5px;
-  height: 42px;
-  margin: 8px 0;
+    outline: none;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 10px;
+    border: 2px solid #000000;
+    padding: 0 5px;
+    height: 42px;
+    margin: 8px 0;
 }
 
 .orderBtn {
-  width: 100%;
-  padding-top: 20px;
-  display: flex;
-  justify-content: space-evenly;
+    width: 100%;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .orderSubmit {
-  background-color: #95E2A6;
-  border: none;
-  color: #3D2115;
+    background-color: #95E2A6;
+    border: none;
+    color: #3D2115;
 }
 
 .orderCancel {
-  border: 1px solid #BA0C16;
-  color: #BA0C16;
+    border: 1px solid #BA0C16;
+    color: #BA0C16;
 }
 
 .orderCancel, .orderSubmit {
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  padding: 10px 40px;
-  border-radius: 20px;
-  cursor: pointer
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px 40px;
+    border-radius: 20px;
+    cursor: pointer
 }
 /* End - Order Information Page */
 
 /* Start - Product Modal Popup CSS */
 .modalBackground {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  position: fixed;
-  top: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
 }
 
 .modalContent {
-  width: 60%;
-  padding: 40px 20px 20px 20px;
-  background-color: #EBD8DB;
-  display: flex;
-  position: relative;
+    width: 60%;
+    padding: 40px 20px 20px 20px;
+    background-color: #EBD8DB;
+    display: flex;
+    position: relative;
 }
 
 .modalContentImageContainer {
-  height: 100%;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .modalContentImage, .modalProductNote {
-  width: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .modalContentImage {
-  height: 80%;
+    height: 80%;
 }
 
 .modalContentImage img {
-  max-width: 100%;
-  max-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .close {
-  position: absolute;
-  top: 0;
-  right: 14px;
-  font-size: 42px;
-  font-weight: bold;
-  transform: rotate(45deg);
-  cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 14px;
+    font-size: 42px;
+    font-weight: bold;
+    transform: rotate(45deg);
+    cursor: pointer;
 }
 
 .orderForm {
-  justify-content: center;
-  text-align: center;
-  width: 50%;
+    justify-content: center;
+    text-align: center;
+    width: 50%;
 }
 
 .orderName, .orderPrice {
-  color: #3D2115;
-  font-size: 20px;
-  font-weight: bold;
-  font-family: 'Poppins', sans-serif;
+    color: #3D2115;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
 }
 
 .orderFlavorContainer, .orderSizeContainer, .orderFrostingContainer, 
 .orderQuantityContainer, .orderDedicationContainer, .orderAddContainer,
 .orderCakeNumberContainer, .orderDesignNumberContainer, .orderDesignContainer {
-  width: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .orderDedicationContainer, .orderDesignContainer {
-  display: block;
+    display: block;
 }
 
 .orderAddContainer {
-  justify-content: left;
+    justify-content: left;
 }
 
 .orderFlavor, .orderSize, .orderFrosting, 
 .orderQuantityItems, .orderDedication, .orderCakeNumber, 
 .orderDesignNumber, .orderDesign {
-  height: 50px;
-  width: 70%;
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  padding: 10px;
-  background-color: #FFFFFF;
-  color: #3D2115;
-  border-radius: 5px;
-  border: 1px solid #3D2115;
+    height: 50px;
+    width: 70%;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px;
+    background-color: #FFFFFF;
+    color: #3D2115;
+    border-radius: 5px;
+    border: 1px solid #3D2115;
 }
 
 .orderDedication, .orderDesign {
-  width: 100%;
-  resize: none;
+    width: 100%;
+    resize: none;
 }
 
 .orderFlavorLabel, .orderSizeLabel, .orderFrostingLabel,
- .orderQuantityLabel, .orderDedicationLabel, .orderCakeNumberLabel,
- .orderDesignNumberLabel, .orderDesignLabel {
-  width: 30%;
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  text-align: right;
-  opacity: 0.4;
-  color: #3D2115;
+.orderQuantityLabel, .orderDedicationLabel, .orderCakeNumberLabel,
+.orderDesignNumberLabel, .orderDesignLabel {
+    width: 30%;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    text-align: right;
+    opacity: 0.4;
+    color: #3D2115;
 }
 
 .orderDedicationLabel, .orderDesignLabel {
-  width: 100%;
-  opacity: 1;
-  text-align: left;
+    width: 100%;
+    opacity: 1;
+    text-align: left;
 }
 
-/*
-.orderFlavor, .orderSize, .orderFrosting {
-  margin-top: 30px;
-  text-align: center;
-  font-size: 20px;
-  font-family: 'Poppins', sans-serif;
-  padding: 10px;
-  background-color: #E29595;
-  color: #4A3627;
-  border-radius: 10px;
-  width: 80%;
-}
-*/
 
 .orderQuantityItems{
-  padding: 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: none;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: none;
 }
 
 .orderDecrement, .orderIncrement {
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  background-color: #FFFFFF;
-  color: #3D2115;
-  width: 20%;
-  height: 100%;
-  border: 1px solid #3D2115;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #FFFFFF;
+    color: #3D2115;
+    width: 20%;
+    height: 100%;
+    border: 1px solid #3D2115;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .orderDecrement {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .orderIncrement {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .orderQuantity {
-  justify-content: center;
-  text-align: center;
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  padding: 10px;
-  background-color: #FFFFFF;
-  color: #3D2115;
-  height: 100%;
-  width: 60%;
-  border: 1px solid #3D2115;
-  border-left: none;
-  border-right: none;
-/* Firefox */
-  -moz-appearance: textfield;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px;
+    background-color: #FFFFFF;
+    color: #3D2115;
+    height: 100%;
+    width: 60%;
+    border: 1px solid #3D2115;
+    border-left: none;
+    border-right: none;
+    /* Firefox */
+    -moz-appearance: textfield;
 }
 
   /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .addBtn {
-  padding: 10px;
-  border-radius: 15px;
-  border: none;
-  background-color: #95E2A6;
-  color: #4A3627;
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: bold;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    background-color: #95E2A6;
+    color: #4A3627;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
 }
 
 .modalProductNote, .orderDedicationNote {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 .productNote, .orderDedicationNote {
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  text-align: left;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    text-align: left;
 }
 /* End - Modal Popup CSS */
 
 /* Start - Progress Bar */
 .progressBarContainer {
-  width: 80%;
-  padding: 20px;
-  margin: auto;
+    width: 80%;
+    padding: 20px;
+    margin: auto;
 }
 
 .progressBar {
-  position: relative;
-  width: 50%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
+    position: relative;
+    width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
 }
 
 .progressBar::before, .progress {
-  content: "";
-  position: absolute;
-  height: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-  background-color: #737373;
-  z-index: -1;
+    content: "";
+    position: absolute;
+    height: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    background-color: #737373;
+    z-index: -1;
 }
 
 .progress {
-  background: #DF7E85;
-  width: 0%;
+    background: #DF7E85;
+    width: 0%;
 }
 
 .progressStep {
-  width: 70px;
-  height: 70px;
-  border: 5px solid #737373;
-  background-color: #EBD8DB;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 70px;
+    height: 70px;
+    border: 5px solid #737373;
+    background-color: #EBD8DB;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .progressStepActive {
-  background-color: #DF7E85;
-  border-color: #DF7E85;
+    background-color: #DF7E85;
+    border-color: #DF7E85;
 }
 
 .progressStep img {
-  height: 40px;
+    height: 40px;
 }
 /* End - Progress Bar */
 
 /* Start - Basket Page */
 .basketContainer {
-  width: 80%;
-  margin: auto;
-  padding: 20px;
-  display: flex;
-  position: relative;
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    position: relative;
 }
 
 .basketItemContainer {
-  width: 80%;
-  margin-right: 5%;
-  border-radius: 20px;
-  overflow: hidden;
+    width: 80%;
+    margin-right: 5%;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .totalPriceContainer {
-  width: 20%;
-  background: #FFFFFF;
-  position: sticky;
-  height: 200px;
-  align-items: center;
-  top: 20%;
-  border-radius: 20px;
+    width: 20%;
+    background: #FFFFFF;
+    position: sticky;
+    height: 200px;
+    align-items: center;
+    top: 20%;
+    border-radius: 20px;
 }
 
 .totalPrice {
-  width: 100%;
-  margin: auto;
-  position: absolute;
-  font-size: 20px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: bold;
-  text-align: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    width: 100%;
+    margin: auto;
+    position: absolute;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .basketSubmit {
-  width: 80%;
-  margin-top: 50px;
-  position: absolute;
-  font-size: 20px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: bold;
-  color: #4A3627;
-  padding: 5px;
-  border-radius: 30px;
-  border: none;
-  background: #95E2A6;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
+    width: 80%;
+    margin-top: 50px;
+    position: absolute;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: #4A3627;
+    padding: 5px;
+    border-radius: 30px;
+    border: none;
+    background: #95E2A6;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
 }
 
 .basketItem {
-  display: flex;
-  height: 400px;
-  width: 100%;
-  position: relative;
-  background-color: white;
-  margin-bottom: 10px;
+    display: flex;
+    height: 400px;
+    width: 100%;
+    position: relative;
+    background-color: white;
+    margin-bottom: 10px;
 }
 
 .basketItem:last-child {
-  margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 .basketItemImage, .basketItemInfo, .basketGroupQuantityNDedication, .basketGroupPriceNRemove {
-  height: 100%;
+    height: 100%;
 }
 
 .basketItemImage, .basketItemInfo, .basketGroupQuantityNDedication, .basketGroupPriceNRemove {
-  width: 25%;
+    width: 25%;
 }
 
 .basketItemImage {
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
 }
 
 .basketItemImage img {
-  max-width: 100%;
-  max-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .basketItemInfo, .basketGroupQuantityNDedication, .basketGroupPriceNRemove {
-  padding: 25px;
+    padding: 25px;
 }
 
 .basketItemInfo, .basketItemPrice {
-  font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .basketNameContainer, .basketTypeContainer {
-  width: 100%;
+    width: 100%;
 }
 
 .basketNameContainer {
-  height: 40%;
-  line-height: 25px;
-  overflow: hidden;
+    height: 40%;
+    line-height: 25px;
+    overflow: hidden;
 }
 
 .basketTypeContainer {
-  height: 60%;
+    height: 60%;
 }
 
 .basketTypeContainer {
-  margin-top: 5%;
+    margin-top: 5%;
 }
 
 .basketItemQuantity {
-  height: 40%;
+    height: 40%;
 }
 
 .basketItemDedication, .basketItemDesign {
-  padding: 25px 0px;
-  height: 60%
+    padding: 25px 0px;
+    height: 60%
 }
 
 .basketItemPrice {
-  height: 70%;
-  text-align: center;
+    height: 70%;
+    text-align: center;
 }
 
 .basketItemButton {
-  height: 30%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .removeItem {
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: bold;
-  color: #BA0C16;
-  background: #FFFFFF;
-  border-radius: 20px;
-  padding: 10px;
-  border: 1px solid #BA0C16;
-  cursor: pointer;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: #BA0C16;
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 10px;
+    border: 1px solid #BA0C16;
+    cursor: pointer;
 }
 
 .editFlavor, .editSize, .editFrosting, .editCakeNumber, .editDesignNumber {
-  margin-top: 10px;
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  padding: 10px;
-  background-color: #FFFFFF;
-  border: 1px solid #DF7E85;
-  color: #3D2115;
-  width: 200px;
+    margin-top: 10px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px;
+    background-color: #FFFFFF;
+    border: 1px solid #DF7E85;
+    color: #3D2115;
+    width: 200px;
 }
 
 .basketQuantityContainer {
-  height: 40px;
-  margin: 20px auto;
-  background-color: #DF7E85;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  border-radius: 10px;
+    height: 40px;
+    margin: 20px auto;
+    background-color: #DF7E85;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 10px;
 }
 
 .editDedication, .editDesign {
-  height: 100%;
-  width: 100%;
-  resize: none;
-  font-size: 12px;
-  font-family: 'Poppins', sans-serif;
-  padding: 10px;
-  background-color: #FFFFFF;
-  color: #4A3627;
-  border-radius: 10px;
-  border: 1px solid #DF7E85;
+    height: 100%;
+    width: 100%;
+    resize: none;
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px;
+    background-color: #FFFFFF;
+    color: #4A3627;
+    border-radius: 10px;
+    border: 1px solid #DF7E85;
 }
 
 .basketDecrement, .basketIncrement {
-  font-size: 15px;
-  font-family: 'Poppins', sans-serif;
-  background-color: #FFFFFF;
-  color: #3D2115;
-  width: 100%;
-  height: 100%;
-  border: 1px solid #DF7E85;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #FFFFFF;
+    color: #3D2115;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #DF7E85;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .basketDecrement {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 .basketIncrement {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .basketQuantity {
-  justify-content: center;
-  text-align: center;
-  font-size: 15px;
-  font-family: 'Poppins', sans-serif;
-  padding: 10px;
-  background-color: #FFFFFF;
-  color: #3D2115;
-  height: 100%;
-  width: 80px;
-  border: 1px solid #DF7E85;
-  border-left: none;
-  border-right: none;
+    justify-content: center;
+    text-align: center;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px;
+    background-color: #FFFFFF;
+    color: #3D2115;
+    height: 100%;
+    width: 80px;
+    border: 1px solid #DF7E85;
+    border-left: none;
+    border-right: none;
 }
 /* End - Basket Page */
 
 /* Start - Order Summary Page */
 .orderInfoSummary {
-  width: 80%;
-  margin: auto;
-  border: 2px solid #000000;
-  border-bottom: none;
-  background-color: #FFFFFF;
-  padding: 20px;
+    width: 80%;
+    margin: auto;
+    border: 2px solid #000000;
+    border-bottom: none;
+    background-color: #FFFFFF;
+    padding: 20px;
 }
 
 .orderInfoSummaryGroup {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .orderSummaryStyle {
-  font-size: 15px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: bold;
-  color: #3D2115;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: #3D2115;
 }
 
 .orderSummaryInput {
-  font-size: 15px;
-  font-family: 'Poppins', sans-serif;
-  color: #3D2115;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    color: #3D2115;
 }
 
 .orderSummaryInput:hover {
-  cursor: default;
+    cursor: default;
 }
 
 .orderBasketTableSummary {
-  width: 80%;
-  margin: auto;
-  border-collapse: collapse;
-  border: 2px solid #000000;
-  background-color: #FFFFFF;
+    width: 80%;
+    margin: auto;
+    border-collapse: collapse;
+    border: 2px solid #000000;
+    background-color: #FFFFFF;
 }
 
 .orderBasketTableSummaryHeader, .orderBasketProductSummaryRow {
-  border-bottom: 2px solid #000000;
+    border-bottom: 2px solid #000000;
 }
 
 .orderBasketTableSummaryHeader {
-  background-color: #E29595;
+    background-color: #E29595;
 }
 
 .orderBasketProductSummaryRow {
-  height: 150px;
+    height: 150px;
 }
 
 .orderBasketTableSummaryHeader,
@@ -939,43 +855,43 @@ input::-webkit-inner-spin-button {
 .orderBasketProductTotalSummary,
 .orderBasketTotalAmountSummary,
 .orderBasketTotalAmountSummaryLabel {
-  text-align: center;
-  font-family: 'Poppins', sans-serif;
-  color: #4A3627;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    color: #4A3627;
 }
 
 .orderBasketProductImageSummary, 
 .orderBasketProductQuantitySummary {
-  width: 10%;
+    width: 10%;
 } 
 
 .orderBasketProductPriceSummary, 
 .orderBasketProductTotalSummary  {
-  width: 20%;
+    width: 20%;
 }
 
 .orderBasketProductInfoSummary {
-  width: 40%;
+    width: 40%;
 }
 
 .orderBasketProductInfoSummary {
-  font-family: 'Poppins', sans-serif;
-  color: #4A3627;
+    font-family: 'Poppins', sans-serif;
+    color: #4A3627;
 }
 
 .orderBasketProductImageContainer {
-  height: 100px;
-  width: 80px;
-  margin: auto;
+    height: 100px;
+    width: 80px;
+    margin: auto;
 }
 
 .orderBasketProductImageContainer img{
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 .orderBasketProductSummaryHeader {
-  text-align: left;
+    text-align: left;
 }
 
 .orderBasketProductSummaryHeader,
@@ -984,146 +900,146 @@ input::-webkit-inner-spin-button {
 .orderBasketPriceSumamryHeader,
 .orderBasketTotalSummaryHeader,
 .orderBasketTotalAmountSummaryLabel {
-  padding: 10px 20px;
+    padding: 10px 20px;
 }
 
 .orderBasketTotalAmountSummary, .orderBasketTotalAmountSummaryLabel {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .orderBasketReturn, .orderBasketSubmit {
-  text-align: center;
-  font-size: 20px;
-  font-family: 'Poppins', sans-serif;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer
 }
 
 .orderBasketReturn {
-  border: 1px solid #BA0C16;
-  color: #BA0C16;
-  background-color: #FFFFFF;
+    border: 1px solid #BA0C16;
+    color: #BA0C16;
+    background-color: #FFFFFF;
 }
 
 .orderBasketSubmit {
-  border: none;
-  color: #3D2115;
-  background: #95E2A6;
+    border: none;
+    color: #3D2115;
+    background: #95E2A6;
 }
 
 .orderBasketBtn {
-  width: 80%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  font-family: 'Poppins', sans-serif;
-  padding: 10px;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px;
 }
 /* End - Order Summary Page */
 
 /* Start - Order Summary Modal */
 .orderSummaryModalBackground {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  position: fixed;
-  top: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
 }
 
 .orderSummaryModalContent {
-  width: 50%;
-  padding: 40px 20px 20px 20px;
-  background-color: #FFFFFF;
-  border: 1px solid #3D2115;
-  position: relative;
+    width: 50%;
+    padding: 40px 20px 20px 20px;
+    background-color: #FFFFFF;
+    border: 1px solid #3D2115;
+    position: relative;
 }
 
 .orderSummaryClose {
-  position: absolute;
-  top: 0;
-  right: 14px;
-  font-size: 42px;
-  font-weight: bold;
-  transform: rotate(45deg);
-  cursor: pointer;
-  color: black
+    position: absolute;
+    top: 0;
+    right: 14px;
+    font-size: 42px;
+    font-weight: bold;
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: black
 }
 
 .orderSummaryModalCongratulationsContainer {
-  width: fit-content;
-  margin: auto;
+    width: fit-content;
+    margin: auto;
 }
 
 .orderSummaryModalCongratulationsContent {
-  font-family: 'Poppins', sans-serif;
-  font-size: 30px;
-  font-weight: bold;
-  color: #DF7E85;
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: #DF7E85;
 }
 
 .orderSummaryModalCongratulationsImage img {
-  height: 100%;
+    height: 100%;
 }
 
 .orderSummaryModalTextBody, .orderSummaryModalTextFooter {
-  font-family: 'Poppins', sans-serif;
-  padding: 30px;
-  text-align: center;
-  font-size: 20px;
-  color: #3D2115;
+    font-family: 'Poppins', sans-serif;
+    padding: 30px;
+    text-align: center;
+    font-size: 20px;
+    color: #3D2115;
 }
 
 /* Start - Main Page(Additional Info) */
 .carousel {
-  margin: auto;
+    margin: auto;
 }
 
 .carouselItemImage {
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 .carouselItemImage img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 
 }
 /* End - Main Page(Additional Info) */
 
 /* Error Page Start */
 .errorContainer {
-  border-radius:20px; 
-  background:#3D2115; 
-  margin: 0; 
-  position: absolute; 
-  top: 50%; 
-  left: 50%; 
-  transform: translateY(-50%);
-  padding: 20px;
+    border-radius:20px; 
+    background:#3D2115; 
+    margin: 0; 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translateY(-50%);
+    padding: 20px;
 }
 
 .errorMessage {
-  font-size:100px; 
-  color:white; 
-  padding:20px;
+    font-size:100px; 
+    color:white; 
+    padding:20px;
 }
 
 .errorButton {
-  width: 50%;
-  display: block;
-  margin: auto;
-  background-color: #FDFFFC;
-  font-weight: bold;
-  font-family: 'Poppins', sans-serif;
-  border-radius: 50px;
-  font-size:20px; 
-  padding: 10px;
+    width: 50%;
+    display: block;
+    margin: auto;
+    background-color: #FDFFFC;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 50px;
+    font-size:20px; 
+    padding: 10px;
 }
 
 .searchHolder{
@@ -1160,14 +1076,14 @@ input::-webkit-inner-spin-button {
 }
 
 .search-btn {
-  height: 45px;
-  width: 45px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  height: 100%;
-  border-left: 1px solid black;
+    height: 45px;
+    width: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    height: 100%;
+    border-left: 1px solid black;
 }
 
 .search-btn:hover, .search-btn img{
@@ -1175,19 +1091,19 @@ input::-webkit-inner-spin-button {
 }
 
 .search-btn img{
-  border: none;
+    border: none;
 }
 
 .searchButton {
-  border: none;
+    border: none;
 }
 
 .searchButton:focus {
-  border: none;
-  outline: none;
+    border: none;
+    outline: none;
 }
 
 .searchButton img{
-  height: 20px;
-  width: 20px;
+    height: 20px;
+    width: 20px;
 }

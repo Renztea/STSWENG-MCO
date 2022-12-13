@@ -468,13 +468,13 @@
 			var formData = new FormData(document.getElementById('addProductForm')); // All data of the input fields after clicking the add button.
 			$.ajax({ // Calls back-end verification to check if the inputted values are valid
 				type: "POST",
-            	enctype: 'multipart/form-data',
-           		url: "/addCake",
-            	data: formData,
-            	processData: false,
-            	contentType: false,
-            	cache: false,
-            	timeout: 600000,
+				enctype: 'multipart/form-data',
+				url: "/addCake",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				timeout: 600000,
 			}).done(function(result) {
 			
 				// Resets all the fields to remove the existing errors before checking again.
@@ -560,7 +560,7 @@
 				$.get('/deleteProduct', {name: productName, image: productImage, type: productType}, function(result) {
 					if (numberofProducts == 0) {
 						const params = new Proxy(new URLSearchParams(window.location.search), {
-  								get: (searchParams, prop) => searchParams.get(prop),
+							get: (searchParams, prop) => searchParams.get(prop),
 						});
 						let value = params.pagenumber; 
 						if (typeof value === 'undefined' || parseInt(value) < 1) {

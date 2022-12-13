@@ -58,10 +58,10 @@ exports.login = async (req, res) => {
 // Clear the cookie of admin
 exports.logoutUser = (req, res) => {
     if (req.session.username) {
-      req.session.destroy(() => {
-        res.clearCookie('connect.sid');
-        res.redirect('/admin');
-      });
+        req.session.destroy(() => {
+            res.clearCookie('connect.sid');
+            res.redirect('/admin');
+        });
     }
 };
 

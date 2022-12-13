@@ -298,7 +298,6 @@ const controller = {
 
     // Renders the admin view of the about page
     getAdminAboutPage: function(req, res) {
-
         res.render('aboutPage', {adminView: true})
     },
 
