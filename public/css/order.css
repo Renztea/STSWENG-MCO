@@ -125,14 +125,25 @@
 
 .orderViewModalBuyerInfo {
   padding: 20px;
+  font-weight: bold;
+  border-color: #3D2115;
+}
+
+.orderModalInfo {
+  font-family: 'Poppins', sans-serif;
+  color: #3D2115;
 }
 
 .orderModalProductContainer {
   padding-top: 20px;
+  font-family: 'Poppins', sans-serif;
+  color: #3D2115;
 }
 
 .orderModalFieldSet {
   padding: 20px;
+  font-weight: bold;
+  border-color: #3D2115;
 }
 
 .orderModalTable {
