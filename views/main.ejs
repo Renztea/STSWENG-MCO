@@ -18,7 +18,7 @@
         <div class="header">
             <%- include("partials/logo") %>
             <div class="menu">
-			    <%- include("partials/menubuttons") %>
+                <%- include("partials/menubuttons") %>
             </div>
         </div>
 
@@ -56,6 +56,7 @@
     </body>
 
     <script>
+        // Redirects to the products page when a product is clicked.
         $('.productBoxCarousel').click(function() {
             var productID = $(this).find('.displayProductID').text()
             var productType = $(this).find('.displayProductType').text()

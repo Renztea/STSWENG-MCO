@@ -3,23 +3,22 @@ body {
     font-family: "Inter", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-  
-  .keen-slider__slide {
+}
+
+.keen-slider__slide {
     font-size: 30px;
-    height: 100%; /**/
-    /* removed margin-top: 10px; */
-  }
-  
-  .keen-slider__slide {
+    height: 100%; 
+}
+
+.keen-slider__slide {
     cursor: pointer;
-  }
-  
-  .keen-slider__slide.active {
+}
+
+.keen-slider__slide.active {
     border: 2px dashed black;
-  }
-  
-  .soloCarouselBtn, .multiCarouselBtn {
+}
+
+.soloCarouselBtn, .multiCarouselBtn {
     position: absolute;
     top: 50%;
     left: 0%;
@@ -38,31 +37,31 @@ body {
     font-size: 20px;
     user-select: none;
     border-radius: 50%;
-  }
-  
-  .soloCarousel, .multiCarousel {
+}
+
+.soloCarousel, .multiCarousel {
     position: relative;
-  }
-  
-  .soloCarousel {
+}
+
+.soloCarousel {
     height: 200px;
-  }
-  
-  .multiCarousel {
+}
+
+.multiCarousel {
     margin-top: 30px;
     height: 300px;
-  }
-  
-  .soloCarouselPrev, .multiCarouselPrev {
+}
+
+.soloCarouselPrev, .multiCarouselPrev {
     left: 10px;
-  }
-  
-  .soloCarouselNext, .multiCarouselNext {
+}
+
+.soloCarouselNext, .multiCarouselNext {
     left: auto;
     right: 10px;
-  }
-  
-  .adjust {
+}
+
+.adjust {
     height: 100%; /**/
     box-sizing: border-box;
-  }
+}

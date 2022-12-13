@@ -13,15 +13,15 @@
 		<div class="header">
             <%- include("partials/logo") %>
             <div class="menu">
-			    <%- include("partials/menubuttons") %>
+				<% if (adminView) { %> 
+					<%- include("partials/menuButtonsAdminView") %>
+				<% } else { %> 
+					<%- include("partials/menubuttons") %>
+				<% } %>
             </div>
         </div>
 		
 		<div class="aboutBox">
-			<!--<div class="buttonHolder">
-				<button type="submit" class="Edit3" id="edit3">Edit Page</button>
-			</div>-->
-			
 			<div class="aboutHeader">
 				<h1>About Gina</h1>
 			</div>

@@ -26,6 +26,7 @@ app.get('/deleteSession', isPublic, controller.deleteCustomerSession) // Deletes
 // Admin pages
 app.get('/admin', isPublic, controller.getAdminPage) // Renders the login page
 app.get('/admin/:type', isPrivate, controller.adminProductPage) // Renders the product pages depending on the type
+app.get('/admin/about/view', isPrivate, controller.getAdminAboutPage) // Renders the admin about page
 app.get('/admin/orders/:category', isPrivate, controller.getOrdersPage) // Renders the current pending orders of customers 
 app.get('/getOrdersView', isPrivate, controller.getOrdersView) // Get information about a specific product in the database
 app.get('/deleteProduct', isPrivate, controller.deleteProduct) // Deletes a product from the database
