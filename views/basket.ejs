@@ -173,35 +173,16 @@
                 let productItemList = <%- JSON.stringify(productItemList) %>;
         
                 const progressSteps = document.querySelectorAll('.progressStep');
-                const progressStepsImage = document.querySelectorAll('.progressStep img');
                 const progress = document.querySelector('.progress');
-                const menuBtnList = document.querySelectorAll('.menuBtn');
                 var haveItem = basketItemCount()
-
-                menuBtnList.forEach(function(menuBtn) {
-                    if (menuBtn.classList.contains('activeMenuBtn')) {
-                        menuBtn.classList.remove('activeMenuBtn')
-                    }
-                })
 
                 $('#basketBtn').find('img').attr('src', '/images/BrownCart.png')
                 $('#basketBtn').addClass('activeMenuBtn')
 
-                progressSteps.forEach(function(progressSteps) {
-                    if (progressSteps.classList.contains('progressStepActive')) {
-                        progressSteps.classList.remove('progressStepActive')
-                    }
-                })
-
                 if (haveItem) {
                     progressSteps[0].classList.add('progressStepActive')
                     $('#progressImage1').find('img').attr('src', '/images/BrownCart.png')
-                } else {
-                    $('#progressImage1').find('img').attr('src', '/images/GrayCart.png')
                 }
-
-                $('#progressImage2').find('img').attr('src', '/images/GrayForm.png')
-                $('#progressImage3').find('img').attr('src', '/images/GrayCheck.png')
 
                 const progressActive = document.querySelectorAll('.progressStepActive');
 

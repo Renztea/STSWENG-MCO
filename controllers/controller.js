@@ -1137,6 +1137,7 @@ const controller = {
         
         if(errors.isEmpty()){
             req.session.information = req.query
+            req.session.information.pickupDate = new Date(req.query.pickupDate).getMonth()+1 + "-" + new Date(req.query.pickupDate).getDate() + "-" + new Date(req.query.pickupDate).getFullYear()
             res.send("Success")
         }
         else {

@@ -97,7 +97,7 @@
                                     </tr>
                                     <%_ if (productItem.type != 'cookie' && !productItem.cakeNumber) { _%>
                                     <tr>
-                                        <td>Flavor: <%= productItem.flavor %></td>
+                                        <td>Flavor: <span class="updateFormat"><%= productItem.flavor %></span></td>
                                     </tr>
                                     <%_ } _%>
                                     <%_ if (productItem.type == 'cake' && !productItem.cakeNumber) { _%>
@@ -112,7 +112,7 @@
                                         <%_ } _%>
                                     <%_ if (productItem.type == 'cupcake') { _%>
                                     <tr>
-                                        <td>Frosting: <%= productItem.frosting %></td>
+                                        <td>Frosting: <span class="updateFormat"><%= productItem.frosting %></span></td>
                                     </tr>
                                     <%_ } _%>
                                     <%_ if (productItem.type != 'cake') { _%>
@@ -185,11 +185,7 @@
             $(document).ready(function() {   
                 const progressSteps = document.querySelectorAll('.progressStep');
                 const progress = document.querySelector('.progress');
-                progressSteps.forEach(function(progressSteps) {
-                        if (progressSteps.classList.contains('progressStepActive')) {
-                            progressSteps.classList.remove('progressStepActive')
-                        }
-                    })
+
                 progressSteps[0].classList.add('progressStepActive')
                 progressSteps[1].classList.add('progressStepActive')
                 progressSteps[2].classList.add('progressStepActive')
@@ -202,6 +198,22 @@
                 progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1) * 100 + "%");
 
                 document.querySelector('.orderSummaryModalBackground').style.display = 'none';
+
+                function updateFormat() {
+                    var updateFormatList = document.querySelectorAll('.updateFormat')
+
+                    updateFormatList.forEach(function(updateFormat) {
+                        if (updateFormat.innerText != '') {
+                            if (updateFormat.innerText != 'redVelvet') {
+                                updateFormat.innerText = updateFormat.innerText.charAt(0).toUpperCase() + updateFormat.innerText.slice(1)
+                            } else {
+                                updateFormat.innerText = "Red Velvet"
+                            }
+                        }
+                    })
+                }
+
+                updateFormat()
 
                 $('.orderBasketSubmit').click(function() {
                     var formData = new FormData(document.getElementById('summaryForm'));

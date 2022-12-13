@@ -77,7 +77,7 @@
                     <div class="orderInfoGroup">
                         <div class="orderBtn">
                             <button class="orderCancel" type="button" id="cancel">RETURN</button>
-                            <button class ="orderSubmit" type="button" id="order">ORDER</button>
+                            <button class="orderSubmit" type="button" id="order">ORDER</button>
                         </div>
                     </div>
                 </form>
@@ -88,17 +88,11 @@
         $( document ).ready(function() {
             const progressSteps = document.querySelectorAll('.progressStep');
             const progress = document.querySelector('.progress');
-            progressSteps.forEach(function(progressSteps) {
-                    if (progressSteps.classList.contains('progressStepActive')) {
-                        progressSteps.classList.remove('progressStepActive')
-                    }
-                })
 
             progressSteps[0].classList.add('progressStepActive')
             progressSteps[1].classList.add('progressStepActive')
             $('#progressImage1').find('img').attr('src', '/images/BrownCart.png')
             $('#progressImage2').find('img').attr('src', '/images/BrownForm.png')
-            $('#progressImage3').find('img').attr('src', '/images/GrayCheck.png')
 
             const progressActive = document.querySelectorAll('.progressStepActive');
 
