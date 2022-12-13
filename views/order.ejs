@@ -194,26 +194,15 @@
     <script>
         $(document).ready(function() {
 
-            // Changes the color of the categories on top of the orders table depending on the current page
-            function activePage() {
-                var pageType = $('input[type=hidden]').val()
-                var orderNavigationList = document.querySelectorAll('.orderNavigationItem')
+            function updateFormat() {
+                var updateFormatList = document.querySelectorAll('td[data-label=Status]')
 
-                menuBtnList.forEach(function(menuBtn) {
-                    if (menuBtn.classList.contains('activeMenuBtn')) {
-                        menuBtn.classList.remove('activeMenuBtn')
-                    }
+                updateFormatList.forEach(function(updateFormat) {
+                    updateFormat.innerText = updateFormat.innerText.toUpperCase()
                 })
-
-                if (pageType == 'cake') {
-                menuBtnList[0].classList.add('activeMenuBtn')
-                } else if (pageType == 'cupcake') {
-                menuBtnList[1].classList.add('activeMenuBtn')
-                } else if (pageType == 'cookie') {
-                menuBtnList[2].classList.add('activeMenuBtn')
-                }
             }
 
+            updateFormat()
             // Shows all the information that is connected to clicked order
             $(".orderViewBtn").click(function() {
                 var orderID = $(this).attr("data")
@@ -243,6 +232,7 @@
                         var flavor = ""
                         var size = ""
                         var frosting = ""
+                        var status = ""
 
                         if (order.flavor == "vanilla") {
                             flavor = "Vanilla"
