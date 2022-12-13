@@ -29,7 +29,7 @@ function randomizer (currentProducts) {
 }
 
 // Sends the email to the customer after they check out
-function sendEmail (orderDetails, customerName, totalPrice) {
+function sendEmail (orderDetails, customerName, totalPrice, email) {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -44,8 +44,8 @@ function sendEmail (orderDetails, customerName, totalPrice) {
         } else {
             var mainOptions = {
                 from: 'marcbaura@gmail.com',
-                to: 'marc_baura@dlsu.edu.ph',
-                subject: 'Cart Email Testing',
+                to: email,
+                subject: 'G-Cakes Order Information',
                 html: data,
                 attachments: [{
                     filename: 'BPI.png',
@@ -1192,7 +1192,7 @@ const controller = {
             })
             
             console.log(payByDate)
-            sendEmail(req.session.orders, name, price)
+            sendEmail(req.session.orders, name, price, email)
             res.send('Success')
         } catch (err) {
             console.log(err)
