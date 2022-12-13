@@ -436,7 +436,7 @@ $(document).ready(function() {
             design: $('#displayProductDesign').val() || "",
             type: $(this).val()
           }, function(result) {
-            alert(result);
+            //alert(result);
             $('.modalContentStatusText').text("Add to Cart Success!")
             document.querySelector('.modalBackgroundStatus').style.display = 'flex';
             document.querySelector('.mainBackground').style.overflow = 'hidden';  
