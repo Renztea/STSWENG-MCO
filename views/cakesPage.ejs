@@ -432,6 +432,7 @@
 					editModal.find("[name='productPricesChocolate1']").val(result.chocolate6x5Price)
 					editModal.find("[name='productPricesChocolate2']").val(result.chocolate8x5Price)
 					editModal.find("[name='productNumberCake']").prop('checked', false)
+					$('#editcakeModal .inputCheckbox').trigger('change')
 					if (result.dedication == true) {
 						editModal.find("[name='productDedication']").prop('checked', true)
 					} else {
