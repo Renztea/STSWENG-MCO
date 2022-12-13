@@ -372,6 +372,36 @@ a {
     transform: rotate(45deg);
     cursor: pointer;
 }
+/* End - Product Modal Popup CSS */
+
+/* Start - Product Modal Status */
+.modalBackgroundStatus {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContentStatus {
+    padding: 40px 20px 20px 20px;
+    background-color: #EBD8DB;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalContentStatusText {
+    color: #3D2115;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}
+/* End - Product Modal Status */
 
 .orderForm {
     justify-content: center;
