@@ -13,7 +13,11 @@
 		<div class="header">
             <%- include("partials/logo") %>
             <div class="menu">
-			    <%- include("partials/menubuttons") %>
+				<% if (adminView) { %> 
+					<%- include("partials/menuButtonsAdminView") %>
+				<% } else { %> 
+			    	<%- include("partials/menubuttons") %>
+				<% } %>
             </div>
         </div>
 		

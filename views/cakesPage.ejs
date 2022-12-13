@@ -19,7 +19,7 @@
 				<button class="menuBtn" style="background-color:#DF7E85;">CAKES</button>
 				<a href="/admin/cupcake"><button class="menuBtn">CUPCAKES</button></a>
 				<a href="/admin/cookie"><button class="menuBtn">DECORATED COOKIES</button></a>
-				<a href="#"><button class="menuBtn">ABOUT</button></a>
+				<a href="/admin/about/view"><button class="menuBtn">ABOUT</button></a>
 				<a href="/admin/orders/all"><button class="menuBtn">ORDERS</button></a>
 				<a href="/logout"><button class="logoutBtn">LOGOUT</button></a>
 			</div>
@@ -419,6 +419,7 @@
 			editModal.find('.inputNum').css('margin-top', '0px')
 			var productName = border.children('#displayProductName').text()
 			var productType = window.location.pathname.split("/").pop()
+			// Uses ajax to retrieve the clicked product's information for the edit modal
 			$.get('/getProductInfo', {name: productName, type: productType}, function(result) {
 				editModal.find("[name='productName']").val(result.name)
 				editModal.find(".productID").val(result._id)

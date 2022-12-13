@@ -30,6 +30,8 @@ function randomizer (currentProducts) {
 
 // Sends the email to the customer after they check out
 function sendEmail (orderDetails, customerName, totalPrice, email) {
+
+    // Information about the email service used and the sender's account details.
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -38,11 +40,14 @@ function sendEmail (orderDetails, customerName, totalPrice, email) {
         }
     });
 
+    // Uses ejs to plot important information about the buyer and their orders on the html template and then sends it.
     ejs.renderFile("./views/messageTemplate.ejs", { customerName: customerName, orderDetails: orderDetails, totalPrice, totalPrice}, function (err, data) {
         if (err) {
             console.log(err);
         } else {
-            var mainOptions = {// The details the email is sent from and to
+
+            // All of the details needed for the email.
+            var mainOptions = {
                 from: 'marcbaura@gmail.com',
                 to: email,
                 subject: 'G-Cakes Order Information',
@@ -57,7 +62,8 @@ function sendEmail (orderDetails, customerName, totalPrice, email) {
                     cid: 'GCASH' 
                 },]
             };
-
+            
+            // Sends the email 
             transporter.sendMail(mainOptions, function (err, info) {
                 if (err) {
                     console.log(err);
@@ -69,7 +75,8 @@ function sendEmail (orderDetails, customerName, totalPrice, email) {
     });
 }
 
-function generateDate(date) { // Fix the date format, returns Month-Day-Year
+// Fix the date format, returns it with a format of Month-Day-Year (Example: 12-20-2022)
+function generateDate(date) { 
     var parseDate = ""
 
     if (date.getMonth() + 1 < 10) {
@@ -87,7 +94,8 @@ function generateDate(date) { // Fix the date format, returns Month-Day-Year
     return parseDate
 }
 
-async function afterSevenDays () { // Find the unpaid order and store inside an Array orderList, returns the array orderList
+// Finds all the unpaid orders that are already past 7 days, returns the array orderList
+async function afterSevenDays () { 
     var orderList = []
     var currentDate = new Date()
     var unCancelledOrders = await Order.find({'status': 'unpaid'})
@@ -109,23 +117,28 @@ async function afterSevenDays () { // Find the unpaid order and store inside an 
 }
 
 const controller = {
-    // Getting the order from the database and display it
+
+    // Getting all the orders from the database and renders the orders page
     getOrdersPage: async function(req, res) {
         var pagenumber = req.query.pagenumber
         var category = req.params.category
         var previewOrders
         var orderCount
         
-        var orderList = await afterSevenDays() // Check if there are order which are unpaid and 7 days ago
+        // Calls the afterSevenDays function that returns the list of unpaid values
+        var orderList = await afterSevenDays() 
 
-        while(orderList.length > 0){ // Updates the order which are unpaid and 7 days ago
+        // Updates the status of the unpaid orders that are already past 7 days to cancelled
+        while(orderList.length > 0){ 
             await Order.updateOne({orderID: orderList.pop()}, {status: 'cancelled'})
         }
 
-        // default page value when no url query was initialized.
+        // Default page value when no url query was initialized.
         if (typeof pagenumber === 'undefined') {
             pagenumber = 1
         } 
+
+        // Finds the orders depending on the status placed on the url query 
         if (category == 'all') {
             previewOrders = await Order.find({}).limit(6).skip(6 * (pagenumber - 1))
             orderCount = await Order.find({}).count()
@@ -134,11 +147,13 @@ const controller = {
             orderCount = await Order.find({"status": category}).count()
         }
 
+        // Counts the number of pages needed for the page
         var numberofPages = parseInt(orderCount / 6)
         if (orderCount % 6 != 0 || orderCount == 0) {
             numberofPages++
         }
 
+        // Renders the orders page
         previewOrders["category"] = category
         if (pagenumber <= numberofPages && pagenumber != 0 && pagenumber > 0) {
             res.render('order', {orderList: previewOrders, numberofPages: numberofPages , currentPage: pagenumber})
@@ -182,9 +197,9 @@ const controller = {
         res.render('main', {display: products, types: types})
     },
 
-    // Display the aboutPage.ejs
+    // Display the customer view of aboutPage.ejs
     getAboutPage: function(req, res) {
-        res.render('aboutPage')
+        res.render('aboutPage', {adminView: false})
     },
 
     // Display the login.ejs
@@ -253,7 +268,7 @@ const controller = {
         res.render('products', {preview: productPreview, type: productType})
     },
 
-    // Retreive the product from the database then sends it
+    // Retrieve the product from the database then sends it
     getProductInfo: async function(req, res) {
         var name = req.query.name
         var type = req.query.type
@@ -281,7 +296,13 @@ const controller = {
         res.send(productInfo)
     },
 
-    // Search the name of the product in the database
+    // Renders the admin view of the about page
+    getAdminAboutPage: function(req, res) {
+
+        res.render('aboutPage', {adminView: true})
+    },
+
+    // Search if there are products that contains the inputted string, if yes then display these products
     searchProduct: async function(req, res) {
         var search = req.body.searchBarInput
         var type = req.body.searchProductType
@@ -328,8 +349,6 @@ const controller = {
     adminProductPage: async function (req, res) {
         var productType = req.params.type
         var pagenumber = req.query.pagenumber
-
-        //console.log(productType)
 
         // default page value when no url query was initialized.
         if (typeof pagenumber === 'undefined') {
@@ -399,7 +418,7 @@ const controller = {
         }
     },
 
-    // Creates a new cakes then adding it to the database
+    // Adds a new cake product into the database
     addCake: async function(req, res) {
 
         const errors = validationResult(req)
@@ -416,11 +435,11 @@ const controller = {
             var numberCake = productInfo.productNumberCake
             var numberCakePrice = productInfo.productPricesNumberCake
             
-            // when checkbox isn't checked
+            // when the number cake checkbox isn't checked, immediately make it false
             if (typeof numberCake === 'undefined') {
                 numberCake = false
             }
-            // when checkbox isn't checked
+            // when dedication checkbox isn't checked, immediately make it false
             if (typeof dedication === 'undefined') {
                 dedication = false
             }
@@ -472,6 +491,8 @@ const controller = {
 
         var validNewImage = true
 
+        // Check if the image is a valid file type
+        // Placed here since express validator does not allow empty inputs and our admin has the choice to not input a new image
         if (req.files) {
             var testing = req.files.filename.mimetype
             var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
@@ -479,7 +500,8 @@ const controller = {
                 validNewImage = false
             }
         } 
-
+        
+        // Checks if the new name inputted for the cake is already in use.
         var productID = req.body.productID
         var nameExists = await Cake.findOne({name: (req.body.productName).trim()})
         var pastInfo = await Cake.findOne({_id: productID})
@@ -488,6 +510,7 @@ const controller = {
             newNameisValid = false
         }
 
+        // Edits the cake when the new name and image type is valid, else throw an error
         if (errors.isEmpty() && newNameisValid && validNewImage) {
             var productName = (req.body.productName).trim()
             var productVanilla6x5price = req.body.productPricesVanilla1
@@ -579,8 +602,11 @@ const controller = {
     addCupcake: async function(req, res) {
 
         const errors = validationResult(req)
+        
+        // Checks if the inputted new cupcake name is currently in use in the database
         const nameExists = await Cupcake.findOne({name: (req.body.productName).trim()})
 
+        // Adds the cupcake when all inputted values are valid.
         if (errors.isEmpty() && !nameExists) {
             var productName = (req.body.productName).trim()
             var productVanilla1 = req.body.productPricesVanilla1
@@ -637,6 +663,8 @@ const controller = {
 
         var validNewImage = true
 
+        // Check if the image is a valid file type
+        // Placed here since express validator does not allow empty inputs and our admin has the choice to not input a new image
         if (req.files) {
             var testing = req.files.filename.mimetype
             var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
@@ -645,6 +673,7 @@ const controller = {
             }
         } 
 
+        // Checks if the new name inputted for the cupcake is already in use.
         var productID = req.body.productID
         var nameExists = await Cupcake.findOne({name: (req.body.productName).trim()})
         var pastInfo = await Cupcake.findOne({_id: productID})
@@ -653,6 +682,7 @@ const controller = {
             newNameisValid = false
         }
 
+        // Edits the cupcake the new name and image type is valid, else throw an error
         if (errors.isEmpty() && newNameisValid && validNewImage) {
             var productName = (req.body.productName).trim()
             var productVanilla1 = req.body.productPricesVanilla1
@@ -725,8 +755,11 @@ const controller = {
     // Creates a new cookies then adding it to the database
     addCookie: async function(req, res) {
         const errors = validationResult(req)
+
+        // Checks if the inputted new cookie name is currently in use in the database
         const nameExists = await Cookie.findOne({name: (req.body.productName).trim()})
 
+        // Adds the cookie when all inputted values are valid.
         if (errors.isEmpty() && !nameExists) {
             var productName = (req.body.productName).trim()
             var productPrices = req.body.productPrices
@@ -771,7 +804,8 @@ const controller = {
         const errors = validationResult(req)
 
         var validNewImage = true
-
+        // Check if the image is a valid file type
+        // Placed here since express validator does not allow empty inputs and our admin has the choice to not input a new image
         if (req.files) {
             var testing = req.files.filename.mimetype
             var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
@@ -780,6 +814,7 @@ const controller = {
             }
         } 
 
+        // Checks if the new name inputted for the cookie is already in use.
         var productID = req.body.productID
         var nameExists = await Cookie.findOne({name: (req.body.productName).trim()})
         var pastInfo = await Cookie.findOne({_id: productID})
@@ -788,6 +823,7 @@ const controller = {
             newNameisValid = false
         }
 
+        // Edits the cookie when the new name and image type is valid, else throw an error
         if (errors.isEmpty() && newNameisValid && validNewImage) {
             var productName = (req.body.productName).trim()
             var productPrices = req.body.productPrices
@@ -842,7 +878,7 @@ const controller = {
         }
     },
 
-    // Finding the product in the database then deletes it from the database
+    // Finds the product in the database then deletes it from the database
     deleteProduct: async function(req, res) {
         var name = (req.query.name).trim()
         var image = ('./public' + req.query.image)
@@ -908,8 +944,8 @@ const controller = {
                         "design": req.body.design,
                         "type": req.body.type};
 
-       
-            for (const item of req.session.orders) { // Checks if the new item being added to the basket is already available   
+            // Checks if the new item being added to the basket is already available 
+            for (const item of req.session.orders) {   
                 if (item.name == productInfo.name &&
                     item.image == productInfo.image &&
                     item.price == productInfo.price &&
@@ -1052,7 +1088,7 @@ const controller = {
         res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
     },
 
-    // Update the total price of item whenever the basket is updated
+    // Update the total price of all the products whenever the basket is updated
     updateBasketItem: function(req, res) {
         if (req.session.orders) {
             var totalPrice = 0
@@ -1075,7 +1111,7 @@ const controller = {
         }
     },
 
-    // Find the order that is being remove then removes it
+    // Find the order that was clicked to be removed and then removes it
     removeBasketItem: function(req, res) {
         //console.log("Start: ", req.session.orders)
         if(req.session.orders) {
@@ -1163,7 +1199,7 @@ const controller = {
         }
     },
 
-    // Creates a new order then adding it to the database
+    // Creates a new order then adds it to the database
     postOrderComplete: function(req, res) {
         var date = new Date()
         var name = req.session.information.name
@@ -1178,12 +1214,14 @@ const controller = {
         var payByDate = ""
         var price = 0
 
+        // Solves the total price of all the products ordered by the customer
         if(req.session.orders) {
             for (const item of req.session.orders) {                   
                 price = price + (parseInt(item.price) * parseInt(item.quantity))
             }
         }
         
+        // converts the date's format by calling the generateDate function
         var orderID = req.session.information.orderID
         orderDate = generateDate(date)
         payByTemp.setDate(date.getDate() + 7)
@@ -1212,6 +1250,8 @@ const controller = {
             })
             
             console.log(payByDate)
+
+            // Sends the an email to the customer by calling the sendEmail function
             sendEmail(req.session.orders, name, price, email)
             res.send('Success')
         } catch (err) {
@@ -1220,7 +1260,7 @@ const controller = {
         }
     },
 
-    // Clearing the session of the customer
+    // Clearing the session of the customer after they checked out
     deleteCustomerSession: function(req, res) {
         req.session.destroy(() => { // deletes the customer's session to allow for new orders
             res.clearCookie('connect.sid');
@@ -1236,7 +1276,7 @@ const controller = {
         res.send(orders)
     },
 
-    // Find the order in the database then updating it's status
+    // Find the order in the database then updates its status
     updateOrderStatus: async function(req, res) {
 
         var orderID = req.query.orderID
@@ -1254,7 +1294,7 @@ const controller = {
         }
     },
     
-    // Find the order in the database then undoing it's status
+    // Find the order in the database then undoes its status
     undoOrderStatus: async function(req, res) {
         var orderID = req.query.orderID
 
