@@ -25,6 +25,7 @@ exports.register = async (req, res) => {
 };
 */
 
+// Find the admin username and password in the database and compare if it is the same with the input, if yes, redirect to admin.ejs
 exports.login = async (req, res) => {
 
     const errors = validationResult(req)
@@ -54,6 +55,7 @@ exports.login = async (req, res) => {
     }
 }
 
+// Clear the cookie of admin
 exports.logoutUser = (req, res) => {
     if (req.session.username) {
       req.session.destroy(() => {

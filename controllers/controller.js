@@ -42,7 +42,7 @@ function sendEmail (orderDetails, customerName, totalPrice, email) {
         if (err) {
             console.log(err);
         } else {
-            var mainOptions = {
+            var mainOptions = {// The details the email is sent from and to
                 from: 'marcbaura@gmail.com',
                 to: email,
                 subject: 'G-Cakes Order Information',
@@ -69,7 +69,7 @@ function sendEmail (orderDetails, customerName, totalPrice, email) {
     });
 }
 
-function generateDate(date) {
+function generateDate(date) { // Fix the date format, returns Month-Day-Year
     var parseDate = ""
 
     if (date.getMonth() + 1 < 10) {
@@ -87,7 +87,7 @@ function generateDate(date) {
     return parseDate
 }
 
-async function afterSevenDays () {
+async function afterSevenDays () { // Find the unpaid order and store inside an Array orderList, returns the array orderList
     var orderList = []
     var currentDate = new Date()
     var unCancelledOrders = await Order.find({'status': 'unpaid'})
@@ -109,16 +109,16 @@ async function afterSevenDays () {
 }
 
 const controller = {
-
+    // Getting the order from the database and display it
     getOrdersPage: async function(req, res) {
         var pagenumber = req.query.pagenumber
         var category = req.params.category
         var previewOrders
         var orderCount
         
-        var orderList = await afterSevenDays()
+        var orderList = await afterSevenDays() // Check if there are order which are unpaid and 7 days ago
 
-        while(orderList.length > 0){
+        while(orderList.length > 0){ // Updates the order which are unpaid and 7 days ago
             await Order.updateOne({orderID: orderList.pop()}, {status: 'cancelled'})
         }
 
@@ -182,18 +182,22 @@ const controller = {
         res.render('main', {display: products, types: types})
     },
 
+    // Display the aboutPage.ejs
     getAboutPage: function(req, res) {
         res.render('aboutPage')
     },
 
+    // Display the login.ejs
     getAdminPage: function(req, res) {
         res.render('login')
     },
 
+    // Display the errorPage.ejs
     getErrorPage: function(req, res) {
         res.render('errorPage')
     },
 
+    // Display the orderInformation.ejs if orders is empty redirect to basket
     getOrderInformationPage: function(req, res) {
         if (req.session.orders == '' || !(req.session.orders)) {
             res.redirect('basket')
@@ -203,6 +207,7 @@ const controller = {
         }
     },
 
+    // Display the corresponding product type in the product page
     getProductPage: async function(req, res) {
         var productType = req.params.type
         if (productType == 'cake') {
@@ -248,6 +253,7 @@ const controller = {
         res.render('products', {preview: productPreview, type: productType})
     },
 
+    // Retreive the product from the database then sends it
     getProductInfo: async function(req, res) {
         var name = req.query.name
         var type = req.query.type
@@ -275,6 +281,7 @@ const controller = {
         res.send(productInfo)
     },
 
+    // Search the name of the product in the database
     searchProduct: async function(req, res) {
         var search = req.body.searchBarInput
         var type = req.body.searchProductType
@@ -317,6 +324,7 @@ const controller = {
         }
     },
 
+    // Display the corresponding product type in the admin product page
     adminProductPage: async function (req, res) {
         var productType = req.params.type
         var pagenumber = req.query.pagenumber
@@ -391,6 +399,7 @@ const controller = {
         }
     },
 
+    // Creates a new cakes then adding it to the database
     addCake: async function(req, res) {
 
         const errors = validationResult(req)
@@ -456,6 +465,7 @@ const controller = {
         }
     },
         
+    // Finding the cakes in the database then updating the values of it
     editCake: async function(req, res) {
 
         const errors = validationResult(req)
@@ -565,6 +575,7 @@ const controller = {
         }
     },
 
+    // Creates a new cupcakes then adding it to the database
     addCupcake: async function(req, res) {
 
         const errors = validationResult(req)
@@ -619,6 +630,7 @@ const controller = {
         
     },
 
+    // Finding the cupcakes in the database then updating the values of it
     editCupcake: async function(req, res) {
 
         const errors = validationResult(req)
@@ -710,6 +722,7 @@ const controller = {
         }
     },
 
+    // Creates a new cookies then adding it to the database
     addCookie: async function(req, res) {
         const errors = validationResult(req)
         const nameExists = await Cookie.findOne({name: (req.body.productName).trim()})
@@ -753,6 +766,7 @@ const controller = {
         
     },
 
+    // Finding the cookies in the database then updating the values of it
     editCookie: async function(req, res) {
         const errors = validationResult(req)
 
@@ -828,6 +842,7 @@ const controller = {
         }
     },
 
+    // Finding the product in the database then deletes it from the database
     deleteProduct: async function(req, res) {
         var name = (req.query.name).trim()
         var image = ('./public' + req.query.image)
@@ -861,8 +876,7 @@ const controller = {
         }
     },
 
-    
-
+    // Adding the basket items to the order array in the sessions
     postBasketItem: async function(req, res) {
         var itemLength = 0;
         var lastItemNumber = "1";
@@ -923,6 +937,7 @@ const controller = {
         res.send("Success")
     },
 
+    // Display the basket item for the basket.ejs (also checks for backend updates)
     getBasketItem: async function(req, res) {
         var basketItemList = []
         var totalPrice = 0
@@ -1037,6 +1052,7 @@ const controller = {
         res.render('basket', {basketItemList: basketItemList, productItemList: req.session.orders, totalPrice: totalPrice})
     },
 
+    // Update the total price of item whenever the basket is updated
     updateBasketItem: function(req, res) {
         if (req.session.orders) {
             var totalPrice = 0
@@ -1059,6 +1075,7 @@ const controller = {
         }
     },
 
+    // Find the order that is being remove then removes it
     removeBasketItem: function(req, res) {
         //console.log("Start: ", req.session.orders)
         if(req.session.orders) {
@@ -1079,6 +1096,7 @@ const controller = {
         res.send(req.body.totalPrice.toString())
     },
 
+    // Error checking for the orderInformation.ejs
     getInformationChecker: async function(req, res) {
         const errors = validationResult(req)
         
@@ -1093,6 +1111,7 @@ const controller = {
         }
     },
 
+    // Display the summary of the orders in the orderSummary page
     getOrderSummary: async function(req, res) {
         var date = new Date()
         var orderID = ""
@@ -1144,6 +1163,7 @@ const controller = {
         }
     },
 
+    // Creates a new order then adding it to the database
     postOrderComplete: function(req, res) {
         var date = new Date()
         var name = req.session.information.name
@@ -1200,6 +1220,7 @@ const controller = {
         }
     },
 
+    // Clearing the session of the customer
     deleteCustomerSession: function(req, res) {
         req.session.destroy(() => { // deletes the customer's session to allow for new orders
             res.clearCookie('connect.sid');
@@ -1207,6 +1228,7 @@ const controller = {
         });
     },
     
+    // Sends the Order requested from the database
     getOrdersView: async function(req, res) {
         var orderID = req.query.orderID
         var orders = await Order.findOne({orderID: orderID});
@@ -1214,6 +1236,7 @@ const controller = {
         res.send(orders)
     },
 
+    // Find the order in the database then updating it's status
     updateOrderStatus: async function(req, res) {
 
         var orderID = req.query.orderID
@@ -1230,7 +1253,8 @@ const controller = {
             res.send('Update Status Failed!!!')
         }
     },
-
+    
+    // Find the order in the database then undoing it's status
     undoOrderStatus: async function(req, res) {
         var orderID = req.query.orderID
 
