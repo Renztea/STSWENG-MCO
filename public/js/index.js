@@ -437,8 +437,23 @@ $(document).ready(function() {
             type: $(this).val()
           }, function(result) {
             alert(result);
-      }).fail(function() {
+            $('.modalContentStatusText').text(result)
+            document.querySelector('.modalBackgroundStatus').style.display = 'flex';
+            document.querySelector('.mainBackground').style.overflow = 'hidden';  
 
+            setTimeout(function() {
+              document.querySelector('.mainBackground').style.overflow = 'auto';  
+              document.querySelector('.modalBackgroundStatus').style.display = 'none';
+            }, 5000)
+      }).fail(function() {
+        $('.modalContentStatusText').text("Fail")
+        document.querySelector('.modalBackgroundStatus').style.display = 'flex';
+        document.querySelector('.mainBackground').style.overflow = 'hidden';  
+
+        setTimeout(function() {
+          document.querySelector('.mainBackground').style.overflow = 'auto';  
+          document.querySelector('.modalBackgroundStatus').style.display = 'none';
+        }, 5000)
       })    
     })
   
