@@ -437,7 +437,7 @@ $(document).ready(function() {
             type: $(this).val()
           }, function(result) {
             alert(result);
-            $('.modalContentStatusText').text(result)
+            $('.modalContentStatusText').text("Add to Cart Success!")
             document.querySelector('.modalBackgroundStatus').style.display = 'flex';
             document.querySelector('.mainBackground').style.overflow = 'hidden';  
 
@@ -446,7 +446,7 @@ $(document).ready(function() {
               document.querySelector('.modalBackgroundStatus').style.display = 'none';
             }, 5000)
       }).fail(function() {
-        $('.modalContentStatusText').text("Fail")
+        $('.modalContentStatusText').text("Add to Cart Fail!")
         document.querySelector('.modalBackgroundStatus').style.display = 'flex';
         document.querySelector('.mainBackground').style.overflow = 'hidden';  
 
