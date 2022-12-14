@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.keen-slider__slide {
+    font-size: 30px;
+    height: 100%; 
+}
+
+.keen-slider__slide {
+    cursor: pointer;
+}
+
+.keen-slider__slide.active {
+    border: 2px dashed black;
+}
+
+.soloCarouselBtn, .multiCarouselBtn {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    vertical-align: middle;
+    align-items: center;
+    cursor: pointer;
+    color: #FFFFFF;
+    background-color: #3D2115;
+    font-size: 20px;
+    user-select: none;
+    border-radius: 50%;
+}
+
+.soloCarousel, .multiCarousel {
+    position: relative;
+}
+
+.soloCarousel {
+    height: 200px;
+}
+
+.multiCarousel {
+    margin-top: 30px;
+    height: 300px;
+}
+
+.soloCarouselPrev, .multiCarouselPrev {
+    left: 10px;
+}
+
+.soloCarouselNext, .multiCarouselNext {
+    left: auto;
+    right: 10px;
+}
+
+.adjust {
+    height: 100%; /**/
+    box-sizing: border-box;
+}

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Basket</title>
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    </head>
+
+    <body class="mainBackground">
+        <div class="header">
+            <%- include("partials/logo") %>
+            <div class="menu">
+                <%- include("partials/menubuttons") %>
+            </div>
+        </div>
+
+        <div class="progressBarContainer">
+            <%- include("partials/progressBar") %>
+        </div>
+
+        <div class="basketContainer">
+            <div class="basketItemContainer">
+                <%_ basketItemList.forEach(function(basketItem, index) { _%>
+                <div class="basketItem" name="<%= productItemList[index].itemNumber %>" data="<%= productItemList[index].type %>" label="<%= index %>">
+                    <div class="basketItemImage">
+                        <img id="image<%= index %>" src="<%= productItemList[index].image %>" placeholder="trial" alt="1">
+                    </div>
+
+                    <div class="basketItemInfo">
+                        <div class="basketNameContainer">
+                            <h2><%= productItemList[index].name %></h2>
+                        </div>
+                        <div class="basketTypeContainer">
+                            <h3>Type of <%= productItemList[index].type %>:</h3>
+                            <%_ if (productItemList[index].type != 'cookie' && !basketItem.numberCake) { _%>
+                            <select class="editFlavor" title="Flavor" id="flavor<%= index %>" name="flavor">  
+                                <!-- Cake -->                              
+                                <%_ if (basketItem.vanilla6x5Price > 0 || basketItem.vanilla8x5Price > 0) { _%>
+                                    <option value="vanilla" <% if (productItemList[index].flavor == "vanilla") { %> selected <% } %>>Vanilla</option>
+                                <%_ } _%>
+                                <%_ if (basketItem.chocolate6x5Price > 0 || basketItem.chocolate8x5Price > 0) { _%>
+                                    <option value="chocolate" <% if (productItemList[index].flavor == "chocolate") { %> selected <% } %>>Chocolate</option>
+                                <%_ } _%>
+                                <!-- Cupcake -->
+                                <%_ if (basketItem.vanillaFondantPrice > 0 || basketItem.vanillaIcingPrice > 0) { _%>
+                                    <option value="vanilla" <% if (productItemList[index].flavor == "vanilla") { %> selected <% } %>>Vanilla</option>
+                                <%_ } _%>
+                                <%_ if (basketItem.chocolateFondantPrice > 0 || basketItem.chocolateIcingPrice > 0) { _%>
+                                    <option value="chocolate" <% if (productItemList[index].flavor == "chocolate") { %> selected <% } %>>Chocolate</option>
+                                <%_ } _%>
+                                <%_ if (basketItem.redvelvetFondantPrice > 0 || basketItem.redvelvetIcingPrice > 0) { _%>
+                                    <option value="redVelvet" <% if (productItemList[index].flavor == "redVelvet") { %> selected <% } %>>Red Velvet</option>
+                                <%_ } _%>
+                            </select>
+                            <%_ } _%>
+
+                            <%_ if (productItemList[index].type == 'cake' && !basketItem.numberCake) { _%>
+                            <select class="editSize" title="Size" id="size<%= index %>" name="size">
+                                <%_ if (productItemList[index].flavor == "vanilla") { _%>
+                                    <%_ if (basketItem.vanilla6x5Price > 0) { _%>
+                                        <option value="6x5" <% if (productItemList[index].size == "6x5") { %> selected <% } %>>6" x 5"</option>
+                                    <%_ } _%>
+                                    <%_ if (basketItem.vanilla8x5Price > 0) { _%>
+                                        <option value="8x5" <% if (productItemList[index].size == "8x5") { %> selected <% } %>>8" x 5"</option>
+                                    <%_ } _%>
+                                <%_ } _%>
+                                <%_ if (productItemList[index].flavor == "chocolate") { _%>
+                                    <%_ if (basketItem.chocolate6x5Price > 0) { _%>
+                                        <option value="6x5" <% if (productItemList[index].size == "6x5") { %> selected <% } %>>6" x 5"</option>
+                                    <%_ } _%>
+                                    <%_ if (basketItem.chocolate8x5Price > 0) { _%>
+                                        <option value="8x5" <% if (productItemList[index].size == "8x5") { %> selected <% } %>>8" x 5"</option>
+                                    <%_ } _%>
+                                <%_ } _%>
+                            </select> 
+                            <%_ } _%>
+
+                            <%_ if (productItemList[index].type == 'cupcake') { _%>
+                            <select id="frosting<%= index %>" class="editFrosting" title="Frosting" name="frosting">
+                                <%_ if (productItemList[index].flavor == "vanilla") { _%>
+                                    <%_ if (basketItem.vanillaFondantPrice > 0) { _%>
+                                        <option value="fondant" <% if (productItemList[index].frosting == "fondant") { %> selected <% } %>>Fondant</option>
+                                    <%_ } _%>
+                                    <%_ if (basketItem.vanillaIcingPrice > 0) { _%>
+                                        <option value="icing" <% if (productItemList[index].frosting == "icing") { %> selected <% } %>>Icing</option>
+                                    <%_ } _%>
+                                <%_ } _%>
+                                <%_ if (productItemList[index].flavor == "chocolate") { _%>
+                                    <%_ if (basketItem.chocolateFondantPrice > 0) { _%>
+                                        <option value="fondant" <% if (productItemList[index].frosting == "fondant") { %> selected <% } %>>Fondant</option>
+                                    <%_ } _%>
+                                    <%_ if (basketItem.chocolateIcingPrice > 0) { _%>
+                                        <option value="icing" <% if (productItemList[index].frosting == "icing") { %> selected <% } %>>Icing</option>
+                                    <%_ } _%>
+                                <%_ } _%>
+                                <%_ if (productItemList[index].flavor == "redVelvet") { _%>
+                                    <%_ if (basketItem.redvelvetFondantPrice > 0) { _%>
+                                        <option value="fondant" <% if (productItemList[index].frosting == "fondant") { %> selected <% } %>>Fondant</option>
+                                    <%_ } _%>
+                                    <%_ if (basketItem.redvelvetIcingPrice > 0) { _%>
+                                        <option value="icing" <% if (productItemList[index].frosting == "icing") { %> selected <% } %>>Icing</option>
+                                    <%_ } _%>
+                                <%_ } _%>
+                            </select>
+                            <%_ } _%>
+
+                            <%_ if (productItemList[index].cakeNumber) { _%>
+                                <select class="editCakeNumber" title="CakeNumber" id="cakeNumber<%= index %>" name="cakeNumber">
+                                        <% for (var i = 0; i < 10; i++) { %>
+                                        <option value="<%= i%>" <% if (productItemList[index].cakeNumber == i) { %> selected <% } %>><%= i %></option>
+                                        <% } %>
+                                </select> 
+                            <%_ } _%>
+
+                            <%_ if (productItemList[index].type != 'cake') { _%>
+                                <select class="editDesignNumber" title="DesignNumber" id="designNumber<%= index %>" name="designNumber">
+                                        <% for (var i = 0; i < 3; i++) { %>
+                                        <option value="<%= i + 1%>" <% if (productItemList[index].designNumber == i + 1) { %> selected <% } %>><%= i + 1 %></option>
+                                        <% } %>
+                                </select> 
+                            <%_ } _%>
+
+                        </div>
+                    </div>
+                    
+                    <div class="basketGroupQuantityNDedication">
+                        <div class="basketItemQuantity">
+                            <div class="basketQuantityContainer">
+                                <span id="decrement<%= index %>" class="incdec basketDecrement">-</span>
+                                <input id="quantity<%= index %>" class="quantity basketQuantity" type="number" value="<%= productItemList[index].quantity %>" min="1" max="100">
+                                <span id="increment<%= index %>" class="incdec basketIncrement">+</span>
+                            </div>
+                        </div>
+                        <%_ if (basketItem.dedication) { _%>
+                        <div class="basketItemDedication">
+                            <textarea id="dedication<%= index %>" class="editDedication" maxlength="100" placeholder="Enter Message..."><%= productItemList[index].dedication %></textarea>
+                        </div>
+                        <%_ } _%>
+
+                        <%_ if (productItemList[index].type != 'cake') { _%>
+                            <div class="basketItemDesign">
+                                <textarea id="design<%= index %>" class="editDesign" maxlength="100" placeholder="Enter Design..."><%= productItemList[index].design %></textarea>
+                            </div>
+                        <%_ } _%>
+                    </div>
+
+                    <div class="basketGroupPriceNRemove">
+                        <div class="basketItemPrice">
+                            <h2>Price: &#8369;<span id="price<%= index %>" data="<%= productItemList[index].price %>"><%= parseInt(productItemList[index].price) * parseInt(productItemList[index].quantity) %></span></h2>
+                        </div>
+                        <div class="basketItemButton">
+                            <button class="removeItem" value="<%= productItemList[index].itemNumber %>">Remove</button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="test" data="<%= productItemList[index] %>"/>
+                </div>
+                <%_ }) _%>
+            </div>
+            <div class="totalPriceContainer">
+                <span class="totalPrice">Total: &#8369;<span id="priceValue"><%= totalPrice %></span></span>
+                <form action="/orderInformation">
+                    <button class="basketSubmit">PROCEED</button>
+                </form>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function() {            
+                let basketItemList = <%- JSON.stringify(basketItemList) %>;
+                let productItemList = <%- JSON.stringify(productItemList) %>;
+        
+                const progressSteps = document.querySelectorAll('.progressStep');
+                const progress = document.querySelector('.progress');
+                var haveItem = basketItemCount()
+
+                $('#basketBtn').find('img').attr('src', '/images/BrownCart.png')
+                $('#basketBtn').addClass('activeMenuBtn')
+
+                if (haveItem) {
+                    progressSteps[0].classList.add('progressStepActive')
+                    $('#progressImage1').find('img').attr('src', '/images/BrownCart.png')
+                }
+
+                const progressActive = document.querySelectorAll('.progressStepActive');
+
+                progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1) * 100 + "%");
+
+                function basketItemCount() {
+                    var basketItemList = document.querySelectorAll('.basketItem')
+                    var basketItemLength = basketItemList.length
+
+                    if (basketItemLength == 0) {
+                        $('.basketSubmit').css('display', 'none')
+                        return false;
+                    } else {
+                        $('.basketSubmit').css('display', 'inline')
+                        return true;
+                    }
+                }
+
+                $('.editFlavor').change(function() {
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+
+                    if (itemType == 'cake') {
+                        updateAvailableBasketCakeSize(itemIndex)
+                        updateBasketCakePrice(itemIndex)
+                    } else if (itemType == 'cupcake') {
+                        updateAvailableBasketCupcakeFrosting(itemIndex)
+                        updateBasketCupcakePrice(itemIndex)
+                    }
+                    //checkUpdate(itemIndex)
+                    updateBasketInfo(itemIndex, itemNumber, itemType)
+                })
+
+                $('.editFrosting').change(function() {
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+
+                    updateBasketCupcakePrice(itemIndex)
+                    //checkUpdate(itemIndex)
+                    updateBasketInfo(itemIndex, itemNumber, itemType)
+                })
+
+                $('.editSize').change(function() {
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+
+                    updateBasketCakePrice(itemIndex)
+                    //checkUpdate(itemIndex)
+                    updateBasketInfo(itemIndex, itemNumber, itemType)
+                })
+
+                $('.editCakeNumber').change(function() {
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+
+                    updateBasketInfo(itemIndex, itemNumber, itemType)
+                }) 
+
+                $('.editDesignNumber').change(function() {
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+
+                    updateBasketInfo(itemIndex, itemNumber, itemType)
+                }) 
+
+                $('.editDedication').change(function() {
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+
+                    updateBasketInfo(itemIndex, itemNumber, itemType)
+                })
+
+                $('.editDesign').change(function() {
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+
+                    updateBasketInfo(itemIndex, itemNumber, itemType)
+                }) 
+
+                function updateAvailableBasketCakeSize(itemIndex) {
+                    var currentFlavor = $('#flavor' + itemIndex).val()
+                    var sizeSelected = $('#size' + itemIndex).val()
+                    var basketItem = basketItemList[itemIndex]
+                    $('#size' + itemIndex).find('option').remove()
+                    if (currentFlavor == "vanilla") {
+                        if (basketItem.vanilla6x5Price > 0) {
+                            $('#size' + itemIndex).append(new Option("6\" x 5\"", "6x5"))                  
+                        }
+                        if (basketItem.vanilla8x5Price > 0) {
+                            $('#size' + itemIndex).append(new Option("8\" x 5\"", "8x5"))
+                        }
+                    } else {
+                        if (basketItem.chocolate6x5Price > 0) {
+                            $('#size' + itemIndex).append(new Option("6\" x 5\"", "6x5"))
+                        }
+                        if (basketItem.chocolate8x5Price > 0) {
+                            $('#size' + itemIndex).append(new Option("8\" x 5\"", "8x5"))
+                        }
+                    }
+
+                    var currentSize = $('#size' + itemIndex).find('option[value=' + sizeSelected + ']').length
+                    if (currentSize > 0) {
+                        $('#size' + itemIndex).val(sizeSelected);
+                    }
+                }
+
+                function updateBasketCakePrice(itemIndex) {
+                    var currentFlavor = $('#flavor' + itemIndex).val()
+                    var currentSize = $('#size' + itemIndex).val()
+                    var basketItem = basketItemList[itemIndex]
+                    var productPrice = 0
+                    if (currentFlavor == 'vanilla' && currentSize == '6x5') {
+                        //$('#price' + itemIndex).text(basketItem.vanilla6x5Price)
+                        productPrice = basketItem.vanilla6x5Price
+                    } else if (currentFlavor == 'chocolate' && currentSize == '6x5'){
+                        //$('#price' + itemIndex).text(basketItem.chocolate6x5Price)
+                        productPrice = basketItem.chocolate6x5Price
+                    } else if (currentFlavor == 'vanilla' && currentSize == '8x5') {
+                        //$('#price' + itemIndex).text(basketItem.vanilla8x5Price)
+                        productPrice = basketItem.vanilla8x5Price
+                    } else {
+                        //$('#price' + itemIndex).text(basketItem.chocolate8x5Price)
+                        productPrice = basketItem.chocolate8x5Price
+                    }
+
+                    updateBasketDisplayPrice(itemIndex, productPrice)
+                }
+
+                function updateAvailableBasketCupcakeFrosting(itemIndex) {
+                    var currentFlavor = $('#flavor' + itemIndex).val()
+                    var frostingSelected = $('#frosting' + itemIndex).val()
+                    var basketItem = basketItemList[itemIndex]
+                    $('#frosting' + itemIndex).find('option').remove()
+                    if (currentFlavor == 'vanilla') {
+                        if (basketItem.vanillaFondantPrice > 0) {
+                            $('#frosting' + itemIndex).append(new Option("Fondant", "fondant"))             
+                        }
+                        if (basketItem.vanillaIcingPrice > 0) {
+                            $('#frosting' + itemIndex).append(new Option("Icing", "icing"))
+                        }
+                    } else if (currentFlavor == 'chocolate') {
+                        if (basketItem.chocolateFondantPrice > 0) {
+                            $('#frosting' + itemIndex).append(new Option("Fondant", "fondant"))
+                        }
+                        if (basketItem.chocolateIcingPrice > 0) {
+                            $('#frosting' + itemIndex).append(new Option("Icing", "icing"))
+                        }
+                    } else {
+                        if (basketItem.redvelvetFondantPrice > 0) {
+                            $('#frosting' + itemIndex).append(new Option("Fondant", "fondant"))
+                        }
+                        if (basketItem.redvelvetIcingPrice > 0) {
+                            $('#frosting' + itemIndex).append(new Option("Icing", "icing"))
+                        }
+                    }
+
+                    var currentFrosting = $('#frosting' + itemIndex).find('option[value=' + frostingSelected + ']').length
+                    if (currentFrosting > 0) {
+                        $('#frosting' + itemIndex).val(frostingSelected);
+                    }
+                }
+                
+                function updateBasketCupcakePrice(itemIndex) {
+                    var currentFlavor = $('#flavor' + itemIndex).val()
+                    var currentFrosting = $('#frosting' + itemIndex).val()
+                    var basketItem = basketItemList[itemIndex]
+                    var productPrice = 0
+                    if (currentFlavor == 'vanilla' && currentFrosting == 'fondant') {
+                        //$('#price' + itemIndex).text(basketItem.vanillaFondantPrice)
+                        productPrice = basketItem.vanillaFondantPrice
+                    } else if (currentFlavor == 'chocolate' && currentFrosting == 'fondant') {
+                        //$('#price' + itemIndex).text(basketItem.chocolateFondantPrice)
+                        productPrice = basketItem.chocolateFondantPrice
+                    } else if (currentFlavor == 'redVelvet' && currentFrosting == 'fondant'){
+                        //$('#price' + itemIndex).text(basketItem.redvelvetFondantPrice)
+                        productPrice = basketItem.redvelvetFondantPrice
+                    } else if (currentFlavor == 'vanilla' && currentFrosting == 'icing') {
+                        //$('#price' + itemIndex).text(basketItem.vanillaIcingPrice)
+                        productPrice = basketItem.vanillaIcingPrice
+                    } else if (currentFlavor == 'chocolate' && currentFrosting == 'icing'){
+                        //$('#price' + itemIndex).text(basketItem.chocolateIcingPrice)
+                        productPrice = basketItem.chocolateIcingPrice
+                    } else {
+                        //$('#price' + itemIndex).text(basketItem.redvelvetIcingPrice)
+                        productPrice = basketItem.redvelvetIcingPrice
+                    }
+
+                    updateBasketDisplayPrice(itemIndex, productPrice)
+                }
+
+                function updateBasketDisplayPrice(itemIndex, productPrice) {
+                    var currentQuantity = $('#quantity' + itemIndex).val()
+                    var displayPrice = productPrice * currentQuantity
+
+                    //alert("productPrice: " + productPrice)
+                    //alert("currentQuantity: " + currentQuantity)
+                    //alert("displayPrice: " + displayPrice)
+                    if(currentQuantity > 100) {
+                        currentQuantity = 100
+                        $('#quantity' + itemIndex).val(100)
+                        displayPrice = productPrice * currentQuantity
+                    } else if (currentQuantity <= 0) {
+                        currentQuantity = 1
+                        $('#quantity' + itemIndex).val(1)
+                        displayPrice = productPrice * currentQuantity
+                    }
+
+                    if (currentQuantity > 0) {
+                        $('#price' + itemIndex).attr('data', productPrice)
+                        $('#price' + itemIndex).text(displayPrice)
+                    }
+                }
+
+                function updateBasketInfo(itemIndex, itemNumber, itemType) {
+                    var currentFlavor = $('#flavor' + itemIndex).val()
+                    var currentSize = $('#size' + itemIndex).val()
+                    var currentFrosting = $('#frosting' + itemIndex).val()
+                    var currentCakeNumber = $('#cakeNumber' + itemIndex).val()
+                    var currentDesignNumber = $('#designNumber' + itemIndex).val()
+                    var currentQuantity = $('#quantity' + itemIndex).val()
+                    var currentPrice = $('#price' + itemIndex).attr('data')
+                    var currentDedication = $('#dedication' + itemIndex).val()
+                    var currentDesign = $('#design' + itemIndex).val()
+                    var productItem = productItemList[itemIndex]
+
+                    $.post('/updateBasketItem', 
+                        {itemNumber: itemNumber, 
+                        flavor: currentFlavor || "", 
+                        size: currentSize || "", 
+                        frosting: currentFrosting || "",
+                        cakeNumber: currentCakeNumber || "",
+                        designNumber: currentDesignNumber || "", 
+                        quantity: currentQuantity,
+                        dedication: currentDedication || "",  
+                        design: currentDesign || "",
+                        price: currentPrice}, 
+                                                
+                        function(result) {
+                            if (itemType == 'cake') {
+                                productItem.flavor = currentFlavor
+                                productItem.size = currentSize
+                                productItem.cakeNumber = currentCakeNumber
+                                productItem.dedication = currentDedication
+                            } else if (itemType == 'cupcake') {
+                                productItem.flavor = currentFlavor
+                                productItem.frosting = currentFrosting
+                            }
+
+                            productItem.designNumber = currentDesignNumber
+                            productItem.quantity = currentQuantity
+                            productItem.design = currentDesign
+                            productItem.price = currentPrice
+
+                            $('#priceValue').text(result)
+                    })
+                }
+
+                $('.removeItem').click(function() {
+                    var itemContainer = $(this).parents('.basketItem')
+                    var itemNumber = itemContainer.attr('name')
+                    var totalPrice = $('#priceValue').text()
+
+                    $.post('/removeBasketItem', {itemNumber: itemNumber, totalPrice: parseInt(totalPrice)}, function(result) {
+                        itemContainer.remove()
+                        basketItemCount()
+                        $('#priceValue').text(result)
+                        alert("Remove Item Successful")
+                    })
+                })
+
+                $(".incdec").click(function() {
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+                    var quantity = parseInt($("#quantity" + itemIndex).val());
+                    var productPrice = parseInt($('#price' + itemIndex).attr('data'))
+                    
+                    if (isNaN(quantity))
+                        quantity = 0;
+                    
+                    if ($(this).attr('id') == 'increment' + itemIndex) {
+                        quantity++;
+                        
+                        if (quantity > 100) {
+                            quantity = 100;
+                        }
+                    } else if ($(this).attr('id') == 'decrement' + itemIndex){
+                        quantity--;
+                        
+                        if (quantity <= 0)
+                            quantity = 1;
+                    }
+                    
+                    $("#quantity" + itemIndex).val(quantity);
+                    var displayPrice = productPrice * quantity
+                    $('#price' + itemIndex).text(displayPrice)
+
+                    updateBasketInfo(itemIndex, itemNumber, itemType)
+                })
+            
+                $('.basketQuantity').keydown(function(e) {
+                    if(!((e.keyCode > 95 && e.keyCode < 106)
+                        || (e.keyCode > 47 && e.keyCode < 58)
+                        || e.keyCode == 8  || e.keyCode == 46
+                        || (e.keyCode > 36 && e.keyCode < 41))) {
+                        console.log('That is illegal + ' + e.keyCode)
+                        return false;
+                    }
+                })
+
+                $('.basketQuantity').change(function() {
+                    var itemType = $(this).parents('.basketItem').attr('data')
+                    var itemIndex = $(this).parents('.basketItem').attr('label')
+                    var itemNumber = $(this).parents('.basketItem').attr('name')
+                    var currentPrice = parseInt($('#price' + itemIndex).attr('data'))
+
+                    updateBasketDisplayPrice(itemIndex, currentPrice)
+
+                    updateBasketInfo(itemIndex, itemNumber, itemType)
+                })
+            })
+        </script>
+    </body>
+
+</html>

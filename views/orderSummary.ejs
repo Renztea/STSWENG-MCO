@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Order Summary</title>
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="/js/index.js"></script>
+    </head>
+
+    <body class="mainBackground">
+        <div class="header">
+            <%- include("partials/logo") %>
+            <div class="menu">
+			    <%- include("partials/menubuttons") %>
+            </div>
+        </div>
+
+        <div class="progressBarContainer">
+            <%- include("partials/progressBar") %>
+        </div>
+
+        <form action="/orderComplete" id="summaryForm">
+            <div class="orderInfoSummary">
+                <div class="orderInfoSummaryGroup">
+                    <div>
+                        <label class="orderSummaryStyle" for="buyerName">Buyer Name:</label>
+                        <span class="orderSummaryInput"><%= buyerInformation.name %></span>
+                        <input type="hidden" name="name" placeholder="" value="<%= buyerInformation.name %>">
+                    </div>
+                    <div>
+                        <label class="orderSummaryStyle" for="orderNumber">Order ID:</label>
+                        <span class="orderSummaryInput" id="orderID"><%= buyerInformation.orderID %></span>
+                        <input type="hidden" name="orderID" placeholder="" value="<%= buyerInformation.orderID %>">
+                    </div>
+                </div>
+                <div class="orderInfoSummaryGroup">
+                    <div>
+                        <label class="orderSummaryStyle" for="celebrantName">Celebrant Name:</label>
+                        <span class="orderSummaryInput"><%= buyerInformation.celebrant %></span>
+                        <input type="hidden" name="celebrantName" placeholder="" value="<%= buyerInformation.celebrant %>">
+                    </div>
+                </div>
+                <div class="orderInfoSummaryGroup">
+                    <div>
+                        <label class="orderSummaryStyle" for="celebrantGender">Celebrant Gender:</label>
+                        <span class="orderSummaryInput"><%= buyerInformation.celebrantGender %></span>
+                        <input type="hidden" name="celebrantGender" placeholder="" value="<%= buyerInformation.celebrantGender %>">
+                    </div>
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="celebrantAge">Celebrant Age:</label>
+                    <span class="orderSummaryInput"><%= buyerInformation.celebrantAge %></span>
+                    <input type="hidden" name="celebrantAge" placeholder="" value="<%= buyerInformation.celebrantAge %>">
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="pickupDate">Pickup Date:</label>
+                    <span class="orderSummaryInput"><%= buyerInformation.pickupDate %></span>
+                    <input type="hidden" name="pickupDate" placeholder="" value="<%= buyerInformation.pickupDate %>">
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="email">Email:</label>
+                    <span class="orderSummaryInput"><%= buyerInformation.email %></span>
+                    <input type="hidden" name="email" placeholder="" value="<%= buyerInformation.email %>">
+                </div>
+                <div>
+                    <label class="orderSummaryStyle" for="contactNo">Contact Number:</label>
+                    <span class="orderSummaryInput"><%= buyerInformation.contactNo %></span>
+                    <input type="hidden" name="contactNo" placeholder="" value="<%= buyerInformation.contactNo %>">
+                </div>
+            </div>
+
+            <div id="orderBasketSummary">
+                <table class="orderBasketTableSummary">
+                    <thead class="orderBasketTableSummaryHeader">
+                        <tr>
+                            <th class="orderBasketProductSummaryHeader" colspan="2">Product</th>
+                            <th class="orderBasketQuantitySummaryHeader">Quantity</th>
+                            <th class="orderBasketPriceSumamryHeader">Price</th>
+                            <th class="orderBasketTotalSummaryHeader">Total</th>
+                        </tr>
+                    </thead>
+                    <%_ productItemList.forEach(function(productItem) { _%>
+                    <tbody>
+                        <tr class="orderBasketProductSummaryRow">
+                            <td class="orderBasketProductImageSummary" data-label="Product">
+                                <div class="orderBasketProductImageContainer">
+                                    <img src="<%= productItem.image %>" placeholder="trial" alt="1">
+                                </div>
+                            </td>
+                            <td class="orderBasketProductInfoSummary" data-label="Product">
+                            <table>
+                                    <tr>
+                                        <td>Name: <%= productItem.name %></td>
+                                    </tr>
+                                    <%_ if (productItem.type != 'cookie' && !productItem.cakeNumber) { _%>
+                                    <tr>
+                                        <td>Flavor: <span class="updateFormat"><%= productItem.flavor %></span></td>
+                                    </tr>
+                                    <%_ } _%>
+                                    <%_ if (productItem.type == 'cake' && !productItem.cakeNumber) { _%>
+                                    <tr>
+                                        <td>Size: <%= productItem.size %></td>
+                                    </tr>
+                                    <%_ } _%>
+                                    <%_ if (productItem.cakeNumber) { _%>
+                                        <tr>
+                                            <td>Cake Number: <%= productItem.cakeNumber %></td>
+                                        </tr>
+                                        <%_ } _%>
+                                    <%_ if (productItem.type == 'cupcake') { _%>
+                                    <tr>
+                                        <td>Frosting: <span class="updateFormat"><%= productItem.frosting %></span></td>
+                                    </tr>
+                                    <%_ } _%>
+                                    <%_ if (productItem.type != 'cake') { _%>
+                                    <tr>
+                                        <td>Design No: <%= productItem.designNumber %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Design: <%= productItem.design %></td>
+                                    </tr>
+                                    <%_ } _%>
+                                    <%_ if (productItem.type != 'cookie' && productItem.dedication && !productItem.cakeNumber) { _%>
+                                    <tr>
+                                        <td>Dedication: <%= productItem.dedication %></td>
+                                    </tr>
+                                    <%_ } _%>
+                            </table>
+                            </td>
+                            <td class="orderBasketProductQuantitySummary" data-label="Quantity">
+                                <%= productItem.quantity %>
+                            </td>
+                            <td class="orderBasketProductPriceSummary" data-label="Price">
+                                <span>&#8369;<%= productItem.price %></span>
+                            </td>
+                            <td class="orderBasketProductTotalSummary" data-label="Total">
+                                <span>&#8369;<%= parseInt(productItem.price) * parseInt(productItem.quantity)%></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <%_ }) _%>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td class="orderBasketTotalAmountSummaryLabel">Total Amount:</td>
+                            <td class="orderBasketTotalAmountSummary" data-label="Total">
+                                <span>&#8369;<%= totalPrice %></span>
+                                <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="orderBasketBtn">
+                    <a href="/orderInformation"><button type="button" class="orderBasketReturn">RETURN</button></a>
+                    <button type="button" class="orderBasketSubmit">CHECK OUT</button>
+                </div>
+            </div>
+        </form>
+        <div class="orderSummaryModalBackground">
+            <div class="orderSummaryModalContent">
+                <div class="orderSummaryClose"><a href="/deleteSession">+</a></div>
+                <div class="orderSummaryModalCongratulationsContainer">
+                    <span class="orderSummaryModalCongratulationsContent">
+                        Congratulations!
+                    </span>
+                    <span class="orderSummaryModalCongratulationsImage">
+                        <img src="/images/BrownCelebrate.png">
+                    </span>
+                </div>
+                <div class="orderSummaryModalTextContainer">
+                    <p class="orderSummaryModalTextBody">Your order has been placed. We have sent you an email of 
+                        your orders and our payment options. Should you have 
+                        any issues or concerns, please email us at __@gmail.com
+                    </p>
+                    <p class="orderSummaryModalTextFooter">
+                        Thank you and we hope you order from us again soon!
+                    </p>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function() {   
+                const progressSteps = document.querySelectorAll('.progressStep');
+                const progress = document.querySelector('.progress');
+
+                progressSteps[0].classList.add('progressStepActive')
+                progressSteps[1].classList.add('progressStepActive')
+                progressSteps[2].classList.add('progressStepActive')
+                $('#progressImage1').find('img').attr('src', '/images/BrownCart.png')
+                $('#progressImage2').find('img').attr('src', '/images/BrownForm.png')
+                $('#progressImage3').find('img').attr('src', '/images/BrownCheck.png')
+
+                const progressActive = document.querySelectorAll('.progressStepActive');
+
+                progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1) * 100 + "%");
+
+                document.querySelector('.orderSummaryModalBackground').style.display = 'none';
+
+                function updateFormat() {
+                    var updateFormatList = document.querySelectorAll('.updateFormat')
+
+                    updateFormatList.forEach(function(updateFormat) {
+                        if (updateFormat.innerText != '') {
+                            if (updateFormat.innerText != 'redVelvet') {
+                                updateFormat.innerText = updateFormat.innerText.charAt(0).toUpperCase() + updateFormat.innerText.slice(1)
+                            } else {
+                                updateFormat.innerText = "Red Velvet"
+                            }
+                        }
+                    })
+                }
+
+                updateFormat()
+
+                $('.orderBasketSubmit').click(function() {
+                    var formData = new FormData(document.getElementById('summaryForm'));
+                    var data = {};
+                    formData.forEach((value, key) => data[key] = value);
+
+                    $.post('/orderComplete', data, function(result) {
+                        if(result == 'Success') {
+                            document.querySelector('.orderSummaryModalBackground').style.display = 'flex';
+                        } else {
+                            alert('Error')
+                        }
+                    })
+                    
+                })
+            })
+        </script>
+    </body>
+
+</html>

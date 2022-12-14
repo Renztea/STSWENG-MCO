@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>About</title>
+        <link href="/css/productsPage.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    </head>
+
+	<body class="mainBackground">
+		<div class="header">
+            <%- include("partials/logo") %>
+            <div class="menu">
+				<% if (adminView) { %> 
+					<%- include("partials/menuButtonsAdminView") %>
+				<% } else { %> 
+					<%- include("partials/menubuttons") %>
+				<% } %>
+            </div>
+        </div>
+		
+		<div class="aboutBox">
+			<div class="aboutHeader">
+				<h1>About Gina</h1>
+			</div>
+			
+			<div class="aboutContainer">
+				I'm Gina, creator of G-cakes, started as a home business in 2007 in Jeddah, Saudi Arabia
+				<br>where my husband was working as an OFW. Time has come to go back home for good. 
+				<br>And so here I am to share my passion in art of decorating baked goodies.
+
+				<br><br>G-cakes is a legitimate cake business with sales receipts and official receipts.
+			</div>
+			
+			<div class="picHolder">
+				<img class="profilePic" src="/images/profPic.jpg" placeholder="Profile Picture">
+			</div>		
+			
+			<div class="Holder1">
+				LAS PIÑAS, METRO MANILA
+				<br>MOBILE/VIBER 0945 211 2668<br><br>
+			</div>
+			
+			<div class="iconHolder">
+				<button class="icon">
+					<a href="https://www.instagram.com/gcakesbygina/" target="_blank"><img class="ig" src="/images/ig1.png" placeholder="Instagram Logo"></a>
+				</button>
+				<button class="icon">
+					<a href="https://www.facebook.com/gcakesbygina" target="_blank"><img class="fb" src="/images/fb1.png" placeholder="Facebook Logo"></a>
+				</button>
+			</div>
+		</div>
+		<script>
+			$(document).ready(function() {   
+				$('#aboutBtn').addClass('activeMenuBtn')
+			})
+		</script>
+	</body>
+</html>
