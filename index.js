@@ -18,6 +18,9 @@ const connectMongo = require('connect-mongo');
 const MongoStore = require('connect-mongo');
 // Error Messages
 const flash = require('connect-flash');
+// dotenv
+require('dotenv').config()
+console.log(process.env)
 
 const app = express();
 
@@ -30,8 +33,9 @@ app.use(express.static('public'));
 app.use(fileUpload());
 
 app.use(session({
-    secret: 'GCAKESISTHEBESTCAKEANDCOOKIESHOPINTHEWORLD',
-    store: MongoStore.create({mongoUrl: 'mongodb+srv://Gcakes:faga4791@gcakes.u6zonhc.mongodb.net/?retryWrites=true&w=majority'}),
+    //@ts-ignore
+    secret: process.env.SECRET,
+    store: MongoStore.create({mongoUrl: 'mongodb+srv://' + process.env.DB_URL + '/?retryWrites=true&w=majority'}),
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 * 7 },
