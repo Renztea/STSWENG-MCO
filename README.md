@@ -3,11 +3,7 @@ GCakes!
 
 ---
 
-**[DEV] Installing and Running the Project**
-1. Run `npm i` on the project directory
-2. Rename the `.env_samp` file to `.env` and enter the following inside:
-    ```
-    SECRET=GCAKESISTHEBESTCAKEANDCOOKIESHOPINTHEWORLD
-    DB_URL=Gcakes:faga4791@gcakes.u6zonhc.mongodb.net
-    ```
-3. Run `npm run dev` on the project directory and proceed to localhost:3000
+**[DEV] Instantiating and Running the Project**
+1. Do `npm i` on both the `server/` and `client/` directories.
+2. In the `server/` directory, `npm run dev` to start dev server.
+3. In the `client/` directory, `npm start` to launch the app in the browser.
